@@ -20,7 +20,7 @@ import numpy as np
 import time
 import ast
 # import optuna
-from config import device
+# from config import device
 
 # os.environ["CUDA_VISIBLE_DEVICES"] = device
 seed = 2022

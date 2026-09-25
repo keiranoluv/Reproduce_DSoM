@@ -6,7 +6,8 @@ from pathlib import Path
 
 import numpy as np
 
-DATA_PATH = '/home/zy/DSoM4MKGC/data'
+ROOT_PATH = Path(__file__).resolve().parent.parent
+DATA_PATH = ROOT_PATH / 'data'
 
 
 def prepare_dataset(path, name):
@@ -99,16 +100,11 @@ def prepare_dataset(path, name):
 
 
 if __name__ == "__main__":
-    datasets = ['FB15K-237', 'WN18', 'WN9']
+    datasets = ['FB15K-237']
     for d in datasets:
         print("Preparing dataset {}".format(d))
         try:
-            prepare_dataset(
-                os.path.join(
-                    os.path.dirname(os.path.realpath(__file__)), 'src_data', d
-                ),
-                d
-            )
+            prepare_dataset(str(ROOT_PATH / 'src_data' / d), d)
         except OSError as e:
             if e.errno == errno.EEXIST:
                 print(e)
