@@ -72,6 +72,11 @@ parser.add_argument(
     help="temp parameter"
 )
 
+parser.add_argument(
+    '--modal_missing', default=0.0, type=float,
+    help="Ratio of entity modalities randomly masked during teacher training."
+)
+
 regularizers = ['N3', 'F2']
 parser.add_argument(
     '--regularizer', choices=regularizers, default='N3',
@@ -171,7 +176,7 @@ optim_method = {
 
 optimizer = KBCOptimizer(model, regularizer, optim_method, args.batch_size, args.modality_split, args.fusion_img,
                          args.fusion_dscp)
-scheduler = ReduceLROnPlateau(optim_method, 'min', factor=0.5, verbose=True, patience=10, threshold=1e-3)
+scheduler = ReduceLROnPlateau(optim_method, 'min', factor=0.5, patience=10, threshold=1e-3)
 
 
 # scheduler = StepLR(optim_method, step_size=10, gamma=0.5)
