@@ -11,6 +11,7 @@ __pycache__/
 *.log
 ckpt/
 data/
+runs/
 
 # Downloaded images
 raw_images/

@@ -4,6 +4,12 @@ import os
 import torch
 from torch import optim
 
+# Optional tracking is controlled by the existing Bash script (DSOM_WANDB).
+# Do not require wandb for --no-wandb runs.
+USE_WANDB = os.environ.get('DSOM_WANDB', '0') == '1'
+if USE_WANDB:
+    import wandb
+
 torch.cuda.empty_cache()
 from torch.optim.lr_scheduler import ReduceLROnPlateau
 from datasets import Dataset
@@ -30,134 +36,64 @@ torch.backends.cudnn.benchmark = True
 big_datasets = ['WN9', 'WN18', 'FB15K-237']
 datasets = big_datasets
 
-parser = argparse.ArgumentParser(
-    description="Relational learning contraption"
-)
-
-parser.add_argument(
-    '--dataset', choices=datasets,
-    default='FB15K-237',
-    help="Dataset in {}".format(datasets)
-)
-
+parser = argparse.ArgumentParser(description="Relational learning contraption")
+parser.add_argument('--dataset', choices=datasets, default='FB15K-237',
+                    help="Dataset in {}".format(datasets))
 models = ['CP', 'ComplEx', 'RSME', 'ComplExMDR']
-parser.add_argument(
-    '--model', choices=models,
-    default='ComplExMDR',
-    help="Model in {}".format(models)
-)
-
-parser.add_argument(
-    '--alpha', default=1, type=float,
-    help="Modality embedding ratio in modality_structure fusion. Default=1 means dscp/img emb does not fuse structure emb."
-)
-
-parser.add_argument(
-    '--modality_split', default=True, type=ast.literal_eval,
-    help="Whether split modalities."
-)
-
-parser.add_argument(
-    '--fusion_img', default=True, type=ast.literal_eval,
-    help="Whether fusion img modality graph."
-)
-
-parser.add_argument(
-    '--fusion_dscp', default=True, type=ast.literal_eval,
-    help="Whether fusion description modality graph."
-)
-
-parser.add_argument(
-    '--scale', default=20, type=float,
-    help="temp parameter"
-)
-
-parser.add_argument(
-    '--modal_missing', default=0.0, type=float,
-    help="Ratio of entity modalities randomly masked during teacher training."
-)
+parser.add_argument('--model', choices=models, default='ComplExMDR',
+                    help="Model in {}".format(models))
+parser.add_argument('--alpha', default=1, type=float,
+                    help="Modality embedding ratio in modality_structure fusion. Default=1 means dscp/img emb does not fuse structure emb.")
+parser.add_argument('--modality_split', default=True, type=ast.literal_eval,
+                    help="Whether split modalities.")
+parser.add_argument('--fusion_img', default=True, type=ast.literal_eval,
+                    help="Whether fusion img modality graph.")
+parser.add_argument('--fusion_dscp', default=True, type=ast.literal_eval,
+                    help="Whether fusion description modality graph.")
+parser.add_argument('--scale', default=20, type=float, help="temp parameter")
+parser.add_argument('--modal_missing', default=0.0, type=float,
+                    help="Ratio of entity modalities randomly masked during teacher training.")
 
 regularizers = ['N3', 'F2']
-parser.add_argument(
-    '--regularizer', choices=regularizers, default='N3',
-    help="Regularizer in {}".format(regularizers)
-)
-
+parser.add_argument('--regularizer', choices=regularizers, default='N3',
+                    help="Regularizer in {}".format(regularizers))
 optimizers = ['Adagrad', 'Adam', 'SGD']
-parser.add_argument(
-    '--optimizer', choices=optimizers, default='Adagrad',
-    help="Optimizer in {}".format(optimizers)
-)
-
-parser.add_argument(
-    '--max_epochs', default=200, type=int,
-    help="Number of epochs."
-)
-parser.add_argument(
-    '--valid', default=3, type=float,
-    help="Number of epochs before valid."
-)
-parser.add_argument(
-    '--rank', default=2000, type=int,
-    help="Factorization rank."
-)
-parser.add_argument(
-    '--batch_size', default=1000, type=int,
-    help="Factorization rank."
-)
-parser.add_argument(
-    '--reg', default=0.01, type=float,
-    help="Regularization weight"
-)
-parser.add_argument(
-    '--init', default=1e-3, type=float,
-    help="Initial scale"
-)
-parser.add_argument(
-    '--learning_rate', default=1e-1, type=float,
-    help="Learning rate"
-)
-parser.add_argument(
-    '--decay1', default=0.9, type=float,
-    help="decay rate for the first moment estimate in Adam"
-)
-parser.add_argument(
-    '--decay2', default=0.999, type=float,
-    help="decay rate for second moment estimate in Adam"
-)
-parser.add_argument(
-    '--note', default=None,
-    help="model setting or ablation note for ckpt save"
-)
-parser.add_argument(
-    '--early_stopping', default=10, type=int,
-    help="stop training until Hits10 stop increasing after early stopping epoches"
-)
-parser.add_argument(
-    '--ckpt_dir', default='../ckpt/'
-)
-parser.add_argument(
-    '--img_info', default='../data/FB15K-237/img_vec.pickle'
-)
-parser.add_argument(
-    '--dscp_info', default='../data/FB15K-237/dscp_vec.pickle'
-)
-
+parser.add_argument('--optimizer', choices=optimizers, default='Adagrad',
+                    help="Optimizer in {}".format(optimizers))
+parser.add_argument('--max_epochs', default=200, type=int, help="Number of epochs.")
+parser.add_argument('--valid', default=3, type=float, help="Number of epochs before valid.")
+parser.add_argument('--rank', default=2000, type=int, help="Factorization rank.")
+parser.add_argument('--batch_size', default=1000, type=int, help="Factorization rank.")
+parser.add_argument('--reg', default=0.01, type=float, help="Regularization weight")
+parser.add_argument('--init', default=1e-3, type=float, help="Initial scale")
+parser.add_argument('--learning_rate', default=1e-1, type=float, help="Learning rate")
+parser.add_argument('--decay1', default=0.9, type=float,
+                    help="decay rate for the first moment estimate in Adam")
+parser.add_argument('--decay2', default=0.999, type=float,
+                    help="decay rate for second moment estimate in Adam")
+parser.add_argument('--note', default=None,
+                    help="model setting or ablation note for ckpt save")
+parser.add_argument('--early_stopping', default=10, type=int,
+                    help="stop training until Hits10 stop increasing after early stopping epoches")
+parser.add_argument('--ckpt_dir', default='../ckpt/')
+parser.add_argument('--img_info', default='../data/FB15K-237/img_vec.pickle')
+parser.add_argument('--dscp_info', default='../data/FB15K-237/dscp_vec.pickle')
 
 args = parser.parse_args()
 print("running setting args: ", args)
 
 dataset = Dataset(args.dataset)
 examples = torch.from_numpy(dataset.get_train().astype('int64'))
-
 print(dataset.get_shape())
 model = {
     'CP': lambda: CP(dataset.get_shape(), args.rank, args.init),
     'ComplEx': lambda: ComplEx(dataset.get_shape(), args.rank, args.init),
     'RSME': lambda: RSME(dataset.get_shape(), args.rank, args.init),
-    'ComplExMDR': lambda: ComplExMDR(dataset.get_shape(), args.rank, args.init, args.modality_split, args.fusion_img,
+    'ComplExMDR': lambda: ComplExMDR(dataset.get_shape(), args.rank, args.init,
+                                     args.modality_split, args.fusion_img,
                                      args.fusion_dscp, args.alpha,
-                                     args.dataset, args.scale, args.img_info, args.dscp_info, args)
+                                     args.dataset, args.scale, args.img_info,
+                                     args.dscp_info, args)
 }[args.model]()
 
 regularizer = {
@@ -167,20 +103,19 @@ regularizer = {
 
 device = 'cuda'
 model.to(device)
-
 optim_method = {
     'Adagrad': lambda: optim.Adagrad(model.parameters(), lr=args.learning_rate),
-    'Adam': lambda: optim.Adam(model.parameters(), lr=args.learning_rate, betas=(args.decay1, args.decay2)),
+    'Adam': lambda: optim.Adam(model.parameters(), lr=args.learning_rate,
+                               betas=(args.decay1, args.decay2)),
     'SGD': lambda: optim.SGD(model.parameters(), lr=args.learning_rate)
 }[args.optimizer]()
 
-optimizer = KBCOptimizer(model, regularizer, optim_method, args.batch_size, args.modality_split, args.fusion_img,
-                         args.fusion_dscp)
+optimizer = KBCOptimizer(model, regularizer, optim_method, args.batch_size,
+                         args.modality_split, args.fusion_img, args.fusion_dscp)
+# Keep original source behavior (mode='min') for faithful baseline reproduction.
 scheduler = ReduceLROnPlateau(optim_method, 'min', factor=0.5, patience=10, threshold=1e-3)
 
-
 # scheduler = StepLR(optim_method, step_size=10, gamma=0.5)
-
 
 def create_subfolder(log_dir):
     index = len(os.listdir(log_dir))
@@ -192,11 +127,32 @@ def create_subfolder(log_dir):
         print(new_folder_path)
     return new_folder_path
 
-
 ckpt_dir = args.ckpt_dir
 if not ckpt_dir.endswith('/'):
     ckpt_dir = ckpt_dir + '/'
 run_dir = create_subfolder(ckpt_dir)
+
+# Each Bash invocation already has its own timestamped DSOM_RUN_DIR.
+# W&B artifacts stay under that directory and checkpoint saving is unchanged.
+if USE_WANDB:
+    wandb_kwargs = {
+        'project': os.environ.get('WANDB_PROJECT', 'DSoM-Reproduction'),
+        'name': os.environ.get('WANDB_NAME', args.note or 'teacher_fb15k237'),
+        'dir': os.environ.get('WANDB_DIR', os.environ.get('DSOM_RUN_DIR', run_dir)),
+        'config': vars(args),
+        'job_type': 'teacher-training',
+        'tags': ['DSoM', args.dataset, 'teacher', args.model],
+    }
+    if os.environ.get('WANDB_ENTITY'):
+        wandb_kwargs['entity'] = os.environ['WANDB_ENTITY']
+    wandb.init(**wandb_kwargs)
+    wandb.define_metric('epoch')
+    wandb.define_metric('train/*', step_metric='epoch')
+    wandb.define_metric('train_eval/*', step_metric='epoch') 
+    wandb.define_metric('valid/*', step_metric='epoch')
+    wandb.define_metric('test/*', step_metric='epoch')
+    wandb.define_metric('best/*', step_metric='epoch')
+    print('W&B tracking enabled:', wandb.run.url)
 
 cur_loss = 0
 best_loss = 10000
@@ -210,16 +166,21 @@ best_val_model_test_result = {}
 train, test, valid = [0, 0, 0]
 model_path = run_dir + '/m-' + datetime.now().strftime("%Y%m%d_%H%M") + '-n-' + str(args.note) + '.pth'
 since = time.time()
+
 for e in range(args.max_epochs):
-    # valid, test, train = [
-    #     avg_both(*dataset.eval(model, split, 10))
-    #     for split in ['valid', 'test', 'train']
-    # ]
+    # Preserve training step, validation interval, and early stopping behavior.
     cur_loss = optimizer.epoch(examples).tolist()
     curve_loss.append(cur_loss)
-    # scheduler.step()
     if cur_loss < best_loss:
         best_loss = cur_loss
+
+    # Collect all metrics for an epoch before logging (one wandb.log per epoch).
+    log_metrics = {
+        'epoch': e + 1,
+        'train/loss': cur_loss,
+        'train/learning_rate': optim_method.param_groups[0]['lr'],
+    }
+
     if (e + 1) % args.valid == 0:
         valid, test, train = [
             avg_both(*dataset.eval(model, split, -1 if split != 'train' else 3000))
@@ -237,6 +198,7 @@ for e in range(args.max_epochs):
         if args.modality_split:
             print("Note that with modality split, "
                   "the result during training is more like an upper bound but not final performance:)")
+
         if valid['hits@[1,3,10]'][-1] > best_hits[-1]:
             best_mrr = valid['MRR']
             best_mr = valid['MR']
@@ -247,6 +209,19 @@ for e in range(args.max_epochs):
 
         scheduler.step(valid['hits@[1,3,10]'][2])
         print("Learning rate at epoch {}: {}".format(e + 1, scheduler._last_lr))
+
+        for prefix, metrics in [('train_eval', train), ('valid', valid), ('test', test)]:
+            log_metrics[f'{prefix}/MR'] = metrics['MR']
+            log_metrics[f'{prefix}/MRR'] = metrics['MRR']
+            log_metrics[f'{prefix}/Hits@1'] = metrics['hits@[1,3,10]'][0]
+            log_metrics[f'{prefix}/Hits@3'] = metrics['hits@[1,3,10]'][1]
+            log_metrics[f'{prefix}/Hits@10'] = metrics['hits@[1,3,10]'][2]
+        log_metrics['best/epoch'] = best_epoch
+        log_metrics['best/valid_Hits@10'] = best_hits[2]
+        log_metrics['train/learning_rate'] = optim_method.param_groups[0]['lr']
+
+    if USE_WANDB:
+        wandb.log(log_metrics, step=e + 1)
 
     if (e + 1 - best_epoch) > args.early_stopping:
         break
@@ -264,12 +239,18 @@ result = {'epoch': e + 1,
           'train': train, 'test': test, 'val': valid, 'final_result': best_val_model_test_result,
           'sec_per_epoch': sec_per_epoch, 'last_lr': scheduler._last_lr, 'run_dir': run_dir}
 result.update(args.__dict__)
-
 print(result)
 
 if run_dir:
     print(run_dir)
-    with open(os.path.join(run_dir,
-                           'result.json'),
-              'w') as f:
+    with open(os.path.join(run_dir, 'result.json'), 'w') as f:
         json.dump(result, f, indent=2)
+
+if USE_WANDB:
+    wandb.summary['best_epoch'] = best_epoch
+    wandb.summary['best_valid_MRR'] = best_mrr
+    wandb.summary['best_valid_Hits@10'] = best_hits[2]
+    wandb.summary['best_checkpoint'] = model_path if best_epoch > 0 else None
+    wandb.summary['total_epochs'] = e + 1
+    wandb.summary['sec_per_epoch'] = sec_per_epoch
+    wandb.finish()
