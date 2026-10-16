@@ -1,3 +1,18 @@
 data/
 pre_trained_models/
 .idea
+# Local environment
+dsom/
+__pycache__/
+**/__pycache__/
+*.pyc
+
+# Runtime logs and checkpoints
+*.log
+ckpt/
+data/
+
+# Downloaded images
+raw_images/
+*.zip
+*.tar.gz
