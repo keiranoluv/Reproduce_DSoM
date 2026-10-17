@@ -60,6 +60,8 @@ parser.add_argument('--regularizer', choices=regularizers, default='N3',
 optimizers = ['Adagrad', 'Adam', 'SGD']
 parser.add_argument('--optimizer', choices=optimizers, default='Adagrad',
                     help="Optimizer in {}".format(optimizers))
+parser.add_argument('--scheduler_mode', choices=['min', 'max'], default='min',
+                    help='ReduceLROnPlateau monitoring mode')
 parser.add_argument('--max_epochs', default=200, type=int, help="Number of epochs.")
 parser.add_argument('--valid', default=3, type=float, help="Number of epochs before valid.")
 parser.add_argument('--rank', default=2000, type=int, help="Factorization rank.")
@@ -78,6 +80,7 @@ parser.add_argument('--early_stopping', default=10, type=int,
 parser.add_argument('--ckpt_dir', default='../ckpt/')
 parser.add_argument('--img_info', default='../data/FB15K-237/img_vec.pickle')
 parser.add_argument('--dscp_info', default='../data/FB15K-237/dscp_vec.pickle')
+
 
 args = parser.parse_args()
 print("running setting args: ", args)
@@ -112,8 +115,8 @@ optim_method = {
 
 optimizer = KBCOptimizer(model, regularizer, optim_method, args.batch_size,
                          args.modality_split, args.fusion_img, args.fusion_dscp)
-# Keep original source behavior (mode='min') for faithful baseline reproduction.
-scheduler = ReduceLROnPlateau(optim_method, 'min', factor=0.5, patience=10, threshold=1e-3)
+# Default 'min' reproduces the original source; 'max' monitors Hits@10 correctly.
+scheduler = ReduceLROnPlateau(optim_method, args.scheduler_mode, factor=0.5, patience=10, threshold=1e-3)
 
 # scheduler = StepLR(optim_method, step_size=10, gamma=0.5)
 
