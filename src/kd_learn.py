@@ -120,7 +120,7 @@ parser.add_argument(
 parser.add_argument(
     "--teacher_strategy",
     type=str,
-    choices=["rc", "structural", "description", "average"],
+    choices=["rc", "structural", "description", "structural_description", "average"],
     default="rc",
     help="Teacher selection for student distillation ablation",
 )
