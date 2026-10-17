@@ -169,6 +169,52 @@ class KD_AvgTeacher(Distiller):
         return preds_student, fac_student, preds_best_teacher
 
 
+class KD_FixedStrategy(Distiller):
+    """Student distillation from a fixed multimodal teacher strategy."""
+
+    STRATEGIES = {
+        "structural": (1.0, 0.0, 0.0),
+        "description": (0.0, 0.0, 1.0),
+        "average": (1.0 / 3.0, 1.0 / 3.0, 1.0 / 3.0),
+    }
+
+    def __init__(self, student, teacher, strategy):
+        super().__init__(student, teacher)
+
+        if strategy not in self.STRATEGIES:
+            raise ValueError(f"Unknown fixed teacher strategy: {strategy}")
+
+        self.strategy_name = strategy
+
+        self.register_buffer(
+            "strategy_weights",
+            torch.tensor(self.STRATEGIES[strategy]),
+        )
+
+        print(f"Fixed teacher strategy: {strategy}")
+
+    def forward_train(self, x, epoch):
+        preds_student, fac_student = self.student(x)
+
+        with torch.no_grad():
+            teacher_outputs = self.teacher.forward(x)
+
+            preds_stack = torch.stack(
+                [
+                    teacher_outputs[0],
+                    teacher_outputs[2],
+                    teacher_outputs[4],
+                ],
+                dim=-1,
+            )
+
+            weights = self.strategy_weights.to(dtype=preds_stack.dtype)
+
+            preds_selected = (preds_stack * weights.view(1, 1, 3)).sum(dim=-1)
+
+        return preds_student, fac_student, preds_selected
+
+
 class KD_BestStrategy(Distiller):
     def __init__(self, student, teacher):
         super(KD_BestStrategy, self).__init__(student, teacher)

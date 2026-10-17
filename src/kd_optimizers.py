@@ -256,6 +256,22 @@ class KDOptimizer(object):
                             l_kd += mse_loss(C_batch_student, C_batch_teacher) * 1e4
                         if self.args.kd_class:
                             l_kd += mse_loss(C_ent_student, C_ent_teacher) * 1e7
+                    elif self.kd_loss == "fixed_ndkd":
+                        golden_truths = [
+                            self.all_to_skip[tuple(input_batch[i][:2].tolist())]
+                            for i in range(len(truth))
+                        ]
+
+                        l_kd = self.kd_weight * multi_dkd_loss(
+                            preds_student,
+                            preds_assistant,
+                            truth,
+                            self.args.dkd_alpha,
+                            self.args.dkd_beta,
+                            self.temperature,
+                            golden_truths,
+                        )
+
                     elif self.kd_loss == "dkd":
                         l_kd = self.kd_weight * dkd_loss(
                             preds_student,

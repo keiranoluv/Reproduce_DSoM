@@ -23,6 +23,7 @@ from kd import (
     KD_BestConf,
     KD_BestStrategy,
     KD_BestTeacher,
+    KD_FixedStrategy,
     KD_RandTeacher,
     KD_SingleTeacher,
 )
@@ -116,6 +117,13 @@ parser.add_argument(
     "--kd_loss_type", default="kd", type=str, help="kd loss type in KD"
 )  # kd, dkd
 
+parser.add_argument(
+    "--teacher_strategy",
+    type=str,
+    choices=["rc", "structural", "description", "average"],
+    default="rc",
+    help="Teacher selection for student distillation ablation",
+)
 
 regularizers = ["N3", "F2"]
 parser.add_argument(
@@ -282,7 +290,20 @@ student = ComplExMDR(
     args,
 )  # single modal student model
 
-if args.kd_loss_type == "kdrl":
+if args.kd_loss_type == "fixed_ndkd":
+    if args.teacher_strategy == "rc":
+        raise ValueError("fixed_ndkd requires a fixed teacher_strategy")
+
+    distiller = KD_FixedStrategy(
+        student,
+        teacher,
+        strategy=args.teacher_strategy,
+    )
+
+elif args.kd_loss_type == "kdrl":
+    if args.teacher_strategy != "rc":
+        raise ValueError("kdrl requires --teacher_strategy rc")
+
     distiller = KD_RL(
         student,
         teacher,
