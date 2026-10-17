@@ -183,6 +183,7 @@ class KDOptimizer(object):
                         "entropy": entropy,
                         "hidden_rms": stats["hidden_rms"],
                         "logit_range": stats["raw_logit_range"],
+                        "mean_probs": probs.mean(dim=0).cpu().tolist(),
                     }
             finally:
                 policy.train(was_training)
@@ -300,7 +301,7 @@ class KDOptimizer(object):
                     if grad_norm > 0:
                         rc_nonzero_grad_batches += 1
 
-                probe_this_batch = self.kd_loss == "kdrl" and batch_num == 3
+                probe_this_batch = self.kd_loss == "kdrl" and e == 0 and batch_num < 20
 
                 if probe_this_batch:
                     before_probe = probe_policy(input_batch)
@@ -314,12 +315,68 @@ class KDOptimizer(object):
                     after_probe = probe_policy(input_batch)
 
                     print("\n===== FIXED-BATCH POLICY PROBE =====")
-                    for key in before_probe:
+
+                    for key in ("entropy", "hidden_rms", "logit_range"):
                         print(
                             f"{key}: "
                             f"before={before_probe[key]:.6f} "
                             f"after={after_probe[key]:.6f}"
                         )
+
+                    print("====================================")
+                    before_probs = before_probe["mean_probs"]
+                    after_probs = after_probe["mean_probs"]
+
+                    print(f"===== RC DIRECTION batch={batch_num} =====")
+                    print(
+                        "Sampled actions:",
+                        torch.bincount(
+                            strategy_selected.detach(),
+                            minlength=7,
+                        )
+                        .cpu()
+                        .tolist(),
+                    )
+
+                    with torch.no_grad():
+                        actions = strategy_selected.detach()
+                        adv = advantage.detach()
+
+                        pos = torch.bincount(
+                            actions[adv > 0],
+                            minlength=7,
+                        )
+
+                        neg = torch.bincount(
+                            actions[adv < 0],
+                            minlength=7,
+                        )
+
+                        adv_sum = torch.zeros(7, device=adv.device)
+                        adv_sum.scatter_add_(0, actions, adv)
+
+                        print("Positive advantage actions:", pos.cpu().tolist())
+                        print("Negative advantage actions:", neg.cpu().tolist())
+                        print("Advantage sum by strategy:", adv_sum.cpu().tolist())
+
+                    print(
+                        "Advantage counts:",
+                        {
+                            "positive": int((advantage > 0).sum().item()),
+                            "negative": int((advantage < 0).sum().item()),
+                            "zero": int((advantage == 0).sum().item()),
+                        },
+                    )
+
+                    for idx in range(7):
+                        delta = after_probs[idx] - before_probs[idx]
+                        print(
+                            f"Strategy {idx}: "
+                            f"before={before_probs[idx]:.6f} "
+                            f"after={after_probs[idx]:.6f} "
+                            f"delta={delta:+.6f}"
+                        )
+
                     print("====================================")
 
                 if check_policy:
