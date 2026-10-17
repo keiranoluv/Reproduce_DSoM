@@ -495,18 +495,37 @@ class KD_RL(Distiller):
         preds_selected = preds_stack.mul(mod_mask).sum(dim=-1)
         preds_reverse = preds_stack.mul(reverse_mod_mask).sum(dim=-1)
         avg_preds = preds_stack.mean(dim=-1)
-        reward = torch.where(
-            (self.ce(preds_selected, truth) < self.ce(preds_student, truth)),
-            self.reward,
-            self.penalize,
-        )
-        reward_baseline = torch.where(
-            (self.ce(avg_preds, truth) < self.ce(preds_student, truth)),
-            self.reward,
-            self.penalize,
-        )
+        reward_mode = getattr(self.args, "rc_reward_mode", "binary")
 
-        advantage = reward - reward_baseline.detach()
+        if reward_mode == "binary":
+            # Original DSoM reward, unchanged.
+            reward = torch.where(
+                (self.ce(preds_selected, truth) < self.ce(preds_student, truth)),
+                self.reward,
+                self.penalize,
+            )
+            reward_baseline = torch.where(
+                (self.ce(avg_preds, truth) < self.ce(preds_student, truth)),
+                self.reward,
+                self.penalize,
+            )
+
+        elif reward_mode == "continuous_ce":
+            # Higher reward for lower teacher CE.
+            # Rewards are detached: REINFORCE only updates
+            # the policy via sampled-action log probability.
+            with torch.no_grad():
+                student_ce = self.ce(preds_student, truth)
+                selected_ce = self.ce(preds_selected, truth)
+                baseline_ce = self.ce(avg_preds, truth)
+
+                reward = student_ce - selected_ce
+                reward_baseline = student_ce - baseline_ce
+
+        else:
+            raise ValueError(f"Unsupported RC reward mode: {reward_mode}")
+
+        advantage = (reward - reward_baseline).detach()
         log_prob = torch.log(logits[range(len(preds_stack)), strategy_selected])
         reward_loss = (-log_prob * advantage).mean()
         return (

@@ -201,6 +201,12 @@ parser.add_argument(
     action="store_true",
     help="Normalize teacher logits for RC policy input only",
 )
+parser.add_argument(
+    "--rc_reward_mode",
+    choices=["binary", "continuous_ce"],
+    default="binary",
+    help="RC reward objective; binary preserves original DSoM behavior",
+)
 parser.add_argument("--dkd_alpha", default=1.0, type=float, help="decoupled KD alpha")
 parser.add_argument("--dkd_beta", default=1.0, type=float, help="decoupled KD beta")
 parser.add_argument("--modal_missing", default=0.0, type=float, help="modal fraction")
