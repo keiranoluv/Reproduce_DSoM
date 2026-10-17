@@ -196,6 +196,11 @@ parser.add_argument("--rl_weight", default=1.0, type=float, help="RL weight")
 parser.add_argument(
     "--policy_temp", default=1.0, type=float, help="policy MLP temperature"
 )
+parser.add_argument(
+    "--policy_input_norm",
+    action="store_true",
+    help="Normalize teacher logits for RC policy input only",
+)
 parser.add_argument("--dkd_alpha", default=1.0, type=float, help="decoupled KD alpha")
 parser.add_argument("--dkd_beta", default=1.0, type=float, help="decoupled KD beta")
 parser.add_argument("--modal_missing", default=0.0, type=float, help="modal fraction")

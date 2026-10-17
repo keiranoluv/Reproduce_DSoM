@@ -115,7 +115,7 @@ def main():
                 dim=-1,
             )
 
-            probs = model.rewarder(preds_stack)
+            probs = model.policy_probs(preds_stack)
             chosen = probs.argmax(dim=-1)
 
             # [batch, strategies, entities]

@@ -169,7 +169,7 @@ class KDOptimizer(object):
                         dim=-1,
                     )
 
-                    probs = policy(preds_stack)
+                    probs = self.model.policy_probs(preds_stack)
                     entropy = (
                         -(probs * probs.clamp_min(1e-12).log())
                         .sum(dim=-1)

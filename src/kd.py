@@ -430,6 +430,28 @@ class KD_RL(Distiller):
         self.penalize = -penalize
         self.valuenet = MLP_value(E_size=E_size, hidden_size=rl_hs, temp=policy_temp)
 
+    def policy_probs(self, preds_stack):
+        """Return RC policy probabilities.
+
+        Normalization only affects policy input.
+        Teacher logits for KD/reward remain unchanged.
+        """
+        if getattr(self.args, "policy_input_norm", False):
+            x = preds_stack.float()
+
+            mean = x.mean(dim=(1, 2), keepdim=True)
+            std = x.std(
+                dim=(1, 2),
+                keepdim=True,
+                unbiased=False,
+            ).clamp_min(1e-6)
+
+            x = (x - mean) / std
+        else:
+            x = preds_stack
+
+        return self.rewarder(x)
+
     def forward_train(self, x, epoch):
         truth = x[:, 2]
         preds_student, fac_student = self.student(x)
@@ -445,7 +467,7 @@ class KD_RL(Distiller):
             preds_stack = torch.stack([preds_str, preds_img, preds_dscp]).permute(
                 1, 2, 0
             )
-        logits = self.rewarder(preds_stack)
+        logits = self.policy_probs(preds_stack)
         strategy_selected = torch.multinomial(logits, 1).squeeze(-1)
 
         # Diagnostic only: no change to policy sampling or training.

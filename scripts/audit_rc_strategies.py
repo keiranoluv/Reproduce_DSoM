@@ -58,7 +58,7 @@ def audit(distiller, queries, batch_size):
                 dim=-1,
             )
 
-            probs = distiller.rewarder(preds_stack)
+            probs = distiller.policy_probs(preds_stack)
             chosen = probs.argmax(dim=-1)
 
             # Every strategy is evaluated on the same queries.
