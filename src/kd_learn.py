@@ -143,6 +143,12 @@ parser.add_argument("--reg", default=0.01, type=float, help="Regularization weig
 parser.add_argument("--init", default=1e-3, type=float, help="Initial scale")
 parser.add_argument("--learning_rate", default=1e-1, type=float, help="Learning rate")
 parser.add_argument(
+    "--policy_lr",
+    default=None,
+    type=float,
+    help="Separate RC policy learning rate; defaults to student learning rate",
+)
+parser.add_argument(
     "--decay1",
     default=0.9,
     type=float,
@@ -304,19 +310,42 @@ regularizer = {
     "N3": N3(args.reg),
 }[args.regularizer]
 
+if args.kd_loss_type == "kdrl":
+    policy_lr = args.policy_lr if args.policy_lr is not None else args.learning_rate
+
+    optimizer_params = [
+        {
+            "params": list(distiller.student.parameters()),
+            "lr": args.learning_rate,
+        },
+        {
+            "params": list(distiller.rewarder.parameters()),
+            "lr": policy_lr,
+        },
+    ]
+else:
+    optimizer_params = distiller.get_learnable_parameters()
+
 optim_method = {
     "Adagrad": lambda: optim.Adagrad(
-        distiller.get_learnable_parameters(), lr=args.learning_rate
+        optimizer_params,
+        lr=args.learning_rate,
     ),
     "Adam": lambda: optim.Adam(
-        distiller.get_learnable_parameters(),
+        optimizer_params,
         lr=args.learning_rate,
         betas=(args.decay1, args.decay2),
     ),
     "SGD": lambda: optim.SGD(
-        distiller.get_learnable_parameters(), lr=args.learning_rate
+        optimizer_params,
+        lr=args.learning_rate,
     ),
 }[args.optimizer]()
+
+print(
+    "Optimizer learning rates:",
+    [group["lr"] for group in optim_method.param_groups],
+)
 
 optimizer = KDOptimizer(
     distiller,
@@ -482,7 +511,12 @@ for e in range(args.max_epochs):
             log_metrics = {
                 "epoch": e + 1,
                 "train/loss_last_batch": cur_loss,
-                "train/learning_rate": optim_method.param_groups[0]["lr"],
+                "train/student_lr": optim_method.param_groups[0]["lr"],
+                "train/policy_lr": (
+                    optim_method.param_groups[1]["lr"]
+                    if args.kd_loss_type == "kdrl"
+                    else None
+                ),
                 "valid/MR": valid["MR"],
                 "valid/MRR": valid["MRR"],
                 "valid/Hits@1": valid["hits@[1,3,10]"][0],

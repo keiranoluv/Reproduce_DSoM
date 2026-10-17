@@ -262,12 +262,34 @@ class MLP(torch.nn.Module):
             print(n, p.shape)
 
     def forward(self, logits):
-        # logits # T, E, M -> T, E*M
+        # Teacher prediction scores: [batch, entities, modalities].
         logits = logits.reshape(logits.shape[0], -1)
-        logits = self.dropout(logits)
-        logits = F.relu(self.fc1(logits))  # T, 3
-        logits = self.fc2(logits)
-        output = F.softmax(logits / self.temp, dim=-1)
+
+        # Preserve the original computation.
+        teacher_scores = self.dropout(logits)
+        hidden_pre_relu = self.fc1(teacher_scores)
+        hidden = F.relu(hidden_pre_relu)
+        raw_policy_logits = self.fc2(hidden)
+        output = F.softmax(raw_policy_logits / self.temp, dim=-1)
+
+        # Diagnostic only. Detached values do not change gradients.
+        with torch.no_grad():
+            teacher_values = logits.detach().float()
+            hidden_values = hidden.detach().float()
+            raw_values = (raw_policy_logits.detach() / self.temp).float()
+
+            logit_range = raw_values.max(dim=-1).values - raw_values.min(dim=-1).values
+
+            self.last_forward_stats = {
+                "teacher_mean": teacher_values.mean().item(),
+                "teacher_std": teacher_values.std(unbiased=False).item(),
+                "teacher_absmax": teacher_values.abs().max().item(),
+                "hidden_rms": hidden_values.square().mean().sqrt().item(),
+                "hidden_absmax": hidden_values.abs().max().item(),
+                "raw_logit_absmax": raw_values.abs().max().item(),
+                "raw_logit_range": logit_range.mean().item(),
+            }
+
         return output
 
 
@@ -379,6 +401,23 @@ class KD_RL(Distiller):
             )
         logits = self.rewarder(preds_stack)
         strategy_selected = torch.multinomial(logits, 1).squeeze(-1)
+
+        # Diagnostic only: no change to policy sampling or training.
+        with torch.no_grad():
+            probs = logits.detach()
+            entropy = -(probs * probs.clamp_min(1e-12).log()).sum(dim=-1)
+
+            self.last_policy_stats = {
+                "entropy": entropy.mean().item(),
+                "max_prob": probs.max(dim=-1).values.mean().item(),
+                "near_deterministic": (probs.max(dim=-1).values > 0.999).sum().item(),
+                "actions": torch.bincount(
+                    strategy_selected.detach(),
+                    minlength=probs.shape[-1],
+                )
+                .cpu()
+                .tolist(),
+            }
         mod_mask = (
             self.strategy[strategy_selected]
             .unsqueeze(1)

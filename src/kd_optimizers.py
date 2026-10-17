@@ -147,7 +147,44 @@ class KDOptimizer(object):
 
     def epoch(self, examples: torch.LongTensor, e: int):
         self.model.train()
+        rc_checked_batches = 0
+        rc_nonzero_adv_batches = 0
+        rc_nonzero_grad_batches = 0
+        rc_updated_batches = 0
         actual_examples = examples[torch.randperm(examples.shape[0]), :]
+
+        def probe_policy(batch):
+            policy = self.model.rewarder
+            was_training = policy.training
+
+            try:
+                policy.eval()
+
+                with torch.no_grad():
+                    teacher_out = self.model.teacher.forward(batch)
+                    preds_stack = torch.stack(
+                        [teacher_out[0], teacher_out[2], teacher_out[4]],
+                        dim=-1,
+                    )
+
+                    probs = policy(preds_stack)
+                    entropy = (
+                        -(probs * probs.clamp_min(1e-12).log())
+                        .sum(dim=-1)
+                        .mean()
+                        .item()
+                    )
+
+                    stats = policy.last_forward_stats.copy()
+
+                    return {
+                        "entropy": entropy,
+                        "hidden_rms": stats["hidden_rms"],
+                        "logit_range": stats["raw_logit_range"],
+                    }
+            finally:
+                policy.train(was_training)
+
         ce_loss = nn.CrossEntropyLoss(reduction="mean")
         mse_loss = nn.MSELoss(reduction="mean")
         self.strategy_logs = []
@@ -234,8 +271,7 @@ class KDOptimizer(object):
                         f"batch {batch_num}: {l.item()}"
                     )
 
-                # Debug RC policy update on the first batch.
-                check_policy = self.kd_loss in ("kdrl", "kdrl_step") and b_begin == 0
+                check_policy = self.kd_loss in ("kdrl", "kdrl_step")
 
                 if check_policy:
                     policy_weight = self.model.rewarder.fc2.weight
@@ -245,22 +281,88 @@ class KDOptimizer(object):
                 l.backward()
 
                 if check_policy:
-                    policy_grad = policy_weight.grad
-                    if policy_grad is None:
-                        raise RuntimeError("RC policy has no gradient")
+                    rc_checked_batches += 1
 
-                    print("RC policy gradient norm:", policy_grad.norm().item())
+                    nonzero_adv = (advantage.detach() != 0).sum().item()
+                    grad = policy_weight.grad
+
+                    grad_norm = grad.detach().norm().item() if grad is not None else 0.0
+
+                    if nonzero_adv > 0:
+                        rc_nonzero_adv_batches += 1
+
+                    if grad_norm > 0:
+                        rc_nonzero_grad_batches += 1
+
+                probe_this_batch = self.kd_loss == "kdrl" and batch_num == 3
+
+                if probe_this_batch:
+                    before_probe = probe_policy(input_batch)
 
                 self.optimizer.step()
+
+                if probe_this_batch:
+                    after_probe = probe_policy(input_batch)
+
+                    print("\n===== FIXED-BATCH POLICY PROBE =====")
+                    for key in before_probe:
+                        print(
+                            f"{key}: "
+                            f"before={before_probe[key]:.6f} "
+                            f"after={after_probe[key]:.6f}"
+                        )
+                    print("====================================")
 
                 if check_policy:
                     weight_change = (
                         (policy_weight.detach() - policy_before).abs().max().item()
                     )
 
-                    print("RC policy max weight change:", weight_change)
+                    if weight_change > 0:
+                        rc_updated_batches += 1
+
+                    print(
+                        f"\nRC batch={batch_num} "
+                        f"reward_mean={reward.detach().float().mean().item():.4f} "
+                        f"adv_nonzero={nonzero_adv}/{len(advantage)} "
+                        f"grad_norm={grad_norm:.6f} "
+                        f"weight_change={weight_change:.8f}"
+                    )
+
+                    stats = self.model.last_policy_stats
+
+                    print(
+                        f"POLICY batch={batch_num} "
+                        f"entropy={stats['entropy']:.6f} "
+                        f"max_prob={stats['max_prob']:.6f} "
+                        f"near_deterministic="
+                        f"{stats['near_deterministic']}/{len(truth)} "
+                        f"actions={stats['actions']}"
+                    )
+
+                    mlp_stats = self.model.rewarder.last_forward_stats
+
+                    print(
+                        f"MLP batch={batch_num} "
+                        f"teacher_mean={mlp_stats['teacher_mean']:.4f} "
+                        f"teacher_std={mlp_stats['teacher_std']:.4f} "
+                        f"teacher_absmax={mlp_stats['teacher_absmax']:.4f} "
+                        f"hidden_rms={mlp_stats['hidden_rms']:.4f} "
+                        f"hidden_absmax={mlp_stats['hidden_absmax']:.4f} "
+                        f"logit_absmax={mlp_stats['raw_logit_absmax']:.4f} "
+                        f"logit_range={mlp_stats['raw_logit_range']:.4f}"
+                    )
 
                 b_begin += self.batch_size
                 bar.update(input_batch.shape[0])
                 bar.set_postfix(loss=f"{l.item():.0f}")
+
+        if self.kd_loss in ("kdrl", "kdrl_step"):
+            print("\n===== RC DIAGNOSTICS =====")
+            print("Checked batches:", rc_checked_batches)
+            print("Batches with nonzero advantage:", rc_nonzero_adv_batches)
+            print("Batches with nonzero policy gradient:", rc_nonzero_grad_batches)
+            print("Batches with updated policy weights:", rc_updated_batches)
+            print("==========================")
+
         return l
