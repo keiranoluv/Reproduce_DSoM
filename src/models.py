@@ -55,7 +55,7 @@ class KBCModel(nn.Module, ABC):
                     # set filtered and true scores to -1e6 to be ignored
                     # take care that scores are chunked
                     for i, query in enumerate(these_queries):
-                        filter_out = filters[(query[0].item(), query[1].item())]
+                        filter_out = list(filters[(query[0].item(), query[1].item())])
                         filter_out += [queries[b_begin + i, 2].item()]
                         if chunk_size < self.sizes[2]:
                             filter_in_chunk = [
@@ -539,7 +539,9 @@ class ComplExMDR(KBCModel):
                     )
                     if filt:
                         for i, query in enumerate(these_queries):
-                            filter_out = filters[(query[0].item(), query[1].item())]
+                            filter_out = list(
+                                filters[(query[0].item(), query[1].item())]
+                            )
                             filter_out += [queries[b_begin + i, 2].item()]
                             if (
                                 chunk_size < self.sizes[2]
@@ -617,7 +619,7 @@ class ComplExMDR(KBCModel):
                     )  # 3, batch, 1
                     targets_ensemble = torch.sum(targets_all * these_modalities, dim=0)
                     for i, query in enumerate(these_queries):
-                        filter_out = filters[(query[0].item(), query[1].item())]
+                        filter_out = list(filters[(query[0].item(), query[1].item())])
                         filter_out += [queries[b_begin + i, 2].item()]
                         if chunk_size < self.sizes[2]:  # if candidate is not all entity
                             filter_in_chunk = [
@@ -680,7 +682,9 @@ class ComplExMDR(KBCModel):
                         scores = scores_str  # torch.Size([500, 14951])
                         targets = self.score(these_queries)[0]
                         for i, query in enumerate(these_queries):
-                            filter_out = filters[(query[0].item(), query[1].item())]
+                            filter_out = list(
+                                filters[(query[0].item(), query[1].item())]
+                            )
                             filter_out += [queries[b_begin + i, 2].item()]
                             if (
                                 chunk_size < self.sizes[2]
@@ -727,7 +731,9 @@ class ComplExMDR(KBCModel):
                                 these_queries
                             )  # 500,1
                         for i, query in enumerate(these_queries):
-                            filter_out = filters[(query[0].item(), query[1].item())]
+                            filter_out = list(
+                                filters[(query[0].item(), query[1].item())]
+                            )
                             filter_out += [queries[b_begin + i, 2].item()]
                             if (
                                 chunk_size < self.sizes[2]
@@ -821,7 +827,7 @@ class ComplExMDR(KBCModel):
                     )  # batch
                     targets_ensemble = targets_ensemble.unsqueeze(-1)  # batch, 1
                     for i, query in enumerate(these_queries):
-                        filter_out = filters[(query[0].item(), query[1].item())]
+                        filter_out = list(filters[(query[0].item(), query[1].item())])
                         filter_out += [queries[b_begin + i, 2].item()]
                         if chunk_size < self.sizes[2]:  # if candidate is not all entity
                             filter_in_chunk = [
@@ -1134,7 +1140,7 @@ class RSME(KBCModel):
                     # print(scores)
                     # print(targets)
                     for i, query in enumerate(these_queries):
-                        filter_out = filters[(query[0].item(), query[1].item())]
+                        filter_out = list(filters[(query[0].item(), query[1].item())])
                         filter_out += [queries[b_begin + i, 2].item()]
                         if chunk_size < self.sizes[2]:
                             filter_in_chunk = [

@@ -30,6 +30,25 @@ class Dataset(object):
 
         inp_f.close()
 
+        # Training-only filters for NDKD
+        # Use train triples only, including reciprocal triples.
+        # Never use self.to_skip for the NDKD training mask.
+
+        train_filters = {}
+
+        for h, r, t in self.get_train():
+            key = (int(h), int(r))
+            tail = int(t)
+
+            if key not in train_filters:
+                train_filters[key] = set()
+
+            train_filters[key].add(tail)
+
+        self.train_to_skip = {
+            key: sorted(tails) for key, tails in train_filters.items()
+        }
+
     def get_examples(self, split):
         return self.data[split]
 

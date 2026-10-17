@@ -146,6 +146,7 @@ class KDOptimizer(object):
         self.strategy_logs = []
 
     def epoch(self, examples: torch.LongTensor, e: int):
+        self.model.train()
         actual_examples = examples[torch.randperm(examples.shape[0]), :]
         ce_loss = nn.CrossEntropyLoss(reduction="mean")
         mse_loss = nn.MSELoss(reduction="mean")
@@ -226,9 +227,39 @@ class KDOptimizer(object):
                         )
                     l = l_ce + l_reg + l_kd
 
+                # Detect non-finite training loss.
+                if not torch.isfinite(l).item():
+                    raise FloatingPointError(
+                        f"Non-finite loss at epoch {e + 1}, "
+                        f"batch {batch_num}: {l.item()}"
+                    )
+
+                # Debug RC policy update on the first batch.
+                check_policy = self.kd_loss in ("kdrl", "kdrl_step") and b_begin == 0
+
+                if check_policy:
+                    policy_weight = self.model.rewarder.fc2.weight
+                    policy_before = policy_weight.detach().clone()
+
                 self.optimizer.zero_grad()
                 l.backward()
+
+                if check_policy:
+                    policy_grad = policy_weight.grad
+                    if policy_grad is None:
+                        raise RuntimeError("RC policy has no gradient")
+
+                    print("RC policy gradient norm:", policy_grad.norm().item())
+
                 self.optimizer.step()
+
+                if check_policy:
+                    weight_change = (
+                        (policy_weight.detach() - policy_before).abs().max().item()
+                    )
+
+                    print("RC policy max weight change:", weight_change)
+
                 b_begin += self.batch_size
                 bar.update(input_batch.shape[0])
                 bar.set_postfix(loss=f"{l.item():.0f}")

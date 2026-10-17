@@ -322,6 +322,11 @@ class MLP_value(torch.nn.Module):
 
 
 class KD_RL(Distiller):
+    def get_learnable_parameters(self):
+        # Student parameters + reinforced policy parameters.
+        # Exclude teacher and unused value network.
+        return list(self.student.parameters()) + list(self.rewarder.parameters())
+
     def __init__(
         self,
         student,
@@ -373,7 +378,7 @@ class KD_RL(Distiller):
                 1, 2, 0
             )
         logits = self.rewarder(preds_stack)
-        strategy_selected = torch.multinomial(logits, 1).squeeze()
+        strategy_selected = torch.multinomial(logits, 1).squeeze(-1)
         mod_mask = (
             self.strategy[strategy_selected]
             .unsqueeze(1)
