@@ -1,0 +1,306 @@
+=== REPOSITORY ===
+experiment/fixed-strategy-ablation
+fb2a1a1514e875e76992c65f322dae72b217fe4e
+
+=== TEACHER TRAINING ===
+92:if ! grep -q -- '--scheduler_mode' "${REPO_ROOT}/src/learn.py"; then
+93:    echo "Error: src/learn.py does not support --scheduler_mode" >&2
+94:    echo "Add the scheduler_mode argument to learn.py first." >&2
+145:    echo "scheduler_mode=$SCHEDULER_MODE"
+146:    echo "max_epochs=$MAX_EPOCHS"
+150:    echo "rank=2000"
+151:    echo "batch_size=1000"
+153:    echo "learning_rate=0.1"
+154:    echo "regularizer=N3"
+192:    --rank 2000 \
+193:    --batch_size 1000 \
+194:    --max_epochs "$MAX_EPOCHS" \
+197:    --learning_rate 0.1 \
+198:    --regularizer N3 \
+202:    --scheduler_mode "$SCHEDULER_MODE" \
+203:    --scale 20 \
+204:    --alpha 1 \
+
+=== STUDENT ARGUMENTS ===
+65:parser.add_argument(
+73:parser.add_argument(
+77:parser.add_argument(
+83:parser.add_argument("--img_info", default="../data/FB15K-237/img_vec.pickle")
+84:parser.add_argument("--dscp_info", default="../data/FB15K-237/dscp_vec.pickle")
+85:parser.add_argument(
+92:parser.add_argument(
+99:parser.add_argument(
+106:parser.add_argument(
+110:parser.add_argument("--kd_temp", default=4.0, type=float, help="temp parameter in KD")
+112:parser.add_argument("--kd_ce_weight", default=1.0, type=float, help="ce weight in KD")
+114:parser.add_argument("--kd_kl_weight", default=1.0, type=float, help="kl weight in KD")
+116:parser.add_argument(
+117:    "--kd_loss_type", default="kd", type=str, help="kd loss type in KD"
+120:parser.add_argument(
+121:    "--teacher_strategy",
+129:parser.add_argument(
+137:parser.add_argument(
+144:parser.add_argument("--max_epochs", default=200, type=int, help="Number of epochs.")
+145:parser.add_argument(
+148:parser.add_argument("--rank", default=2000, type=int, help="Factorization rank.")
+149:parser.add_argument("--batch_size", default=1000, type=int, help="Factorization rank.")
+150:parser.add_argument("--reg", default=0.01, type=float, help="Regularization weight")
+151:parser.add_argument("--init", default=1e-3, type=float, help="Initial scale")
+152:parser.add_argument("--learning_rate", default=1e-1, type=float, help="Learning rate")
+153:parser.add_argument(
+159:parser.add_argument(
+165:parser.add_argument(
+171:parser.add_argument(
+177:parser.add_argument(
+180:parser.add_argument(
+186:parser.add_argument("--ckpt_dir", default="./kdckpt/wn9/test/")
+187:parser.add_argument("--rl_hs", default=1024, type=int, help="RL MLP hidden state")
+188:parser.add_argument(
+193:parser.add_argument("--rl_reward", default=1.0, type=float, help="RL reward")
+194:parser.add_argument("--rl_penalize", default=10.0, type=float, help="RL penalize")
+195:parser.add_argument("--rl_weight", default=1.0, type=float, help="RL weight")
+196:parser.add_argument(
+199:parser.add_argument(
+204:parser.add_argument(
+210:parser.add_argument(
+215:parser.add_argument("--dkd_alpha", default=1.0, type=float, help="decoupled KD alpha")
+216:parser.add_argument("--dkd_beta", default=1.0, type=float, help="decoupled KD beta")
+217:parser.add_argument("--modal_missing", default=0.0, type=float, help="modal fraction")
+220:parser.add_argument(
+228:parser.add_argument("--scheduler_mode", choices=["min", "max"], default="min")
+231:parser.add_argument(
+238:parser.add_argument(
+309:if args.kd_loss_type == "fixed_ndkd":
+310:    if args.teacher_strategy == "rc":
+311:        raise ValueError("fixed_ndkd requires a fixed teacher_strategy")
+316:        strategy=args.teacher_strategy,
+319:elif args.kd_loss_type == "kdrl":
+320:    if args.teacher_strategy != "rc":
+321:        raise ValueError("kdrl requires --teacher_strategy rc")
+358:if args.kd_loss_type == "kdrl":
+428:    args.kd_loss_type,
+484:        "tags": ["DSoM", args.dataset, "student", args.kd_loss_type],
+591:                        if args.kd_loss_type == "kdrl"
+
+=== DISTILLER CLASSES ===
+6:class Distiller(nn.Module):
+59:class KD(Distiller):
+79:class KD_BestTeacher(Distiller):
+106:class KD_SingleTeacher(Distiller):
+133:class KD_RandTeacher(Distiller):
+154:class KD_AvgTeacher(Distiller):
+172:class KD_FixedStrategy(Distiller):
+219:class KD_BestStrategy(Distiller):
+269:class KD_BestConf(Distiller):
+296:class MLP(torch.nn.Module):
+343:class MLP2(torch.nn.Module):
+368:class MLP_value(torch.nn.Module):
+393:class KD_RL(Distiller):
+
+=== RC COMPONENTS ===
+51:def kd_loss_samplewise(logits_student, logits_teacher, temperature):
+173:    """Student distillation from a fixed multimodal teacher strategy."""
+182:    def __init__(self, student, teacher, strategy):
+185:        if strategy not in self.STRATEGIES:
+186:            raise ValueError(f"Unknown fixed teacher strategy: {strategy}")
+188:        self.strategy_name = strategy
+191:            "strategy_weights",
+192:            torch.tensor(self.STRATEGIES[strategy]),
+195:        print(f"Fixed teacher strategy: {strategy}")
+212:            weights = self.strategy_weights.to(dtype=preds_stack.dtype)
+223:        self.strategy = torch.tensor(
+247:            strategy_count = self.strategy.shape[0]
+248:            mod_mask = self.strategy.unsqueeze(0).broadcast_to(
+249:                bsz, strategy_count, msz
+251:            preds_strategy_all = mod_mask.bmm(preds_stack)  # b,7,E
+252:            presd_strategy_all_reshape = preds_strategy_all.reshape(
+253:                bsz * strategy_count, esz
+255:            truth_strategy_all = (
+257:                .broadcast_to(strategy_count, bsz)
+259:                .reshape(bsz * strategy_count)
+261:            ce_strategy = self.ce(
+262:                presd_strategy_all_reshape, truth_strategy_all
+263:            ).reshape(bsz, strategy_count)  # b*7
+264:            strategy_selected = ce_strategy.argmin(dim=-1)
+265:            preds_strategy_selected = preds_strategy_all[range(bsz), strategy_selected]
+266:        return preds_student, fac_student, preds_strategy_selected
+319:        raw_policy_logits = self.fc2(hidden)
+320:        output = F.softmax(raw_policy_logits / self.temp, dim=-1)
+326:            raw_values = (raw_policy_logits.detach() / self.temp).float()
+395:        # Student parameters + reinforced policy parameters.
+397:        return list(self.student.parameters()) + list(self.rewarder.parameters())
+405:        reward=1.0,
+407:        policy_temp=1.0,
+414:            self.strategy = torch.tensor(
+425:            self.rewarder = MLP(E_size=E_size, hidden_size=rl_hs, temp=policy_temp)
+427:            self.strategy = torch.tensor([[1.0, 0.0], [0.0, 1.0], [0.5, 0.5]]).cuda()
+428:            self.rewarder = MLP2(E_size=E_size, hidden_size=rl_hs, temp=policy_temp)
+430:        self.reward = reward
+432:        self.valuenet = MLP_value(E_size=E_size, hidden_size=rl_hs, temp=policy_temp)
+434:    def policy_probs(self, preds_stack):
+435:        """Return RC policy probabilities.
+437:        Normalization only affects policy input.
+438:        Teacher logits for KD/reward remain unchanged.
+440:        if getattr(self.args, "policy_input_norm", False):
+454:        return self.rewarder(x)
+471:        logits = self.policy_probs(preds_stack)
+472:        self.last_policy_probs = logits.detach()
+473:        strategy_selected = torch.multinomial(logits, 1).squeeze(-1)
+475:        # Diagnostic only: no change to policy sampling or training.
+480:            self.last_policy_stats = {
+485:                    strategy_selected.detach(),
+492:            self.strategy[strategy_selected]
+500:        reward_mode = getattr(self.args, "rc_reward_mode", "binary")
+502:        if reward_mode == "binary":
+503:            # Original DSoM reward, unchanged.
+504:            reward = torch.where(
+506:                self.reward,
+509:            reward_baseline = torch.where(
+511:                self.reward,
+515:        elif reward_mode == "continuous_ce":
+516:            # Higher reward for lower teacher CE.
+518:            # the policy via sampled-action log probability.
+522:                baseline_ce = self.ce(avg_preds, truth)
+524:                reward = student_ce - selected_ce
+525:                reward_baseline = student_ce - baseline_ce
+528:            raise ValueError(f"Unsupported RC reward mode: {reward_mode}")
+530:        advantage = (reward - reward_baseline).detach()
+531:        log_prob = torch.log(logits[range(len(preds_stack)), strategy_selected])
+532:        reward_loss = (-log_prob * advantage).mean()
+537:            reward_loss,
+538:            reward,
+540:            strategy_selected,
+
+=== DISTILLATION LOSS ===
+15:def dkd_loss(logits_student, logits_teacher, target, alpha, beta, temperature):
+42:def multi_dkd_loss(
+205:                if self.kd_loss == "kdrl" or self.kd_loss == "kdrl_step":
+217:                    l_ce = self.ce_weight * ce_loss(preds_student, truth)
+223:                    # l_kd = self.kd_weight * kd_loss(preds_student, preds_selected, self.temperature)
+224:                    # l_kd = self.kd_weight * dkd_loss(preds_student, preds_selected, truth,
+226:                    l_kd = self.kd_weight * multi_dkd_loss(
+235:                    l = l_ce + l_reg + l_kd + l_reward
+243:                    l_ce = self.ce_weight * ce_loss(preds_student, truth)
+246:                        l_kd = self.kd_weight * kd_loss(
+256:                            l_kd += mse_loss(C_batch_student, C_batch_teacher) * 1e4
+258:                            l_kd += mse_loss(C_ent_student, C_ent_teacher) * 1e7
+259:                    elif self.kd_loss == "fixed_ndkd":
+265:                        l_kd = self.kd_weight * multi_dkd_loss(
+276:                        l_kd = self.kd_weight * dkd_loss(
+284:                    l = l_ce + l_reg + l_kd
+293:                check_policy = self.kd_loss in ("kdrl", "kdrl_step")
+324:                    and self.kd_loss == "kdrl"
+423:                probe_this_batch = self.kd_loss == "kdrl" and e == 0 and batch_num < 20
+545:        if self.kd_loss in ("kdrl", "kdrl_step"):
+
+=== CHECKPOINT SELECTION ===
+181:    "--early_stopping",
+239:    "--eval_queries",
+500:best_mrr = 0
+501:best_hits = [0, 0, 0]
+503:best_hits10 = 0
+514:student_path = (
+524:print(student_path)
+538:                    args.eval_queries
+539:                    if args.eval_queries > 0
+568:        if valid["MRR"] > best_mrr:
+569:            best_hits10 = valid["hits@[1,3,10]"][-1]
+570:            best_mrr = valid["MRR"]
+572:            best_hits = valid["hits@[1,3,10]"]
+575:            torch.save(distiller, model_path)
+576:            torch.save(student, student_path)
+606:                "best/valid_MRR": best_mrr,
+611:    if (e + 1 - best_epoch) > args.early_stopping:
+641:    "best_mrr": best_mrr,
+643:    "best_hits10": best_hits,
+666:    wandb.summary["best_valid_MRR"] = best_mrr
+667:    wandb.summary["best_valid_Hits@10"] = best_hits[2]
+668:    wandb.summary["best_student_checkpoint"] = student_path if best_epoch > 0 else None
+
+=== EXPERIMENT K CONFIGURATION ===
+#!/usr/bin/env bash
+set -euo pipefail
+
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+cd "$ROOT/src"
+
+export DSOM_WANDB=0
+
+TEACHER="$ROOT/runs/teacher/FB15K-237/full/20261017_000249/checkpoints/0/m-20261017_0002-n-teacher_fb15k237_full_20261017_000249.pth"
+
+OUT="$ROOT/runs/student/FB15K-237/experiment_k"
+
+test -f "$TEACHER" || {
+    echo "Teacher checkpoint not found" >&2
+    exit 1
+}
+
+"$ROOT/dsom/bin/python" -m py_compile \
+    kd.py kd_learn.py kd_optimizers.py
+
+COMMON=(
+    --dataset FB15K-237
+    --teacher_checkpoint "$TEACHER"
+    --kd_ce_weight 1
+    --kd_kl_weight 2
+    --kd_temp 4
+    --dkd_alpha 1
+    --dkd_beta 1
+    --rank 2000
+    --batch_size 16
+    --max_epochs 5
+    --valid 1
+    --max_train_examples 0
+    --eval_queries 1024
+    --optimizer Adagrad
+    --learning_rate 0.1
+    --regularizer N3
+    --reg 0.01
+    --init 0.001
+    --scheduler_mode min
+    --scale 20
+    --alpha 1
+    --early_stopping 10
+)
+
+run() {
+    local name="$1"
+    shift
+
+    local DIR="$OUT/$name"
+
+    if [[ -e "$DIR/train.log" ]]; then
+        echo "Existing log: $DIR/train.log" >&2
+        exit 1
+    fi
+
+    mkdir -p "$DIR/checkpoints"
+
+    echo "Starting $name"
+
+    "$ROOT/dsom/bin/python" -u kd_learn.py \
+        "${COMMON[@]}" \
+        --note "$name" \
+        --ckpt_dir "$DIR/checkpoints" \
+        "$@" \
+        > "$DIR/train.log" 2>&1
+
+    echo "Completed $name"
+}
+
+run k1_description \
+    --kd_loss_type fixed_ndkd \
+    --teacher_strategy description
+
+run k2_learned_rc \
+    --kd_loss_type kdrl \
+    --teacher_strategy rc \
+    --policy_optimizer Adam \
+    --policy_lr 0.00001 \
+    --policy_temp 1 \
+    --rl_hs 1024 \
+    --rl_reward 1 \
+    --rl_penalize 10 \
+    --rl_weight 1
+
+echo "Experiment K pilot completed"
