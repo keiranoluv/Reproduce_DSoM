@@ -127,10 +127,12 @@ class KDOptimizer(object):
         verbose: bool = True,
         args=None,
         to_skip=None,
+        policy_optimizer=None,
     ):
         self.model = model
         self.regularizer = regularizer
         self.optimizer = optimizer
+        self.policy_optimizer = policy_optimizer
         self.batch_size = batch_size
         self.verbose = verbose
 
@@ -278,6 +280,10 @@ class KDOptimizer(object):
                     policy_before = policy_weight.detach().clone()
 
                 self.optimizer.zero_grad()
+
+                if self.policy_optimizer is not None:
+                    self.policy_optimizer.zero_grad()
+
                 l.backward()
 
                 if check_policy:
@@ -300,6 +306,9 @@ class KDOptimizer(object):
                     before_probe = probe_policy(input_batch)
 
                 self.optimizer.step()
+
+                if self.policy_optimizer is not None:
+                    self.policy_optimizer.step()
 
                 if probe_this_batch:
                     after_probe = probe_policy(input_batch)
