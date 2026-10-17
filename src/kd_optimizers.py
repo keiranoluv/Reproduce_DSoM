@@ -317,6 +317,109 @@ class KDOptimizer(object):
                     if grad_norm > 0:
                         rc_nonzero_grad_batches += 1
 
+                # Experiment L5: diagnostic only.
+                # No changes to gradients, losses or optimizer states.
+                if (
+                    getattr(self.args, "l5_counterfactual", False)
+                    and self.kd_loss == "kdrl"
+                    and e == 0
+                    and batch_num < 20
+                ):
+                    with torch.no_grad():
+                        # Preserve training RNG when recomputing teacher logits.
+                        cuda_devices = [input_batch.device.index]
+                        with torch.random.fork_rng(devices=cuda_devices):
+                            teacher_out = self.model.teacher.forward(input_batch)
+                        stack = torch.stack(
+                            [teacher_out[0], teacher_out[2], teacher_out[4]],
+                            dim=-1,
+                        )
+
+                        strategies = self.model.strategy.to(stack.device)
+
+                        # [B, strategies, entities]
+                        candidate_logits = torch.einsum(
+                            "bem,sm->bse",
+                            stack,
+                            strategies,
+                        )
+
+                        target = truth[:, None, None].expand(-1, strategies.shape[0], 1)
+
+                        candidate_ce = torch.logsumexp(
+                            candidate_logits, dim=-1
+                        ) - candidate_logits.gather(2, target).squeeze(-1)
+
+                        avg_logits = stack.mean(dim=-1)
+
+                        baseline_ce = torch.nn.functional.cross_entropy(
+                            avg_logits,
+                            truth,
+                            reduction="none",
+                        )
+
+                        counterfactual_adv = baseline_ce[:, None] - candidate_ce
+
+                        oracle = candidate_ce.argmin(dim=1)
+
+                        probs = self.model.last_policy_probs
+
+                        selected = strategy_selected.detach()
+
+                        selected_adv = counterfactual_adv.gather(
+                            1, selected[:, None]
+                        ).squeeze(1)
+
+                        mean_adv = counterfactual_adv.mean(dim=0)
+                        positive_rate = (counterfactual_adv > 0).float().mean(dim=0)
+
+                        mean_ce = candidate_ce.mean(dim=0)
+
+                        selected_counts = torch.bincount(
+                            selected,
+                            minlength=strategies.shape[0],
+                        )
+
+                        oracle_counts = torch.bincount(
+                            oracle,
+                            minlength=strategies.shape[0],
+                        )
+
+                        print(f"===== L5 COUNTERFACTUAL batch={batch_num} =====")
+                        print(
+                            "Mean CE:",
+                            [round(v, 6) for v in mean_ce.cpu().tolist()],
+                        )
+                        print(
+                            "Mean advantage:",
+                            [round(v, 6) for v in mean_adv.cpu().tolist()],
+                        )
+                        print(
+                            "Positive advantage rate:",
+                            [round(v, 6) for v in positive_rate.cpu().tolist()],
+                        )
+                        print(
+                            "Policy probabilities:",
+                            [round(v, 6) for v in probs.mean(0).cpu().tolist()],
+                        )
+                        print(
+                            "Sampled actions:",
+                            selected_counts.cpu().tolist(),
+                        )
+                        print(
+                            "CE oracle actions:",
+                            oracle_counts.cpu().tolist(),
+                        )
+                        print(
+                            "Selected advantage mean:",
+                            round(selected_adv.mean().item(), 6),
+                        )
+                        print(
+                            "Selected advantage positive:",
+                            round((selected_adv > 0).float().mean().item(), 6),
+                        )
+                        print("===========================================")
+
                 probe_this_batch = self.kd_loss == "kdrl" and e == 0 and batch_num < 20
 
                 if probe_this_batch:

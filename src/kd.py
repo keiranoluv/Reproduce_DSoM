@@ -468,6 +468,7 @@ class KD_RL(Distiller):
                 1, 2, 0
             )
         logits = self.policy_probs(preds_stack)
+        self.last_policy_probs = logits.detach()
         strategy_selected = torch.multinomial(logits, 1).squeeze(-1)
 
         # Diagnostic only: no change to policy sampling or training.

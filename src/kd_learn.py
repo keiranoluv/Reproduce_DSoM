@@ -207,6 +207,11 @@ parser.add_argument(
     default="binary",
     help="RC reward objective; binary preserves original DSoM behavior",
 )
+parser.add_argument(
+    "--l5_counterfactual",
+    action="store_true",
+    help="Log counterfactual CE and advantage for first 20 RC batches",
+)
 parser.add_argument("--dkd_alpha", default=1.0, type=float, help="decoupled KD alpha")
 parser.add_argument("--dkd_beta", default=1.0, type=float, help="decoupled KD beta")
 parser.add_argument("--modal_missing", default=0.0, type=float, help="modal fraction")
