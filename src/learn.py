@@ -34,7 +34,7 @@ np.random.seed(seed)
 torch.backends.cudnn.enabled = True
 torch.backends.cudnn.benchmark = True
 
-big_datasets = ["WN9", "WN18", "FB15K-237"]
+big_datasets = ["WN9", "WN18", "FB15K-237", "MKG-Y"]
 datasets = big_datasets
 
 parser = argparse.ArgumentParser(description="Relational learning contraption")
@@ -137,6 +137,9 @@ parser.add_argument("--img_info", default="../data/FB15K-237/img_vec.pickle")
 parser.add_argument("--dscp_info", default="../data/FB15K-237/dscp_vec.pickle")
 
 
+parser.add_argument("--git_commit", type=str, default="unknown")
+parser.add_argument("--experiment_id", type=str, default="unknown")
+
 args = parser.parse_args()
 print("running setting args: ", args)
 
@@ -225,6 +228,7 @@ if USE_WANDB:
         "name": os.environ.get("WANDB_NAME", args.note or "teacher_fb15k237"),
         "dir": os.environ.get("WANDB_DIR", os.environ.get("DSOM_RUN_DIR", run_dir)),
         "config": vars(args),
+        "group": os.environ.get("WANDB_RUN_GROUP"),
         "job_type": "teacher-training",
         "tags": ["DSoM", args.dataset, "teacher", args.model],
     }

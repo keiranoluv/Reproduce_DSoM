@@ -243,6 +243,9 @@ parser.add_argument(
 )
 
 
+parser.add_argument("--git_commit", type=str, default="unknown")
+parser.add_argument("--experiment_id", type=str, default="unknown")
+
 args = parser.parse_args()
 print("running setting args: ", args)
 
@@ -493,6 +496,7 @@ if USE_WANDB:
         "name": os.environ.get("WANDB_NAME", args.note or "student_fb15k237"),
         "dir": wandb_dir,
         "config": vars(args),
+        "group": os.environ.get("WANDB_RUN_GROUP"),
         "job_type": "student-training",
         "tags": ["DSoM", args.dataset, "student", args.kd_loss_type],
     }
