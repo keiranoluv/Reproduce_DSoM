@@ -20,3 +20,5 @@ raw_images/
 
 # MKG-Y raw dataset (MMRNS)
 src_data/MKG-Y/
+
+src_data/MKG-W/
