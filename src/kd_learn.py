@@ -158,7 +158,7 @@ parser.add_argument(
 )
 parser.add_argument(
     "--policy_optimizer",
-    choices=["same", "Adam"],
+    choices=["same", "Adam", "source_frozen"],
     default="same",
     help="Optimizer for RC policy; 'same' preserves the existing setup",
 )
@@ -358,7 +358,11 @@ policy_optim_method = None
 if args.kd_loss_type == "kdrl":
     policy_lr = args.policy_lr if args.policy_lr is not None else args.learning_rate
 
-    if args.policy_optimizer == "Adam":
+    if args.policy_optimizer == "source_frozen":
+        # Match released DSoM optimizer membership:
+        # only Student parameters are optimized.
+        optimizer_params = list(distiller.student.parameters())
+    elif args.policy_optimizer == "Adam":
         # Student and policy use separate optimizers.
         optimizer_params = list(distiller.student.parameters())
 
@@ -397,6 +401,15 @@ optim_method = {
         lr=args.learning_rate,
     ),
 }[args.optimizer]()
+
+if args.kd_loss_type == "kdrl" and args.policy_optimizer == "source_frozen":
+    optimized = {id(p) for group in optim_method.param_groups for p in group["params"]}
+    student_ids = {id(p) for p in distiller.student.parameters()}
+    policy_ids = {id(p) for p in distiller.rewarder.parameters()}
+
+    assert optimized == student_ids
+    assert optimized.isdisjoint(policy_ids)
+    print("SOURCE_FROZEN_PARAMS: PASS")
 
 print(
     "Student optimizer:",
@@ -588,7 +601,10 @@ for e in range(args.max_epochs):
                     if policy_optim_method is not None
                     else (
                         optim_method.param_groups[1]["lr"]
-                        if args.kd_loss_type == "kdrl"
+                        if (
+                            args.kd_loss_type == "kdrl"
+                            and args.policy_optimizer == "same"
+                        )
                         else None
                     )
                 ),

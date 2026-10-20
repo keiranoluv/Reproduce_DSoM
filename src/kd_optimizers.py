@@ -298,6 +298,11 @@ class KDOptimizer(object):
 
                 self.optimizer.zero_grad()
 
+                if getattr(self.args, "policy_optimizer", None) == "source_frozen":
+                    # Avoid unused policy-gradient accumulation.
+                    # The released optimizer updates Student only.
+                    self.model.rewarder.zero_grad(set_to_none=True)
+
                 if self.policy_optimizer is not None:
                     self.policy_optimizer.zero_grad()
 
@@ -425,6 +430,16 @@ class KDOptimizer(object):
                 if probe_this_batch:
                     before_probe = probe_policy(input_batch)
 
+                    if (
+                        getattr(self.args, "policy_optimizer", None) == "source_frozen"
+                        and batch_num == 0
+                    ):
+                        student_weight = self.model.student.r_embeddings[0].weight
+                        student_row = int(input_batch[0, 0].item())
+                        student_before = (
+                            student_weight[student_row, :64].detach().clone()
+                        )
+
                 self.optimizer.step()
 
                 if self.policy_optimizer is not None:
@@ -432,6 +447,20 @@ class KDOptimizer(object):
 
                 if probe_this_batch:
                     after_probe = probe_policy(input_batch)
+
+                    if (
+                        getattr(self.args, "policy_optimizer", None) == "source_frozen"
+                        and batch_num == 0
+                    ):
+                        student_change = (
+                            (student_weight[student_row, :64].detach() - student_before)
+                            .abs()
+                            .max()
+                            .item()
+                        )
+                        print(f"SOURCE_FROZEN_STUDENT_CHANGE: {student_change:.8f}")
+                        if student_change <= 0:
+                            raise RuntimeError("Student was not updated")
 
                     print("\n===== FIXED-BATCH POLICY PROBE =====")
 
