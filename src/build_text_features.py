@@ -4,8 +4,7 @@ from pathlib import Path
 import numpy as np
 import torch
 from tqdm import tqdm
-from transformers import AutoTokenizer, AutoModel
-
+from transformers import AutoModel, AutoTokenizer
 
 DSOM_ROOT = Path("/workspace/workspace/DSoM")
 KG_BERT_ROOT = Path("/workspace/workspace/kg-bert")
@@ -121,7 +120,7 @@ def main():
 
     with torch.no_grad():
         for start in tqdm(range(0, len(available), BATCH_SIZE)):
-            batch = available[start:start + BATCH_SIZE]
+            batch = available[start : start + BATCH_SIZE]
 
             texts = [x[2] for x in batch]
 
@@ -133,10 +132,7 @@ def main():
                 return_tensors="pt",
             )
 
-            inputs = {
-                key: value.to(device)
-                for key, value in inputs.items()
-            }
+            inputs = {key: value.to(device) for key, value in inputs.items()}
 
             outputs = model(**inputs)
 

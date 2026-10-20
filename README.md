@@ -61,9 +61,10 @@ CUDA_VISIBLE_DEVICES='1' python learn.py --model ComplExMDR --ckpt_dir YOUR_CKPT
 Update the saved teacher model path dict `teacher_model_path` in `src/kd_learn.py` as:
 
 ```python
-teacher_model_path = {'MMKB-DB15K': 'YOUR_PATH_TO_TEACHER_MODEL_ComplExMDR.pth',
-                      'FB15K-237': 'YOUR_FB15K-237_TEACHER_MODEL_PATH.pth'
-                      }[args.dataset]
+teacher_model_path = {
+    "MMKB-DB15K": "YOUR_PATH_TO_TEACHER_MODEL_ComplExMDR.pth",
+    "FB15K-237": "YOUR_FB15K-237_TEACHER_MODEL_PATH.pth",
+}[args.dataset]
 ```
 
 Then run the reinforced distillation to train the student model. 

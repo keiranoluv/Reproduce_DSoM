@@ -20,7 +20,7 @@ class F2(Regularizer):
         norm = 0
         for f in factors:
             # print(f)
-            norm += self.weight * torch.sum(f ** 2)
+            norm += self.weight * torch.sum(f**2)
         return norm / factors[0].shape[0]
 
 
@@ -33,7 +33,5 @@ class N3(Regularizer):
         norm = 0
         for f in factors:
             # print(f)
-            norm += self.weight * torch.sum(
-                torch.abs(f) ** 3
-            )
+            norm += self.weight * torch.sum(torch.abs(f) ** 3)
         return norm / factors[0].shape[0]

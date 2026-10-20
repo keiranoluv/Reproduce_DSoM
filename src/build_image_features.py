@@ -7,10 +7,9 @@ from pathlib import Path
 import numpy as np
 import torch
 from PIL import Image, ImageOps
-from tqdm import tqdm
-from torchvision import transforms
 from pytorch_pretrained_vit import ViT
-
+from torchvision import transforms
+from tqdm import tqdm
 
 ROOT = Path("/workspace/workspace/DSoM")
 DATA = ROOT / "data/FB15K-237"
@@ -24,11 +23,13 @@ MANIFEST = DATA / "img_features_manifest.json"
 DIM = 1000
 SEED = 2022
 
-transform = transforms.Compose([
-    transforms.Resize((384, 384)),
-    transforms.ToTensor(),
-    transforms.Normalize((0.5,), (0.5,))
-])
+transform = transforms.Compose(
+    [
+        transforms.Resize((384, 384)),
+        transforms.ToTensor(),
+        transforms.Normalize((0.5,), (0.5,)),
+    ]
+)
 
 EXTENSIONS = {".jpg", ".jpeg", ".png", ".webp", ".bmp"}
 
@@ -90,7 +91,7 @@ def save_checkpoint(features, completed, sources):
             f,
             features=features,
             completed=completed,
-            sources=np.asarray(sources, dtype=str)
+            sources=np.asarray(sources, dtype=str),
         )
 
     os.replace(tmp, CHECKPOINT)
@@ -143,7 +144,7 @@ def main():
         assert completed.shape == (n,)
 
     # Limit is based on entity-ID order, including missing-image entities.
-    selected = entries[:args.limit] if args.limit else entries
+    selected = entries[: args.limit] if args.limit else entries
 
     print("Loading pretrained ViT...", flush=True)
     device = torch.device("cuda")
