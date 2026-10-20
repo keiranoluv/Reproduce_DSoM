@@ -17,3 +17,6 @@ runs/
 raw_images/
 *.zip
 *.tar.gz
+
+# MKG-Y raw dataset (MMRNS)
+src_data/MKG-Y/
