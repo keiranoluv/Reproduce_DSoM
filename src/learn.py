@@ -101,6 +101,8 @@ parser.add_argument(
     help="ReduceLROnPlateau monitoring mode",
 )
 parser.add_argument("--max_epochs", default=200, type=int, help="Number of epochs.")
+parser.add_argument("--max_train_examples", default=0, type=int)
+parser.add_argument("--eval_queries", default=0, type=int)
 parser.add_argument(
     "--valid", default=3, type=float, help="Number of epochs before valid."
 )
@@ -140,6 +142,12 @@ print("running setting args: ", args)
 
 dataset = Dataset(args.dataset)
 examples = torch.from_numpy(dataset.get_train().astype("int64"))
+if args.max_train_examples > 0:
+    n = min(args.max_train_examples, len(examples))
+    generator = torch.Generator().manual_seed(2022)
+    indices = torch.randperm(len(examples), generator=generator)[:n]
+    examples = examples[indices]
+    print("SMOKE: training examples:", len(examples))
 print(dataset.get_shape())
 model = {
     "CP": lambda: CP(dataset.get_shape(), args.rank, args.init),
@@ -267,7 +275,15 @@ for e in range(args.max_epochs):
 
     if (e + 1) % args.valid == 0:
         valid, test, train = [
-            avg_both(*dataset.eval(model, split, -1 if split != "train" else 3000))
+            avg_both(
+                *dataset.eval(
+                    model,
+                    split,
+                    args.eval_queries
+                    if args.eval_queries > 0
+                    else (-1 if split != "train" else 3000),
+                )
+            )
             for split in ["valid", "test", "train"]
         ]
         curve["valid"].append(valid)
@@ -285,7 +301,9 @@ for e in range(args.max_epochs):
                 "the result during training is more like an upper bound but not final performance:)"
             )
 
-        if valid["hits@[1,3,10]"][-1] > best_hits[-1]:
+        if valid["hits@[1,3,10]"][-1] > best_hits[-1] or (
+            args.max_train_examples > 0 and best_epoch == 0
+        ):
             best_mrr = valid["MRR"]
             best_mr = valid["MR"]
             best_hits = valid["hits@[1,3,10]"]
