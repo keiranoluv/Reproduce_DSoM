@@ -226,8 +226,8 @@ class ComplExMDR(KBCModel):
         )
 
         if self.fusion_img:
-            self.img_dimension = 1000
             self.img_info = pickle.load(open(img_info, "rb"))
+            self.img_dimension = int(self.img_info.shape[1])
             self.img_vec = torch.from_numpy(self.img_info).float().cuda()
             if args.modal_missing != 0.0:  # in teacher model, student model is unimodal
                 mask_ent = random.sample(
@@ -242,8 +242,8 @@ class ComplExMDR(KBCModel):
             self.img_rel_embeddings.weight.data *= init_size
 
         if self.fusion_dscp:
-            self.dscp_dimension = 768
             self.dscp_info = pickle.load(open(dscp_info, "rb"))
+            self.dscp_dimension = int(self.dscp_info.shape[1])
             self.dscp_vec = torch.from_numpy(self.dscp_info).float().cuda()
             if args.modal_missing != 0.0:
                 mask_ent = random.sample(
