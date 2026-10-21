@@ -309,9 +309,9 @@ student = ComplExMDR(
     args,
 )  # single modal student model
 
-if args.kd_loss_type == "fixed_ndkd":
+if args.kd_loss_type in ("fixed_ndkd", "fixed_kd", "fixed_dkd"):
     if args.teacher_strategy == "rc":
-        raise ValueError("fixed_ndkd requires a fixed teacher_strategy")
+        raise ValueError(f"{args.kd_loss_type} requires a fixed teacher_strategy")
 
     distiller = KD_FixedStrategy(
         student,
