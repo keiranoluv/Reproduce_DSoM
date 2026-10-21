@@ -223,15 +223,32 @@ class KDOptimizer(object):
                     # l_kd = self.kd_weight * kd_loss(preds_student, preds_selected, self.temperature)
                     # l_kd = self.kd_weight * dkd_loss(preds_student, preds_selected, truth,
                     #                                  self.args.dkd_alpha, self.args.dkd_beta, self.temperature)
-                    l_kd = self.kd_weight * multi_dkd_loss(
-                        preds_student,
-                        preds_selected,
-                        truth,
-                        self.args.dkd_alpha,
-                        self.args.dkd_beta,
-                        self.temperature,
-                        golden_truths,
-                    )
+                    rc_distill_loss = getattr(self.args, "rc_distill_loss", "ndkd")
+                    if rc_distill_loss == "ndkd":
+                        l_kd = self.kd_weight * multi_dkd_loss(
+                            preds_student,
+                            preds_selected,
+                            truth,
+                            self.args.dkd_alpha,
+                            self.args.dkd_beta,
+                            self.temperature,
+                            golden_truths,
+                        )
+                    elif rc_distill_loss == "kd":
+                        l_kd = self.kd_weight * kd_loss(
+                            preds_student, preds_selected, self.temperature
+                        )
+                    elif rc_distill_loss == "dkd":
+                        l_kd = self.kd_weight * dkd_loss(
+                            preds_student,
+                            preds_selected,
+                            truth,
+                            self.args.dkd_alpha,
+                            self.args.dkd_beta,
+                            self.temperature,
+                        )
+                    else:
+                        raise ValueError(f"Unexpected RC loss: {rc_distill_loss}")
                     l = l_ce + l_reg + l_kd + l_reward
                     # self.reward_logs.append(l_reward.item())
                     # self.reward_logs.append(advantage.sum().item())

@@ -246,6 +246,13 @@ parser.add_argument(
 parser.add_argument("--git_commit", type=str, default="unknown")
 parser.add_argument("--experiment_id", type=str, default="unknown")
 
+parser.add_argument(
+    "--rc_distill_loss",
+    choices=["ndkd", "kd", "dkd"],
+    default="ndkd",
+    help="RC loss objective; ndkd preserves A5/A6",
+)
+
 args = parser.parse_args()
 print("running setting args: ", args)
 
