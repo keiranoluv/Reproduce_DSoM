@@ -21,7 +21,7 @@ Các thí nghiệm DB15K sử dụng Teacher đã train, không cần train lạ
 
 ## 2. Reproduction đã thực hiện trước đó
 
-- **Table 3 — FB15K-237:** Đã thực hiện Student reproduction, best Test MRR khoảng 0.35958.
+- **Table 3 — FB15K-237:** Source-frozen RC reproduction đạt **Test MRR 0.373564**, MR 116.56, Hits@1/3/10 27.79%/41.05%/56.67% tại best epoch 60. Run R1 Shared Adagrad (`policy_optimizer=same`) trước đó đạt Test MRR 0.359579 tại best epoch 57; đây là hai experiments khác nhau.
 - **WN18:** Đã thực hiện reproduction.
 - **Table 1 — MKG-Y:** Test MRR 0.406919, so với paper 0.4002.
 - **Table 1 — MKG-W:** Test MRR 0.405840, so với paper 0.4090.
@@ -238,3 +238,26 @@ Các kết quả gợi ý rằng fixed teacher selection và Vanilla KD có th�
 Tuy nhiên, chưa thể bác bỏ đóng góp của paper khi chưa kiểm soát đầy đủ seed, optimizer behavior, feature pipeline và validation leakage.
 
 **Next milestone:** Hoàn thành A9/A10, tạo bảng Learned RC + NDKD/KL/DKD, rồi đánh giá xem NDKD có thực sự tốt hơn khi RC được cập nhật hay không.
+
+## FB15K-237 — Verified result provenance
+
+| Run | Policy optimizer | Best epoch | Test MRR |
+|---|---|---:|---:|
+| R1 Batch 1024 | `same` | 57 | 0.3595790416 |
+| Table 3 Source-frozen RC | `source_frozen` | 60 | **0.3735639155** |
+
+**R1 result:**
+
+`runs/student/FB15K-237/table3_batch1024/full/checkpoints/0/result.json`
+
+**Table 3 source-frozen result:**
+
+`runs/student/FB15K-237/table3_source_frozen_rc/full/20261020_121832/checkpoints/0/result.json`
+
+The source-frozen run reproduces Table 3 ranking metrics closely:
+MR 116.56, Hits@1 27.79%, Hits@3 41.05%, Hits@10 56.67%.
+
+These results come from different policy optimizer configurations.
+Their performance difference should not be attributed solely to the
+optimizer without auditing other training settings and code revisions.
+
