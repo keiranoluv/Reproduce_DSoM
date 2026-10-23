@@ -1,0 +1,216 @@
+{
+  "schema_version": 1,
+  "status": "PASS",
+  "audited_utc": "2026-10-23T17:14:05.325484+00:00",
+  "source": {
+    "repository": "https://github.com/OreOZhao/MoSE4MKGC",
+    "commit": "192d9ff2882b5be6ef8239a37cbd90c5dd102b5a",
+    "folder": "src_data/WN9",
+    "local_repository": "/workspace/workspace/dataset_audit/MoSE4MKGC_WN9"
+  },
+  "references": {
+    "ikrl": "https://github.com/thunlp/IKRL",
+    "dsom": "https://arxiv.org/html/2507.20738v1#A3",
+    "raw_vs_filtered_baseline": "https://openreview.net/pdf?id=Gf94NMabeh"
+  },
+  "structure": {
+    "entities": 6555,
+    "relations": 9,
+    "relation_names": [
+      "_derivationally_related_form",
+      "_has_part",
+      "_hypernym",
+      "_hyponym",
+      "_member_holonym",
+      "_member_meronym",
+      "_member_of_domain_topic",
+      "_part_of",
+      "_synset_domain_topic_of"
+    ],
+    "splits": {
+      "train": {
+        "rows": 11741,
+        "unique": 11741
+      },
+      "valid": {
+        "rows": 1337,
+        "unique": 1337
+      },
+      "test": {
+        "rows": 1319,
+        "unique": 1319
+      }
+    },
+    "cold_entities_vs_train": 0,
+    "overlaps": {
+      "train/valid": {
+        "exact": 0,
+        "same_relation_reverse": 5,
+        "named_inverse_relation": 1198,
+        "named_inverse_by_target_relation": {
+          "_derivationally_related_form": 5,
+          "_has_part": 74,
+          "_hypernym": 528,
+          "_hyponym": 514,
+          "_member_holonym": 1,
+          "_member_meronym": 1,
+          "_member_of_domain_topic": 7,
+          "_part_of": 59,
+          "_synset_domain_topic_of": 9
+        }
+      },
+      "train/test": {
+        "exact": 0,
+        "same_relation_reverse": 10,
+        "named_inverse_relation": 1186,
+        "named_inverse_by_target_relation": {
+          "_derivationally_related_form": 10,
+          "_has_part": 59,
+          "_hypernym": 491,
+          "_hyponym": 547,
+          "_member_holonym": 2,
+          "_member_meronym": 2,
+          "_member_of_domain_topic": 5,
+          "_part_of": 61,
+          "_synset_domain_topic_of": 9
+        }
+      },
+      "valid/test": {
+        "exact": 0,
+        "same_relation_reverse": 0,
+        "named_inverse_relation": 69,
+        "named_inverse_by_target_relation": {
+          "_has_part": 5,
+          "_hypernym": 23,
+          "_hyponym": 32,
+          "_part_of": 7,
+          "_synset_domain_topic_of": 2
+        }
+      }
+    },
+    "inverse_relation_definition": {
+      "_hypernym": "_hyponym",
+      "_hyponym": "_hypernym",
+      "_has_part": "_part_of",
+      "_part_of": "_has_part",
+      "_member_holonym": "_member_meronym",
+      "_member_meronym": "_member_holonym",
+      "_member_of_domain_topic": "_synset_domain_topic_of",
+      "_synset_domain_topic_of": "_member_of_domain_topic",
+      "_derivationally_related_form": "_derivationally_related_form"
+    }
+  },
+  "wn18_graph_membership": {
+    "train": {
+      "train": 11006,
+      "valid": 356,
+      "test": 378,
+      "not_in_parent_union": 1
+    },
+    "valid": {
+      "train": 1259,
+      "valid": 32,
+      "test": 46,
+      "not_in_parent_union": 0
+    },
+    "test": {
+      "train": 1247,
+      "valid": 31,
+      "test": 41,
+      "not_in_parent_union": 0
+    }
+  },
+  "feature_reuse": {
+    "parent": "/workspace/workspace/DSoM/data/WN18",
+    "mapping": "strip exactly one leading n, then lookup ent_id",
+    "matched_entities": 6555,
+    "identical_nonempty_descriptions": 6555,
+    "real_images": 6547,
+    "inherited_imputed_images": 8,
+    "inherited_imputed_entities": [
+      "n09631129",
+      "n09935434",
+      "n10085101",
+      "n10191388",
+      "n10397001",
+      "n10521100",
+      "n10772580",
+      "n10791890"
+    ],
+    "image_encoder": "pytorch_pretrained_vit/B_16_imagenet1k",
+    "image_preprocessing": "RGB, resize 384x384, ToTensor, Normalize(0.5,0.5)",
+    "text_encoder": "bert-base-uncased; frozen WN18 feature rows, no re-encoding",
+    "dimensions": {
+      "img_vec.pickle": 1000,
+      "dscp_vec.pickle": 768
+    }
+  },
+  "numpy_version": "2.5.3",
+  "preparation_code_sha256": {
+    "scripts/prepare_wn9_from_mose.py": "5d657f089c7a2050d76111aa1ccd5621133e8f4cd1c77e8465a46d60d61f06b0",
+    "src/process_datasets.py": "4e7fd8ce5c0a491435aef35c77d8d5de96574dc53e9bf6b1bc5fb4fbf5f23b6e"
+  },
+  "input_sha256": {
+    "/workspace/workspace/dataset_audit/MoSE4MKGC_WN9/src_data/WN9/train": "2ef64d57c3279319b71f915225844a341c9f0c2b03961536365f048611e1db53",
+    "/workspace/workspace/dataset_audit/MoSE4MKGC_WN9/src_data/WN9/valid": "960d1951152564266cfaee0e7e6079bab084c72c6dd7c28928d26441a543fb16",
+    "/workspace/workspace/dataset_audit/MoSE4MKGC_WN9/src_data/WN9/test": "efa9ed44643937f7a28bb716f6e15ec4589de08e5b268c85f99b5adb7b566734",
+    "/workspace/workspace/dataset_audit/MoSE4MKGC_WN9/src_data/WN9/ent_dscp.txt": "ef626928382fc2ed9b3a414fec528b349174633b3927735a8c27a65c9a703b5d",
+    "/workspace/workspace/dataset_audit/MoSE4MKGC_WN9/src_data/WN9/ent_name.txt": "55df3c6ee75859de344e2834ef65d88d61cec389d57e787be59e942c9b73e9aa",
+    "/workspace/workspace/kg-bert/data/WN18/entity2text.txt": "8f5c6f11753dafa879917b9bdf73d398ceb3bd4bed8d5553177e1e0f2c37521f",
+    "/workspace/workspace/DSoM/data/WN18/ent_id": "22c2edbc3f65d04ddd135bc7406e55c8b08206a613084f343a9006ee2f54e9a1",
+    "/workspace/workspace/DSoM/data/WN18/rel_id": "ed5ef70fe20bb65fab1d1fe463fc80f2108275bcdc871fd8aaf80c3714931d6a",
+    "/workspace/workspace/DSoM/data/WN18/img_vec.pickle": "7678f91e2145d2d01642a037b1908802dd4bf5d3f285815db738b59e8bfd4e5b",
+    "/workspace/workspace/DSoM/data/WN18/dscp_vec.pickle": "447f46edf32903ee63f8e68880d80dc9777c5ed42f165fc49cf7096e15e65435",
+    "/workspace/workspace/DSoM/data/WN18/img_features_manifest.json": "7a0939a3d476fb289b3fd224beb62ebf9aadf791122abd9aa792c41526ff7e85",
+    "/workspace/workspace/DSoM/data/WN18/train.pickle": "8c74ba1403abaa604627e8294c2d621904da30b27d51bc4a3401252b96234d55",
+    "/workspace/workspace/DSoM/data/WN18/valid.pickle": "749ab1aeb100b5b4733a97ceef72440f1a84dd4cf3a7fafca9a25cd4d8c1732c",
+    "/workspace/workspace/DSoM/data/WN18/test.pickle": "fb7557d5ef97b9ba273c9cd8f60fd5e2493797716e1e5a37b1f5c5f8556bf910",
+    "/workspace/workspace/DSoM/data/WN18/to_skip.pickle": "5e411a780f5d16ea86c05333367018756f453b67315cb9875f471836babbc1dc",
+    "/workspace/workspace/DSoM/data/WN18/probas.pickle": "1a66d0d04e41c724fcf34f410004faccbf811b36f93efef1ea14e6093cf9a724",
+    "/workspace/workspace/DSoM/scripts/build_wn18_text_features.py": "7cf3d28d1530271f927a6496c0d10421ea49184b3f78098fece13c52d2682625",
+    "/workspace/workspace/DSoM/scripts/build_wn18_image_features.py": "21be1b5955a02ea1ce51eef3add275ee6e134cafe4888b0c8637d6585147d00e"
+  },
+  "limitations": [
+    "MoSE source snapshot verified; IKRL archive not independently compared",
+    "Existing reconstructed WN18 frozen-encoder features, not author-released DSoM features",
+    "Eight missing-image vectors inherit WN18 seed/order, not a fresh WN9 RNG draw",
+    "Named inverse facts cross splits; benchmark left unchanged, not a clean split",
+    "WN9 graph-trained teacher/student checkpoints must be trained fresh",
+    "Table 7 raw versus filtered evaluation protocol still requires reconciliation"
+  ],
+  "raw_output": "/workspace/workspace/DSoM/src_data/WN9",
+  "processed_output": "/workspace/workspace/DSoM/data/WN9",
+  "output_sha256": {
+    "/workspace/workspace/DSoM/data/WN9/dscp_vec.pickle": "7e2f57f178f34c3a86b611d44c326a597545ad9cf34126d92b2750ffede8e8d6",
+    "/workspace/workspace/DSoM/data/WN9/ent_id": "7c35e4e292226ef5e6861b6fc1e7bc6badcb9dbc11902e399c350498540eaffc",
+    "/workspace/workspace/DSoM/data/WN9/img_vec.pickle": "8ac4dadffd19e1d0a04b358e504b73c6d65bdae3815ff41ee2b751d5cc97c0c5",
+    "/workspace/workspace/DSoM/data/WN9/probas.pickle": "a8be81968b706120a85a7a091a8c0b896cb7e7b7ebf54f528ea6a5e99a48a2a4",
+    "/workspace/workspace/DSoM/data/WN9/rel_id": "606bacf037bc1a7735069bf2150303f35b59a680f2541fae67a22686d15cb824",
+    "/workspace/workspace/DSoM/data/WN9/test.pickle": "2fd536d7ca8c8ca8f8da916abec247962929b78307fc85f405c53de27d7e0dc9",
+    "/workspace/workspace/DSoM/data/WN9/to_skip.pickle": "070ee4b2cc269ffb9071c8c84886fe6a3b1be30a6094164a161c55963f0e5696",
+    "/workspace/workspace/DSoM/data/WN9/train.pickle": "d3b7110469b7c28cdc3822ea7e7ecd596063b6a1b6565efad4589aaee82fc42c",
+    "/workspace/workspace/DSoM/data/WN9/valid.pickle": "99dab25cace8e8872b5b6f29767b05db9d7de8d40b52f1a7cadb5290b1ddd3f7",
+    "/workspace/workspace/DSoM/data/WN9/wn18_feature_row_map.tsv": "7bd023a10e62ea6a5ffff941b9334155350b4096a15b7e277216dae65a77da29",
+    "/workspace/workspace/DSoM/src_data/WN9/ent_dscp.txt": "ef626928382fc2ed9b3a414fec528b349174633b3927735a8c27a65c9a703b5d",
+    "/workspace/workspace/DSoM/src_data/WN9/ent_name.txt": "55df3c6ee75859de344e2834ef65d88d61cec389d57e787be59e942c9b73e9aa",
+    "/workspace/workspace/DSoM/src_data/WN9/test": "efa9ed44643937f7a28bb716f6e15ec4589de08e5b268c85f99b5adb7b566734",
+    "/workspace/workspace/DSoM/src_data/WN9/train": "2ef64d57c3279319b71f915225844a341c9f0c2b03961536365f048611e1db53",
+    "/workspace/workspace/DSoM/src_data/WN9/valid": "960d1951152564266cfaee0e7e6079bab084c72c6dd7c28928d26441a543fb16"
+  },
+  "recorded_local_date": "2026-10-24",
+  "local_audit_report": "runs/audit/wn9_sources_20261023_171406_058679/report.json",
+  "preparation_manifest_sha256": "71aab6cf3a6b98fa0589ce2aeddb8e173c6d1cc497627e753091713044ed8506",
+  "follow_up_observations": {
+    "wn9_train_fact_absent_from_current_wn18_union": [
+      [
+        "n03868863",
+        "_part_of",
+        "n03868863"
+      ]
+    ],
+    "interpretation": "One committed source self-loop is preserved, not silently replaced from WN18.",
+    "test_named_inverse_train_fraction": 0.8991660348749052,
+    "no_graph_trained_wn18_checkpoint_reuse": true,
+    "training_started": false
+  }
+}

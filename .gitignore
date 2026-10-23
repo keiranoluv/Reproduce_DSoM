@@ -25,3 +25,6 @@ src_data/MKG-W/
 
 src_data/MMKB-DB15K/
 src_data/MMKB-DB15K-CleanV1/
+
+# WN9 source snapshot (MoSE/IKRL)
+src_data/WN9/
