@@ -62,10 +62,11 @@ def fixture():
     return teacher, queries, filters
 
 
-def test_filtered_pessimistic_ties_and_no_filter_mutation():
+@pytest.mark.parametrize("id_type", [int, np.uint64, np.uint32, np.int64])
+def test_filtered_pessimistic_ties_and_no_filter_mutation(id_type):
     scores = torch.tensor([[9.0, 4.0, 4.0, 8.0, 3.0]])
     queries = torch.tensor([[0, 0, 1]])
-    filters = {(0, 0): [0, 1, 3]}
+    filters = {(id_type(0), id_type(0)): [id_type(v) for v in (0, 1, 3)]}
     original = copy.deepcopy(filters)
     assert filtered_ranks(scores, queries, filters).item() == 2
     assert filters == original

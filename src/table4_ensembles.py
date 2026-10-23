@@ -65,8 +65,12 @@ def filtered_ranks(scores, queries, filters):
     targets = scores.gather(1, queries[:, 2:3]).clone()
     masked = scores.clone()
     for i, (head, relation, tail) in enumerate(queries.tolist()):
-        excluded = list(filters.get((head, relation), ())) + [tail]
-        masked[i, excluded] = -torch.inf
+        # Benchmark pickle filters contain NumPy uint64 scalars. Mixed unsigned
+        # scalars and Python ints cannot be promoted by PyTorch indexing.
+        excluded = [int(entity) for entity in filters.get((head, relation), ())]
+        excluded.append(tail)
+        indices = torch.tensor(excluded, dtype=torch.long, device=masked.device)
+        masked[i, indices] = -torch.inf
     return 1 + (masked >= targets).sum(-1)
 
 
