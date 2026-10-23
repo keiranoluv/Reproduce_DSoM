@@ -149,6 +149,8 @@ class KDOptimizer(object):
 
     def epoch(self, examples: torch.LongTensor, e: int):
         self.model.train()
+        if self.kd_loss == "mulde":
+            senior_before = self.model.senior.relation_weights.weight.detach().clone()
         rc_checked_batches = 0
         rc_nonzero_adv_batches = 0
         rc_nonzero_grad_batches = 0
@@ -255,7 +257,9 @@ class KDOptimizer(object):
                     # self.strategy_logs.append(strategy_selected.detach().cpu().numpy())
                 else:
                     preds_student, fac_student, preds_assistant = (
-                        self.model.forward_train(input_batch, batch_num)
+                        self.model.forward_train(
+                            input_batch, e if self.kd_loss == "mulde" else batch_num
+                        )
                     )
                     l_ce = self.ce_weight * ce_loss(preds_student, truth)
                     l_reg = self.regularizer.forward(fac_student)
@@ -288,7 +292,7 @@ class KDOptimizer(object):
                             self.args.dkd_beta,
                             self.temperature,
                         )
-                    elif self.kd_loss == "fixed_ndkd":
+                    elif self.kd_loss in ("fixed_ndkd", "selection_ndkd"):
                         golden_truths = [
                             self.all_to_skip[tuple(input_batch[i][:2].tolist())]
                             for i in range(len(truth))
@@ -304,6 +308,16 @@ class KDOptimizer(object):
                             golden_truths,
                         )
 
+                    elif self.kd_loss == "mulde":
+                        l_kd = (
+                            self.kd_weight
+                            * kd_loss(
+                                self.model.last_topk_student,
+                                preds_assistant,
+                                self.temperature,
+                            )
+                            + self.model.last_senior_loss
+                        )
                     elif self.kd_loss == "dkd":
                         l_kd = self.kd_weight * dkd_loss(
                             preds_student,
@@ -330,7 +344,10 @@ class KDOptimizer(object):
 
                 self.optimizer.zero_grad()
 
-                if getattr(self.args, "policy_optimizer", None) == "source_frozen":
+                if (
+                    check_policy
+                    and getattr(self.args, "policy_optimizer", None) == "source_frozen"
+                ):
                     # Avoid unused policy-gradient accumulation.
                     # The released optimizer updates Student only.
                     self.model.rewarder.zero_grad(set_to_none=True)
@@ -603,6 +620,16 @@ class KDOptimizer(object):
                 bar.update(input_batch.shape[0])
                 bar.set_postfix(loss=f"{l.item():.0f}")
 
+        if self.kd_loss == "mulde":
+            self.senior_weight_change = (
+                (self.model.senior.relation_weights.weight.detach() - senior_before)
+                .abs()
+                .max()
+                .item()
+            )
+            print(
+                f"MULDE_SENIOR epoch={e + 1} weight_change={self.senior_weight_change:.10g}"
+            )
         if self.kd_loss in ("kdrl", "kdrl_step"):
             print("\n===== RC DIAGNOSTICS =====")
             print("Checked batches:", rc_checked_batches)

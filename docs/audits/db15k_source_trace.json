@@ -1,0 +1,132 @@
+{
+  "conclusion": "Overlap originates in the currently published MMRNS raw splits, not local preprocessing",
+  "raw_source_trace": {
+    "train": {
+      "downloaded_source": "/workspace/workspace/dataset_audit/MMRNS/MMKB-DB15K/train.txt",
+      "sha256": "d73a116106a440104d5f9cc2bf94b13b8c0080d85d24c9573f025cbd6230bf73",
+      "raw_copy_byte_equal": true,
+      "processed_row_order_and_ids_equal": true,
+      "fresh_public_download_byte_equal": true
+    },
+    "valid": {
+      "downloaded_source": "/workspace/workspace/dataset_audit/MMRNS/MMKB-DB15K/valid.txt",
+      "sha256": "086f2e2015fc9835165cba0bf74bfe4f761f2fb0d0506d059a441246183a2099",
+      "raw_copy_byte_equal": true,
+      "processed_row_order_and_ids_equal": true,
+      "fresh_public_download_byte_equal": true
+    },
+    "test": {
+      "downloaded_source": "/workspace/workspace/dataset_audit/MMRNS/MMKB-DB15K/test.txt",
+      "sha256": "68194a719ad313eec364c507248888382c217eee6f82ad9a8aa0bff83c8352a4",
+      "raw_copy_byte_equal": true,
+      "processed_row_order_and_ids_equal": true,
+      "fresh_public_download_byte_equal": true
+    }
+  },
+  "upstream": {
+    "retrieved_at_utc": "2026-10-23T04:35:31.208997+00:00",
+    "source_repository": "https://github.com/quqxui/MMRNS",
+    "source_folder": "https://drive.google.com/drive/folders/1eWW4QquPkZU2hEVONkJfLGpsBY_IpwR7",
+    "files": {
+      "train": {
+        "file_id": "1XitpzW1UKeHYBEbZ7K22DIbx-TMcnknV",
+        "url": "https://drive.google.com/file/d/1XitpzW1UKeHYBEbZ7K22DIbx-TMcnknV/view",
+        "sha256": "d73a116106a440104d5f9cc2bf94b13b8c0080d85d24c9573f025cbd6230bf73",
+        "matches_downloaded_source": true,
+        "bytes": 10050239
+      },
+      "valid": {
+        "file_id": "17rUiNPHa-qnBQq7BzrySSfdH80Otr5Dk",
+        "url": "https://drive.google.com/file/d/17rUiNPHa-qnBQq7BzrySSfdH80Otr5Dk/view",
+        "sha256": "086f2e2015fc9835165cba0bf74bfe4f761f2fb0d0506d059a441246183a2099",
+        "matches_downloaded_source": true,
+        "bytes": 1276217
+      },
+      "test": {
+        "file_id": "1-sP4kIl3l7BHfvFyu7OKnIrCqEs236MG",
+        "url": "https://drive.google.com/file/d/1-sP4kIl3l7BHfvFyu7OKnIrCqEs236MG/view",
+        "sha256": "68194a719ad313eec364c507248888382c217eee6f82ad9a8aa0bff83c8352a4",
+        "matches_downloaded_source": true,
+        "bytes": 1256264
+      }
+    }
+  },
+  "original_statistics": {
+    "splits": {
+      "train": {
+        "rows": 79222,
+        "unique": 79222,
+        "duplicates": 0,
+        "entities": 12785,
+        "relations": 273
+      },
+      "valid": {
+        "rows": 9904,
+        "unique": 7481,
+        "duplicates": 2423,
+        "entities": 5749,
+        "relations": 134
+      },
+      "test": {
+        "rows": 9902,
+        "unique": 9902,
+        "duplicates": 0,
+        "entities": 7989,
+        "relations": 191
+      }
+    },
+    "exact_overlaps": {
+      "train_valid": 6584,
+      "train_test": 0,
+      "valid_test": 824
+    },
+    "same_relation_undirected_group_overlaps": {
+      "train_valid": 6566,
+      "train_test": 131,
+      "valid_test": 837
+    },
+    "validation_exclusive_unique": 73,
+    "test_entities_absent_from_train": 57
+  },
+  "clean_statistics": {
+    "splits": {
+      "train": {
+        "rows": 69187,
+        "unique": 69187,
+        "duplicates": 0,
+        "entities": 12783,
+        "relations": 273
+      },
+      "valid": {
+        "rows": 9904,
+        "unique": 9904,
+        "duplicates": 0,
+        "entities": 7893,
+        "relations": 196
+      },
+      "test": {
+        "rows": 9902,
+        "unique": 9902,
+        "duplicates": 0,
+        "entities": 7989,
+        "relations": 191
+      }
+    },
+    "exact_overlaps": {
+      "train_valid": 0,
+      "train_test": 0,
+      "valid_test": 0
+    },
+    "same_relation_undirected_group_overlaps": {
+      "train_valid": 0,
+      "train_test": 0,
+      "valid_test": 0
+    },
+    "validation_exclusive_unique": 9904,
+    "test_entities_absent_from_train": 59
+  },
+  "clean_dataset": "MMKB-DB15K-CleanV1",
+  "split_seed": 2022,
+  "excluded_train_test_reversals": 131,
+  "manifest": "data/MMKB-DB15K-CleanV1/split_manifest.json"
+}

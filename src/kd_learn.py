@@ -24,6 +24,7 @@ from kd import (
     KD_BestStrategy,
     KD_BestTeacher,
     KD_FixedStrategy,
+    KD_MulDE,
     KD_RandTeacher,
     KD_SingleTeacher,
 )
@@ -55,6 +56,7 @@ big_datasets = [
     "WN18",
     "FB15K-237",
     "MMKB-DB15K",
+    "MMKB-DB15K-CleanV1",
     "MKG-Y",
     "MKG-W",
 ]
@@ -116,11 +118,23 @@ parser.add_argument("--kd_kl_weight", default=1.0, type=float, help="kl weight i
 parser.add_argument(
     "--kd_loss_type", default="kd", type=str, help="kd loss type in KD"
 )  # kd, dkd
+parser.add_argument("--mulde_topk", type=int, default=300)
+parser.add_argument("--mulde_senior_lr", type=float, default=0.001)
 
 parser.add_argument(
     "--teacher_strategy",
     type=str,
-    choices=["rc", "structural", "description", "structural_description", "average"],
+    choices=[
+        "rc",
+        "structural",
+        "description",
+        "structural_description",
+        "average",
+        "best_conf",
+        "best_teacher",
+        "best_strategy",
+        "mulde",
+    ],
     default="rc",
     help="Teacher selection for student distillation ablation",
 )
@@ -316,7 +330,23 @@ student = ComplExMDR(
     args,
 )  # single modal student model
 
-if args.kd_loss_type in ("fixed_ndkd", "fixed_kd", "fixed_dkd"):
+if args.kd_loss_type == "selection_ndkd":
+    selections = {
+        "best_conf": KD_BestConf,
+        "best_teacher": KD_BestTeacher,
+        "best_strategy": KD_BestStrategy,
+    }
+    if args.teacher_strategy not in selections:
+        raise ValueError(
+            "selection_ndkd requires best_conf, best_teacher, or best_strategy"
+        )
+    distiller = selections[args.teacher_strategy](student, teacher)
+elif args.kd_loss_type == "mulde":
+    if args.teacher_strategy != "mulde":
+        raise ValueError("mulde requires --teacher_strategy mulde")
+    distiller = KD_MulDE(student, teacher, dataset.n_predicates, args.mulde_topk)
+    print("MULDE_ADAPTED_PROTOCOL: top-K + Senior; DSoM CE/N3 and temperature KL")
+elif args.kd_loss_type in ("fixed_ndkd", "fixed_kd", "fixed_dkd"):
     if args.teacher_strategy == "rc":
         raise ValueError(f"{args.kd_loss_type} requires a fixed teacher_strategy")
 
@@ -396,6 +426,14 @@ if args.kd_loss_type == "kdrl":
 else:
     optimizer_params = distiller.get_learnable_parameters()
 
+if args.kd_loss_type == "mulde":
+    # Keep the matched Student optimizer; Senior uses its own Adam optimizer.
+    optimizer_params = list(distiller.student.parameters())
+    policy_optim_method = optim.Adam(
+        distiller.senior.parameters(), lr=args.mulde_senior_lr
+    )
+    print("MULDE_SENIOR_PARAMS: separate Adam", args.mulde_senior_lr)
+
 optim_method = {
     "Adagrad": lambda: optim.Adagrad(
         optimizer_params,
@@ -421,6 +459,18 @@ if args.kd_loss_type == "kdrl" and args.policy_optimizer == "source_frozen":
     assert optimized.isdisjoint(policy_ids)
     print("SOURCE_FROZEN_PARAMS: PASS")
 
+if args.kd_loss_type == "mulde":
+    student_ids = {id(p) for p in student.parameters()}
+    senior_ids = {id(p) for p in distiller.senior.parameters()}
+    teacher_ids = {id(p) for p in teacher.parameters()}
+    optimized = {id(p) for g in optim_method.param_groups for p in g["params"]}
+    senior_optimized = {
+        id(p) for g in policy_optim_method.param_groups for p in g["params"]
+    }
+    assert optimized == student_ids and senior_optimized == senior_ids
+    assert (optimized | senior_optimized).isdisjoint(teacher_ids)
+    print("MULDE_SENIOR_PARAMS: PASS")
+
 print(
     "Student optimizer:",
     args.optimizer,
@@ -430,7 +480,9 @@ print(
 
 if policy_optim_method is not None:
     print(
-        "Policy optimizer: Adam",
+        "Senior optimizer: Adam"
+        if args.kd_loss_type == "mulde"
+        else "Policy optimizer: Adam",
         "LR:",
         policy_optim_method.param_groups[0]["lr"],
     )
@@ -633,6 +685,14 @@ for e in range(args.max_epochs):
                 "best/valid_MRR": best_mrr,
             }
 
+            if args.kd_loss_type == "mulde":
+                log_metrics["train/policy_lr"] = None
+                log_metrics["train/senior_lr"] = policy_optim_method.param_groups[0][
+                    "lr"
+                ]
+                log_metrics["train/senior_weight_change"] = (
+                    optimizer.senior_weight_change
+                )
             wandb.log(log_metrics, step=e + 1)
 
     if (e + 1 - best_epoch) > args.early_stopping:

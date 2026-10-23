@@ -1,3 +1,5 @@
+import math
+
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -220,17 +222,20 @@ class KD_BestStrategy(Distiller):
     def __init__(self, student, teacher):
         super(KD_BestStrategy, self).__init__(student, teacher)
         self.ce = nn.CrossEntropyLoss(reduction="none")
-        self.strategy = torch.tensor(
-            [
-                [1.0, 0, 0],
-                [0, 1.0, 0],
-                [0, 0, 1.0],
-                [0.5, 0.5, 0],
-                [0.5, 0, 0.5],
-                [0, 0.5, 0.5],
-                [1.0 / 3.0, 1.0 / 3.0, 1.0 / 3.0],
-            ]
-        ).cuda()
+        self.register_buffer(
+            "strategy",
+            torch.tensor(
+                [
+                    [1.0, 0, 0],
+                    [0, 1.0, 0],
+                    [0, 0, 1.0],
+                    [0.5, 0.5, 0],
+                    [0.5, 0, 0.5],
+                    [0, 0.5, 0.5],
+                    [1.0 / 3.0, 1.0 / 3.0, 1.0 / 3.0],
+                ]
+            ),
+        )
         print("init KD_BestStrategy")
 
     def forward_train(self, x, epoch):
@@ -291,6 +296,74 @@ class KD_BestConf(Distiller):
                 range(p_str.shape[0]), modal_best_conf
             ]
         return preds_student, fac_student, preds_best_teacher
+
+
+class MulDESenior(nn.Module):
+    """MulDE equations 10--13, with three modality teachers in S/V/D order.
+
+    Source: https://arxiv.org/html/2010.07152v3#S3.SS3
+    Attention contrasts UNSCALED teacher scores with detached Junior scores.
+    Its KL is averaged over K as written in Eq. 11, before the epoch schedule.
+    """
+
+    def __init__(self, n_relations):
+        super().__init__()
+        self.relation_weights = nn.Embedding(n_relations, 3)
+        nn.init.zeros_(self.relation_weights.weight)
+
+    def forward(self, teachers, junior, relations, candidates, truth, epoch):
+        # teachers: [B, 3, K]; junior/candidates: [B, K].
+        log_teacher = F.log_softmax(teachers, dim=-1)
+        log_junior = F.log_softmax(junior.detach(), dim=-1).unsqueeze(1)
+        divergence = (log_teacher.exp() * (log_teacher - log_junior)).mean(-1)
+        tau = math.exp(min(int(epoch) // 5, 60))
+        attention = F.softmax(-divergence / tau, dim=1)
+        scales = self.relation_weights(relations).sigmoid()
+        scaled = teachers * scales.unsqueeze(-1)
+        soft_labels = (scaled * (3.0 * attention).unsqueeze(-1)).sum(1)
+        labels = candidates.eq(truth.unsqueeze(1)).to(teachers.dtype)
+        # Eq. 13 divides by query count, not by query count * K.
+        senior_loss = (
+            F.binary_cross_entropy_with_logits(scaled.sum(1), labels, reduction="none")
+            .sum(-1)
+            .mean()
+        )
+        return soft_labels, senior_loss, attention
+
+
+class KD_MulDE(Distiller):
+    """Explicit multimodal adaptation; DSoM's unpublished MulDE settings unknown.
+
+    Keeps Junior top-K querying and trainable Senior from original MulDE.
+    Uses DSoM's full-entity CE/N3, ComplEx, and temperature-scaled KL rather
+    than original MulDE's sampled hard-label BCE and hyperbolic teachers.
+    Joint CE + KL + Senior BCE trains Student and Senior; teachers stay frozen.
+    """
+
+    def __init__(self, student, teacher, n_relations, topk=300):
+        super().__init__(student, teacher)
+        if topk < 2:
+            raise ValueError("MulDE top-K must be at least 2")
+        self.topk = topk
+        self.senior = MulDESenior(n_relations)
+
+    def get_learnable_parameters(self):
+        return list(self.student.parameters()) + list(self.senior.parameters())
+
+    def forward_train(self, x, epoch):
+        student, factors = self.student(x)
+        top_student, candidates = student.topk(min(self.topk, student.shape[1]), dim=1)
+        with torch.no_grad():
+            outputs = self.teacher(x)
+            teacher_scores = torch.stack(
+                [outputs[i].gather(1, candidates) for i in (0, 2, 4)], dim=1
+            )
+        combined, self.last_senior_loss, attention = self.senior(
+            teacher_scores, top_student, x[:, 1], candidates, x[:, 2], epoch
+        )
+        self.last_topk_student = top_student
+        self.last_attention = attention.detach()
+        return student, factors, combined
 
 
 class MLP(torch.nn.Module):

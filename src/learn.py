@@ -34,7 +34,15 @@ np.random.seed(seed)
 torch.backends.cudnn.enabled = True
 torch.backends.cudnn.benchmark = True
 
-big_datasets = ["WN9", "WN18", "FB15K-237", "MKG-Y", "MKG-W", "MMKB-DB15K"]
+big_datasets = [
+    "WN9",
+    "WN18",
+    "FB15K-237",
+    "MKG-Y",
+    "MKG-W",
+    "MMKB-DB15K",
+    "MMKB-DB15K-CleanV1",
+]
 datasets = big_datasets
 
 parser = argparse.ArgumentParser(description="Relational learning contraption")
