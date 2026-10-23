@@ -1,0 +1,14 @@
+{
+  "dsom_paper": "https://arxiv.org/html/2507.20738v1#S5.SS3",
+  "mose_repository": "https://github.com/OreOZhao/MoSE4MKGC",
+  "mose_commit": "192d9ff2882b5be6ef8239a37cbd90c5dd102b5a",
+  "mose_meta_source": "https://raw.githubusercontent.com/OreOZhao/MoSE4MKGC/192d9ff2882b5be6ef8239a37cbd90c5dd102b5a/src/meta_learner.py",
+  "mose_meta_sha256": "0d5a96b9f74cb68415abedc36603ee1f49c4ed234c725be4e1b7c59e5101f345",
+  "retrieved_utc": "2026-10-23",
+  "observations": [
+    "MoSE MLP: Linear(3,32), ReLU, Linear(32,1), ReLU per entity.",
+    "MoSE uses Adagrad LR 0.1, batch 256, 20 epochs on validation RHS then LHS.",
+    "MoSE source chooses checkpoints using test Hits@10; this adaptation uses fixed final epoch.",
+    "DSoM standalone RC-on-validation training protocol is not supplied in current repository."
+  ]
+}

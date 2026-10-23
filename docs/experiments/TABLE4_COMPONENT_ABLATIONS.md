@@ -1,7 +1,10 @@
 # Table 4 — A5-matched NEKD-only and NNKD-only student runs
 
-Status: preparation and CPU checks only. The user reviews, commits, and runs
-GPU smoke/full training. No GPU job is launched during this investigation.
+Status: user completed both full runs in
+`runs/table4_components/full/20261023_075850_052725/`; CPU/file verification PASS.
+NEKD test MRR .411020 (best epoch 75), NNKD .412105 (best epoch 42).
+See [remaining teacher rows and launch commands](TABLE4_TEACHER_ENSEMBLES.md).
+The assistant has not launched GPU jobs during preparation or verification.
 
 ## Scope and protocol
 
