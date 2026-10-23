@@ -1,7 +1,60 @@
 # Table 6 — single-modality teacher ablation
 
-Status: launcher prepared and checked on CPU. The assistant does not launch GPU
-jobs; the user reviews, commits, and runs smoke/full. No existing run is overwritten.
+Status: user completed full training on 2026-10-23; CPU/file verification **PASS**,
+with all 12 cells present. Results are recorded provisionally below. The assistant
+has not launched GPU jobs; existing benchmark artifacts are preserved.
+
+## Recorded full run — 2026-10-23
+
+`runs/table6/full/20261023_110036_163721/` completed with status **PASS**:
+**12/12 cells**, comprising 7 newly trained students and 5 verified reused results.
+Training source commit: `f717d2444d05bbbe3782c78f5cb8728c6fe7812b`. Seed: 2022.
+The seven new jobs took approximately 33 minutes in total.
+A portable metric snapshot, artifact hashes, and result paths are saved in
+[table6_results_20261023.json](table6_results_20261023.json).
+
+| Dataset | Method | Reused | Best epoch | Test MRR | H@1 | H@3 | H@10 | Paper MRR | MRR delta (pp) |
+|---|---|---|---:|---:|---:|---:|---:|---:|---:|
+| MKG-Y | full | True | 42 | 0.406919 | 0.360120 | 0.424146 | 0.489861 | 0.4002 | +0.672 |
+| MKG-Y | structural | False | 18 | 0.382687 | 0.349230 | 0.400864 | 0.441795 | 0.3833 | -0.061 |
+| MKG-Y | visual | False | 33 | 0.375854 | 0.344536 | 0.389974 | 0.429215 | 0.3392 | +3.665 |
+| MKG-Y | description | False | 27 | 0.384521 | 0.333646 | 0.403305 | 0.472212 | 0.3729 | +1.162 |
+| MKG-W | full | True | 54 | 0.405840 | 0.335400 | 0.431914 | 0.537319 | 0.4090 | -0.316 |
+| MKG-W | structural | False | 15 | 0.366692 | 0.308961 | 0.386640 | 0.478708 | 0.3681 | -0.141 |
+| MKG-W | visual | False | 3 | 0.295746 | 0.247309 | 0.315863 | 0.384183 | 0.3118 | -1.605 |
+| MKG-W | description | False | 30 | 0.400567 | 0.326158 | 0.428638 | 0.542583 | 0.3923 | +0.827 |
+| MMKB-DB15K | full | True | 63 | 0.413046 | 0.331701 | 0.454656 | 0.565744 | 0.4268 | -1.375 |
+| MMKB-DB15K | structural | True | 48 | 0.412724 | 0.333922 | 0.451878 | 0.562563 | 0.4134 | -0.068 |
+| MMKB-DB15K | visual | False | 45 | 0.381125 | 0.306201 | 0.420521 | 0.525449 | 0.3736 | +0.753 |
+| MMKB-DB15K | description | True | 18 | 0.381768 | 0.304938 | 0.418552 | 0.527924 | 0.4130 | -3.123 |
+
+CPU/file verification regenerated the suite summary, rechecked input/reference
+SHA256s and snapshotted sources, and verified all seven full configs and nonempty
+student checkpoint files. Every selected epoch is the first global maximum of
+recorded validation MRR; its test curve entry equals `final_result`. All recorded
+training losses are finite and all seven logs contain W&B run links. This review
+did not perform fresh checkpoint inference or launch GPU jobs. Evidence is saved
+in the suite's `cpu_review.json`.
+
+Observed outcomes:
+
+- Structural-only MRR is close to the paper on all three datasets: mean absolute
+  error 0.090 percentage points.
+- Largest single-teacher discrepancies: MKG-Y visual +3.665 pp, DB15K description
+  -3.123 pp, and MKG-W visual -1.605 pp versus paper. Their causes remain unresolved.
+- The full-modality row has the highest MRR on all three datasets. Its gain over
+  the best single teacher is +2.240 pp on MKG-Y, +0.527 pp on MKG-W, and only
+  +0.032 pp on DB15K. These single-seed differences do not establish significance.
+- Full-modality does not dominate every Hits metric: DB15K structural has higher
+  H@1, and MKG-W description has higher H@10.
+- MKG-W visual selected epoch 3 and stopped after 14 epochs; all seven new runs
+  ended with early stopping, without a detected configuration/execution failure.
+
+Provisional conclusion: the Table 6 grid is complete under the documented
+protocol; numerical agreement with the paper is mixed. The full rows remain
+`source_frozen`, so these results do not establish learned-RC gains. Existing
+feature-equivalence, neighbor SUM/MEAN, DB15K validation, and single-seed limits
+remain. No corrective retraining has been launched.
 
 ## Scope
 

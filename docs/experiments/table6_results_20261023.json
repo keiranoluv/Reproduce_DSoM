@@ -1,0 +1,363 @@
+{
+  "schema_version": 1,
+  "recorded_date": "2026-10-23",
+  "suite": "runs/table6/full/20261023_110036_163721",
+  "training_git_commit": "f717d2444d05bbbe3782c78f5cb8728c6fe7812b",
+  "seed": 2022,
+  "training_mode": "full",
+  "status": "PASS",
+  "full_table6_grid_completed": true,
+  "exact_author_protocol_reproduced": false,
+  "new_jobs": 7,
+  "reused_cells": 5,
+  "artifact_sha256": {
+    "plan.json": "b26e476b99266390ca459ee5d2ac7a3efa76526d05a84e1ccbf2aeb7b7cb7fe9",
+    "summary.json": "683ae268a62891cbd0b3d5f173d1b4de02f653a1b4e970fc214fc1c950753879",
+    "source_snapshot.zip": "d82c3305d6ca87904a1f14c4e0630713d7f60b7c5dc7e829bd733e3df5a8d4d1",
+    "cpu_review.json": "a93885ffadc3e1a6b9e4b0636b4e17a014a87c37f471333e07ceac16964c456e"
+  },
+  "verification": {
+    "scope": "CPU/file checks only; no new GPU jobs or checkpoint inference",
+    "input_and_reference_hashes": "PASS",
+    "source_snapshot_integrity": "PASS",
+    "full_configs_and_checkpoint_presence": "PASS",
+    "selected_epoch_is_first_global_maximum_validation_mrr": "PASS",
+    "selected_test_metrics_match_curve": "PASS",
+    "finite_training_losses": "PASS",
+    "wandb_run_links_in_all_seven_new_logs": true
+  },
+  "rows": [
+    {
+      "dataset": "MKG-Y",
+      "method": "full",
+      "reused": true,
+      "best_epoch": 42,
+      "valid_mrr": 0.3829597532749176,
+      "test": {
+        "MR": 468.45867919921875,
+        "MRR": 0.4069194197654724,
+        "hits@[1,3,10]": [
+          0.36012017726898193,
+          0.4241456985473633,
+          0.48986104130744934
+        ]
+      },
+      "paper": {
+        "MRR": 0.4002,
+        "hits@[1,3,10]": [
+          0.3567,
+          0.417,
+          0.4771
+        ]
+      },
+      "result": "runs/student/MKG-Y/full/T1_MKGY_Exp01_Student_RC_SourceFrozen_SchMin_BS1000_R2000_LR0p1_N3_KL2_T4_Seed2022/20261020_174808_2562445/checkpoints/0/result.json",
+      "protocol": "source_frozen RC",
+      "delta_mrr_pp": 0.6719419765472412
+    },
+    {
+      "dataset": "MKG-Y",
+      "method": "structural",
+      "reused": false,
+      "best_epoch": 18,
+      "valid_mrr": 0.3548108786344528,
+      "test": {
+        "MR": 2815.539794921875,
+        "MRR": 0.38268719613552094,
+        "hits@[1,3,10]": [
+          0.34923020005226135,
+          0.4008636772632599,
+          0.4417949914932251
+        ]
+      },
+      "paper": {
+        "MRR": 0.3833,
+        "hits@[1,3,10]": [
+          0.3492,
+          0.4014,
+          0.4424
+        ]
+      },
+      "result": "runs/table6/full/20261023_110036_163721/MKG-Y/structural/checkpoints/0/result.json",
+      "protocol": "fixed NDKD",
+      "delta_mrr_pp": -0.0612803864479039
+    },
+    {
+      "dataset": "MKG-Y",
+      "method": "visual",
+      "reused": false,
+      "best_epoch": 33,
+      "valid_mrr": 0.3472592532634735,
+      "test": {
+        "MR": 785.0489807128906,
+        "MRR": 0.3758537024259567,
+        "hits@[1,3,10]": [
+          0.3445362448692322,
+          0.3899737000465393,
+          0.4292151927947998
+        ]
+      },
+      "paper": {
+        "MRR": 0.3392,
+        "hits@[1,3,10]": [
+          0.3079,
+          0.3509,
+          0.3905
+        ]
+      },
+      "result": "runs/table6/full/20261023_110036_163721/MKG-Y/visual/checkpoints/0/result.json",
+      "protocol": "fixed NDKD",
+      "delta_mrr_pp": 3.6653702425956727
+    },
+    {
+      "dataset": "MKG-Y",
+      "method": "description",
+      "reused": false,
+      "best_epoch": 27,
+      "valid_mrr": 0.3616539388895035,
+      "test": {
+        "MR": 839.3128051757812,
+        "MRR": 0.38452082872390747,
+        "hits@[1,3,10]": [
+          0.3336462676525116,
+          0.4033045470714569,
+          0.4722117781639099
+        ]
+      },
+      "paper": {
+        "MRR": 0.3729,
+        "hits@[1,3,10]": [
+          0.3273,
+          0.3924,
+          0.4516
+        ]
+      },
+      "result": "runs/table6/full/20261023_110036_163721/MKG-Y/description/checkpoints/0/result.json",
+      "protocol": "fixed NDKD",
+      "delta_mrr_pp": 1.1620828723907461
+    },
+    {
+      "dataset": "MKG-W",
+      "method": "full",
+      "reused": true,
+      "best_epoch": 54,
+      "valid_mrr": 0.39081382006406784,
+      "test": {
+        "MR": 232.71842193603516,
+        "MRR": 0.4058402553200722,
+        "hits@[1,3,10]": [
+          0.3354000747203827,
+          0.43191391229629517,
+          0.5373186469078064
+        ]
+      },
+      "paper": {
+        "MRR": 0.409,
+        "hits@[1,3,10]": [
+          0.3356,
+          0.4358,
+          0.5528
+        ]
+      },
+      "result": "runs/student/MKG-W/full/T1_MKGW_Exp01_Student_RC_SourceFrozen_SchMin_BS1000_R2000_LR0p1_N3_KL2_T4_Seed2022/20261020_181221_2590139/checkpoints/0/result.json",
+      "protocol": "source_frozen RC",
+      "delta_mrr_pp": -0.31597446799278006
+    },
+    {
+      "dataset": "MKG-W",
+      "method": "structural",
+      "reused": false,
+      "best_epoch": 15,
+      "valid_mrr": 0.35788533091545105,
+      "test": {
+        "MR": 1081.7298889160156,
+        "MRR": 0.3666917607188225,
+        "hits@[1,3,10]": [
+          0.3089611530303955,
+          0.38664013147354126,
+          0.4787084460258484
+        ]
+      },
+      "paper": {
+        "MRR": 0.3681,
+        "hits@[1,3,10]": [
+          0.3102,
+          0.3879,
+          0.4799
+        ]
+      },
+      "result": "runs/table6/full/20261023_110036_163721/MKG-W/structural/checkpoints/0/result.json",
+      "protocol": "fixed NDKD",
+      "delta_mrr_pp": -0.14082392811775035
+    },
+    {
+      "dataset": "MKG-W",
+      "method": "visual",
+      "reused": false,
+      "best_epoch": 3,
+      "valid_mrr": 0.28273165225982666,
+      "test": {
+        "MR": 1468.9129943847656,
+        "MRR": 0.2957463189959526,
+        "hits@[1,3,10]": [
+          0.24730931222438812,
+          0.31586337089538574,
+          0.38418343663215637
+        ]
+      },
+      "paper": {
+        "MRR": 0.3118,
+        "hits@[1,3,10]": [
+          0.2592,
+          0.3353,
+          0.4084
+        ]
+      },
+      "result": "runs/table6/full/20261023_110036_163721/MKG-W/visual/checkpoints/0/result.json",
+      "protocol": "fixed NDKD",
+      "delta_mrr_pp": -1.6053681004047415
+    },
+    {
+      "dataset": "MKG-W",
+      "method": "description",
+      "reused": false,
+      "best_epoch": 30,
+      "valid_mrr": 0.38723448663949966,
+      "test": {
+        "MR": 248.49426651000977,
+        "MRR": 0.4005672335624695,
+        "hits@[1,3,10]": [
+          0.32615816593170166,
+          0.4286382794380188,
+          0.5425830483436584
+        ]
+      },
+      "paper": {
+        "MRR": 0.3923,
+        "hits@[1,3,10]": [
+          0.315,
+          0.4194,
+          0.5405
+        ]
+      },
+      "result": "runs/table6/full/20261023_110036_163721/MKG-W/description/checkpoints/0/result.json",
+      "protocol": "fixed NDKD",
+      "delta_mrr_pp": 0.82672335624695
+    },
+    {
+      "dataset": "MMKB-DB15K",
+      "method": "full",
+      "reused": true,
+      "best_epoch": 63,
+      "valid_mrr": 0.9419906139373779,
+      "test": {
+        "MR": 326.1552734375,
+        "MRR": 0.41304613649845123,
+        "hits@[1,3,10]": [
+          0.3317006528377533,
+          0.45465561747550964,
+          0.5657442808151245
+        ]
+      },
+      "paper": {
+        "MRR": 0.4268,
+        "hits@[1,3,10]": [
+          0.3445,
+          0.4662,
+          0.5812
+        ]
+      },
+      "result": "runs/student/MMKB-DB15K/full/T1_DB15K_Exp01_BERT_ViT_Student_RC_SourceFrozen_SchMin_BS1000_R2000_LR0p1_N3_KL2_T4_Seed2022/20261021_151535_2887785/checkpoints/0/result.json",
+      "protocol": "source_frozen RC",
+      "delta_mrr_pp": -1.375386350154878
+    },
+    {
+      "dataset": "MMKB-DB15K",
+      "method": "structural",
+      "reused": true,
+      "best_epoch": 48,
+      "valid_mrr": 0.9421210885047913,
+      "test": {
+        "MR": 470.406982421875,
+        "MRR": 0.41272425651550293,
+        "hits@[1,3,10]": [
+          0.33392244577407837,
+          0.4518784284591675,
+          0.5625631213188171
+        ]
+      },
+      "paper": {
+        "MRR": 0.4134,
+        "hits@[1,3,10]": [
+          0.3346,
+          0.4529,
+          0.5639
+        ]
+      },
+      "result": "runs/student/MMKB-DB15K/fixed_teacher_ndkd_full/20261021_163151_2915928/structural/checkpoints/0/result.json",
+      "protocol": "fixed NDKD",
+      "delta_mrr_pp": -0.067574348449706
+    },
+    {
+      "dataset": "MMKB-DB15K",
+      "method": "visual",
+      "reused": false,
+      "best_epoch": 45,
+      "valid_mrr": 0.937504768371582,
+      "test": {
+        "MR": 656.5434265136719,
+        "MRR": 0.381125271320343,
+        "hits@[1,3,10]": [
+          0.30620077252388,
+          0.4205211400985718,
+          0.5254493951797485
+        ]
+      },
+      "paper": {
+        "MRR": 0.3736,
+        "hits@[1,3,10]": [
+          0.3019,
+          0.4092,
+          0.5103
+        ]
+      },
+      "result": "runs/table6/full/20261023_110036_163721/MMKB-DB15K/visual/checkpoints/0/result.json",
+      "protocol": "fixed NDKD",
+      "delta_mrr_pp": 0.752527132034303
+    },
+    {
+      "dataset": "MMKB-DB15K",
+      "method": "description",
+      "reused": true,
+      "best_epoch": 18,
+      "valid_mrr": 0.9202488958835602,
+      "test": {
+        "MR": 633.2542572021484,
+        "MRR": 0.3817684277892113,
+        "hits@[1,3,10]": [
+          0.304938405752182,
+          0.41855180263519287,
+          0.5279236435890198
+        ]
+      },
+      "paper": {
+        "MRR": 0.413,
+        "hits@[1,3,10]": [
+          0.3287,
+          0.4525,
+          0.5748
+        ]
+      },
+      "result": "runs/student/MMKB-DB15K/fixed_teacher_ndkd_full/20261021_163151_2915928/description/checkpoints/0/result.json",
+      "protocol": "fixed NDKD",
+      "delta_mrr_pp": -3.1231572210788707
+    }
+  ],
+  "limitations": [
+    "Full-modality rows are source_frozen RC, not learned-RC evidence",
+    "Fixed single-modality teacher logits; student always structural ComplEx",
+    "Frozen Exp01 multimodal teacher is reused; no new teacher pretraining",
+    "Released-code neighbor SUM, whereas paper Eq.12 describes MEAN",
+    "Original DB15K validation contamination; not CleanV1",
+    "Single seed 2022, reconstructed features, original min scheduler retained"
+  ]
+}
