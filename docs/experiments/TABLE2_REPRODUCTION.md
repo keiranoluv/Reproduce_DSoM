@@ -139,6 +139,13 @@ For a first check on one smaller dataset or selected methods:
 ./dsom/bin/python scripts/run_table2.py --mode full --datasets MKG-Y
 ```
 
+To select exactly one new student, also pass `--methods best_conf` (or
+`best_teacher`, `best_strategy`, `mulde`). Dataset and method lists form a
+Cartesian product. `--mode` is the execution mode, not the method selector.
+Fresh checkouts must pass `--references references.local.json` containing the
+selected dataset's completed full baseline. See the
+[single-cell recipe](../reproduction/TABLES.md#select-one-table-2-cell).
+
 Add `--wandb` to enable W&B. Without it, logging is local even if an inherited
 `DSOM_WANDB` variable is set. Use `CUDA_VISIBLE_DEVICES` in the shell to choose
 the device. `--workers 1` is the default; a larger number starts concurrent

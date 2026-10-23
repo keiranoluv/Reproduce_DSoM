@@ -9,6 +9,8 @@ are ignored, so creating them does not dirty the tracked tree.
 
 These workflows reproduce DSoM rows/ablations, not all competitor training runs.
 Model/optimizer/loss limits are in [PROTOCOL.md](PROTOCOL.md).
+For commands that select one row/dataset at a time in every table, see
+[Run one dataset/method cell in Tables 1–7](CELLS.md).
 
 ## Fresh baselines: Tables 1 and 3
 
@@ -98,8 +100,8 @@ old local directory layouts or selecting the newest run automatically.
 
 ## Table 2: selection and multi-teacher distillation
 
-Requires registered full baselines and their teachers for all three multimodal
-datasets. The launcher reuses those full DSoM baseline rows and trains 12 new
+Requires registered full baselines and their teachers for the selected multimodal
+datasets (all three for the complete table). The launcher reuses those full DSoM baseline rows and trains 12 new
 students: ConfTeacher, BestTeacher, BestStrategy, MulDE-adapted × three datasets.
 
 ```bash
@@ -114,6 +116,61 @@ Outputs: `runs/table2/full/SUITE/{summary.json,table2_results.md}`.
 For a dataset subset, add `--datasets MKG-Y`; it is not a full Table 2 grid.
 [Detailed protocol](../experiments/TABLE2_REPRODUCTION.md) includes the unpublished
 MulDE adaptation choices. The reference DSoM row is source-frozen RC.
+
+### Select one Table 2 cell
+
+Use `--datasets` for the dataset column and `--methods` for the method row.
+`--mode` controls execution (`plan`, `smoke`, `full`, `summarize`), not the method.
+One dataset/method pair trains one new student and reports all MR/MRR/Hits metrics;
+the selected dataset's DSoM baseline is also included as a reused reference row.
+It reuses the baseline's full teacher rather than retraining the teacher.
+
+| Paper method | CLI `--methods` |
+|---|---|
+| ConfTeacher | `best_conf` |
+| BestTeacher | `best_teacher` |
+| BestStrategy | `best_strategy` |
+| MulDE (adapted) | `mulde` |
+| DSoM reference | Reused from `baselines` in the registry; generated with `run_reproduction.py` |
+
+For example, MKG-Y + ConfTeacher needs only a completed full MKG-Y baseline in
+`references.local.json`. Generate/register that baseline using the earlier
+teacher/student instructions before running this cell.
+
+```bash
+# File checks only; inspect plan.json and confirm exactly one job.
+CUDA_VISIBLE_DEVICES='' python scripts/run_table2.py --mode plan \
+  --datasets MKG-Y --methods best_conf --references references.local.json
+
+# GPU execution check: one new student, one epoch.
+python scripts/run_table2.py --mode smoke --workers 1 \
+  --datasets MKG-Y --methods best_conf --references references.local.json
+
+# GPU: one fresh full student after review/commit and a passing smoke.
+WANDB_PROJECT=DSoM-Reproduction \
+python scripts/run_table2.py --mode full --workers 1 --wandb \
+  --datasets MKG-Y --methods best_conf --references references.local.json
+```
+
+Multiple values form a Cartesian product: `--datasets MKG-Y MKG-W --methods
+best_conf mulde` schedules four new students. Omitting `--methods` selects all
+four methods; omitting `--datasets` selects all three datasets.
+A successful single-cell full run has `status=PASS`, `planned_jobs=1`,
+`completed_new_cells=1`, and `full_benchmark_grid_completed=false`; that last
+flag is expected for a subset. Separate invocations create separate suites;
+they are not automatically merged into one completed full-grid summary.
+
+Selection in other launchers uses these options (their documented dependencies
+and reference checks still apply):
+
+| Workflow | Dataset / method selection |
+|---|---|
+| Tables 1/3 baseline | `run_reproduction.py --dataset MKG-Y` (or another supported dataset); `--stage teacher/student/e2e` |
+| Table 4 reference students | `run_reproduction.py --dataset MMKB-DB15K --stage student --profile ...` |
+| Table 4 component students | `run_table4_components.py --components nekd` or `nnkd`; DB15K only |
+| Table 4 teacher ensembles | `run_table4_ensembles.py --methods avg`, `ml`, or `rc`; DB15K only |
+| Table 6 | `run_table6.py --datasets MKG-Y --methods visual` (methods: `full`, `structural`, `visual`, `description`); existing references may be reused, use `--rerun-existing` to force a fresh selected student |
+| Table 7 | WN9 only; `run_wn9_teacher.py` / `run_wn9_student.py` for separate stages |
 
 ## Table 4: six students plus three teacher rows
 

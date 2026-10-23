@@ -119,6 +119,10 @@ validation MRR. Teacher oracle metrics are not the final prediction result.
 | 7 | `run_table7.py` | Prepared WN9; new teacher/student; raw and filtered evaluation |
 
 [Full commands, separate stages, and dependency order](docs/reproduction/TABLES.md).
+To run a single dataset/method pair, use the
+[per-cell commands for Tables 1–7](docs/reproduction/CELLS.md), including all nine
+Table 4 rows, separate teacher/student stages, and each cell's prerequisites.
+`--mode` separately chooses plan/smoke/full execution.
 The historical launchers remain available; their default references can require
 old local runs. Use the portable commands and explicit registry in this guide
 on a fresh clone. `--references` avoids guessing the newest matching checkpoint.
