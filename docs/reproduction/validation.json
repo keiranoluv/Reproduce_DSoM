@@ -1,0 +1,41 @@
+{
+  "recorded_local_date": "2026-10-24",
+  "cpu_environment": {
+    "isolated_venv": true,
+    "system_site_packages": false,
+    "python": "3.12.3",
+    "torch": "2.7.0+cpu",
+    "torchvision": "0.22.0+cpu",
+    "install": "Official CPU torch index, then constrained train/data-features/dev/tracking groups",
+    "pip_check": "PASS",
+    "resolved_lock": "requirements/lock-cpu-py312.txt"
+  },
+  "checks": {
+    "cpu_tests": {
+      "passed": 160,
+      "warnings": 21,
+      "scope": "Full test suite, synthetic model steps and mocked GPU orchestration"
+    },
+    "historical_encoder_module_imports": 10,
+    "tiny_random_bert_forward": "PASS; no pretrained weights or training",
+    "relocated_checkout": "PASS; checkout path contains spaces, no historical runs or repo-local dsom/bin/python; existing MKG-Y features linked for CPU-only checks",
+    "original_wn9_manifest_verification": "PASS",
+    "original_table6_input_reference_hashes": "PASS",
+    "local_document_links": 29,
+    "bash_blocks_syntax_only": 40,
+    "real_structural_preparation": {
+      "datasets": [
+        "FB15K-237",
+        "WN18"
+      ],
+      "status": "PASS",
+      "scope": "relocated local clone, existing KG-BERT raw sources, tracked staged splits retained byte-for-byte; no download or encoder/training"
+    }
+  },
+  "not_performed": [
+    "GPU initialization/training/extraction",
+    "Fresh download of large datasets/images or pretrained encoder weights",
+    "Clean-machine CUDA installation/full paper grid"
+  ],
+  "limitations": "CPU validation and relocation do not establish paper equivalence or GPU sufficiency; use smoke on your host."
+}

@@ -49,6 +49,7 @@ def parser():
     p.add_argument("--eval-batch-size", type=int, default=64)
     p.add_argument("--seed", type=int, default=2022)
     p.add_argument("--wandb", action="store_true")
+    p.add_argument("--references", type=Path)
     return p
 
 
@@ -70,7 +71,9 @@ def prepare(args):
             )
         for name in SOURCES:
             git("ls-files", "--error-unmatch", name)
-    references = load_references()
+    references = (
+        load_references(args.references) if args.references else load_references()
+    )
     a5 = references["A5_RC_NDKD"]["result"]
     student_suite = args.student_suite.resolve()
     student_plan = json.loads((student_suite / "plan.json").read_text())
@@ -134,6 +137,12 @@ def prepare(args):
             "RC binary advantage uses average-teacher CE reference, not a student",
         ],
     )
+    if args.references:
+        plan.update(
+            reference_registry=str(args.references.resolve()),
+            reference_registry_sha256=digest(args.references),
+            reference_registry_snapshot=json.loads(args.references.read_text()),
+        )
     (directory / "plan.json").write_text(json.dumps(plan, indent=2) + "\n")
     with zipfile.ZipFile(directory / "source_snapshot.zip", "w") as archive:
         for name in SOURCES:

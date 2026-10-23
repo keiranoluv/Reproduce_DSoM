@@ -79,8 +79,21 @@ def git(*args):
     return subprocess.check_output(["git", *args], cwd=ROOT, text=True).strip()
 
 
-def baseline(dataset, root=ROOT):
-    paths = list((root / "runs/student" / dataset / "full").rglob("result.json"))
+def reference_path(references, section, key, root=ROOT):
+    """Explicit repository-relative result paths; never guess a historical run."""
+    entries = json.loads(Path(references).read_text()).get(section, {})
+    if key not in entries:
+        raise ValueError(f"Missing {section}/{key} in {references}")
+    path = Path(entries[key])
+    return path if path.is_absolute() else root / path
+
+
+def baseline(dataset, root=ROOT, references=None):
+    paths = (
+        [reference_path(references, "baselines", dataset, root)]
+        if references
+        else list((root / "runs/student" / dataset / "full").rglob("result.json"))
+    )
     if len(paths) != 1:
         raise ValueError(f"Expected one original Exp01 result for {dataset}: {paths}")
     result = json.loads(paths[0].read_text())
@@ -98,7 +111,7 @@ def build_command(dataset, method, original, job_dir, mode, commit):
     if method not in METHODS or dataset not in DATASETS:
         raise ValueError((dataset, method))
     cmd = [
-        str(ROOT / "dsom/bin/python"),
+        sys.executable,
         "-u",
         "kd_learn.py",
         "--dataset",
@@ -301,6 +314,11 @@ def main():
     )
     parser.add_argument("--methods", nargs="+", choices=METHODS, default=list(METHODS))
     parser.add_argument(
+        "--references",
+        type=Path,
+        help="Explicit result registry for a fresh reproduction",
+    )
+    parser.add_argument(
         "--workers",
         type=int,
         default=1,
@@ -363,7 +381,11 @@ def main():
         ],
     }
     for dataset in dict.fromkeys(args.datasets):
-        path, original = baseline(dataset)
+        path, original = (
+            baseline(dataset, references=args.references)
+            if args.references
+            else baseline(dataset)
+        )
         plan["baselines"][dataset] = {
             "result": str(path),
             "teacher_checkpoint": original["teacher_checkpoint"],
@@ -402,6 +424,10 @@ def main():
                     "command": command,
                 }
             )
+    if args.references:
+        plan["reference_registry"] = str(args.references.resolve())
+        plan["reference_registry_sha256"] = digest(args.references)
+        plan["reference_registry_snapshot"] = json.loads(args.references.read_text())
     directory.mkdir(parents=True, exist_ok=False)
     (directory / "plan.json").write_text(json.dumps(plan, indent=2) + "\n")
     (directory / "tracked_changes.patch").write_text(

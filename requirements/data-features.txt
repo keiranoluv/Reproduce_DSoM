@@ -1,0 +1,9 @@
+# Direct dependencies from the recorded reproduction environment.
+numpy==2.5.3
+tqdm==4.70.1
+pillow==12.3.0
+transformers==5.20.1
+pytorch-pretrained-vit==0.0.7
+requests==2.34.2
+gdown==6.4.2
+h5py==3.16.0

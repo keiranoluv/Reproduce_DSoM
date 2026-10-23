@@ -28,3 +28,10 @@ src_data/MMKB-DB15K-CleanV1/
 
 # WN9 source snapshot (MoSE/IKRL)
 src_data/WN9/
+
+# Portable reproduction setup (downloaded assets and machine-local run registry)
+.venv/
+raw/
+references.local.json
+src_data/FB15K-237/
+src_data/WN18/

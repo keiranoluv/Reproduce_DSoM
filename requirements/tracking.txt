@@ -1,0 +1,2 @@
+# Direct dependencies from the recorded reproduction environment.
+wandb==0.30.0

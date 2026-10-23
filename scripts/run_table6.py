@@ -7,11 +7,12 @@ import math
 import os
 import shlex
 import subprocess
+import sys
 import zipfile
 from datetime import datetime, timezone
 from pathlib import Path
 
-from run_table2 import MATCHED, baseline, digest, git, verify_inputs
+from run_table2 import MATCHED, baseline, digest, git, reference_path, verify_inputs
 
 ROOT = Path(__file__).resolve().parents[1]
 DATASETS = ("MKG-Y", "MKG-W", "MMKB-DB15K")
@@ -65,6 +66,7 @@ def parser():
     )
     p.add_argument("--output", type=Path)
     p.add_argument("--wandb", action="store_true")
+    p.add_argument("--references", type=Path)
     return p
 
 
@@ -115,9 +117,15 @@ def validate_reuse(result, original, method):
         raise ValueError("Full baseline must use NDKD")
 
 
-def existing_reference(dataset, method, baseline_path, original):
+def existing_reference(dataset, method, baseline_path, original, registry=None):
     if method == "full":
         path = baseline_path
+    elif registry:
+        entries = json.loads(Path(registry).read_text()).get("table6", {})
+        key = dataset + "/" + method
+        if key not in entries:
+            return None
+        path = reference_path(registry, "table6", key, ROOT)
     elif dataset == "MMKB-DB15K" and method in ("structural", "description"):
         paths = list(
             (ROOT / "runs/student/MMKB-DB15K/fixed_teacher_ndkd_full").glob(
@@ -159,7 +167,7 @@ def build_command(original, method, mode, directory, commit):
             max_train_examples=1000,
             eval_queries=64,
         )
-    command = [str(ROOT / "dsom/bin/python"), "-u", "kd_learn.py"]
+    command = [sys.executable, "-u", "kd_learn.py"]
     for key, value in cfg.items():
         if value is None:
             continue
@@ -214,7 +222,11 @@ def prepare(args):
     )
     inputs = set()
     for dataset in args.datasets:
-        path, original = baseline(dataset, root=ROOT)
+        path, original = (
+            baseline(dataset, root=ROOT, references=args.references)
+            if args.references
+            else baseline(dataset, root=ROOT)
+        )
         validate_reuse(selected_result(path), original, "full")
         plan["baselines"][dataset] = str(path)
         inputs.add(path)
@@ -237,7 +249,9 @@ def prepare(args):
             reference = (
                 None
                 if args.rerun_existing
-                else existing_reference(dataset, method, path, original)
+                else existing_reference(
+                    dataset, method, path, original, args.references
+                )
             )
             if reference:
                 inputs.add(Path(reference["path"]))
@@ -255,6 +269,10 @@ def prepare(args):
                     )
                 )
     plan["input_sha256"] = {str(path): digest(path) for path in sorted(inputs)}
+    if args.references:
+        plan["reference_registry"] = str(args.references.resolve())
+        plan["reference_registry_sha256"] = digest(args.references)
+        plan["reference_registry_snapshot"] = json.loads(args.references.read_text())
     directory.mkdir(parents=True, exist_ok=False)
     (directory / "plan.json").write_text(json.dumps(plan, indent=2) + "\n")
     (directory / "tracked_changes.patch").write_text(git("diff", "HEAD") + "\n")

@@ -1,0 +1,26 @@
+{
+  "recorded_local_date": "2026-10-24",
+  "python": "3.12.3",
+  "platform": "Linux x86_64",
+  "packages": {
+    "torch": "2.7.0+cu128",
+    "torchvision": "0.22.0+cu128",
+    "numpy": "2.5.3",
+    "transformers": "5.20.1",
+    "tokenizers": "0.23.3",
+    "pytorch-pretrained-vit": "0.0.7",
+    "pillow": "12.3.0",
+    "tqdm": "4.70.1",
+    "gdown": "6.4.2",
+    "requests": "2.34.2",
+    "h5py": "3.16.0",
+    "wandb": "0.30.0",
+    "pytest": "9.1.1",
+    "ruff": "0.17.1",
+    "safetensors": "0.8.0",
+    "huggingface-hub": "2.2.0"
+  },
+  "hardware_used_for_historical_runs": "NVIDIA RTX 5090, 32 GiB VRAM",
+  "validation_scope": "Observed installed environment; CPU tests. No clean GPU reinstall or GPU rerun performed for documentation.",
+  "clean_cpu_validation": "docs/reproduction/validation.json"
+}

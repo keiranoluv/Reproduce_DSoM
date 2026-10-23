@@ -1,0 +1,18 @@
+# Observed direct/key dependency pins; not a complete transitive lock.
+# Python 3.12.3; torch/torchvision CUDA build is installed separately.
+gdown==6.4.2
+h5py==3.16.0
+huggingface-hub==2.2.0
+numpy==2.5.3
+pillow==12.3.0
+pytest==9.1.1
+pytorch-pretrained-vit==0.0.7
+requests==2.34.2
+ruff==0.17.1
+safetensors==0.8.0
+tokenizers==0.23.3
+torch==2.7.0
+torchvision==0.22.0
+tqdm==4.70.1
+transformers==5.20.1
+wandb==0.30.0

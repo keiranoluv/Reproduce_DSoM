@@ -18,7 +18,7 @@ from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timezone
 from pathlib import Path
 
-from run_table2 import MATCHED, digest, git, verify_inputs
+from run_table2 import MATCHED, digest, git, reference_path, verify_inputs
 
 ROOT = Path(__file__).resolve().parents[1]
 COMPONENTS = {"nekd": (1.0, 0.0), "nnkd": (0.0, 1.0)}
@@ -81,10 +81,14 @@ PAPER = {
 }
 
 
-def load_references():
+def load_references(registry=None):
     references = {}
     for label, (pattern, target) in REFERENCES.items():
-        paths = list((ROOT / "runs/student/MMKB-DB15K").glob(pattern))
+        paths = (
+            [reference_path(registry, "table4", label, ROOT)]
+            if registry
+            else list((ROOT / "runs/student/MMKB-DB15K").glob(pattern))
+        )
         if len(paths) != 1:
             raise ValueError(f"Expected one {label} reference; found {paths}")
         result = json.loads(paths[0].read_text())
@@ -142,7 +146,7 @@ def build_command(baseline, component, mode, directory, commit):
             max_train_examples=3000,
             eval_queries=64,
         )
-    command = [str(ROOT / "dsom/bin/python"), "-u", "kd_learn.py"]
+    command = [sys.executable, "-u", "kd_learn.py"]
     for key, value in cfg.items():
         if key in ("policy_input_norm", "l5_counterfactual"):
             if value:
@@ -272,6 +276,7 @@ def main():
     parser.add_argument("--workers", type=int, choices=(1, 2), default=1)
     parser.add_argument("--output", type=Path)
     parser.add_argument("--wandb", action="store_true")
+    parser.add_argument("--references", type=Path)
     args = parser.parse_args()
     if args.mode == "summarize":
         if args.output is None:
@@ -293,7 +298,7 @@ def main():
         or directory.exists()
     ):
         parser.error("Use a NEW output directory inside runs/table4_components/")
-    refs = load_references()
+    refs = load_references(args.references) if args.references else load_references()
     baseline = refs["A5_RC_NDKD"]["result"]
     mode = "smoke" if args.mode == "smoke" else "full"
     plan = {
@@ -339,6 +344,10 @@ def main():
         )
     ]
     plan["input_sha256"] = {str(path): digest(path) for path in inputs}
+    if args.references:
+        plan["reference_registry"] = str(args.references.resolve())
+        plan["reference_registry_sha256"] = digest(args.references)
+        plan["reference_registry_snapshot"] = json.loads(args.references.read_text())
     for component in dict.fromkeys(args.components):
         job_dir = directory / ("RC_" + component.upper())
         command, cfg = build_command(baseline, component, mode, job_dir, commit)

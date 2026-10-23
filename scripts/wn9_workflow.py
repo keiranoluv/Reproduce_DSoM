@@ -10,6 +10,7 @@ import os
 import re
 import shlex
 import subprocess
+import sys
 import zipfile
 from datetime import datetime, timezone
 from pathlib import Path
@@ -181,7 +182,7 @@ def build_command(
         )
         config["note"] += "_" + policy
     script = "learn.py" if stage == "teacher" else "kd_learn.py"
-    command = [str(ROOT / "dsom/bin/python"), "-u", script]
+    command = [sys.executable, "-u", script]
     for key, value in config.items():
         if value is None:
             continue
@@ -393,7 +394,7 @@ def run_stage(stage, args, output=None, teacher_run=None, group=None):
                 if not updates or (args.mode == "full" and not policy_updates):
                     raise ValueError("Learned RC has no recorded policy updates")
             evaluation_command = [
-                str(ROOT / "dsom/bin/python"),
+                sys.executable,
                 "-u",
                 str(ROOT / "scripts/eval_wn9_student.py"),
                 "--checkpoint",
