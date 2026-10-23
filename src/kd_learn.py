@@ -127,6 +127,7 @@ parser.add_argument(
     choices=[
         "rc",
         "structural",
+        "visual",
         "description",
         "structural_description",
         "average",

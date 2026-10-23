@@ -176,6 +176,7 @@ class KD_FixedStrategy(Distiller):
 
     STRATEGIES = {
         "structural": (1.0, 0.0, 0.0),
+        "visual": (0.0, 1.0, 0.0),
         "description": (0.0, 0.0, 1.0),
         "structural_description": (0.5, 0.0, 0.5),
         "average": (1.0 / 3.0, 1.0 / 3.0, 1.0 / 3.0),
