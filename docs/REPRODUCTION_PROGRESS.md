@@ -1,5 +1,12 @@
 # DSoM reproduction handoff — 2026-10-16
 
+Historical handoff: the status below describes 2026-10-16. For the current setup
+and table workflows, use [README](../README.md) and the
+[results guide](reproduction/RESULTS.md). Update 2026-10-24: the user's Table 7
+WN9 full DSoM row passed artifact review (filtered MRR .919634, raw .618763;
+source-frozen RC, author protocol unresolved). See the
+[Table 7 record](experiments/TABLE7_WN9_REPRODUCTION.md).
+
 ## Source of truth
 - Repository: https://github.com/keiranoluv/Reproduce_DSoM
 - Working branch: `teacher-compat-fixes`

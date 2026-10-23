@@ -49,6 +49,30 @@ does not provide MRR; compare MR and Hits there. Single-seed differences do not
 establish statistical significance. WN9 raw/filtered results use the same saved
 student, and both settings must be labelled.
 
+## Recorded Table 7 full result
+
+The user completed `runs/table7/full/20261023_173538_401388/`; CPU artifact review
+on 2026-10-24 passed input/checkpoint/result/evaluation hashes, teacher linkage,
+validation selection, full query coverage and saved evaluation/training metric
+agreement. Existing artifacts were not rewritten and no GPU job was launched
+during review. The saved evaluation was produced by the user's full GPU workflow.
+
+| Test setting | MRR | H@1 | H@3 | H@10 |
+|---|---:|---:|---:|---:|
+| Paper DSoM | 0.921300 | 0.905200 | — | 0.955600 |
+| Filtered | 0.919634 | 0.903336 | 0.928355 | 0.949583 |
+| Raw | 0.618763 | 0.520470 | 0.669447 | 0.810083 |
+
+Filtered MRR is -0.167 percentage points from
+[paper Table 7](https://arxiv.org/html/2507.20738v1#A4). Student epoch 15 was
+selected by filtered validation MRR; both evaluation settings use this checkpoint.
+The DSoM row is complete under `source_frozen` with seed 2022. Competitors were
+not retrained, learned RC is unverified, and exact author raw/filtered settings
+remain unresolved. The large raw/filtered gap must accompany the near-paper
+filtered score; single-seed agreement does not prove protocol equivalence.
+See the [full record](../experiments/TABLE7_WN9_REPRODUCTION.md#recorded-full-run--2026-10-24)
+and [portable JSON evidence](../experiments/table7_results_20261024.json).
+
 ## Checkpoint and data handling
 
 All training/extraction outputs go to new directories or refuse overwriting
@@ -106,5 +130,7 @@ repo-local `dsom/bin/python` passed environment checks, feature verification and
 baseline planning. This test linked existing prepared MKG-Y features rather than
 redownloading/re-encoding them. The new portable feature adapter and generic
 baseline entrypoint have not been run through full extraction/training on a new
-GPU machine. Historical core runs and recent WN9 smoke are separate evidence.
+GPU machine. Historical core runs and the user's completed WN9 full workflow
+are separate evidence; the latter is documented above, not a full run of the
+new portable baseline launcher.
 The compact [validation record](validation.json) distinguishes these scopes.

@@ -139,8 +139,15 @@ runnable; see [Table 7 details](docs/experiments/TABLE7_WN9_REPRODUCTION.md).
 ## Evidence and limitations
 
 Historical baseline and ablation runs have been completed locally for Tables
-1/2/3/4/6, with differences from paper. WN9 data preparation and E2E smoke passed;
-check your own full run before reporting a Table 7 result. The additive portable
+1/2/3/4/6, with differences from paper. The user also completed the **Table 7
+DSoM row** with a fresh WN9 teacher/student; artifact verification passed on
+2026-10-24. The selected student achieved filtered MRR **0.919634**, H@1
+**0.903336**, H@10 **0.949583**, versus paper .9213/.9052/.9556 (MRR -0.167
+percentage points). Raw MRR on the same checkpoint is **0.618763**. The paper's
+exact raw/filtered protocol remains unresolved; this is a completed source-frozen
+run, not confirmation of exact author settings or learned RC. Competitor rows
+were not retrained. See the [Table 7 result record](docs/experiments/TABLE7_WN9_REPRODUCTION.md#recorded-full-run--2026-10-24).
+The additive portable
 setup passed 160 tests in a newly created isolated CPU venv, plus relocated
 checkout checks without historical runs or a repo-local environment. A new
 clean-machine GPU reproduction has not been performed for this guide.
@@ -149,6 +156,7 @@ clean-machine GPU reproduction has not been performed for this guide.
 - [CPU/setup validation evidence](docs/reproduction/validation.json)
 - [Table 3 results](docs/experiments/TABLE3_FB15K237_WN18_SOURCE_FROZEN_RC.md)
 - [Table 6 recorded results](docs/experiments/TABLE6_REPRODUCTION.md)
+- [Table 7 recorded results and artifact hashes](docs/experiments/table7_results_20261024.json)
 - [DB15K source/sensitivity audit](docs/experiments/DB15K_CLEAN_SPLIT_SENSITIVITY.md)
 - [WN9 provenance and feature reuse](docs/experiments/WN9_SOURCE_AUDIT.md)
 

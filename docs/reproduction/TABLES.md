@@ -205,6 +205,11 @@ evidence for learned-RC gains. [Recorded historical results](../experiments/TABL
 
 ## Table 7: WN9 E2E
 
+Recorded locally: the user's full DSoM row completed and CPU artifact review
+passed on 2026-10-24. Filtered MRR is .919634; raw MRR is .618763 on the same
+checkpoint. See the [result and protocol limits](RESULTS.md#recorded-table-7-full-result).
+The commands below describe a fresh reproduction, not required reruns of that suite.
+
 First prepare WN9 as described in [DATA.md](DATA.md#wn9-from-pinned-mose--verified-wn18-features).
 Its wrapper verifies parent/source hashes; it does not use this baseline registry.
 

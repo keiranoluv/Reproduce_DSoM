@@ -37,5 +37,21 @@
     "Fresh download of large datasets/images or pretrained encoder weights",
     "Clean-machine CUDA installation/full paper grid"
   ],
-  "limitations": "CPU validation and relocation do not establish paper equivalence or GPU sufficiency; use smoke on your host."
+  "limitations": "CPU validation and relocation do not establish paper equivalence or GPU sufficiency; use smoke on your host.",
+  "validation_scope": "Setup checks are assistant CPU validation; user GPU experiment evidence is recorded separately in user_completed_experiments.",
+  "user_completed_experiments": {
+    "table7_wn9": {
+      "status": "PASS",
+      "mode": "full",
+      "suite": "runs/table7/full/20261023_173538_401388",
+      "full_table7_dsom_row_completed": true,
+      "exact_author_protocol_reproduced": false,
+      "reviewed_local_date": "2026-10-24",
+      "policy_optimizer": "source_frozen",
+      "filtered_test_MRR": 0.9196338700295237,
+      "raw_test_MRR": 0.6187627546915659,
+      "evidence": "docs/experiments/table7_results_20261024.json",
+      "review_scope": "CPU/file integrity and saved evaluation agreement; no new GPU inference or training"
+    }
+  }
 }

@@ -1,5 +1,10 @@
 # DSoM Reproduction Progress
 
+Historical FB15K-237 diagnostic notes; pending/running labels below refer to
+that experiment period. Current workflows are in [README](../../README.md).
+Update 2026-10-24: the user's WN9 Table 7 full DSoM row completed and passed
+artifact review; see the [result record](TABLE7_WN9_REPRODUCTION.md).
+
 Dataset: FB15K-237
 GPU: NVIDIA RTX 5090 (32 GB)
 Branch: experiment/fixed-strategy-ablation

@@ -63,7 +63,10 @@ minimum ranks cannot substitute for student results or direct teacher ensembles.
   on test. Standalone RC-on-val uses explicitly documented reward/training choices.
 - Table 7 compares to methods reporting raw metrics, while the DSoM evaluator is
   filtered. Both are reported on one filtered-validation-selected checkpoint;
-  exact author Table 7 settings remain unverified.
+  exact author Table 7 settings remain unverified. The completed source-frozen
+  full run achieved filtered MRR .919634 versus raw .618763; filtered closeness
+  to paper .9213 does not establish protocol equivalence. See the
+  [recorded result](RESULTS.md#recorded-table-7-full-result).
 
 ## Reporting
 

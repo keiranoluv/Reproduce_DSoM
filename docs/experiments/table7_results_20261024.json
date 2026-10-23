@@ -1,0 +1,262 @@
+{
+  "reviewed_local_date": "2026-10-24",
+  "suite": "runs/table7/full/20261023_173538_401388",
+  "training_source_commit": "cc00d7e94c57266a2e5ebfd6df56e483f17ef45a",
+  "seed": 2022,
+  "summary": {
+    "status": "PASS",
+    "mode": "full",
+    "full_table7_dsom_row_completed": true,
+    "exact_author_protocol_reproduced": false,
+    "policy_optimizer": "source_frozen",
+    "teacher_checkpoint": "/workspace/workspace/DSoM/runs/table7/full/20261023_173538_401388/teacher/checkpoints/0/m-20261024_0035-n-T7_WN9_teacher_full_Seed2022.pth",
+    "student_checkpoint": "/workspace/workspace/DSoM/runs/table7/full/20261023_173538_401388/student/checkpoints/0/student-20261024_0036-n-T7_WN9_student_full_Seed2022_source_frozen.pth",
+    "best_student_epoch": 15,
+    "paper": {
+      "MRR": 0.9213,
+      "hits@[1,3,10]": [
+        0.9052,
+        null,
+        0.9556
+      ]
+    },
+    "rows": [
+      {
+        "protocol": "raw",
+        "test": {
+          "MR": 14.506444275966642,
+          "MRR": 0.6187627546915659,
+          "hits@[1,3,10]": [
+            0.520470053070508,
+            0.6694465504169825,
+            0.8100833965125095
+          ]
+        },
+        "delta_mrr_pp": -30.253724530843407
+      },
+      {
+        "protocol": "filtered",
+        "test": {
+          "MR": 6.131159969673996,
+          "MRR": 0.9196338700295237,
+          "hits@[1,3,10]": [
+            0.9033358605003791,
+            0.9283548142532221,
+            0.9495830174374527
+          ]
+        },
+        "delta_mrr_pp": -0.16661299704763266
+      }
+    ],
+    "limitations": [
+      "Original MoSE WN9 benchmark with inverse facts across splits; unchanged",
+      "Reconstructed WN18 BERT/ViT features reused by synset ID, including 8 imputed images",
+      "Released SUM NDKD and original min scheduler retained, seed 2022 only",
+      "Teacher selected by filtered oracle validation Hits@10; not a final deployable score",
+      "Student selected by filtered validation MRR; raw metrics use that same checkpoint",
+      "Table 7 exact author raw/filtered protocol unresolved; both settings reported",
+      "source_frozen policy is initialized/sampled but never optimized; no learned-RC claim"
+    ]
+  },
+  "artifact_review": {
+    "status": "PASS",
+    "device": "CPU/file checks only; no Torch import",
+    "method": "Existing summarize validator with Path.write_text intercepted; generated output required byte-identical existing summary.json and table7_results.md",
+    "checks": [
+      "Root/student input SHA256 integrity",
+      "Teacher and student checkpoint/result SHA256 integrity",
+      "Fresh full WN9 teacher linkage",
+      "Teacher validation Hits@10 and student validation MRR checkpoint selection",
+      "Evaluation SHA256 integrity",
+      "1337 valid and 1319 test queries per direction",
+      "Saved independently reloaded filtered metrics agree with training within 2e-6"
+    ],
+    "fresh_checkpoint_inference_during_review": false,
+    "existing_artifacts_modified": false
+  },
+  "evaluation": {
+    "dataset": "WN9",
+    "checkpoint": "/workspace/workspace/DSoM/runs/table7/full/20261023_173538_401388/student/checkpoints/0/student-20261024_0036-n-T7_WN9_student_full_Seed2022_source_frozen.pth",
+    "device": "cuda",
+    "seed": 2022,
+    "query_limit": 0,
+    "tie_rule": "pessimistic >=, target excluded",
+    "results": {
+      "valid": {
+        "raw": {
+          "both": {
+            "MR": 16.995512341062078,
+            "MRR": 0.6169470194299462,
+            "hits@[1,3,10]": [
+              0.5160807778608826,
+              0.6664173522812267,
+              0.8216155572176514
+            ]
+          },
+          "rhs": {
+            "MR": 16.3642483171279,
+            "MRR": 0.6158501272314681,
+            "hits@[1,3,10]": [
+              0.518324607329843,
+              0.6611817501869858,
+              0.818997756170531
+            ]
+          },
+          "lhs": {
+            "MR": 17.62677636499626,
+            "MRR": 0.6180439116284243,
+            "hits@[1,3,10]": [
+              0.5138369483919222,
+              0.6716529543754675,
+              0.8242333582647718
+            ]
+          }
+        },
+        "filtered": {
+          "both": {
+            "MR": 9.858264771877337,
+            "MRR": 0.9161703257990296,
+            "hits@[1,3,10]": [
+              0.8997756170531039,
+              0.925205684367988,
+              0.9457741211667913
+            ]
+          },
+          "rhs": {
+            "MR": 8.963350785340314,
+            "MRR": 0.9175283344460792,
+            "hits@[1,3,10]": [
+              0.9012715033657442,
+              0.9259536275243081,
+              0.9461480927449514
+            ]
+          },
+          "lhs": {
+            "MR": 10.75317875841436,
+            "MRR": 0.9148123171519797,
+            "hits@[1,3,10]": [
+              0.8982797307404637,
+              0.9244577412116679,
+              0.9454001495886313
+            ]
+          }
+        },
+        "queries_per_direction": 1337
+      },
+      "test": {
+        "raw": {
+          "both": {
+            "MR": 14.506444275966642,
+            "MRR": 0.6187627546915659,
+            "hits@[1,3,10]": [
+              0.520470053070508,
+              0.6694465504169825,
+              0.8100833965125095
+            ]
+          },
+          "rhs": {
+            "MR": 14.899924184988627,
+            "MRR": 0.6067563574728494,
+            "hits@[1,3,10]": [
+              0.5049279757391963,
+              0.6565579984836998,
+              0.8104624715693708
+            ]
+          },
+          "lhs": {
+            "MR": 14.112964366944656,
+            "MRR": 0.6307691519102826,
+            "hits@[1,3,10]": [
+              0.5360121304018196,
+              0.6823351023502654,
+              0.8097043214556482
+            ]
+          }
+        },
+        "filtered": {
+          "both": {
+            "MR": 6.131159969673996,
+            "MRR": 0.9196338700295237,
+            "hits@[1,3,10]": [
+              0.9033358605003791,
+              0.9283548142532221,
+              0.9495830174374527
+            ]
+          },
+          "rhs": {
+            "MR": 7.009855951478393,
+            "MRR": 0.9169068926267857,
+            "hits@[1,3,10]": [
+              0.8999241849886277,
+              0.9272175890826384,
+              0.9492039423805914
+            ]
+          },
+          "lhs": {
+            "MR": 5.252463987869598,
+            "MRR": 0.9223608474322619,
+            "hits@[1,3,10]": [
+              0.9067475360121304,
+              0.9294920394238059,
+              0.9499620924943138
+            ]
+          }
+        },
+        "queries_per_direction": 1319
+      }
+    }
+  },
+  "stages": {
+    "teacher": {
+      "status": "PASS",
+      "stage": "teacher",
+      "mode": "full",
+      "checkpoint": "/workspace/workspace/DSoM/runs/table7/full/20261023_173538_401388/teacher/checkpoints/0/m-20261024_0035-n-T7_WN9_teacher_full_Seed2022.pth",
+      "checkpoint_sha256": "7980e6481fbc2fb1bb61bb10d7bf355dbbffaf9f809438975effdbf84b5ab492",
+      "result": "/workspace/workspace/DSoM/runs/table7/full/20261023_173538_401388/teacher/checkpoints/0/result.json",
+      "result_sha256": "ca887d0997bf86c982f4391a62bd2d372b3e8f36384304b73d8c0a346128fe01",
+      "best_epoch": 33,
+      "validation_selection": "oracle Hits@10",
+      "last_epoch": 44,
+      "selected_valid_MRR": 0.9348083734512329
+    },
+    "student": {
+      "status": "PASS",
+      "stage": "student",
+      "mode": "full",
+      "checkpoint": "/workspace/workspace/DSoM/runs/table7/full/20261023_173538_401388/student/checkpoints/0/student-20261024_0036-n-T7_WN9_student_full_Seed2022_source_frozen.pth",
+      "checkpoint_sha256": "687dd6b5d81ff8b351e4557f02fa6b4a8cce4fa96daab6d41bf35466a0f0883f",
+      "result": "/workspace/workspace/DSoM/runs/table7/full/20261023_173538_401388/student/checkpoints/0/result.json",
+      "result_sha256": "593fd6d6eb7e5c2e6433a17fe8b2c66073ac40592dc8c176b40f785a2ce5beb7",
+      "best_epoch": 15,
+      "validation_selection": "filtered MRR",
+      "evaluation_sha256": "29e82241bfbe1ce8d9f13ed24a20660c43bc02836ecacd18d755a2389ddb8b88",
+      "policy_update_batches": null,
+      "last_epoch": 26,
+      "selected_valid_MRR": 0.9161703586578369
+    }
+  },
+  "artifact_sha256": {
+    "teacher/plan.json": "5475dae4428176ff630022bbcce4e26f3dd7d12a64451ad16cff7c9d47b8d253",
+    "teacher/stage_result.json": "6f03b79a4b3efc343266f26abdb84dd69e4a89b59e2b3e8ac7fc9687bc612379",
+    "teacher/source_snapshot.zip": "f6f545664d6af5235a8baef99a69d0d1de41bd425b3bbdeeaed8a5e570581f8d",
+    "student/plan.json": "cb101a3d9575bc087cf201fd2cbe2d2b5f1ff8ba77f8414960598c280058cbb9",
+    "student/stage_result.json": "81f534c225d20cfec043f8b9b3cd2bef1f25b0942f0ed26b29b460747a8d0dbf",
+    "student/source_snapshot.zip": "f6f545664d6af5235a8baef99a69d0d1de41bd425b3bbdeeaed8a5e570581f8d",
+    "plan.json": "2a498295ca440c9995ae20eaff38deb7dab13d2ebb8cb9ebb007de05dc855586",
+    "summary.json": "ae4b3da6fee344cb8b37af39a817e6266ebea9fbf0fef2c77ba2a6b0cf422610",
+    "table7_results.md": "a070f28d915d461619dc61100da19ea30aa051022559fa432150d818558bf084",
+    "student/evaluation.json": "29e82241bfbe1ce8d9f13ed24a20660c43bc02836ecacd18d755a2389ddb8b88"
+  },
+  "paper_source": "https://arxiv.org/html/2507.20738v1#A4",
+  "paper_protocol_unresolved": true,
+  "wandb": {
+    "teacher": "https://wandb.ai/keiranoluv-hcmus/DSoM-Reproduction/runs/cj92k47u",
+    "student": "https://wandb.ai/keiranoluv-hcmus/DSoM-Reproduction/runs/8k36o3o8"
+  },
+  "filtered_delta_paper_pp": {
+    "MRR": -0.16661299704763266,
+    "Hits@1": -0.18641394996209426,
+    "Hits@10": -0.6016982562547346
+  }
+}

@@ -1,9 +1,50 @@
 # Table 7 — WN9 teacher/student workflow
 
-Status: code prepared and tested on CPU; the user runs real WN9 smoke/full on
-GPU after review/commit. No real WN9 model training or GPU smoke has been
-launched by the assistant. Data preparation is documented in
+Status: **user completed full WN9 teacher/student training and checkpoint
+evaluation; CPU/file verification PASS on 2026-10-24**. The DSoM row is complete
+under the documented source-frozen protocol; competitor rows were not trained.
+The assistant did not launch GPU jobs. Data preparation is documented in
 [WN9_SOURCE_AUDIT.md](WN9_SOURCE_AUDIT.md).
+
+## Recorded full run — 2026-10-24
+
+Suite: `runs/table7/full/20261023_173538_401388/` (folder timestamp is UTC).
+Training source: `cc00d7e94c57266a2e5ebfd6df56e483f17ef45a`; seed 2022;
+policy optimizer `source_frozen`. Both stages and E2E summary report **PASS**;
+`full_table7_dsom_row_completed=true`, `exact_author_protocol_reproduced=false`.
+Portable evidence: [table7_results_20261024.json](table7_results_20261024.json).
+
+| Setting | MR | MRR | H@1 | H@3 | H@10 |
+|---|---:|---:|---:|---:|---:|
+| Paper DSoM | — | 0.921300 | 0.905200 | — | 0.955600 |
+| Reproduction, filtered | 6.131160 | 0.919634 | 0.903336 | 0.928355 | 0.949583 |
+| Reproduction, raw | 14.506444 | 0.618763 | 0.520470 | 0.669447 | 0.810083 |
+
+Relative to [paper Table 7](https://arxiv.org/html/2507.20738v1#A4), filtered
+MRR/H@1/H@10 differ by **-0.167 / -0.186 / -0.602 percentage points**.
+This numerical closeness is conditional on filtered evaluation. Raw MRR differs
+by -30.254 pp; the evaluation setting has a much larger effect than the filtered
+paper gap. Both settings use the same checkpoint selected using filtered valid
+MRR; raw did not receive a separate checkpoint search. This does not resolve the
+paper's protocol, establish statistical significance, or verify learned RC.
+
+Teacher selected epoch **33**, stopped at epoch 44; student selected epoch **15**,
+stopped at epoch 26. Student selected validation MRR is .916170.
+The saved independent checkpoint evaluation covers all **1,337 validation and
+1,319 test queries per direction** (RHS and reciprocal LHS).
+Teacher oracle scores are excluded from the comparison above. Tracking:
+[teacher](https://wandb.ai/keiranoluv-hcmus/DSoM-Reproduction/runs/cj92k47u),
+[student](https://wandb.ai/keiranoluv-hcmus/DSoM-Reproduction/runs/8k36o3o8).
+
+The CPU review re-ran the summarizer's validation with writes intercepted and
+required generated summary text to match the existing JSON/Markdown exactly.
+It verified data/feature input hashes, teacher and student checkpoint/result
+hashes, teacher-to-student linkage, validation-based epoch selection, evaluation
+hash and complete coverage, and saved reloaded-checkpoint metrics against training
+metrics (tolerance 2e-6). No Torch import, checkpoint inference or training was
+performed during this review; original artifacts were left byte-for-byte intact.
+Inverse-fact leakage, reconstructed feature equivalence, SUM NDKD, retained
+scheduler direction and single-seed limitations below still apply.
 
 ## Independent stages and E2E composition
 

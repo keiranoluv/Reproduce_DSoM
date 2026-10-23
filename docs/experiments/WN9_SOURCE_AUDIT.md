@@ -1,8 +1,10 @@
 # WN9 source audit and prepared inputs — 2026-10-24
 
-Status: **data preparation and CPU verification PASS**. No encoder, teacher,
-student, or GPU job was run. Table 7 has not been trained. Existing WN18
-features, datasets, and benchmark results were left unchanged.
+Status: **data preparation and CPU verification PASS**. This source audit ran
+without encoder extraction or GPU training and left existing WN18 features,
+datasets, and benchmark results unchanged. Subsequently, the user completed
+fresh WN9 teacher/student training for Table 7; CPU artifact review passed on
+2026-10-24. See the [recorded full result](TABLE7_WN9_REPRODUCTION.md#recorded-full-run--2026-10-24).
 
 ## Source and scope
 
@@ -78,7 +80,8 @@ reconstruction, not author-released DSoM features.
 
 This reuses only frozen generic-encoder features. **WN18 graph-trained teacher
 or student checkpoints must not be reused for WN9**; they have seen many WN9
-held-out facts. Both graph models will need fresh WN9 training later.
+held-out facts. The completed Table 7 suite trained both graph models freshly
+on WN9; only generic frozen-encoder features were reused.
 
 ## Files and verification
 
@@ -123,14 +126,17 @@ CUDA_VISIBLE_DEVICES='' ./dsom/bin/python scripts/prepare_wn9_from_mose.py --mod
 Do not repeat prepare on the current outputs; use verify. Raw and processed data
 are ignored by Git. Only script/tests/docs/source-trace metadata should be committed.
 
-## Remaining before Table 7 training
+## Training follow-up and remaining protocol question
 
-Prepare a separate teacher/student workflow with new checkpoints and preserve
-these source hashes. Reconcile evaluation settings: [DySarl §4.1.3](https://openreview.net/pdf?id=Gf94NMabeh)
+A separate teacher/student workflow with new checkpoints was completed in
+`runs/table7/full/20261023_173538_401388/`, preserving these source hashes.
+Evaluation settings still need reconciliation: [DySarl §4.1.3](https://openreview.net/pdf?id=Gf94NMabeh)
 reports raw ranking, whereas the current DSoM dataset evaluator is filtered.
 Table 7's exact author protocol is not established by this source audit; record
 both raw and filtered results rather than silently comparing different settings.
 Teacher oracle minimum ranks also cannot be reported as student performance.
 
 Paper Table 7 targets for DSoM are MRR .9213, Hits@1 .9052, and Hits@10 .9556.
-No WN9 reproduction result is claimed yet.
+The completed source-frozen student reached filtered MRR .919634 / H@1 .903336 /
+H@10 .949583 and raw MRR .618763 on the same checkpoint. This audit establishes
+data provenance, not exact author-protocol equivalence.
