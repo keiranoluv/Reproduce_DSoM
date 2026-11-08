@@ -1,0 +1,17 @@
+% Compile with XeLaTeX from docs/latex: xelatex dsom_example.tex
+% For your report: merge dsom_preamble.tex into the preamble, then copy tables
+% from dsom_tables.tex or use \input{dsom_tables.tex} in the document body.
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=2cm]{geometry}
+\usepackage{fontspec}
+\setmainfont{DejaVu Serif}
+\usepackage{longtable}
+\input{dsom_preamble.tex}
+\begin{document}
+\input{dsom_notes.tex}
+\input{dsom_tables.tex}
+\clearpage
+\input{dsom_optional_tables.tex}
+\clearpage
+\input{dsom_run_index.tex}
+\end{document}

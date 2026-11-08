@@ -1,0 +1,41 @@
+\begin{table}[htp]
+\centering
+\caption{Chẩn đoán bổ sung: Teacher Avg. theo hai cách tổng hợp; MRR và Hits@K (\%).}
+\label{tab:dsom_teacher_avg_diagnostic}
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.12}
+\begin{tabular}{@{}lrrrr@{}}
+\toprule
+\textbf{Cách tổng hợp} & \textbf{MRR} & \textbf{H@1} & \textbf{H@3} & \textbf{H@10} \\
+\midrule
+Trung bình metrics & \dsomrun{69tufeey}{24.27} & \dsomrun{69tufeey}{18.38} & \dsomrun{69tufeey}{26.53} & \dsomrun{69tufeey}{35.66} \\
+Trung bình logits & \dsomsource{69tufeey}{33.00} & \dsomsource{69tufeey}{24.45} & \dsomsource{69tufeey}{36.98} & \dsomsource{69tufeey}{49.28} \\
+\bottomrule
+\end{tabular}
+\par\smallskip
+\begin{minipage}{0.98\linewidth}\scriptsize
+\textsuperscript{\textdagger} Mean-logit score lấy từ result.json; link dẫn đến source run, W\&B summary chỉ ghi mean metrics.
+\end{minipage}
+\end{table}
+
+\begin{table}[htp]
+\centering
+\caption{DB15K CleanV1: sensitivity analysis, MRR và Hits@K (\%).}
+\label{tab:dsom_clean_sensitivity}
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.12}
+\begin{tabular}{@{}lrrrr@{}}
+\toprule
+\textbf{Dataset} & \textbf{MRR} & \textbf{H@1} & \textbf{H@3} & \textbf{H@10} \\
+\midrule
+DB15K gốc & \dsomrun{gvpp95st}{41.30} & \dsomrun{gvpp95st}{33.17} & \dsomrun{gvpp95st}{45.47} & \dsomrun{gvpp95st}{56.57} \\
+CleanV1 & 38.07 & 30.11 & 41.88 & 53.27 \\
+\bottomrule
+\end{tabular}
+\par\smallskip
+\begin{minipage}{0.98\linewidth}\scriptsize
+CleanV1 chưa tìm thấy run W\&B trong artifacts local nên không gắn link. Splits, training size và filters thay đổi; đây là sensitivity analysis, không phải ước lượng nhân quả riêng của contamination.
+\end{minipage}
+\end{table}

@@ -1,0 +1,389 @@
+% Generated from verified local artifacts. Copy individual table blocks or input this file.
+\begin{table}[htp]
+\centering
+\caption{So sánh MRR và Hits@K (\%) trên DB15K, MKG-W và MKG-Y (Table 1).}
+\label{tab:dsom_mmkg}
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.12}
+\begin{tabular}{@{}llrrrr@{}}
+\toprule
+\textbf{Dataset} & \textbf{Nguồn} & \textbf{MRR} & \textbf{H@1} & \textbf{H@3} & \textbf{H@10} \\
+\midrule
+DB15K & Paper & 42.68 & 34.45 & 46.62 & 58.12 \\
+ & Tái lập & \dsomrun{gvpp95st}{41.30} & \dsomrun{gvpp95st}{33.17} & \dsomrun{gvpp95st}{45.47} & \dsomrun{gvpp95st}{56.57} \\
+ & $\Delta$ & \deltaneg{-1.38} & \deltaneg{-1.28} & \deltaneg{-1.15} & \deltaneg{-1.55} \\
+\addlinespace
+MKG-W & Paper & 40.90 & 33.56 & 43.58 & 55.28 \\
+ & Tái lập & \dsomrun{530tgh0o}{40.58} & \dsomrun{530tgh0o}{33.54} & \dsomrun{530tgh0o}{43.19} & \dsomrun{530tgh0o}{53.73} \\
+ & $\Delta$ & \deltaneg{-0.32} & \deltaneg{-0.02} & \deltaneg{-0.39} & \deltaneg{-1.55} \\
+\addlinespace
+MKG-Y & Paper & 40.02 & 35.67 & 41.70 & 47.71 \\
+ & Tái lập & \dsomrun{2a9t5tjk}{40.69} & \dsomrun{2a9t5tjk}{36.01} & \dsomrun{2a9t5tjk}{42.41} & \dsomrun{2a9t5tjk}{48.99} \\
+ & $\Delta$ & \deltapos{+0.67} & \deltapos{+0.34} & \deltapos{+0.71} & \deltapos{+1.28} \\
+\addlinespace
+\bottomrule
+\end{tabular}
+\par\smallskip
+\begin{minipage}{0.98\linewidth}\scriptsize
+Baseline tái lập dùng source-frozen RC; checkpoint được chọn theo validation MRR.
+\end{minipage}
+\end{table}
+
+\begin{table}[htp]
+\centering
+\caption{Teacher selection trên DB15K (Table 2); MRR và Hits@K (\%).}
+\label{tab:dsom_table2_mmkb-db15k}
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.12}
+\begin{tabular}{@{}llrrrr@{}}
+\toprule
+\textbf{Phương pháp} & \textbf{Nguồn} & \textbf{MRR} & \textbf{H@1} & \textbf{H@3} & \textbf{H@10} \\
+\midrule
+DSoM (frozen RC) & Paper & 42.68 & 34.45 & 46.62 & 58.12 \\
+ & Tái lập & \dsomrun{gvpp95st}{41.30} & \dsomrun{gvpp95st}{33.17} & \dsomrun{gvpp95st}{45.47} & \dsomrun{gvpp95st}{56.57} \\
+ & $\Delta$ & \deltaneg{-1.38} & \deltaneg{-1.28} & \deltaneg{-1.15} & \deltaneg{-1.55} \\
+\addlinespace
+ConfTeacher & Paper & 40.87 & 32.82 & 44.75 & 56.16 \\
+ & Tái lập & \dsomrun{sa6dphy6}{40.81} & \dsomrun{sa6dphy6}{32.96} & \dsomrun{sa6dphy6}{44.66} & \dsomrun{sa6dphy6}{55.82} \\
+ & $\Delta$ & \deltaneg{-0.06} & \deltapos{+0.14} & \deltaneg{-0.09} & \deltaneg{-0.34} \\
+\addlinespace
+BestTeacher & Paper & 41.43 & 33.46 & 45.40 & 56.56 \\
+ & Tái lập & \dsomrun{7h7gppby}{40.97} & \dsomrun{7h7gppby}{32.95} & \dsomrun{7h7gppby}{44.89} & \dsomrun{7h7gppby}{56.36} \\
+ & $\Delta$ & \deltaneg{-0.46} & \deltaneg{-0.51} & \deltaneg{-0.51} & \deltaneg{-0.20} \\
+\addlinespace
+BestStrategy & Paper & 41.65 & 33.60 & 45.81 & 56.94 \\
+ & Tái lập & \dsomrun{7jui1jln}{41.53} & \dsomrun{7jui1jln}{33.66} & \dsomrun{7jui1jln}{45.45} & \dsomrun{7jui1jln}{56.54} \\
+ & $\Delta$ & \deltaneg{-0.12} & \deltapos{+0.06} & \deltaneg{-0.36} & \deltaneg{-0.40} \\
+\addlinespace
+MulDE (adapted) & Paper & 39.94 & 31.74 & 43.52 & 56.03 \\
+ & Tái lập & \dsomrun{21cexx1p}{38.79} & \dsomrun{21cexx1p}{31.64} & \dsomrun{21cexx1p}{42.39} & \dsomrun{21cexx1p}{52.34} \\
+ & $\Delta$ & \deltaneg{-1.15} & \deltaneg{-0.10} & \deltaneg{-1.13} & \deltaneg{-3.69} \\
+\addlinespace
+\bottomrule
+\end{tabular}
+\par\smallskip
+\begin{minipage}{0.98\linewidth}\scriptsize
+MulDE là bản adaptation; dòng DSoM tái lập dùng source-frozen RC.
+\end{minipage}
+\end{table}
+
+\begin{table}[htp]
+\centering
+\caption{Teacher selection trên MKG-W (Table 2); MRR và Hits@K (\%).}
+\label{tab:dsom_table2_mkg-w}
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.12}
+\begin{tabular}{@{}llrrrr@{}}
+\toprule
+\textbf{Phương pháp} & \textbf{Nguồn} & \textbf{MRR} & \textbf{H@1} & \textbf{H@3} & \textbf{H@10} \\
+\midrule
+DSoM (frozen RC) & Paper & 40.90 & 33.56 & 43.58 & 55.28 \\
+ & Tái lập & \dsomrun{530tgh0o}{40.58} & \dsomrun{530tgh0o}{33.54} & \dsomrun{530tgh0o}{43.19} & \dsomrun{530tgh0o}{53.73} \\
+ & $\Delta$ & \deltaneg{-0.32} & \deltaneg{-0.02} & \deltaneg{-0.39} & \deltaneg{-1.55} \\
+\addlinespace
+ConfTeacher & Paper & 37.49 & 31.50 & 39.64 & 48.97 \\
+ & Tái lập & \dsomrun{ipotae21}{37.72} & \dsomrun{ipotae21}{31.83} & \dsomrun{ipotae21}{39.87} & \dsomrun{ipotae21}{49.18} \\
+ & $\Delta$ & \deltapos{+0.23} & \deltapos{+0.33} & \deltapos{+0.23} & \deltapos{+0.21} \\
+\addlinespace
+BestTeacher & Paper & 38.27 & 32.41 & 40.48 & 49.61 \\
+ & Tái lập & \dsomrun{4j77nc0v}{37.73} & \dsomrun{4j77nc0v}{31.68} & \dsomrun{4j77nc0v}{40.29} & \dsomrun{4j77nc0v}{48.91} \\
+ & $\Delta$ & \deltaneg{-0.54} & \deltaneg{-0.73} & \deltaneg{-0.19} & \deltaneg{-0.70} \\
+\addlinespace
+BestStrategy & Paper & 39.14 & 32.88 & 41.55 & 51.10 \\
+ & Tái lập & \dsomrun{x2xnt5dv}{38.21} & \dsomrun{x2xnt5dv}{32.01} & \dsomrun{x2xnt5dv}{40.52} & \dsomrun{x2xnt5dv}{49.74} \\
+ & $\Delta$ & \deltaneg{-0.93} & \deltaneg{-0.87} & \deltaneg{-1.03} & \deltaneg{-1.36} \\
+\addlinespace
+MulDE (adapted) & Paper & 38.68 & 32.39 & 41.11 & 50.36 \\
+ & Tái lập & \dsomrun{s0ob59f5}{37.32} & \dsomrun{s0ob59f5}{31.07} & \dsomrun{s0ob59f5}{39.47} & \dsomrun{s0ob59f5}{49.31} \\
+ & $\Delta$ & \deltaneg{-1.36} & \deltaneg{-1.32} & \deltaneg{-1.64} & \deltaneg{-1.05} \\
+\addlinespace
+\bottomrule
+\end{tabular}
+\par\smallskip
+\begin{minipage}{0.98\linewidth}\scriptsize
+MulDE là bản adaptation; dòng DSoM tái lập dùng source-frozen RC.
+\end{minipage}
+\end{table}
+
+\begin{table}[htp]
+\centering
+\caption{Teacher selection trên MKG-Y (Table 2); MRR và Hits@K (\%).}
+\label{tab:dsom_table2_mkg-y}
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.12}
+\begin{tabular}{@{}llrrrr@{}}
+\toprule
+\textbf{Phương pháp} & \textbf{Nguồn} & \textbf{MRR} & \textbf{H@1} & \textbf{H@3} & \textbf{H@10} \\
+\midrule
+DSoM (frozen RC) & Paper & 40.02 & 35.67 & 41.70 & 47.71 \\
+ & Tái lập & \dsomrun{2a9t5tjk}{40.69} & \dsomrun{2a9t5tjk}{36.01} & \dsomrun{2a9t5tjk}{42.41} & \dsomrun{2a9t5tjk}{48.99} \\
+ & $\Delta$ & \deltapos{+0.67} & \deltapos{+0.34} & \deltapos{+0.71} & \deltapos{+1.28} \\
+\addlinespace
+ConfTeacher & Paper & 37.76 & 33.93 & 39.82 & 44.24 \\
+ & Tái lập & \dsomrun{69whpbut}{38.60} & \dsomrun{69whpbut}{35.02} & \dsomrun{69whpbut}{40.16} & \dsomrun{69whpbut}{45.21} \\
+ & $\Delta$ & \deltapos{+0.84} & \deltapos{+1.09} & \deltapos{+0.34} & \deltapos{+0.97} \\
+\addlinespace
+BestTeacher & Paper & 38.51 & 34.89 & 40.39 & 44.71 \\
+ & Tái lập & \dsomrun{pde7aget}{38.72} & \dsomrun{pde7aget}{35.09} & \dsomrun{pde7aget}{40.44} & \dsomrun{pde7aget}{45.02} \\
+ & $\Delta$ & \deltapos{+0.21} & \deltapos{+0.20} & \deltapos{+0.05} & \deltapos{+0.31} \\
+\addlinespace
+BestStrategy & Paper & 39.34 & 35.58 & 41.01 & 45.74 \\
+ & Tái lập & \dsomrun{ig4dosz9}{38.90} & \dsomrun{ig4dosz9}{34.74} & \dsomrun{ig4dosz9}{41.12} & \dsomrun{ig4dosz9}{45.98} \\
+ & $\Delta$ & \deltaneg{-0.44} & \deltaneg{-0.84} & \deltapos{+0.11} & \deltapos{+0.24} \\
+\addlinespace
+MulDE (adapted) & Paper & 39.62 & 35.60 & 41.19 & 46.68 \\
+ & Tái lập & \dsomrun{s763om5u}{39.00} & \dsomrun{s763om5u}{34.59} & \dsomrun{s763om5u}{40.89} & \dsomrun{s763om5u}{46.40} \\
+ & $\Delta$ & \deltaneg{-0.62} & \deltaneg{-1.01} & \deltaneg{-0.30} & \deltaneg{-0.28} \\
+\addlinespace
+\bottomrule
+\end{tabular}
+\par\smallskip
+\begin{minipage}{0.98\linewidth}\scriptsize
+MulDE là bản adaptation; dòng DSoM tái lập dùng source-frozen RC.
+\end{minipage}
+\end{table}
+
+\begin{table}[htp]
+\centering
+\caption{Kết quả trên FB15K-237 và WN18 (Table 3). MR là giá trị gốc; Hits@K tính theo \%.}
+\label{tab:dsom_kg}
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.12}
+\begin{tabular}{@{}llrrrr@{}}
+\toprule
+\textbf{Dataset} & \textbf{Nguồn} & \textbf{MR} & \textbf{H@1} & \textbf{H@3} & \textbf{H@10} \\
+\midrule
+FB15K-237 & Paper & 116.00 & 27.50 & 41.10 & 56.40 \\
+ & Tái lập & \dsomrun{pebphkp6}{116.56} & \dsomrun{pebphkp6}{27.79} & \dsomrun{pebphkp6}{41.05} & \dsomrun{pebphkp6}{56.67} \\
+ & $\Delta$ & \deltaneg{+0.56} & \deltapos{+0.29} & \deltaneg{-0.05} & \deltapos{+0.27} \\
+\addlinespace
+WN18 & Paper & 7.00 & 95.00 & 96.20 & 97.40 \\
+ & Tái lập & \dsomrun{otquhagi}{8.96} & \dsomrun{otquhagi}{94.87} & \dsomrun{otquhagi}{95.92} & \dsomrun{otquhagi}{96.89} \\
+ & $\Delta$ & \deltaneg{+1.96} & \deltaneg{-0.13} & \deltaneg{-0.28} & \deltaneg{-0.51} \\
+\addlinespace
+\bottomrule
+\end{tabular}
+\par\smallskip
+\begin{minipage}{0.98\linewidth}\scriptsize
+MR thấp hơn tốt hơn; các chỉ số còn lại cao hơn tốt hơn.
+\end{minipage}
+\end{table}
+
+\begin{table}[htp]
+\centering
+\caption{Ablation trên DB15K (Table 4); MRR và Hits@K (\%).}
+\label{tab:dsom_table4}
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.12}
+\begin{tabular}{@{}llrrrr@{}}
+\toprule
+\textbf{Cấu hình} & \textbf{Nguồn} & \textbf{MRR} & \textbf{H@1} & \textbf{H@3} & \textbf{H@10} \\
+\midrule
+Teacher Avg. (metrics) & Paper & 37.64 & 28.14 & 39.60 & 51.63 \\
+ & Tái lập & \dsomrun{69tufeey}{24.27} & \dsomrun{69tufeey}{18.38} & \dsomrun{69tufeey}{26.53} & \dsomrun{69tufeey}{35.66} \\
+ & $\Delta$ & \deltaneg{-13.37} & \deltaneg{-9.76} & \deltaneg{-13.07} & \deltaneg{-15.97} \\
+\addlinespace
+ML on val. (adapted) & Paper & 40.62 & 32.34 & 44.53 & 55.29 \\
+ & Tái lập & \dsomrun{1vebd13p}{40.89} & \dsomrun{1vebd13p}{32.95} & \dsomrun{1vebd13p}{44.91} & \dsomrun{1vebd13p}{55.83} \\
+ & $\Delta$ & \deltapos{+0.27} & \deltapos{+0.61} & \deltapos{+0.38} & \deltapos{+0.54} \\
+\addlinespace
+RC on val. (adapted) & Paper & 41.08 & 33.21 & 45.01 & 56.08 \\
+ & Tái lập & \dsomrun{9p90ll1a}{40.08} & \dsomrun{9p90ll1a}{32.31} & \dsomrun{9p90ll1a}{43.80} & \dsomrun{9p90ll1a}{54.91} \\
+ & $\Delta$ & \deltaneg{-1.00} & \deltaneg{-0.90} & \deltaneg{-1.21} & \deltaneg{-1.17} \\
+\addlinespace
+Average + NDKD & Paper & 41.91 & 33.69 & 45.83 & 57.56 \\
+ & Tái lập & \dsomrun{e6i6aw58}{41.31} & \dsomrun{e6i6aw58}{33.28} & \dsomrun{e6i6aw58}{45.26} & \dsomrun{e6i6aw58}{56.49} \\
+ & $\Delta$ & \deltaneg{-0.60} & \deltaneg{-0.41} & \deltaneg{-0.57} & \deltaneg{-1.07} \\
+\addlinespace
+RC + $\mathcal{L}_{NEKD}$ & Paper & 41.00 & 33.07 & 44.93 & 56.00 \\
+ & Tái lập & \dsomrun{r7fv735u}{41.10} & \dsomrun{r7fv735u}{33.31} & \dsomrun{r7fv735u}{45.00} & \dsomrun{r7fv735u}{56.00} \\
+ & $\Delta$ & \deltapos{+0.10} & \deltapos{+0.24} & \deltapos{+0.07} & \deltapos{+0.00} \\
+\addlinespace
+RC + $\mathcal{L}_{NNKD}$ & Paper & 42.33 & 33.93 & 46.39 & 58.08 \\
+ & Tái lập & \dsomrun{0prk36n2}{41.21} & \dsomrun{0prk36n2}{33.23} & \dsomrun{0prk36n2}{45.20} & \dsomrun{0prk36n2}{56.38} \\
+ & $\Delta$ & \deltaneg{-1.12} & \deltaneg{-0.70} & \deltaneg{-1.19} & \deltaneg{-1.70} \\
+\addlinespace
+RC + Vanilla KD & Paper & 42.03 & 33.62 & 46.07 & 57.96 \\
+ & Tái lập & \dsomrun{9vw2fikt}{41.34} & \dsomrun{9vw2fikt}{33.45} & \dsomrun{9vw2fikt}{45.23} & \dsomrun{9vw2fikt}{56.52} \\
+ & $\Delta$ & \deltaneg{-0.69} & \deltaneg{-0.17} & \deltaneg{-0.84} & \deltaneg{-1.44} \\
+\addlinespace
+RC + DKD & Paper & 42.31 & 34.00 & 46.16 & 58.07 \\
+ & Tái lập & \dsomrun{hpruwc92}{41.30} & \dsomrun{hpruwc92}{33.34} & \dsomrun{hpruwc92}{45.23} & \dsomrun{hpruwc92}{56.49} \\
+ & $\Delta$ & \deltaneg{-1.01} & \deltaneg{-0.66} & \deltaneg{-0.93} & \deltaneg{-1.58} \\
+\addlinespace
+DSoM (learned RC) & Paper & 42.68 & 34.45 & 46.62 & 58.12 \\
+ & Tái lập & \dsomrun{qqnzvnz2}{41.42} & \dsomrun{qqnzvnz2}{33.52} & \dsomrun{qqnzvnz2}{45.34} & \dsomrun{qqnzvnz2}{56.44} \\
+ & $\Delta$ & \deltaneg{-1.26} & \deltaneg{-0.93} & \deltaneg{-1.28} & \deltaneg{-1.68} \\
+\addlinespace
+\bottomrule
+\end{tabular}
+\par\smallskip
+\begin{minipage}{0.98\linewidth}\scriptsize
+Các dòng RC của student dùng learned RC (Adam). Teacher Avg. là trung bình metrics ba modalities; ML/RC trên validation là adaptations.
+\end{minipage}
+\end{table}
+
+\begin{table}[htp]
+\centering
+\caption{Ablation modality trên DB15K (Table 6); MRR và Hits@K (\%).}
+\label{tab:dsom_table6_mmkb-db15k}
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.12}
+\begin{tabular}{@{}llrrrr@{}}
+\toprule
+\textbf{Teacher} & \textbf{Nguồn} & \textbf{MRR} & \textbf{H@1} & \textbf{H@3} & \textbf{H@10} \\
+\midrule
+Full (frozen RC) & Paper & 42.68 & 34.45 & 46.62 & 58.12 \\
+ & Tái lập & \dsomrun{gvpp95st}{41.30} & \dsomrun{gvpp95st}{33.17} & \dsomrun{gvpp95st}{45.47} & \dsomrun{gvpp95st}{56.57} \\
+ & $\Delta$ & \deltaneg{-1.38} & \deltaneg{-1.28} & \deltaneg{-1.15} & \deltaneg{-1.55} \\
+\addlinespace
+Structure & Paper & 41.34 & 33.46 & 45.29 & 56.39 \\
+ & Tái lập & \dsomrun{3fhw62i2}{41.27} & \dsomrun{3fhw62i2}{33.39} & \dsomrun{3fhw62i2}{45.19} & \dsomrun{3fhw62i2}{56.26} \\
+ & $\Delta$ & \deltaneg{-0.07} & \deltaneg{-0.07} & \deltaneg{-0.10} & \deltaneg{-0.13} \\
+\addlinespace
+Visual & Paper & 37.36 & 30.19 & 40.92 & 51.03 \\
+ & Tái lập & \dsomrun{2cxoh1z2}{38.11} & \dsomrun{2cxoh1z2}{30.62} & \dsomrun{2cxoh1z2}{42.05} & \dsomrun{2cxoh1z2}{52.54} \\
+ & $\Delta$ & \deltapos{+0.75} & \deltapos{+0.43} & \deltapos{+1.13} & \deltapos{+1.51} \\
+\addlinespace
+Description & Paper & 41.30 & 32.87 & 45.25 & 57.48 \\
+ & Tái lập & \dsomrun{jxfadxq5}{38.18} & \dsomrun{jxfadxq5}{30.49} & \dsomrun{jxfadxq5}{41.86} & \dsomrun{jxfadxq5}{52.79} \\
+ & $\Delta$ & \deltaneg{-3.12} & \deltaneg{-2.38} & \deltaneg{-3.39} & \deltaneg{-4.69} \\
+\addlinespace
+\bottomrule
+\end{tabular}
+\par\smallskip
+\begin{minipage}{0.98\linewidth}\scriptsize
+Student luôn chỉ dùng cấu trúc. Các dòng single-modality dùng fixed teacher + NDKD.
+\end{minipage}
+\end{table}
+
+\begin{table}[htp]
+\centering
+\caption{Ablation modality trên MKG-W (Table 6); MRR và Hits@K (\%).}
+\label{tab:dsom_table6_mkg-w}
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.12}
+\begin{tabular}{@{}llrrrr@{}}
+\toprule
+\textbf{Teacher} & \textbf{Nguồn} & \textbf{MRR} & \textbf{H@1} & \textbf{H@3} & \textbf{H@10} \\
+\midrule
+Full (frozen RC) & Paper & 40.90 & 33.56 & 43.58 & 55.28 \\
+ & Tái lập & \dsomrun{530tgh0o}{40.58} & \dsomrun{530tgh0o}{33.54} & \dsomrun{530tgh0o}{43.19} & \dsomrun{530tgh0o}{53.73} \\
+ & $\Delta$ & \deltaneg{-0.32} & \deltaneg{-0.02} & \deltaneg{-0.39} & \deltaneg{-1.55} \\
+\addlinespace
+Structure & Paper & 36.81 & 31.02 & 38.79 & 47.99 \\
+ & Tái lập & \dsomrun{r01l48al}{36.67} & \dsomrun{r01l48al}{30.90} & \dsomrun{r01l48al}{38.66} & \dsomrun{r01l48al}{47.87} \\
+ & $\Delta$ & \deltaneg{-0.14} & \deltaneg{-0.12} & \deltaneg{-0.13} & \deltaneg{-0.12} \\
+\addlinespace
+Visual & Paper & 31.18 & 25.92 & 33.53 & 40.84 \\
+ & Tái lập & \dsomrun{p2mlr7xq}{29.57} & \dsomrun{p2mlr7xq}{24.73} & \dsomrun{p2mlr7xq}{31.59} & \dsomrun{p2mlr7xq}{38.42} \\
+ & $\Delta$ & \deltaneg{-1.61} & \deltaneg{-1.19} & \deltaneg{-1.94} & \deltaneg{-2.42} \\
+\addlinespace
+Description & Paper & 39.23 & 31.50 & 41.94 & 54.05 \\
+ & Tái lập & \dsomrun{yf4oiilt}{40.06} & \dsomrun{yf4oiilt}{32.62} & \dsomrun{yf4oiilt}{42.86} & \dsomrun{yf4oiilt}{54.26} \\
+ & $\Delta$ & \deltapos{+0.83} & \deltapos{+1.12} & \deltapos{+0.92} & \deltapos{+0.21} \\
+\addlinespace
+\bottomrule
+\end{tabular}
+\par\smallskip
+\begin{minipage}{0.98\linewidth}\scriptsize
+Student luôn chỉ dùng cấu trúc. Các dòng single-modality dùng fixed teacher + NDKD.
+\end{minipage}
+\end{table}
+
+\begin{table}[htp]
+\centering
+\caption{Ablation modality trên MKG-Y (Table 6); MRR và Hits@K (\%).}
+\label{tab:dsom_table6_mkg-y}
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.12}
+\begin{tabular}{@{}llrrrr@{}}
+\toprule
+\textbf{Teacher} & \textbf{Nguồn} & \textbf{MRR} & \textbf{H@1} & \textbf{H@3} & \textbf{H@10} \\
+\midrule
+Full (frozen RC) & Paper & 40.02 & 35.67 & 41.70 & 47.71 \\
+ & Tái lập & \dsomrun{2a9t5tjk}{40.69} & \dsomrun{2a9t5tjk}{36.01} & \dsomrun{2a9t5tjk}{42.41} & \dsomrun{2a9t5tjk}{48.99} \\
+ & $\Delta$ & \deltapos{+0.67} & \deltapos{+0.34} & \deltapos{+0.71} & \deltapos{+1.28} \\
+\addlinespace
+Structure & Paper & 38.33 & 34.92 & 40.14 & 44.24 \\
+ & Tái lập & \dsomrun{nzkmmg3e}{38.27} & \dsomrun{nzkmmg3e}{34.92} & \dsomrun{nzkmmg3e}{40.09} & \dsomrun{nzkmmg3e}{44.18} \\
+ & $\Delta$ & \deltaneg{-0.06} & \deltapos{+0.00} & \deltaneg{-0.05} & \deltaneg{-0.06} \\
+\addlinespace
+Visual & Paper & 33.92 & 30.79 & 35.09 & 39.05 \\
+ & Tái lập & \dsomrun{qfy1moa8}{37.59} & \dsomrun{qfy1moa8}{34.45} & \dsomrun{qfy1moa8}{39.00} & \dsomrun{qfy1moa8}{42.92} \\
+ & $\Delta$ & \deltapos{+3.67} & \deltapos{+3.66} & \deltapos{+3.91} & \deltapos{+3.87} \\
+\addlinespace
+Description & Paper & 37.29 & 32.73 & 39.24 & 45.16 \\
+ & Tái lập & \dsomrun{z59nahld}{38.45} & \dsomrun{z59nahld}{33.36} & \dsomrun{z59nahld}{40.33} & \dsomrun{z59nahld}{47.22} \\
+ & $\Delta$ & \deltapos{+1.16} & \deltapos{+0.63} & \deltapos{+1.09} & \deltapos{+2.06} \\
+\addlinespace
+\bottomrule
+\end{tabular}
+\par\smallskip
+\begin{minipage}{0.98\linewidth}\scriptsize
+Student luôn chỉ dùng cấu trúc. Các dòng single-modality dùng fixed teacher + NDKD.
+\end{minipage}
+\end{table}
+
+\begin{table}[htp]
+\centering
+\caption{Kết quả DSoM trên WN9 (Table 7); MRR và Hits@K (\%).}
+\label{tab:dsom_wn9}
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.12}
+\begin{tabular}{@{}lrrrr@{}}
+\toprule
+\textbf{Nguồn} & \textbf{MRR} & \textbf{H@1} & \textbf{H@3} & \textbf{H@10} \\
+\midrule
+Paper & 92.13 & 90.52 & -- & 95.56 \\
+Tái lập (filtered) & \dsomrun{8k36o3o8}{91.96} & \dsomrun{8k36o3o8}{90.33} & \dsomrun{8k36o3o8}{92.84} & \dsomrun{8k36o3o8}{94.96} \\
+$\Delta$ (filtered) & \deltaneg{-0.17} & \deltaneg{-0.19} & -- & \deltaneg{-0.60} \\
+\addlinespace
+Tái lập (raw) & \dsomsource{8k36o3o8}{61.88} & \dsomsource{8k36o3o8}{52.05} & \dsomsource{8k36o3o8}{66.94} & \dsomsource{8k36o3o8}{81.01} \\
+\bottomrule
+\end{tabular}
+\par\smallskip
+\begin{minipage}{0.98\linewidth}\scriptsize
+\textsuperscript{\textdagger} Raw được đánh giá riêng trên cùng checkpoint epoch 15; link dẫn đến run tạo checkpoint, chưa có raw metrics trong W\&B log đã kiểm tra. Chưa xác minh paper dùng cùng protocol raw/filtered.
+\end{minipage}
+\end{table}
+
+\begin{table}[htp]
+\centering
+\caption{Thực nghiệm bổ sung trên DB15K: teacher selection và distillation; MRR (\%).}
+\label{tab:dsom_ablation}
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.12}
+\begin{tabular}{@{}lllr@{}}
+\toprule
+\textbf{Run} & \textbf{Teacher selection} & \textbf{KD} & \textbf{MRR} \\
+\midrule
+Exp01 & Frozen RC & NDKD & \dsomrun{gvpp95st}{41.30} \\
+A1 & Structure & NDKD & \dsomrun{3fhw62i2}{41.27} \\
+A2 & Description & NDKD & \dsomrun{jxfadxq5}{38.18} \\
+A3 & S + D & NDKD & \dsomrun{sf7vexg5}{41.37} \\
+A4 & Average & NDKD & \dsomrun{e6i6aw58}{41.31} \\
+A5 & Learned RC & NDKD & \dsomrun{qqnzvnz2}{41.42} \\
+A6 & RC (CE reward) & NDKD & \dsomrun{zuhqedof}{41.29} \\
+A7 & S + D & Vanilla KD & \dsomrun{i9azqqx2}{\textbf{41.44}} \\
+A8 & S + D & DKD & \dsomrun{opus98xu}{41.40} \\
+A9 & Learned RC & Vanilla KD & \dsomrun{9vw2fikt}{41.34} \\
+A10 & Learned RC & DKD & \dsomrun{hpruwc92}{41.30} \\
+\bottomrule
+\end{tabular}
+\par\smallskip
+\begin{minipage}{0.98\linewidth}\scriptsize
+A9/A10 bổ sung so sánh losses dưới learned RC. A3/A7/A8 là fixed S+D, cần phân biệt với các dòng RC + loss trong Table 4.
+\end{minipage}
+\end{table}

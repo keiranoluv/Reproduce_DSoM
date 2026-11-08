@@ -1,0 +1,20 @@
+% Copy into your preamble. Requires booktabs, xcolor with table support, hyperref.
+% If xcolor is already loaded, use colortbl instead of loading xcolor twice.
+\usepackage{booktabs}
+\usepackage[table]{xcolor}
+\usepackage{hyperref}
+\providecolor{resultgray}{gray}{0.94}
+% User's Forge URL convention. Original wandb.ai URLs are in dsom_run_links.json.
+% To use the original host, change only this base URL.
+\providecommand{\dsomrunbase}{https://forge.coreweave.com/wandb/keiranoluv-hcmus/DSoM-Reproduction/runs/}
+\providecommand{\dsomrun}[2]{%
+  \cellcolor{resultgray}%
+  \href{\dsomrunbase#1}{#2}%
+}
+% Dagger: links to the checkpoint/source run; this metric is not verified in W&B.
+\providecommand{\dsomsource}[2]{%
+  \cellcolor{resultgray}%
+  \href{\dsomrunbase#1}{#2}\textsuperscript{\textdagger}%
+}
+\providecommand{\deltaneg}[1]{\textcolor{red!70!black}{#1}}
+\providecommand{\deltapos}[1]{\textcolor{green!45!black}{#1}}

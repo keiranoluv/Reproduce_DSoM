@@ -1,0 +1,17 @@
+\noindent\textbf{Cách đọc các liên kết.}
+Số liệu MRR/Hits được nhân 100; $\Delta$ là tái lập trừ paper, tính bằng điểm phần trăm.
+MR giữ đơn vị gốc và thấp hơn tốt hơn. Các ô số màu xám dẫn đến run W\&B.
+Đối với student, xem đường test tại epoch được liệt kê trong phụ lục run;
+summary test cuối run có thể khác checkpoint được chọn theo validation MRR.
+Liên kết có dấu \textsuperscript{\textdagger} chỉ xác định run nguồn/checkpoint;
+metric tương ứng được lấy từ artifact đánh giá riêng, chưa được xác minh trong W\&B.
+Run ID, project và metrics đã được đối chiếu với các file W\&B local;
+chưa xác minh quyền truy cập hoặc trạng thái đồng bộ trên máy chủ.
+
+\medskip
+\noindent\textbf{Phạm vi.}
+Bộ bảng chính bao phủ phần DSoM/teacher-selection/ablation đã chạy ở Tables 1, 2, 3, 4, 6, 7,
+và Exp01/A1--A10. Table 5 là thống kê dataset nên không có training run.
+Các bảng diagnostics E--L là những phân tích riêng và không được gộp vào benchmark chính.
+Bảng CleanV1 và mean-logit teacher được cung cấp riêng trong file optional.
+Source-frozen RC, learned RC và các adaptations được ghi nhãn riêng.

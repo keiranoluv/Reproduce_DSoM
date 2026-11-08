@@ -1,0 +1,1083 @@
+{
+  "project": "keiranoluv-hcmus/DSoM-Reproduction",
+  "remote_access_verified": false,
+  "verification": "Local W&B record stream/history/summary and saved result files; no remote writes",
+  "rows": [
+    {
+      "result": "runs/student/MMKB-DB15K/full/T1_DB15K_Exp01_BERT_ViT_Student_RC_SourceFrozen_SchMin_BS1000_R2000_LR0p1_N3_KL2_T4_Seed2022/20261021_151535_2887785/checkpoints/0/result.json",
+      "result_sha256": "dda36b986539c9b1078abf5e9f141ed71a4200db7924ccec3d71d8317f89e81a",
+      "run_id": "gvpp95st",
+      "recorded_url": "https://wandb.ai/keiranoluv-hcmus/DSoM-Reproduction/runs/gvpp95st",
+      "report_url": "https://forge.coreweave.com/wandb/keiranoluv-hcmus/DSoM-Reproduction/runs/gvpp95st",
+      "selected_epoch": 63,
+      "protocol": "filtered",
+      "metrics": {
+        "MR": 326.1552734375,
+        "MRR": 0.41304613649845123,
+        "hits@[1,3,10]": [
+          0.3317006528377533,
+          0.45465561747550964,
+          0.5657442808151245
+        ]
+      },
+      "verification": "local_wandb_metrics_match",
+      "evidence": [
+        "runs/student/MMKB-DB15K/full/T1_DB15K_Exp01_BERT_ViT_Student_RC_SourceFrozen_SchMin_BS1000_R2000_LR0p1_N3_KL2_T4_Seed2022/20261021_151535_2887785/student.log",
+        "runs/student/MMKB-DB15K/full/T1_DB15K_Exp01_BERT_ViT_Student_RC_SourceFrozen_SchMin_BS1000_R2000_LR0p1_N3_KL2_T4_Seed2022/20261021_151535_2887785/wandb/wandb/run-20261021_222052-gvpp95st/files/output.log",
+        "runs/student/MMKB-DB15K/full/T1_DB15K_Exp01_BERT_ViT_Student_RC_SourceFrozen_SchMin_BS1000_R2000_LR0p1_N3_KL2_T4_Seed2022/20261021_151535_2887785/wandb/wandb/run-20261021_222052-gvpp95st/run-gvpp95st.wandb"
+      ],
+      "metric_selector": "final_result"
+    },
+    {
+      "result": "runs/student/MKG-W/full/T1_MKGW_Exp01_Student_RC_SourceFrozen_SchMin_BS1000_R2000_LR0p1_N3_KL2_T4_Seed2022/20261020_181221_2590139/checkpoints/0/result.json",
+      "result_sha256": "860d5c58682d3c09809a5a805c9fdab54605fb0733fd82f5d8aae72ffecac6b3",
+      "run_id": "530tgh0o",
+      "recorded_url": "https://wandb.ai/keiranoluv-hcmus/DSoM-Reproduction/runs/530tgh0o",
+      "report_url": "https://forge.coreweave.com/wandb/keiranoluv-hcmus/DSoM-Reproduction/runs/530tgh0o",
+      "selected_epoch": 54,
+      "protocol": "filtered",
+      "metrics": {
+        "MR": 232.71842193603516,
+        "MRR": 0.4058402553200722,
+        "hits@[1,3,10]": [
+          0.3354000747203827,
+          0.43191391229629517,
+          0.5373186469078064
+        ]
+      },
+      "verification": "local_wandb_metrics_match",
+      "evidence": [
+        "runs/student/MKG-W/full/T1_MKGW_Exp01_Student_RC_SourceFrozen_SchMin_BS1000_R2000_LR0p1_N3_KL2_T4_Seed2022/20261020_181221_2590139/student.log",
+        "runs/student/MKG-W/full/T1_MKGW_Exp01_Student_RC_SourceFrozen_SchMin_BS1000_R2000_LR0p1_N3_KL2_T4_Seed2022/20261020_181221_2590139/wandb/wandb/run-20261021_011816-530tgh0o/files/output.log",
+        "runs/student/MKG-W/full/T1_MKGW_Exp01_Student_RC_SourceFrozen_SchMin_BS1000_R2000_LR0p1_N3_KL2_T4_Seed2022/20261020_181221_2590139/wandb/wandb/run-20261021_011816-530tgh0o/run-530tgh0o.wandb"
+      ],
+      "metric_selector": "final_result"
+    },
+    {
+      "result": "runs/student/MKG-Y/full/T1_MKGY_Exp01_Student_RC_SourceFrozen_SchMin_BS1000_R2000_LR0p1_N3_KL2_T4_Seed2022/20261020_174808_2562445/checkpoints/0/result.json",
+      "result_sha256": "82ef2b32e408fa251cc6af629c35961e374ad3511b46d28425fad1de22c5e31a",
+      "run_id": "2a9t5tjk",
+      "recorded_url": "https://wandb.ai/keiranoluv-hcmus/DSoM-Reproduction/runs/2a9t5tjk",
+      "report_url": "https://forge.coreweave.com/wandb/keiranoluv-hcmus/DSoM-Reproduction/runs/2a9t5tjk",
+      "selected_epoch": 42,
+      "protocol": "filtered",
+      "metrics": {
+        "MR": 468.45867919921875,
+        "MRR": 0.4069194197654724,
+        "hits@[1,3,10]": [
+          0.36012017726898193,
+          0.4241456985473633,
+          0.48986104130744934
+        ]
+      },
+      "verification": "local_wandb_metrics_match",
+      "evidence": [
+        "runs/student/MKG-Y/full/T1_MKGY_Exp01_Student_RC_SourceFrozen_SchMin_BS1000_R2000_LR0p1_N3_KL2_T4_Seed2022/20261020_174808_2562445/student.log",
+        "runs/student/MKG-Y/full/T1_MKGY_Exp01_Student_RC_SourceFrozen_SchMin_BS1000_R2000_LR0p1_N3_KL2_T4_Seed2022/20261020_174808_2562445/wandb/wandb/run-20261021_005019-2a9t5tjk/files/output.log",
+        "runs/student/MKG-Y/full/T1_MKGY_Exp01_Student_RC_SourceFrozen_SchMin_BS1000_R2000_LR0p1_N3_KL2_T4_Seed2022/20261020_174808_2562445/wandb/wandb/run-20261021_005019-2a9t5tjk/run-2a9t5tjk.wandb"
+      ],
+      "metric_selector": "final_result"
+    },
+    {
+      "result": "runs/table2/full/20261023_055906_392721/MMKB-DB15K/best_conf/checkpoints/0/result.json",
+      "result_sha256": "6029f4436bc3fdcddf119c8b23d94255db82b9b632b74b4e5ac5c9ea040a6b00",
+      "run_id": "sa6dphy6",
+      "recorded_url": "https://wandb.ai/keiranoluv-hcmus/DSoM-Reproduction/runs/sa6dphy6",
+      "report_url": "https://forge.coreweave.com/wandb/keiranoluv-hcmus/DSoM-Reproduction/runs/sa6dphy6",
+      "selected_epoch": 18,
+      "protocol": "filtered",
+      "metrics": {
+        "MR": 479.06781005859375,
+        "MRR": 0.4081262797117233,
+        "hits@[1,3,10]": [
+          0.32963037490844727,
+          0.44657647609710693,
+          0.5582205653190613
+        ]
+      },
+      "verification": "local_wandb_metrics_match",
+      "evidence": [
+        "runs/table2/full/20261023_055906_392721/MMKB-DB15K/best_conf/train.log",
+        "runs/table2/full/20261023_055906_392721/MMKB-DB15K/best_conf/wandb/wandb/run-20261023_125912-sa6dphy6/files/output.log",
+        "runs/table2/full/20261023_055906_392721/MMKB-DB15K/best_conf/wandb/wandb/run-20261023_125912-sa6dphy6/run-sa6dphy6.wandb"
+      ],
+      "metric_selector": "final_result"
+    },
+    {
+      "result": "runs/table2/full/20261023_055906_392721/MMKB-DB15K/best_teacher/checkpoints/0/result.json",
+      "result_sha256": "ec614add537b2da197da1114208c1524c7d2fe15397a060031035e7efafc8593",
+      "run_id": "7h7gppby",
+      "recorded_url": "https://wandb.ai/keiranoluv-hcmus/DSoM-Reproduction/runs/7h7gppby",
+      "report_url": "https://forge.coreweave.com/wandb/keiranoluv-hcmus/DSoM-Reproduction/runs/7h7gppby",
+      "selected_epoch": 18,
+      "protocol": "filtered",
+      "metrics": {
+        "MR": 449.84764099121094,
+        "MRR": 0.4097416549921036,
+        "hits@[1,3,10]": [
+          0.32952940464019775,
+          0.4489496946334839,
+          0.5636234879493713
+        ]
+      },
+      "verification": "local_wandb_metrics_match",
+      "evidence": [
+        "runs/table2/full/20261023_055906_392721/MMKB-DB15K/best_teacher/train.log",
+        "runs/table2/full/20261023_055906_392721/MMKB-DB15K/best_teacher/wandb/wandb/run-20261023_131109-7h7gppby/files/output.log",
+        "runs/table2/full/20261023_055906_392721/MMKB-DB15K/best_teacher/wandb/wandb/run-20261023_131109-7h7gppby/run-7h7gppby.wandb"
+      ],
+      "metric_selector": "final_result"
+    },
+    {
+      "result": "runs/table2/full/20261023_055906_392721/MMKB-DB15K/best_strategy/checkpoints/0/result.json",
+      "result_sha256": "678068a8067dc15b8eb6d7d6d5e4dcfed0f788b8e18b8537880edd2c7a7fac31",
+      "run_id": "7jui1jln",
+      "recorded_url": "https://wandb.ai/keiranoluv-hcmus/DSoM-Reproduction/runs/7jui1jln",
+      "report_url": "https://forge.coreweave.com/wandb/keiranoluv-hcmus/DSoM-Reproduction/runs/7jui1jln",
+      "selected_epoch": 57,
+      "protocol": "filtered",
+      "metrics": {
+        "MR": 424.3789596557617,
+        "MRR": 0.41529734432697296,
+        "hits@[1,3,10]": [
+          0.336598664522171,
+          0.454504132270813,
+          0.5653908252716064
+        ]
+      },
+      "verification": "local_wandb_metrics_match",
+      "evidence": [
+        "runs/table2/full/20261023_055906_392721/MMKB-DB15K/best_strategy/train.log",
+        "runs/table2/full/20261023_055906_392721/MMKB-DB15K/best_strategy/wandb/wandb/run-20261023_132303-7jui1jln/files/output.log",
+        "runs/table2/full/20261023_055906_392721/MMKB-DB15K/best_strategy/wandb/wandb/run-20261023_132303-7jui1jln/run-7jui1jln.wandb"
+      ],
+      "metric_selector": "final_result"
+    },
+    {
+      "result": "runs/table2/full/20261023_055906_392721/MMKB-DB15K/mulde/checkpoints/0/result.json",
+      "result_sha256": "fa9ca499367226cee94bdb53e373e583e11b0b2603b601868240f7813e1140c6",
+      "run_id": "21cexx1p",
+      "recorded_url": "https://wandb.ai/keiranoluv-hcmus/DSoM-Reproduction/runs/21cexx1p",
+      "report_url": "https://forge.coreweave.com/wandb/keiranoluv-hcmus/DSoM-Reproduction/runs/21cexx1p",
+      "selected_epoch": 42,
+      "protocol": "filtered",
+      "metrics": {
+        "MR": 434.37670135498047,
+        "MRR": 0.3879252150654793,
+        "hits@[1,3,10]": [
+          0.31635022163391113,
+          0.4238537549972534,
+          0.5233790874481201
+        ]
+      },
+      "verification": "local_wandb_metrics_match",
+      "evidence": [
+        "runs/table2/full/20261023_055906_392721/MMKB-DB15K/mulde/train.log",
+        "runs/table2/full/20261023_055906_392721/MMKB-DB15K/mulde/wandb/wandb/run-20261023_135048-21cexx1p/files/output.log",
+        "runs/table2/full/20261023_055906_392721/MMKB-DB15K/mulde/wandb/wandb/run-20261023_135048-21cexx1p/run-21cexx1p.wandb"
+      ],
+      "metric_selector": "final_result"
+    },
+    {
+      "result": "runs/table2/full/20261023_055906_392721/MKG-W/best_conf/checkpoints/0/result.json",
+      "result_sha256": "2779b48046d57a5ea0763b8b0eb78a7e263ccbbf8a9e05043756a5607360d65a",
+      "run_id": "ipotae21",
+      "recorded_url": "https://wandb.ai/keiranoluv-hcmus/DSoM-Reproduction/runs/ipotae21",
+      "report_url": "https://forge.coreweave.com/wandb/keiranoluv-hcmus/DSoM-Reproduction/runs/ipotae21",
+      "selected_epoch": 21,
+      "protocol": "filtered",
+      "metrics": {
+        "MR": 890.6826477050781,
+        "MRR": 0.3772404193878174,
+        "hits@[1,3,10]": [
+          0.31832006573677063,
+          0.39868974685668945,
+          0.49181094765663147
+        ]
+      },
+      "verification": "local_wandb_metrics_match",
+      "evidence": [
+        "runs/table2/full/20261023_055906_392721/MKG-W/best_conf/train.log",
+        "runs/table2/full/20261023_055906_392721/MKG-W/best_conf/wandb/wandb/run-20261023_135549-ipotae21/files/output.log",
+        "runs/table2/full/20261023_055906_392721/MKG-W/best_conf/wandb/wandb/run-20261023_135549-ipotae21/run-ipotae21.wandb"
+      ],
+      "metric_selector": "final_result"
+    },
+    {
+      "result": "runs/table2/full/20261023_055906_392721/MKG-W/best_teacher/checkpoints/0/result.json",
+      "result_sha256": "d14d8bd8b9025731b810813c4791b3057e5ea891b1073c16bec8587f0f3bf3ed",
+      "run_id": "4j77nc0v",
+      "recorded_url": "https://wandb.ai/keiranoluv-hcmus/DSoM-Reproduction/runs/4j77nc0v",
+      "report_url": "https://forge.coreweave.com/wandb/keiranoluv-hcmus/DSoM-Reproduction/runs/4j77nc0v",
+      "selected_epoch": 30,
+      "protocol": "filtered",
+      "metrics": {
+        "MR": 893.8551483154297,
+        "MRR": 0.37725502252578735,
+        "hits@[1,3,10]": [
+          0.31679925322532654,
+          0.4029012620449066,
+          0.4891202449798584
+        ]
+      },
+      "verification": "local_wandb_metrics_match",
+      "evidence": [
+        "runs/table2/full/20261023_055906_392721/MKG-W/best_teacher/train.log",
+        "runs/table2/full/20261023_055906_392721/MKG-W/best_teacher/wandb/wandb/run-20261023_140059-4j77nc0v/files/output.log",
+        "runs/table2/full/20261023_055906_392721/MKG-W/best_teacher/wandb/wandb/run-20261023_140059-4j77nc0v/run-4j77nc0v.wandb"
+      ],
+      "metric_selector": "final_result"
+    },
+    {
+      "result": "runs/table2/full/20261023_055906_392721/MKG-W/best_strategy/checkpoints/0/result.json",
+      "result_sha256": "750bad6ceec5c080b1668e8ed933ebc34a60503f4cb94b22c3822db42533dac3",
+      "run_id": "x2xnt5dv",
+      "recorded_url": "https://wandb.ai/keiranoluv-hcmus/DSoM-Reproduction/runs/x2xnt5dv",
+      "report_url": "https://forge.coreweave.com/wandb/keiranoluv-hcmus/DSoM-Reproduction/runs/x2xnt5dv",
+      "selected_epoch": 15,
+      "protocol": "filtered",
+      "metrics": {
+        "MR": 654.9009246826172,
+        "MRR": 0.3821267932653427,
+        "hits@[1,3,10]": [
+          0.3200748860836029,
+          0.4052410125732422,
+          0.497426301240921
+        ]
+      },
+      "verification": "local_wandb_metrics_match",
+      "evidence": [
+        "runs/table2/full/20261023_055906_392721/MKG-W/best_strategy/train.log",
+        "runs/table2/full/20261023_055906_392721/MKG-W/best_strategy/wandb/wandb/run-20261023_140728-x2xnt5dv/files/output.log",
+        "runs/table2/full/20261023_055906_392721/MKG-W/best_strategy/wandb/wandb/run-20261023_140728-x2xnt5dv/run-x2xnt5dv.wandb"
+      ],
+      "metric_selector": "final_result"
+    },
+    {
+      "result": "runs/table2/full/20261023_055906_392721/MKG-W/mulde/checkpoints/0/result.json",
+      "result_sha256": "088d29ce0a67ac7f7f34a00ac2f078e1a1b39df87df1d7a19c53c47790174ca5",
+      "run_id": "s0ob59f5",
+      "recorded_url": "https://wandb.ai/keiranoluv-hcmus/DSoM-Reproduction/runs/s0ob59f5",
+      "report_url": "https://forge.coreweave.com/wandb/keiranoluv-hcmus/DSoM-Reproduction/runs/s0ob59f5",
+      "selected_epoch": 9,
+      "protocol": "filtered",
+      "metrics": {
+        "MR": 593.614875793457,
+        "MRR": 0.3731813281774521,
+        "hits@[1,3,10]": [
+          0.3107159435749054,
+          0.3947122097015381,
+          0.49309778213500977
+        ]
+      },
+      "verification": "local_wandb_metrics_match",
+      "evidence": [
+        "runs/table2/full/20261023_055906_392721/MKG-W/mulde/train.log",
+        "runs/table2/full/20261023_055906_392721/MKG-W/mulde/wandb/wandb/run-20261023_141141-s0ob59f5/files/output.log",
+        "runs/table2/full/20261023_055906_392721/MKG-W/mulde/wandb/wandb/run-20261023_141141-s0ob59f5/run-s0ob59f5.wandb"
+      ],
+      "metric_selector": "final_result"
+    },
+    {
+      "result": "runs/table2/full/20261023_055906_392721/MKG-Y/best_conf/checkpoints/0/result.json",
+      "result_sha256": "c46271d5d609724d43905085d7904bee2d9111cbb4e67b8db22af679632d2c3e",
+      "run_id": "69whpbut",
+      "recorded_url": "https://wandb.ai/keiranoluv-hcmus/DSoM-Reproduction/runs/69whpbut",
+      "report_url": "https://forge.coreweave.com/wandb/keiranoluv-hcmus/DSoM-Reproduction/runs/69whpbut",
+      "selected_epoch": 18,
+      "protocol": "filtered",
+      "metrics": {
+        "MR": 2199.0858154296875,
+        "MRR": 0.38597217202186584,
+        "hits@[1,3,10]": [
+          0.35016900300979614,
+          0.4016147255897522,
+          0.45212167501449585
+        ]
+      },
+      "verification": "local_wandb_metrics_match",
+      "evidence": [
+        "runs/table2/full/20261023_055906_392721/MKG-Y/best_conf/train.log",
+        "runs/table2/full/20261023_055906_392721/MKG-Y/best_conf/wandb/wandb/run-20261023_141246-69whpbut/files/output.log",
+        "runs/table2/full/20261023_055906_392721/MKG-Y/best_conf/wandb/wandb/run-20261023_141246-69whpbut/run-69whpbut.wandb"
+      ],
+      "metric_selector": "final_result"
+    },
+    {
+      "result": "runs/table2/full/20261023_055906_392721/MKG-Y/best_teacher/checkpoints/0/result.json",
+      "result_sha256": "4b6181b603d75a3f204034c5f1e70a522088bf0b50de15e35f798b5c60e5f7d8",
+      "run_id": "pde7aget",
+      "recorded_url": "https://wandb.ai/keiranoluv-hcmus/DSoM-Reproduction/runs/pde7aget",
+      "report_url": "https://forge.coreweave.com/wandb/keiranoluv-hcmus/DSoM-Reproduction/runs/pde7aget",
+      "selected_epoch": 18,
+      "protocol": "filtered",
+      "metrics": {
+        "MR": 2330.998046875,
+        "MRR": 0.38722798228263855,
+        "hits@[1,3,10]": [
+          0.35092002153396606,
+          0.4044311046600342,
+          0.45024406909942627
+        ]
+      },
+      "verification": "local_wandb_metrics_match",
+      "evidence": [
+        "runs/table2/full/20261023_055906_392721/MKG-Y/best_teacher/train.log",
+        "runs/table2/full/20261023_055906_392721/MKG-Y/best_teacher/wandb/wandb/run-20261023_141505-pde7aget/files/output.log",
+        "runs/table2/full/20261023_055906_392721/MKG-Y/best_teacher/wandb/wandb/run-20261023_141505-pde7aget/run-pde7aget.wandb"
+      ],
+      "metric_selector": "final_result"
+    },
+    {
+      "result": "runs/table2/full/20261023_055906_392721/MKG-Y/best_strategy/checkpoints/0/result.json",
+      "result_sha256": "b8e52d7dcf26cef4eac5a74c0cfe3018e8d2719e83b9691ee0ccd62815127924",
+      "run_id": "ig4dosz9",
+      "recorded_url": "https://wandb.ai/keiranoluv-hcmus/DSoM-Reproduction/runs/ig4dosz9",
+      "report_url": "https://forge.coreweave.com/wandb/keiranoluv-hcmus/DSoM-Reproduction/runs/ig4dosz9",
+      "selected_epoch": 15,
+      "protocol": "filtered",
+      "metrics": {
+        "MR": 1850.8831787109375,
+        "MRR": 0.389047235250473,
+        "hits@[1,3,10]": [
+          0.34735262393951416,
+          0.411190390586853,
+          0.4598197340965271
+        ]
+      },
+      "verification": "local_wandb_metrics_match",
+      "evidence": [
+        "runs/table2/full/20261023_055906_392721/MKG-Y/best_strategy/train.log",
+        "runs/table2/full/20261023_055906_392721/MKG-Y/best_strategy/wandb/wandb/run-20261023_141724-ig4dosz9/files/output.log",
+        "runs/table2/full/20261023_055906_392721/MKG-Y/best_strategy/wandb/wandb/run-20261023_141724-ig4dosz9/run-ig4dosz9.wandb"
+      ],
+      "metric_selector": "final_result"
+    },
+    {
+      "result": "runs/table2/full/20261023_055906_392721/MKG-Y/mulde/checkpoints/0/result.json",
+      "result_sha256": "b23c15ce71dbb84d31391255f735812c856ba188b3ec61cf3595b0abf0d336f4",
+      "run_id": "s763om5u",
+      "recorded_url": "https://wandb.ai/keiranoluv-hcmus/DSoM-Reproduction/runs/s763om5u",
+      "report_url": "https://forge.coreweave.com/wandb/keiranoluv-hcmus/DSoM-Reproduction/runs/s763om5u",
+      "selected_epoch": 12,
+      "protocol": "filtered",
+      "metrics": {
+        "MR": 1442.9421997070312,
+        "MRR": 0.38999056816101074,
+        "hits@[1,3,10]": [
+          0.34585052728652954,
+          0.4089372754096985,
+          0.46395042538642883
+        ]
+      },
+      "verification": "local_wandb_metrics_match",
+      "evidence": [
+        "runs/table2/full/20261023_055906_392721/MKG-Y/mulde/train.log",
+        "runs/table2/full/20261023_055906_392721/MKG-Y/mulde/wandb/wandb/run-20261023_141930-s763om5u/files/output.log",
+        "runs/table2/full/20261023_055906_392721/MKG-Y/mulde/wandb/wandb/run-20261023_141930-s763om5u/run-s763om5u.wandb"
+      ],
+      "metric_selector": "final_result"
+    },
+    {
+      "result": "runs/student/FB15K-237/table3_source_frozen_rc/full/20261020_121832/checkpoints/0/result.json",
+      "result_sha256": "012db26eeea5a6bb9e68d92f47d5c7663b4747208f05e178d7692d7170803eb2",
+      "run_id": "pebphkp6",
+      "recorded_url": "https://wandb.ai/keiranoluv-hcmus/DSoM-Reproduction/runs/pebphkp6",
+      "report_url": "https://forge.coreweave.com/wandb/keiranoluv-hcmus/DSoM-Reproduction/runs/pebphkp6",
+      "selected_epoch": 60,
+      "protocol": "filtered",
+      "metrics": {
+        "MR": 116.55694961547852,
+        "MRR": 0.3735639154911041,
+        "hits@[1,3,10]": [
+          0.27789992094039917,
+          0.4104612469673157,
+          0.5666959881782532
+        ]
+      },
+      "verification": "local_wandb_metrics_match",
+      "evidence": [
+        "runs/student/FB15K-237/table3_source_frozen_rc/full/20261020_121832/train.log",
+        "runs/student/FB15K-237/table3_source_frozen_rc/full/20261020_121832/wandb/run-20261020_121836-pebphkp6/files/output.log",
+        "runs/student/FB15K-237/table3_source_frozen_rc/full/20261020_121832/wandb/run-20261020_121836-pebphkp6/run-pebphkp6.wandb"
+      ],
+      "metric_selector": "final_result"
+    },
+    {
+      "result": "runs/student/WN18/table3_source_frozen_rc/full/20261020_201526/checkpoints/0/result.json",
+      "result_sha256": "f048b37b2219bc20a13c888efb4794ad26b24dc4f4500ae561799f8de9fe9b16",
+      "run_id": "otquhagi",
+      "recorded_url": "https://wandb.ai/keiranoluv-hcmus/DSoM-Reproduction/runs/otquhagi",
+      "report_url": "https://forge.coreweave.com/wandb/keiranoluv-hcmus/DSoM-Reproduction/runs/otquhagi",
+      "selected_epoch": 21,
+      "protocol": "filtered",
+      "metrics": {
+        "MR": 8.958799839019775,
+        "MRR": 0.9558703601360321,
+        "hits@[1,3,10]": [
+          0.9487000107765198,
+          0.9592000246047974,
+          0.9688999652862549
+        ]
+      },
+      "verification": "local_wandb_metrics_match",
+      "evidence": [
+        "runs/student/WN18/table3_source_frozen_rc/full/20261020_201526/train.log",
+        "runs/student/WN18/table3_source_frozen_rc/full/20261020_201526/wandb/run-20261020_201534-otquhagi/files/output.log",
+        "runs/student/WN18/table3_source_frozen_rc/full/20261020_201526/wandb/run-20261020_201534-otquhagi/run-otquhagi.wandb"
+      ],
+      "metric_selector": "final_result"
+    },
+    {
+      "result": "runs/table4_ensembles/full/20261023_103437_794958/avg/result.json",
+      "result_sha256": "b964b0b1f2b5d8d2fa1f8e4514fd00e18bb56b9968f32d6d9708754a4a081033",
+      "run_id": "69tufeey",
+      "recorded_url": "https://wandb.ai/keiranoluv-hcmus/DSoM-Reproduction/runs/69tufeey",
+      "report_url": "https://forge.coreweave.com/wandb/keiranoluv-hcmus/DSoM-Reproduction/runs/69tufeey",
+      "selected_epoch": null,
+      "protocol": "filtered",
+      "metrics": {
+        "MR": 1088.319093785767,
+        "MRR": 0.24272945661865175,
+        "hits@[1,3,10]": [
+          0.1838180838887767,
+          0.2652831077896721,
+          0.3565946273480105
+        ]
+      },
+      "verification": "local_wandb_metrics_match",
+      "evidence": [
+        "runs/table4_ensembles/full/20261023_103437_794958/avg/wandb/debug.log",
+        "runs/table4_ensembles/full/20261023_103437_794958/avg/wandb/run-20261023_173440-69tufeey/logs/debug.log",
+        "runs/table4_ensembles/full/20261023_103437_794958/avg/wandb/run-20261023_173440-69tufeey/run-69tufeey.wandb"
+      ],
+      "metric_selector": "test.teacher_mean_metrics"
+    },
+    {
+      "result": "runs/table4_ensembles/full/20261023_103437_794958/ml/result.json",
+      "result_sha256": "a863c6edab90fd55e41ce246b1ea343286a7c044e9a19e4b0bb401b844fa0d28",
+      "run_id": "1vebd13p",
+      "recorded_url": "https://wandb.ai/keiranoluv-hcmus/DSoM-Reproduction/runs/1vebd13p",
+      "report_url": "https://forge.coreweave.com/wandb/keiranoluv-hcmus/DSoM-Reproduction/runs/1vebd13p",
+      "selected_epoch": 20,
+      "protocol": "filtered",
+      "metrics": {
+        "MR": 454.121591597657,
+        "MRR": 0.40890444371685386,
+        "hits@[1,3,10]": [
+          0.32952938800242376,
+          0.4491011916784488,
+          0.5583215512017774
+        ]
+      },
+      "verification": "local_wandb_metrics_match",
+      "evidence": [
+        "runs/table4_ensembles/full/20261023_103437_794958/ml/wandb/debug.log",
+        "runs/table4_ensembles/full/20261023_103437_794958/ml/wandb/run-20261023_173454-1vebd13p/logs/debug.log",
+        "runs/table4_ensembles/full/20261023_103437_794958/ml/wandb/run-20261023_173454-1vebd13p/run-1vebd13p.wandb"
+      ],
+      "metric_selector": "test.ml",
+      "checkpoint_selection": "fixed final epoch on validation; not validation-MRR selection"
+    },
+    {
+      "result": "runs/table4_ensembles/full/20261023_103437_794958/rc/result.json",
+      "result_sha256": "8b1d287c4ea72ee3a3652ea9ecb396d231a5301ae9c453c999b3f3a5fc52d000",
+      "run_id": "9p90ll1a",
+      "recorded_url": "https://wandb.ai/keiranoluv-hcmus/DSoM-Reproduction/runs/9p90ll1a",
+      "report_url": "https://forge.coreweave.com/wandb/keiranoluv-hcmus/DSoM-Reproduction/runs/9p90ll1a",
+      "selected_epoch": 20,
+      "protocol": "filtered",
+      "metrics": {
+        "MR": 524.1383558876995,
+        "MRR": 0.40084104000418297,
+        "hits@[1,3,10]": [
+          0.3231165421127045,
+          0.43799232478287214,
+          0.5490809937386386
+        ]
+      },
+      "verification": "local_wandb_metrics_match",
+      "evidence": [
+        "runs/table4_ensembles/full/20261023_103437_794958/rc/wandb/debug.log",
+        "runs/table4_ensembles/full/20261023_103437_794958/rc/wandb/run-20261023_173528-9p90ll1a/logs/debug.log",
+        "runs/table4_ensembles/full/20261023_103437_794958/rc/wandb/run-20261023_173528-9p90ll1a/run-9p90ll1a.wandb"
+      ],
+      "metric_selector": "test.rc",
+      "checkpoint_selection": "fixed final epoch on validation; not validation-MRR selection"
+    },
+    {
+      "result": "runs/student/MMKB-DB15K/fixed_teacher_ndkd_full/20261021_163151_2915928/average/checkpoints/0/result.json",
+      "result_sha256": "bc531ecf9e1748f9c9ce5f8da76bfa405ce8e70703f47911cb0d405791aa4666",
+      "run_id": "e6i6aw58",
+      "recorded_url": "https://wandb.ai/keiranoluv-hcmus/DSoM-Reproduction/runs/e6i6aw58",
+      "report_url": "https://forge.coreweave.com/wandb/keiranoluv-hcmus/DSoM-Reproduction/runs/e6i6aw58",
+      "selected_epoch": 39,
+      "protocol": "filtered",
+      "metrics": {
+        "MR": 341.23889923095703,
+        "MRR": 0.41314971446990967,
+        "hits@[1,3,10]": [
+          0.332811564207077,
+          0.45263582468032837,
+          0.5649363994598389
+        ]
+      },
+      "verification": "local_wandb_metrics_match",
+      "evidence": [
+        "runs/student/MMKB-DB15K/fixed_teacher_ndkd_full/20261021_163151_2915928/average/student.log",
+        "runs/student/MMKB-DB15K/fixed_teacher_ndkd_full/20261021_163151_2915928/average/wandb/wandb/run-20261022_001512-e6i6aw58/files/output.log",
+        "runs/student/MMKB-DB15K/fixed_teacher_ndkd_full/20261021_163151_2915928/average/wandb/wandb/run-20261022_001512-e6i6aw58/run-e6i6aw58.wandb"
+      ],
+      "metric_selector": "final_result"
+    },
+    {
+      "result": "runs/table4_components/full/20261023_075850_052725/RC_NEKD/checkpoints/0/result.json",
+      "result_sha256": "9da701bc60b7f0991be2006ff18c16bc93deeaf1e6b8e4751bfb6b4ed64a9429",
+      "run_id": "r7fv735u",
+      "recorded_url": "https://wandb.ai/keiranoluv-hcmus/DSoM-Reproduction/runs/r7fv735u",
+      "report_url": "https://forge.coreweave.com/wandb/keiranoluv-hcmus/DSoM-Reproduction/runs/r7fv735u",
+      "selected_epoch": 75,
+      "protocol": "filtered",
+      "metrics": {
+        "MR": 469.8804168701172,
+        "MRR": 0.4110201299190521,
+        "hits@[1,3,10]": [
+          0.33311450481414795,
+          0.4500100910663605,
+          0.5600383877754211
+        ]
+      },
+      "verification": "local_wandb_metrics_match",
+      "evidence": [
+        "runs/table4_components/full/20261023_075850_052725/RC_NEKD/train.log",
+        "runs/table4_components/full/20261023_075850_052725/RC_NEKD/wandb/wandb/run-20261023_145857-r7fv735u/files/output.log",
+        "runs/table4_components/full/20261023_075850_052725/RC_NEKD/wandb/wandb/run-20261023_145857-r7fv735u/run-r7fv735u.wandb"
+      ],
+      "metric_selector": "final_result"
+    },
+    {
+      "result": "runs/table4_components/full/20261023_075850_052725/RC_NNKD/checkpoints/0/result.json",
+      "result_sha256": "a3cb264f67eb3a41d00539335e4702e248f06e02de3e52cdc876d2378b12c0a9",
+      "run_id": "0prk36n2",
+      "recorded_url": "https://wandb.ai/keiranoluv-hcmus/DSoM-Reproduction/runs/0prk36n2",
+      "report_url": "https://forge.coreweave.com/wandb/keiranoluv-hcmus/DSoM-Reproduction/runs/0prk36n2",
+      "selected_epoch": 42,
+      "protocol": "filtered",
+      "metrics": {
+        "MR": 465.9961700439453,
+        "MRR": 0.4121045023202896,
+        "hits@[1,3,10]": [
+          0.33225610852241516,
+          0.45202988386154175,
+          0.5637750029563904
+        ]
+      },
+      "verification": "local_wandb_metrics_match",
+      "evidence": [
+        "runs/table4_components/full/20261023_075850_052725/RC_NNKD/train.log",
+        "runs/table4_components/full/20261023_075850_052725/RC_NNKD/wandb/wandb/run-20261023_154540-0prk36n2/files/output.log",
+        "runs/table4_components/full/20261023_075850_052725/RC_NNKD/wandb/wandb/run-20261023_154540-0prk36n2/run-0prk36n2.wandb"
+      ],
+      "metric_selector": "final_result"
+    },
+    {
+      "result": "runs/student/MMKB-DB15K/table4_learned_rc_a9_a10/full/20261021_191355_3114489/A9_KL/checkpoints/0/result.json",
+      "result_sha256": "b10374252045e0a1c6c23573964bcbc274cd93626d5c3b1a2ebc77d0bb640ab9",
+      "run_id": "9vw2fikt",
+      "recorded_url": "https://wandb.ai/keiranoluv-hcmus/DSoM-Reproduction/runs/9vw2fikt",
+      "report_url": "https://forge.coreweave.com/wandb/keiranoluv-hcmus/DSoM-Reproduction/runs/9vw2fikt",
+      "selected_epoch": 51,
+      "protocol": "filtered",
+      "metrics": {
+        "MR": 463.95558166503906,
+        "MRR": 0.4133721739053726,
+        "hits@[1,3,10]": [
+          0.33447790145874023,
+          0.4522823691368103,
+          0.5651888847351074
+        ]
+      },
+      "verification": "local_wandb_metrics_match",
+      "evidence": [
+        "runs/student/MMKB-DB15K/table4_learned_rc_a9_a10/full/20261021_191355_3114489/A9_KL/train.log",
+        "runs/student/MMKB-DB15K/table4_learned_rc_a9_a10/full/20261021_191355_3114489/A9_KL/wandb/wandb/run-20261022_021359-9vw2fikt/files/output.log",
+        "runs/student/MMKB-DB15K/table4_learned_rc_a9_a10/full/20261021_191355_3114489/A9_KL/wandb/wandb/run-20261022_021359-9vw2fikt/run-9vw2fikt.wandb"
+      ],
+      "metric_selector": "final_result"
+    },
+    {
+      "result": "runs/student/MMKB-DB15K/table4_learned_rc_a9_a10/full/20261021_191355_3114489/A10_DKD/checkpoints/0/result.json",
+      "result_sha256": "fe8566994b1919078d81a20c48fc634b714a0a3aee1f04c65009f68e0d69c8b3",
+      "run_id": "hpruwc92",
+      "recorded_url": "https://wandb.ai/keiranoluv-hcmus/DSoM-Reproduction/runs/hpruwc92",
+      "report_url": "https://forge.coreweave.com/wandb/keiranoluv-hcmus/DSoM-Reproduction/runs/hpruwc92",
+      "selected_epoch": 60,
+      "protocol": "filtered",
+      "metrics": {
+        "MR": 463.97520446777344,
+        "MRR": 0.41302667558193207,
+        "hits@[1,3,10]": [
+          0.3333669900894165,
+          0.45233285427093506,
+          0.5649363994598389
+        ]
+      },
+      "verification": "local_wandb_metrics_match",
+      "evidence": [
+        "runs/student/MMKB-DB15K/table4_learned_rc_a9_a10/full/20261021_191355_3114489/A10_DKD/train.log",
+        "runs/student/MMKB-DB15K/table4_learned_rc_a9_a10/full/20261021_191355_3114489/A10_DKD/wandb/wandb/run-20261022_021359-hpruwc92/files/output.log",
+        "runs/student/MMKB-DB15K/table4_learned_rc_a9_a10/full/20261021_191355_3114489/A10_DKD/wandb/wandb/run-20261022_021359-hpruwc92/run-hpruwc92.wandb"
+      ],
+      "metric_selector": "final_result"
+    },
+    {
+      "result": "runs/student/MMKB-DB15K/learned_rc_adam_full/20261021_173746_2988787/checkpoints/0/result.json",
+      "result_sha256": "3592ec2df07df538b33507c74f9da3e3597ac522a86e9247a7379d64141ff57c",
+      "run_id": "qqnzvnz2",
+      "recorded_url": "https://wandb.ai/keiranoluv-hcmus/DSoM-Reproduction/runs/qqnzvnz2",
+      "report_url": "https://forge.coreweave.com/wandb/keiranoluv-hcmus/DSoM-Reproduction/runs/qqnzvnz2",
+      "selected_epoch": 63,
+      "protocol": "filtered",
+      "metrics": {
+        "MR": 460.60704040527344,
+        "MRR": 0.41422146558761597,
+        "hits@[1,3,10]": [
+          0.33518481254577637,
+          0.4534437656402588,
+          0.5644314289093018
+        ]
+      },
+      "verification": "local_wandb_metrics_match",
+      "evidence": [
+        "runs/student/MMKB-DB15K/learned_rc_adam_full/20261021_173746_2988787/train.log",
+        "runs/student/MMKB-DB15K/learned_rc_adam_full/20261021_173746_2988787/wandb/wandb/run-20261022_003749-qqnzvnz2/files/output.log",
+        "runs/student/MMKB-DB15K/learned_rc_adam_full/20261021_173746_2988787/wandb/wandb/run-20261022_003749-qqnzvnz2/run-qqnzvnz2.wandb"
+      ],
+      "metric_selector": "final_result"
+    },
+    {
+      "result": "runs/student/MMKB-DB15K/fixed_teacher_ndkd_full/20261021_163151_2915928/structural/checkpoints/0/result.json",
+      "result_sha256": "17a1031c363c6074a0805c69caf847d5606a3ddc0f8ff59bda33ebf9806645c4",
+      "run_id": "3fhw62i2",
+      "recorded_url": "https://wandb.ai/keiranoluv-hcmus/DSoM-Reproduction/runs/3fhw62i2",
+      "report_url": "https://forge.coreweave.com/wandb/keiranoluv-hcmus/DSoM-Reproduction/runs/3fhw62i2",
+      "selected_epoch": 48,
+      "protocol": "filtered",
+      "metrics": {
+        "MR": 470.406982421875,
+        "MRR": 0.41272425651550293,
+        "hits@[1,3,10]": [
+          0.33392244577407837,
+          0.4518784284591675,
+          0.5625631213188171
+        ]
+      },
+      "verification": "local_wandb_metrics_match",
+      "evidence": [
+        "runs/student/MMKB-DB15K/fixed_teacher_ndkd_full/20261021_163151_2915928/structural/student.log",
+        "runs/student/MMKB-DB15K/fixed_teacher_ndkd_full/20261021_163151_2915928/structural/wandb/wandb/run-20261021_233155-3fhw62i2/files/output.log",
+        "runs/student/MMKB-DB15K/fixed_teacher_ndkd_full/20261021_163151_2915928/structural/wandb/wandb/run-20261021_233155-3fhw62i2/run-3fhw62i2.wandb"
+      ],
+      "metric_selector": "final_result"
+    },
+    {
+      "result": "runs/table6/full/20261023_110036_163721/MMKB-DB15K/visual/checkpoints/0/result.json",
+      "result_sha256": "f19f72af95d8935500c089941775d82b94a9d741e4965b22e5a45d148e978cae",
+      "run_id": "2cxoh1z2",
+      "recorded_url": "https://wandb.ai/keiranoluv-hcmus/DSoM-Reproduction/runs/2cxoh1z2",
+      "report_url": "https://forge.coreweave.com/wandb/keiranoluv-hcmus/DSoM-Reproduction/runs/2cxoh1z2",
+      "selected_epoch": 45,
+      "protocol": "filtered",
+      "metrics": {
+        "MR": 656.5434265136719,
+        "MRR": 0.381125271320343,
+        "hits@[1,3,10]": [
+          0.30620077252388,
+          0.4205211400985718,
+          0.5254493951797485
+        ]
+      },
+      "verification": "local_wandb_metrics_match",
+      "evidence": [
+        "runs/table6/full/20261023_110036_163721/MMKB-DB15K/visual/train.log",
+        "runs/table6/full/20261023_110036_163721/MMKB-DB15K/visual/wandb/wandb/run-20261023_181651-2cxoh1z2/files/output.log",
+        "runs/table6/full/20261023_110036_163721/MMKB-DB15K/visual/wandb/wandb/run-20261023_181651-2cxoh1z2/run-2cxoh1z2.wandb"
+      ],
+      "metric_selector": "final_result"
+    },
+    {
+      "result": "runs/student/MMKB-DB15K/fixed_teacher_ndkd_full/20261021_163151_2915928/description/checkpoints/0/result.json",
+      "result_sha256": "032af92ec2e14ce611411a0fed2bbe3de38435490195c06b1192fcfbc2b1db0a",
+      "run_id": "jxfadxq5",
+      "recorded_url": "https://wandb.ai/keiranoluv-hcmus/DSoM-Reproduction/runs/jxfadxq5",
+      "report_url": "https://forge.coreweave.com/wandb/keiranoluv-hcmus/DSoM-Reproduction/runs/jxfadxq5",
+      "selected_epoch": 18,
+      "protocol": "filtered",
+      "metrics": {
+        "MR": 633.2542572021484,
+        "MRR": 0.3817684277892113,
+        "hits@[1,3,10]": [
+          0.304938405752182,
+          0.41855180263519287,
+          0.5279236435890198
+        ]
+      },
+      "verification": "local_wandb_metrics_match",
+      "evidence": [
+        "runs/student/MMKB-DB15K/fixed_teacher_ndkd_full/20261021_163151_2915928/description/student.log",
+        "runs/student/MMKB-DB15K/fixed_teacher_ndkd_full/20261021_163151_2915928/description/wandb/wandb/run-20261021_234929-jxfadxq5/files/output.log",
+        "runs/student/MMKB-DB15K/fixed_teacher_ndkd_full/20261021_163151_2915928/description/wandb/wandb/run-20261021_234929-jxfadxq5/run-jxfadxq5.wandb"
+      ],
+      "metric_selector": "final_result"
+    },
+    {
+      "result": "runs/table6/full/20261023_110036_163721/MKG-W/structural/checkpoints/0/result.json",
+      "result_sha256": "40c1041838980fab3adbbcc2c3b8c6cdd25db236e70a04ea872c03499855da58",
+      "run_id": "r01l48al",
+      "recorded_url": "https://wandb.ai/keiranoluv-hcmus/DSoM-Reproduction/runs/r01l48al",
+      "report_url": "https://forge.coreweave.com/wandb/keiranoluv-hcmus/DSoM-Reproduction/runs/r01l48al",
+      "selected_epoch": 15,
+      "protocol": "filtered",
+      "metrics": {
+        "MR": 1081.7298889160156,
+        "MRR": 0.3666917607188225,
+        "hits@[1,3,10]": [
+          0.3089611530303955,
+          0.38664013147354126,
+          0.4787084460258484
+        ]
+      },
+      "verification": "local_wandb_metrics_match",
+      "evidence": [
+        "runs/table6/full/20261023_110036_163721/MKG-W/structural/train.log",
+        "runs/table6/full/20261023_110036_163721/MKG-W/structural/wandb/wandb/run-20261023_180709-r01l48al/files/output.log",
+        "runs/table6/full/20261023_110036_163721/MKG-W/structural/wandb/wandb/run-20261023_180709-r01l48al/run-r01l48al.wandb"
+      ],
+      "metric_selector": "final_result"
+    },
+    {
+      "result": "runs/table6/full/20261023_110036_163721/MKG-W/visual/checkpoints/0/result.json",
+      "result_sha256": "049363f596367f91cd7231d3ca7feadb279becdd112395d15ea9df7962f2afdd",
+      "run_id": "p2mlr7xq",
+      "recorded_url": "https://wandb.ai/keiranoluv-hcmus/DSoM-Reproduction/runs/p2mlr7xq",
+      "report_url": "https://forge.coreweave.com/wandb/keiranoluv-hcmus/DSoM-Reproduction/runs/p2mlr7xq",
+      "selected_epoch": 3,
+      "protocol": "filtered",
+      "metrics": {
+        "MR": 1468.9129943847656,
+        "MRR": 0.2957463189959526,
+        "hits@[1,3,10]": [
+          0.24730931222438812,
+          0.31586337089538574,
+          0.38418343663215637
+        ]
+      },
+      "verification": "local_wandb_metrics_match",
+      "evidence": [
+        "runs/table6/full/20261023_110036_163721/MKG-W/visual/train.log",
+        "runs/table6/full/20261023_110036_163721/MKG-W/visual/wandb/wandb/run-20261023_181015-p2mlr7xq/files/output.log",
+        "runs/table6/full/20261023_110036_163721/MKG-W/visual/wandb/wandb/run-20261023_181015-p2mlr7xq/run-p2mlr7xq.wandb"
+      ],
+      "metric_selector": "final_result"
+    },
+    {
+      "result": "runs/table6/full/20261023_110036_163721/MKG-W/description/checkpoints/0/result.json",
+      "result_sha256": "22938ce83b149798c077bd8c28a49d6dda45e48287af745dfd1aa8f7a90adb37",
+      "run_id": "yf4oiilt",
+      "recorded_url": "https://wandb.ai/keiranoluv-hcmus/DSoM-Reproduction/runs/yf4oiilt",
+      "report_url": "https://forge.coreweave.com/wandb/keiranoluv-hcmus/DSoM-Reproduction/runs/yf4oiilt",
+      "selected_epoch": 30,
+      "protocol": "filtered",
+      "metrics": {
+        "MR": 248.49426651000977,
+        "MRR": 0.4005672335624695,
+        "hits@[1,3,10]": [
+          0.32615816593170166,
+          0.4286382794380188,
+          0.5425830483436584
+        ]
+      },
+      "verification": "local_wandb_metrics_match",
+      "evidence": [
+        "runs/table6/full/20261023_110036_163721/MKG-W/description/train.log",
+        "runs/table6/full/20261023_110036_163721/MKG-W/description/wandb/wandb/run-20261023_181156-yf4oiilt/files/output.log",
+        "runs/table6/full/20261023_110036_163721/MKG-W/description/wandb/wandb/run-20261023_181156-yf4oiilt/run-yf4oiilt.wandb"
+      ],
+      "metric_selector": "final_result"
+    },
+    {
+      "result": "runs/table6/full/20261023_110036_163721/MKG-Y/structural/checkpoints/0/result.json",
+      "result_sha256": "397632183a0529391e6b4c5dfb8a72c0e593ab695781dd778cd1dd3dcad6719c",
+      "run_id": "nzkmmg3e",
+      "recorded_url": "https://wandb.ai/keiranoluv-hcmus/DSoM-Reproduction/runs/nzkmmg3e",
+      "report_url": "https://forge.coreweave.com/wandb/keiranoluv-hcmus/DSoM-Reproduction/runs/nzkmmg3e",
+      "selected_epoch": 18,
+      "protocol": "filtered",
+      "metrics": {
+        "MR": 2815.539794921875,
+        "MRR": 0.38268719613552094,
+        "hits@[1,3,10]": [
+          0.34923020005226135,
+          0.4008636772632599,
+          0.4417949914932251
+        ]
+      },
+      "verification": "local_wandb_metrics_match",
+      "evidence": [
+        "runs/table6/full/20261023_110036_163721/MKG-Y/structural/train.log",
+        "runs/table6/full/20261023_110036_163721/MKG-Y/structural/wandb/wandb/run-20261023_180041-nzkmmg3e/files/output.log",
+        "runs/table6/full/20261023_110036_163721/MKG-Y/structural/wandb/wandb/run-20261023_180041-nzkmmg3e/run-nzkmmg3e.wandb"
+      ],
+      "metric_selector": "final_result"
+    },
+    {
+      "result": "runs/table6/full/20261023_110036_163721/MKG-Y/visual/checkpoints/0/result.json",
+      "result_sha256": "75491a3dc296a944407eb80fa06528e85215dde657511c7a1028d8f164231118",
+      "run_id": "qfy1moa8",
+      "recorded_url": "https://wandb.ai/keiranoluv-hcmus/DSoM-Reproduction/runs/qfy1moa8",
+      "report_url": "https://forge.coreweave.com/wandb/keiranoluv-hcmus/DSoM-Reproduction/runs/qfy1moa8",
+      "selected_epoch": 33,
+      "protocol": "filtered",
+      "metrics": {
+        "MR": 785.0489807128906,
+        "MRR": 0.3758537024259567,
+        "hits@[1,3,10]": [
+          0.3445362448692322,
+          0.3899737000465393,
+          0.4292151927947998
+        ]
+      },
+      "verification": "local_wandb_metrics_match",
+      "evidence": [
+        "runs/table6/full/20261023_110036_163721/MKG-Y/visual/train.log",
+        "runs/table6/full/20261023_110036_163721/MKG-Y/visual/wandb/wandb/run-20261023_180223-qfy1moa8/files/output.log",
+        "runs/table6/full/20261023_110036_163721/MKG-Y/visual/wandb/wandb/run-20261023_180223-qfy1moa8/run-qfy1moa8.wandb"
+      ],
+      "metric_selector": "final_result"
+    },
+    {
+      "result": "runs/table6/full/20261023_110036_163721/MKG-Y/description/checkpoints/0/result.json",
+      "result_sha256": "3eadc27f15a71be96d98f6287393aa29cbce20394898409fb427e52fa985831f",
+      "run_id": "z59nahld",
+      "recorded_url": "https://wandb.ai/keiranoluv-hcmus/DSoM-Reproduction/runs/z59nahld",
+      "report_url": "https://forge.coreweave.com/wandb/keiranoluv-hcmus/DSoM-Reproduction/runs/z59nahld",
+      "selected_epoch": 27,
+      "protocol": "filtered",
+      "metrics": {
+        "MR": 839.3128051757812,
+        "MRR": 0.38452082872390747,
+        "hits@[1,3,10]": [
+          0.3336462676525116,
+          0.4033045470714569,
+          0.4722117781639099
+        ]
+      },
+      "verification": "local_wandb_metrics_match",
+      "evidence": [
+        "runs/table6/full/20261023_110036_163721/MKG-Y/description/train.log",
+        "runs/table6/full/20261023_110036_163721/MKG-Y/description/wandb/wandb/run-20261023_180455-z59nahld/files/output.log",
+        "runs/table6/full/20261023_110036_163721/MKG-Y/description/wandb/wandb/run-20261023_180455-z59nahld/run-z59nahld.wandb"
+      ],
+      "metric_selector": "final_result"
+    },
+    {
+      "result": "runs/table7/full/20261023_173538_401388/student/checkpoints/0/result.json",
+      "result_sha256": "593fd6d6eb7e5c2e6433a17fe8b2c66073ac40592dc8c176b40f785a2ce5beb7",
+      "run_id": "8k36o3o8",
+      "recorded_url": "https://wandb.ai/keiranoluv-hcmus/DSoM-Reproduction/runs/8k36o3o8",
+      "report_url": "https://forge.coreweave.com/wandb/keiranoluv-hcmus/DSoM-Reproduction/runs/8k36o3o8",
+      "selected_epoch": 15,
+      "protocol": "filtered",
+      "metrics": {
+        "MR": 6.131159969673996,
+        "MRR": 0.9196338700295237,
+        "hits@[1,3,10]": [
+          0.9033358605003791,
+          0.9283548142532221,
+          0.9495830174374527
+        ]
+      },
+      "verification": "local_wandb_metrics_match",
+      "evidence": [
+        "runs/table7/full/20261023_173538_401388/student/train.log",
+        "runs/table7/full/20261023_173538_401388/student/wandb/wandb/run-20261024_003630-8k36o3o8/files/output.log",
+        "runs/table7/full/20261023_173538_401388/student/wandb/wandb/run-20261024_003630-8k36o3o8/run-8k36o3o8.wandb"
+      ],
+      "metric_source": "runs/table7/full/20261023_173538_401388/student/evaluation.json",
+      "metric_source_sha256": "29e82241bfbe1ce8d9f13ed24a20660c43bc02836ecacd18d755a2389ddb8b88",
+      "metric_selector": "results.test.filtered.both"
+    },
+    {
+      "result": "runs/table7/full/20261023_173538_401388/student/checkpoints/0/result.json",
+      "result_sha256": "593fd6d6eb7e5c2e6433a17fe8b2c66073ac40592dc8c176b40f785a2ce5beb7",
+      "run_id": "8k36o3o8",
+      "recorded_url": "https://wandb.ai/keiranoluv-hcmus/DSoM-Reproduction/runs/8k36o3o8",
+      "report_url": "https://forge.coreweave.com/wandb/keiranoluv-hcmus/DSoM-Reproduction/runs/8k36o3o8",
+      "selected_epoch": 15,
+      "protocol": "raw",
+      "metrics": {
+        "MR": 14.506444275966642,
+        "MRR": 0.6187627546915659,
+        "hits@[1,3,10]": [
+          0.520470053070508,
+          0.6694465504169825,
+          0.8100833965125095
+        ]
+      },
+      "verification": "checkpoint_or_source_run_only",
+      "evidence": [
+        "runs/table7/full/20261023_173538_401388/student/train.log",
+        "runs/table7/full/20261023_173538_401388/student/wandb/wandb/run-20261024_003630-8k36o3o8/files/output.log",
+        "runs/table7/full/20261023_173538_401388/student/wandb/wandb/run-20261024_003630-8k36o3o8/run-8k36o3o8.wandb"
+      ],
+      "metric_source": "runs/table7/full/20261023_173538_401388/student/evaluation.json",
+      "metric_source_sha256": "29e82241bfbe1ce8d9f13ed24a20660c43bc02836ecacd18d755a2389ddb8b88",
+      "metric_selector": "results.test.raw.both"
+    },
+    {
+      "result": "runs/student/MMKB-DB15K/fixed_teacher_ndkd_full/20261021_163151_2915928/structural_description/checkpoints/0/result.json",
+      "result_sha256": "d1a54c9fae00351be9450f8067478ac66c8c951e7ec0f054ee70abe2fc726692",
+      "run_id": "sf7vexg5",
+      "recorded_url": "https://wandb.ai/keiranoluv-hcmus/DSoM-Reproduction/runs/sf7vexg5",
+      "report_url": "https://forge.coreweave.com/wandb/keiranoluv-hcmus/DSoM-Reproduction/runs/sf7vexg5",
+      "selected_epoch": 39,
+      "protocol": "filtered",
+      "metrics": {
+        "MR": 403.56327056884766,
+        "MRR": 0.4137338250875473,
+        "hits@[1,3,10]": [
+          0.3330640196800232,
+          0.4521813988685608,
+          0.5665017366409302
+        ]
+      },
+      "verification": "local_wandb_metrics_match",
+      "evidence": [
+        "runs/student/MMKB-DB15K/fixed_teacher_ndkd_full/20261021_163151_2915928/structural_description/student.log",
+        "runs/student/MMKB-DB15K/fixed_teacher_ndkd_full/20261021_163151_2915928/structural_description/wandb/wandb/run-20261022_000017-sf7vexg5/files/output.log",
+        "runs/student/MMKB-DB15K/fixed_teacher_ndkd_full/20261021_163151_2915928/structural_description/wandb/wandb/run-20261022_000017-sf7vexg5/run-sf7vexg5.wandb"
+      ],
+      "metric_selector": "final_result"
+    },
+    {
+      "result": "runs/student/MMKB-DB15K/learned_rc_continuous_ce_full/20261021_175005_3002605/checkpoints/0/result.json",
+      "result_sha256": "0c97886a304f749e312ecd89ba770c9688d528976521e620a4043e597cfe1877",
+      "run_id": "zuhqedof",
+      "recorded_url": "https://wandb.ai/keiranoluv-hcmus/DSoM-Reproduction/runs/zuhqedof",
+      "report_url": "https://forge.coreweave.com/wandb/keiranoluv-hcmus/DSoM-Reproduction/runs/zuhqedof",
+      "selected_epoch": 45,
+      "protocol": "filtered",
+      "metrics": {
+        "MR": 464.76576232910156,
+        "MRR": 0.412853941321373,
+        "hits@[1,3,10]": [
+          0.33457887172698975,
+          0.4505150318145752,
+          0.5633710622787476
+        ]
+      },
+      "verification": "local_wandb_metrics_match",
+      "evidence": [
+        "runs/student/MMKB-DB15K/learned_rc_continuous_ce_full/20261021_175005_3002605/train.log",
+        "runs/student/MMKB-DB15K/learned_rc_continuous_ce_full/20261021_175005_3002605/wandb/wandb/run-20261022_005009-zuhqedof/files/output.log",
+        "runs/student/MMKB-DB15K/learned_rc_continuous_ce_full/20261021_175005_3002605/wandb/wandb/run-20261022_005009-zuhqedof/run-zuhqedof.wandb"
+      ],
+      "metric_selector": "final_result"
+    },
+    {
+      "result": "runs/student/MMKB-DB15K/table4_fixed_loss_full/20261021_181938_3048584/A7_KL/checkpoints/0/result.json",
+      "result_sha256": "c080937b15ac202894d947dab17ef4f245e369afd4b1b53f27207d5a434c4703",
+      "run_id": "i9azqqx2",
+      "recorded_url": "https://wandb.ai/keiranoluv-hcmus/DSoM-Reproduction/runs/i9azqqx2",
+      "report_url": "https://forge.coreweave.com/wandb/keiranoluv-hcmus/DSoM-Reproduction/runs/i9azqqx2",
+      "selected_epoch": 39,
+      "protocol": "filtered",
+      "metrics": {
+        "MR": 398.68992614746094,
+        "MRR": 0.4143569618463516,
+        "hits@[1,3,10]": [
+          0.33372044563293457,
+          0.45410019159317017,
+          0.5673601031303406
+        ]
+      },
+      "verification": "local_wandb_metrics_match",
+      "evidence": [
+        "runs/student/MMKB-DB15K/table4_fixed_loss_full/20261021_181938_3048584/A7_KL/wandb/wandb/run-20261022_011941-i9azqqx2/files/output.log",
+        "runs/student/MMKB-DB15K/table4_fixed_loss_full/20261021_181938_3048584/A7_KL/wandb/wandb/run-20261022_011941-i9azqqx2/run-i9azqqx2.wandb"
+      ],
+      "metric_selector": "final_result"
+    },
+    {
+      "result": "runs/student/MMKB-DB15K/table4_fixed_loss_full/20261021_181938_3048584/A8_DKD/checkpoints/0/result.json",
+      "result_sha256": "baea1fce2bef5cc75508b6c808b17ba14c643f6cc6d86cce813889c41793904f",
+      "run_id": "opus98xu",
+      "recorded_url": "https://wandb.ai/keiranoluv-hcmus/DSoM-Reproduction/runs/opus98xu",
+      "report_url": "https://forge.coreweave.com/wandb/keiranoluv-hcmus/DSoM-Reproduction/runs/opus98xu",
+      "selected_epoch": 39,
+      "protocol": "filtered",
+      "metrics": {
+        "MR": 398.7088928222656,
+        "MRR": 0.41397625207901,
+        "hits@[1,3,10]": [
+          0.33301353454589844,
+          0.45329225063323975,
+          0.5672086477279663
+        ]
+      },
+      "verification": "local_wandb_metrics_match",
+      "evidence": [
+        "runs/student/MMKB-DB15K/table4_fixed_loss_full/20261021_181938_3048584/A8_DKD/wandb/wandb/run-20261022_011941-opus98xu/files/output.log",
+        "runs/student/MMKB-DB15K/table4_fixed_loss_full/20261021_181938_3048584/A8_DKD/wandb/wandb/run-20261022_011941-opus98xu/run-opus98xu.wandb"
+      ],
+      "metric_selector": "final_result"
+    },
+    {
+      "result": "runs/table4_ensembles/full/20261023_103437_794958/avg/result.json",
+      "result_sha256": "b964b0b1f2b5d8d2fa1f8e4514fd00e18bb56b9968f32d6d9708754a4a081033",
+      "run_id": "69tufeey",
+      "recorded_url": "https://wandb.ai/keiranoluv-hcmus/DSoM-Reproduction/runs/69tufeey",
+      "report_url": "https://forge.coreweave.com/wandb/keiranoluv-hcmus/DSoM-Reproduction/runs/69tufeey",
+      "selected_epoch": null,
+      "protocol": "filtered",
+      "metrics": {
+        "MR": 454.8314986871339,
+        "MRR": 0.32999422137960643,
+        "hits@[1,3,10]": [
+          0.24449606140173702,
+          0.3698242779236518,
+          0.49282973136740055
+        ]
+      },
+      "verification": "checkpoint_or_source_run_only",
+      "evidence": [
+        "runs/table4_ensembles/full/20261023_103437_794958/avg/wandb/debug.log",
+        "runs/table4_ensembles/full/20261023_103437_794958/avg/wandb/run-20261023_173440-69tufeey/logs/debug.log",
+        "runs/table4_ensembles/full/20261023_103437_794958/avg/wandb/run-20261023_173440-69tufeey/run-69tufeey.wandb"
+      ],
+      "metric_selector": "test.teacher_mean_logits"
+    },
+    {
+      "result": "runs/clean_sensitivity/MMKB-DB15K-CleanV1/full/20261023_043918_3369511/student/checkpoints/0/result.json",
+      "result_sha256": "0b273dfa59554408e47efa1cc7c33b939a51cbacfbc1800bde77d353204bf2b9",
+      "run_id": null,
+      "recorded_url": null,
+      "report_url": null,
+      "selected_epoch": 27,
+      "protocol": "filtered",
+      "metrics": {
+        "MR": 386.2926330566406,
+        "MRR": 0.38074643909931183,
+        "hits@[1,3,10]": [
+          0.30110079050064087,
+          0.41875380277633667,
+          0.532720685005188
+        ]
+      },
+      "verification": "no_local_wandb_run",
+      "evidence": [],
+      "metric_selector": "final_result"
+    }
+  ],
+  "remote_access_check": "Both original wandb.ai and Forge example URLs returned HTTP 403 from this environment; visibility/sync not verified."
+}
