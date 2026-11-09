@@ -1,11 +1,11 @@
 # DSoM Reproduction — Research Progress Note
 
-**Cập nhật:** 22/10/2026  
-**Paper:** DSoM — *Dark Side of Modalities: Reinforced Multimodal Distillation for Multimodal Knowledge Graph Reasoning* (ACM MM 2025)  
-**Repository:** https://github.com/keiranoluv/Reproduce_DSoM  
-**Workspace:** `/workspace/workspace/DSoM`  
-**Python:** `./dsom/bin/python`  
-**GPU:** NVIDIA RTX 5090 32GB  
+**Cập nhật:** 22/10/2026
+**Paper:** DSoM — *Dark Side of Modalities: Reinforced Multimodal Distillation for Multimodal Knowledge Graph Reasoning* (ACM MM 2025)
+**Repository:** https://github.com/keiranoluv/Reproduce_DSoM
+**Workspace:** `/workspace/workspace/DSoM`
+**Python:** `./dsom/bin/python`
+**GPU:** NVIDIA RTX 5090 32GB
 **W&B project:** `DSoM-Reproduction`
 
 ## 1. Mục tiêu nghiên cứu
@@ -33,7 +33,7 @@ Các thí nghiệm đã được triển khai trong các giai đoạn trước, 
 
 Tất cả MRR bên dưới đều lấy từ `final_result` của **best-validation checkpoint**, không phải metric của epoch cuối trong W&B.
 
-| Experiment | Teacher selection | Distillation | Best epoch | Test MRR |
+| Experiment | Teacher selection | Distillation | Epoch tốt nhất | Test MRR |
 |---|---|---|---:|---:|
 | Exp01 | Source-frozen RC | NDKD | 63 | 0.413046 |
 | A1 | Structural-only | NDKD | 48 | 0.412724 |
@@ -92,7 +92,7 @@ Diagnostics cho thấy policy weights thực sự cập nhật, nhưng phân ph�
 
 Ví dụ:
 
-`entropy=0.002152`  
+`entropy=0.002152`
 `actions=[444,0,0,0,0,0,0]`
 
 Đây là bằng chứng về policy collapse ở các batch được quan sát, nhưng cần thêm đánh giá theo epoch và validation queries trước khi khẳng định hành vi trên toàn bộ quá trình training.
@@ -237,11 +237,11 @@ Các kết quả gợi ý rằng fixed teacher selection và Vanilla KD có th�
 
 Tuy nhiên, chưa thể bác bỏ đóng góp của paper khi chưa kiểm soát đầy đủ seed, optimizer behavior, feature pipeline và validation leakage.
 
-**Next milestone:** Hoàn thành A9/A10, tạo bảng Learned RC + NDKD/KL/DKD, rồi đánh giá xem NDKD có thực sự tốt hơn khi RC được cập nhật hay không.
+**Mốc tiếp theo:** Hoàn thành A9/A10, tạo bảng Learned RC + NDKD/KL/DKD, rồi đánh giá xem NDKD có thực sự tốt hơn khi RC được cập nhật hay không.
 
-## FB15K-237 — Verified result provenance
+## FB15K-237 — Provenance kết quả đã xác minh
 
-| Run | Policy optimizer | Best epoch | Test MRR |
+| Run | Policy optimizer | Epoch tốt nhất | Test MRR |
 |---|---|---:|---:|
 | R1 Batch 1024 | `same` | 57 | 0.3595790416 |
 | Table 3 Source-frozen RC | `source_frozen` | 60 | **0.3735639155** |
@@ -254,10 +254,12 @@ Tuy nhiên, chưa thể bác bỏ đóng góp của paper khi chưa kiểm soát
 
 `runs/student/FB15K-237/table3_source_frozen_rc/full/20261020_121832/checkpoints/0/result.json`
 
-The source-frozen run reproduces Table 3 ranking metrics closely:
+Source-frozen run có ranking metrics gần Table 3:
 MR 116.56, Hits@1 27.79%, Hits@3 41.05%, Hits@10 56.67%.
 
-These results come from different policy optimizer configurations.
-Their performance difference should not be attributed solely to the
-optimizer without auditing other training settings and code revisions.
+Kết quả dùng policy optimizer configs khác nhau; không quy chênh lệch chỉ
+cho optimizer nếu chưa audit training settings và code revisions khác.
 
+
+<!-- Giữ anchors trước khi Việt hóa để tương thích liên kết cũ. -->
+<a id="fb15k-237--verified-result-provenance"></a>

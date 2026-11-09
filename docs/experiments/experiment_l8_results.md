@@ -1,22 +1,21 @@
-# Experiment L8 - Filtered Teacher Ranking Audit
+# Thí nghiệm L8 — Audit filtered ranking teacher
 
-## Objective
+## Mục tiêu
 
-Evaluate all seven frozen Teacher strategies using
-the filtered ranking protocol on FB15K-237.
+Đánh giá bảy frozen teacher strategies bằng filtered ranking trên FB15K-237.
 
-## Setup
+## Thiết lập
 
 - Dataset: FB15K-237
 - Teacher: frozen pretrained MIN
 - Split: full validation
-- Original triples: 17535
-- Evaluation queries: 35070 (RHS + LHS)
-- Protocol: filtered ranking using dataset.to_skip
+- Triples gốc: 17535
+- Queries evaluation: 35070 (RHS + LHS)
+- Protocol: filtered ranking dùng dataset.to_skip
 
-## Results - Both Directions
+## Kết quả hai chiều
 
-| Strategy | MR | MRR | Hits@1 | Hits@3 | Hits@10 |
+| Chiến lược | MR | MRR | Hits@1 | Hits@3 | Hits@10 |
 |---|---:|---:|---:|---:|---:|
 | Structural | 152.03 | 0.3643 | 0.2714 | 0.3980 | 0.5515 |
 | Image | 960.54 | 0.2193 | 0.1641 | 0.2392 | 0.3284 |
@@ -26,24 +25,28 @@ the filtered ranking protocol on FB15K-237.
 | Image+Description | 193.01 | 0.3098 | 0.2329 | 0.3366 | 0.4606 |
 | All three | 130.62 | 0.3498 | 0.2618 | 0.3825 | 0.5246 |
 
-## Findings
+## Phát hiện
 
-1. Structural+Description achieves the best filtered
-   MR, MRR, Hits@1, Hits@3 and Hits@10.
-2. Structural has higher filtered MRR than Description.
-3. This contrasts with L6/L7 unfiltered CE and MRR,
-   where Description performs better.
-4. The distinction between filtered and unfiltered
-   evaluation materially affects teacher comparisons.
+1. Structural+Description tốt nhất về filtered MR/MRR/Hits@1/3/10.
+2. Structural filtered MRR cao hơn Description.
+3. Khác với unfiltered CE/MRR của L6/L7, nơi Description tốt hơn.
+4. Chọn filtered/unfiltered ảnh hưởng đáng kể so sánh teacher.
 
-## Limitations
+## Giới hạn
 
-- Results evaluate Teacher strategies, not Student.
-- Better Teacher filtered MRR does not guarantee
-  better performance after distillation.
-- Single pretrained Teacher checkpoint.
+- Đánh giá teacher strategies, không student.
+- Teacher filtered MRR cao hơn không đảm bảo distill tốt hơn.
+- Chỉ một pretrained teacher checkpoint.
 
-## Next Experiment
+## Thí nghiệm tiếp theo
 
-L9: Train a Student with fixed Structural+Description
-and compare against K1 Description and K2 RC.
+L9: train student với fixed Structural+Description, so với K1 Description và K2 RC.
+
+<!-- Giữ anchors trước khi Việt hóa để tương thích liên kết cũ. -->
+<a id="experiment-l8---filtered-teacher-ranking-audit"></a>
+<a id="findings"></a>
+<a id="limitations"></a>
+<a id="next-experiment"></a>
+<a id="objective"></a>
+<a id="results---both-directions"></a>
+<a id="setup"></a>

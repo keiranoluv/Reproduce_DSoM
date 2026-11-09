@@ -1,0 +1,212 @@
+{
+  "scope": "Documentation refactor only; no training/evaluation/data-processing code changes",
+  "reviewed_local_date": "2026-10-24",
+  "base_commit": "785a2d60b1c0a8043c5a48bb9ee9dfba495a2539",
+  "tests": {
+    "command": "CUDA_VISIBLE_DEVICES='' /tmp/dsom-reproduction-docs-env-20261024/bin/python -m pytest -q tests",
+    "passed": 160,
+    "warnings": 21,
+    "environment": "Isolated Python 3.12 / torch 2.7.0+cpu; CUDA hidden"
+  },
+  "documentation": {
+    "markdown_files": 43,
+    "local_links_including_anchors": 127,
+    "broken_links_or_anchors": 0,
+    "bash_blocks_syntax_only": 92
+  },
+  "cli": {
+    "status": "PASS",
+    "actual_cli_parses": 54,
+    "entrypoints": [
+      "scripts/build_features.py",
+      "scripts/check_environment.py",
+      "scripts/prepare_dataset.py",
+      "scripts/prepare_wn9_from_mose.py",
+      "scripts/run_reproduction.py",
+      "scripts/run_table2.py",
+      "scripts/run_table4_components.py",
+      "scripts/run_table4_ensembles.py",
+      "scripts/run_table6.py",
+      "scripts/run_table7.py",
+      "scripts/run_wn9_student.py",
+      "scripts/run_wn9_teacher.py"
+    ],
+    "torch_imported": false
+  },
+  "plans": {
+    "status": "PASS",
+    "audit_directory": "runs/audit/documentation_refactor_20261024_084936_545023",
+    "checks": [
+      {
+        "label": "baseline_MMKB-DB15K",
+        "status": "PASS",
+        "output": "runs/reproduction/doc_refactor_20261024_084936_545023_baseline_MMKB-DB15K",
+        "torch_imported": false,
+        "planned_jobs": 2
+      },
+      {
+        "label": "baseline_MKG-Y",
+        "status": "PASS",
+        "output": "runs/reproduction/doc_refactor_20261024_084936_545023_baseline_MKG-Y",
+        "torch_imported": false,
+        "planned_jobs": 2
+      },
+      {
+        "label": "baseline_MKG-W",
+        "status": "PASS",
+        "output": "runs/reproduction/doc_refactor_20261024_084936_545023_baseline_MKG-W",
+        "torch_imported": false,
+        "planned_jobs": 2
+      },
+      {
+        "label": "baseline_FB15K-237",
+        "status": "PASS",
+        "output": "runs/reproduction/doc_refactor_20261024_084936_545023_baseline_FB15K-237",
+        "torch_imported": false,
+        "planned_jobs": 2
+      },
+      {
+        "label": "baseline_WN18",
+        "status": "PASS",
+        "output": "runs/reproduction/doc_refactor_20261024_084936_545023_baseline_WN18",
+        "torch_imported": false,
+        "planned_jobs": 2
+      },
+      {
+        "label": "db_teacher",
+        "status": "PASS",
+        "output": "runs/reproduction/doc_refactor_20261024_084936_545023_db_teacher",
+        "torch_imported": false
+      },
+      {
+        "label": "table2_all",
+        "status": "PASS",
+        "output": "runs/table2/plan/doc_refactor_20261024_084936_545023_table2_all",
+        "torch_imported": false,
+        "planned_jobs": 12
+      },
+      {
+        "label": "table2_cell",
+        "status": "PASS",
+        "output": "runs/table2/plan/doc_refactor_20261024_084936_545023_table2_cell",
+        "torch_imported": false,
+        "planned_jobs": 1
+      },
+      {
+        "label": "table4_pair",
+        "status": "PASS",
+        "output": "runs/table4_components/plan/doc_refactor_20261024_084936_545023_table4_pair",
+        "torch_imported": false,
+        "planned_jobs": 2
+      },
+      {
+        "label": "table4_cell",
+        "status": "PASS",
+        "output": "runs/table4_components/plan/doc_refactor_20261024_084936_545023_table4_cell",
+        "torch_imported": false,
+        "planned_jobs": 1
+      },
+      {
+        "label": "table4_ensembles",
+        "status": "PASS",
+        "output": "runs/table4_ensembles/plan/doc_refactor_20261024_084936_545023_table4_ensembles",
+        "torch_imported": false
+      },
+      {
+        "label": "table6_all",
+        "status": "PASS",
+        "output": "runs/table6/plan/doc_refactor_20261024_084936_545023_table6_all",
+        "torch_imported": false,
+        "planned_jobs": 9
+      },
+      {
+        "label": "table6_cell",
+        "status": "PASS",
+        "output": "runs/table6/plan/doc_refactor_20261024_084936_545023_table6_cell",
+        "torch_imported": false,
+        "planned_jobs": 1
+      },
+      {
+        "label": "table7",
+        "status": "PASS",
+        "output": "runs/table7/plan/doc_refactor_20261024_084936_545023_table7",
+        "torch_imported": false
+      },
+      {
+        "label": "wn9_teacher",
+        "status": "PASS",
+        "output": "runs/table7/teacher/plan/doc_refactor_20261024_084936_545023_wn9_teacher",
+        "torch_imported": false
+      },
+      {
+        "label": "wn9_student",
+        "status": "PASS",
+        "output": "runs/table7/student/plan/doc_refactor_20261024_084936_545023_wn9_student",
+        "torch_imported": false
+      }
+    ],
+    "limitation": "Portable Table 4 separate student stage requires a completed portable full DB15K teacher absent locally; profile CLI generation is covered by existing CPU tests. No historical metadata was fabricated."
+  },
+  "integrity": {
+    "status": "PASS",
+    "tracked_non_markdown_files_unchanged": 136,
+    "protected_historical_files_sha256_verified": 92,
+    "snapshot_markdown_paths_preserved": {
+      "run_table2": [
+        "docs/experiments/TABLE2_REPRODUCTION.md"
+      ],
+      "run_table4_components": [
+        "docs/experiments/TABLE4_COMPONENT_ABLATIONS.md"
+      ],
+      "run_table4_ensembles": [
+        "docs/experiments/TABLE4_TEACHER_ENSEMBLES.md"
+      ],
+      "run_table6": [
+        "docs/experiments/TABLE6_REPRODUCTION.md"
+      ],
+      "wn9_workflow": [
+        "docs/experiments/TABLE7_WN9_REPRODUCTION.md"
+      ]
+    },
+    "training_evaluation_processing_behavior": "No source/config/dependency changes",
+    "torch_imported": false
+  },
+  "archived_original_sha256": {
+    "docs/experiments/db15k_reproduction_progress_20261022.md": "143cde2df6661742d566d60b730f23fb43ab7d3534c75dd458fecd2c5e9762cb",
+    "docs/experiments/TABLE1_MKGY_PREPROCESSING.md": "d1f6010afa3af4f8da5a3cdba266362ecb5240e59ad6df615593090f716e6be1",
+    "docs/experiments/reproduction_progress.md": "009ee42e86d9b900f3c0dc96a33a4ae6646adaa6b621cf81ec0e9504eff19462",
+    "docs/REPRODUCTION_PROGRESS.md": "2d37a22f0967f29d6d7cfbfcea5282a78ab1e91fed70ccb45b00405c61da1495",
+    "docs/reproduction/TABLES.md": "8a95f341c0940fa617b9d5451af7e1367c3fe346984b58b600620066fbcc6333",
+    "docs/WN18_DATA_PREPARATION.md": "371f89a7d62465a4ad713885c48f44bb8e4f6003753277ecca1146fde3f8ca6d",
+    "docs/experiments/TABLE1_MKGW_EXP01_SETUP.md": "ee7c0164cfa563a0665a595c8e2a7e92a80bce1d220753a464e48776d41e442b",
+    "docs/reproduction/CELLS.md": "24f7369d904f5f4dfcfe26c8b89519699f29c8d7ef4bdcfeb5eca8c16ae07262",
+    "docs/experiments/TABLE1_MKGY_EXP01_RESULTS.md": "c639e98e40f42a67a2e94c2de3eee818c18295df4ae576401b75489e988443d2"
+  },
+  "archive_content_policy": "Archived prose translated to Vietnamese without changing historical status or meaning; relative links adjusted, original anchors retained. Fenced code/log/source examples and numeric table values preserved. Original English documents are available in Git history at base_commit.",
+  "not_performed": [
+    "GPU initialization or training",
+    "Fresh encoder extraction or large dataset downloads",
+    "Fresh inference from benchmark checkpoints"
+  ],
+  "remaining_limits": [
+    "Exact author feature/protocol equivalence unverified",
+    "Clean-machine CUDA full pipeline not executed",
+    "Portable Table 4 standalone student plans require a completed portable DB15K teacher stage not present locally; supported profile generation is covered by existing CPU tests",
+    "External link availability was not rechecked; local file links and anchors were checked"
+  ],
+  "git_diff_check": "PASS",
+  "vietnamese_localization": {
+    "status": "PASS",
+    "markdown_files": 43,
+    "local_links_and_anchors": 127,
+    "bash_blocks_syntax_only": 92,
+    "verbatim_fenced_blocks_unchanged": 137,
+    "numeric_table_rows_preserved": 618,
+    "note": "Original paper titles, technical identifiers, source examples and logs intentionally retain their language; prose, headings and explanatory table cells translated. No GPU execution.",
+    "tests": {
+      "passed": 160,
+      "warnings": 21,
+      "device": "CPU-only isolated environment; no GPU initialization"
+    }
+  }
+}

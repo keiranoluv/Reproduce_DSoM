@@ -1,27 +1,26 @@
-# Experiment L7 - Teacher Calibration and Ranking Audit
+# Thí nghiệm L7 — Audit calibration/ranking teacher
 
-## Objective
+## Mục tiêu
 
-Determine whether Structural's high validation CE
-comes from poorer ranking, excessive confidence, or both.
+Kiểm tra structural validation CE cao do ranking kém, quá tự tin, hay cả hai.
 
-## Setup
+## Thiết lập
 
 Dataset: FB15K-237
 Teacher: frozen pretrained MIN
 Split: full validation
-Queries: 35070 (original + reciprocal)
+Số queries: 35070 (original + reciprocal)
 
 Metrics:
-- Unfiltered Cross-Entropy
-- Unfiltered MRR and Hits@1
+- Unfiltered cross-entropy
+- Unfiltered MRR/Hits@1
 - Top-1 confidence
-- Expected Calibration Error (ECE, 10 bins)
-- Cross-Entropy at temperatures 1, 2 and 4
+- Kỳ vọng Calibration Error (ECE, 10 bins)
+- CE ở temperatures 1, 2, 4
 
-## Results
+## Kết quả
 
-| Strategy | CE | MRR | Hits@1 | Confidence | ECE | CE T=2 | CE T=4 |
+| Chiến lược | CE | MRR | Hits@1 | Confidence | ECE | CE T=2 | CE T=4 |
 |---|---:|---:|---:|---:|---:|---:|---:|
 | Structural | 6.3162 | 0.1681 | 0.1005 | 0.1959 | 0.1021 | 6.7524 | 8.0465 |
 | Image | 6.4193 | 0.1586 | 0.1091 | 0.1088 | 0.0067 | 7.3782 | 8.3677 |
@@ -31,30 +30,36 @@ Metrics:
 | Image+Description | 5.2477 | 0.1935 | 0.1278 | 0.1377 | 0.0156 | 6.5539 | 7.9476 |
 | All three | 5.2626 | 0.1760 | 0.1111 | 0.1534 | 0.0466 | 6.5573 | 7.9675 |
 
-## Findings
+## Phát hiện
 
-1. Description has lower validation CE than Structural.
-2. Description also has higher unfiltered MRR and Hits@1.
-3. Structural has greater top-1 confidence despite lower accuracy.
-4. Structural has higher ECE than Description.
-5. Increasing temperature from 1 to 2 or 4 worsens CE
-   for both modalities.
+1. Description validation CE thấp hơn Structural.
+2. Description cũng có unfiltered MRR/Hits@1 cao hơn.
+3. Structural top-1 confidence cao hơn dù accuracy thấp hơn.
+4. Structural ECE cao hơn Description.
+5. Tăng temperature từ 1 lên 2 hoặc 4 làm CE tệ hơn cho cả hai modalities.
 
-## Interpretation
+## Diễn giải
 
-The Structural/Description gap cannot be explained
-by confidence alone: ranking quality also differs.
+Không thể giải thích gap chỉ bằng confidence: ranking quality cũng khác.
 
-The temperature experiment tests only T=1,2,4.
-It does not rule out other calibration temperatures.
+Chỉ kiểm tra T=1,2,4; chưa loại trừ các calibration temperatures khác.
 
-## Limitations
+## Giới hạn
 
-- Unfiltered ranking is not Table 3 filtered ranking.
-- These metrics evaluate Teacher, not Student.
-- ECE is sensitive to binning and top-1 accuracy.
+- Unfiltered ranking khác filtered Table 3.
+- Metrics đánh giá teacher, không student.
+- ECE nhạy với binning và top-1 accuracy.
 
-## Next Experiment
+## Thí nghiệm tiếp theo
 
-L8: Full filtered ranking audit for all seven
-teacher strategies using FB15K-237 to_skip filters.
+L8: audit full filtered ranking cho bảy strategies bằng FB15K-237 to_skip filters.
+
+<!-- Giữ anchors trước khi Việt hóa để tương thích liên kết cũ. -->
+<a id="experiment-l7---teacher-calibration-and-ranking-audit"></a>
+<a id="findings"></a>
+<a id="interpretation"></a>
+<a id="limitations"></a>
+<a id="next-experiment"></a>
+<a id="objective"></a>
+<a id="results"></a>
+<a id="setup"></a>

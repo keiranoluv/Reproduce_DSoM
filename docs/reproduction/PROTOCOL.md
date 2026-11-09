@@ -1,79 +1,82 @@
-# Supported reproduction protocol
+# Protocol reproduction được hỗ trợ
 
-## Supported scope
+## Phạm vi hỗ trợ
 
-The documented training model is `ComplExMDR`. Its teacher separates structural,
-visual, and description relations; its student is structure-only. The portable
-profiles, Table 2/4/6 launchers, and WN9 workflow construct validated combinations
-of that model. This is not a promise that every option in the inherited CLI or
-every legacy model class works.
+Model training được hỗ trợ là `ComplExMDR`. Teacher tách structural, visual
+và description relations; student chỉ dùng structure. Portable profiles,
+launcher Tables 2/4/6 và workflow WN9 tạo các tổ hợp đã kiểm tra của model này.
+Không có nghĩa mọi tùy chọn CLI kế thừa hoặc mọi model legacy đều hoạt động.
 
-In particular, legacy RSME construction references undefined global options,
-and legacy `soft_kl`/assistant distillers are incomplete. They are not used in
-these workflows. TMR, DySarl and other competitors are not trained by the DSoM
-launchers. Historical experiment scripts remain research records, not alternate
-unqualified installation entrypoints.
+Cụ thể, cách khởi tạo RSME legacy còn tham chiếu global options chưa định nghĩa;
+các distiller `soft_kl`/assistant legacy chưa hoàn chỉnh. Workflow không dùng
+những nhánh này. Launcher DSoM không train TMR, DySarl hay competitor khác.
+Script thí nghiệm lịch sử là hồ sơ nghiên cứu, không phải entrypoint cài đặt thay thế.
 
-## Matched configuration
+## Cấu hình đối chiếu
 
-The fresh baseline profiles retain rank 2000 (ComplEx's actual vectors have
-`2 * rank` components), batch 1000, Adagrad .1, N3 .01, init .001, scale 20,
-max 200 epochs, validation every 3, early stopping 10 and seed 2022. Teacher
-selection uses validation Hits@10; student uses validation MRR. The existing
-`min` scheduler monitors validation Hits@10 in the wrong direction for a maximum
-metric; it is retained to match source/baseline runs, not presented as a corrected
-best practice. Changes require a new matched experiment.
+Baseline mới giữ rank 2000 (vector ComplEx thực tế có `2 * rank` thành phần),
+batch 1000, Adagrad .1, N3 .01, init .001, scale 20, tối đa 200 epochs,
+validation mỗi 3 epochs, early stopping 10 và seed 2022. Chọn teacher bằng
+validation Hits@10, student bằng validation MRR. Scheduler `min` hiện có
+đang theo dõi validation Hits@10 theo chiều ngược với mục tiêu maximize; giữ
+nguyên để khớp source/baseline, không coi là best practice đã sửa. Muốn đổi
+cần tạo một matched experiment mới.
 
-Student CE/KD weights are 1/2, temperature 4, NDKD alpha/beta 1/1. Training
-neighbors use training triples and their reciprocals, not evaluation filters.
-Teacher parameters are frozen during student training. Evaluation filters use
-all original splits as in the benchmark.
+Student có CE/KD weights 1/2, temperature 4, NDKD alpha/beta 1/1. Training
+neighbors lấy từ training triples cùng reciprocal triples, không dùng
+evaluation filters. Teacher được đóng băng khi train student. Evaluation
+filters dùng toàn bộ splits gốc như benchmark.
 
-## Source-frozen versus learned RC
+## Phân biệt source-frozen và learned RC
 
-`source_frozen` excludes the RC policy from optimizer parameter groups while
-still constructing and sampling it. It is the default main baseline protocol
-in this reproduction, including default Table 7. It does not establish the
-effectiveness of learned reinforcement learning.
+`source_frozen` loại RC policy khỏi các optimizer parameter groups nhưng vẫn
+khởi tạo và sample policy. Đây là protocol mặc định cho main baseline trong
+reproduction này, gồm Table 7. Kết quả không chứng minh hiệu quả của learned RL.
 
-The DB15K Table 4 learned variants use a separate policy Adam at 1e-5 and binary
-+1/-10 rewards. Optional Table 7 `--policy-optimizer Adam` is a separately labelled
-adaptation. Do not merge it with a source-frozen result under one unnamed row.
-Fixed S/V/D/average teacher selection does not train a policy. Teacher oracle
-minimum ranks cannot substitute for student results or direct teacher ensembles.
+Các learned variants DB15K/Table 4 dùng policy Adam riêng ở 1e-5, binary
+rewards +1/-10. Tùy chọn Table 7 `--policy-optimizer Adam` là adaptation có
+nhãn riêng. Không gộp nó và source-frozen vào một dòng không phân biệt.
+Fixed S/V/D/average teacher selection không train policy. Teacher oracle
+minimum ranks không thay được student results hoặc direct teacher ensembles.
 
-## Method and data differences
+## Khác biệt phương pháp và dữ liệu
 
-- Released NDKD groups **sums** of neighbor probabilities; paper Eq.12 describes
-  their **mean**. All historical and supported default profiles preserve SUM.
-  NEKD is grouped neighbor/non-neighbor mass KL, not KL within individual neighbors.
-- BERT/ViT features are reconstructed. Image input is 384 and output 1000 classifier
-  logits in the implemented pipeline, whereas the paper describes ViT224. Raw-image
-  coverage, historic URL availability and missing-vector RNG order can differ.
-- DB15K public validation overlaps train/test and contains duplicates. Main tables
-  preserve those files. CleanV1 is an isolated sensitivity dataset with different
-  training size/filters/validation distribution, not an unconfounded causal estimate.
-- WN9 source has many inverse facts across splits. It also contains a preserved
-  source self-loop absent from the current WN18 graph union. Generic encoder features
-  can be reused by synset ID; WN18 graph checkpoints cannot be reused for WN9.
-- MulDE in Table 2 is an adaptation: the authors' DSoM adaptation settings are not
-  released. Its details and optimizer ownership are documented in the Table 2 record.
-- Table 4 Teacher Avg. is ambiguous. Both mean metrics and mean logits are saved.
-  ML-on-val follows MoSE architecture but fixes the final epoch instead of selecting
-  on test. Standalone RC-on-val uses explicitly documented reward/training choices.
-- Table 7 compares to methods reporting raw metrics, while the DSoM evaluator is
-  filtered. Both are reported on one filtered-validation-selected checkpoint;
-  exact author Table 7 settings remain unverified. The completed source-frozen
-  full run achieved filtered MRR .919634 versus raw .618763; filtered closeness
-  to paper .9213 does not establish protocol equivalence. See the
-  [recorded result](RESULTS.md#recorded-table-7-full-result).
+- NDKD công bố nhóm **tổng** xác suất neighbors; Eq.12 của paper mô tả **trung bình**.
+  Các default profiles và runs lịch sử giữ SUM. NEKD là KL giữa nhóm
+  neighbor/non-neighbor mass, không phải KL giữa từng neighbor riêng lẻ.
+- BERT/ViT features được tái dựng. Pipeline dùng image input 384 và classifier
+  logits 1000 chiều, trong khi paper mô tả ViT224. Độ phủ ảnh, khả dụng URL cũ
+  và thứ tự RNG của missing vectors có thể khác.
+- Validation DB15K công khai overlap train/test và có duplicates. Main tables
+  giữ nguyên nguồn. CleanV1 là sensitivity dataset riêng, khác kích thước
+  training/filters/phân phối validation, không phải ước lượng nhân quả không nhiễu.
+- WN9 có nhiều inverse facts giữa splits và giữ một self-loop từ nguồn không
+  có trong WN18 union hiện tại. Có thể reuse generic encoder features theo
+  synset ID; không reuse WN18 graph checkpoints cho WN9.
+- MulDE/Table 2 là adaptation vì cấu hình adaptation DSoM của tác giả không
+  được công bố. Chi tiết và optimizer ownership nằm trong báo cáo Table 2.
+- Teacher Avg./Table 4 có cách hiểu chưa rõ; lưu cả mean metrics và mean logits.
+  ML-on-val theo kiến trúc MoSE nhưng cố định final epoch thay vì chọn trên test.
+  RC-on-val độc lập dùng lựa chọn reward/training được mô tả tường minh.
+- Table 7 so sánh với các phương pháp báo raw metrics, còn evaluator DSoM dùng
+  filtered. Cả hai được báo trên cùng checkpoint chọn bằng filtered validation.
+  Chưa xác minh protocol chính xác của tác giả. Full source-frozen đạt filtered
+  MRR .919634, raw .618763; gần paper .9213 ở filtered chưa chứng minh tương
+  đương protocol. Xem [kết quả đã ghi nhận](RESULTS.md#recorded-table-7-full-result).
 
-## Reporting
+## Cách báo cáo
 
-Report source commit, dataset/feature provenance, seed, policy optimizer,
-selected epoch and raw/filtered setting. The published table grid being complete
-under a documented profile is different from exact numerical or author-protocol
-reproduction. No single-seed gain is treated as statistically established.
-Keep smoke, full and sensitivity results separate. Read student `final_result`,
-not the last test log entry. Existing experiment/audit documents retain detailed
-evidence rather than silently revising old benchmark results.
+Báo source commit, nguồn dataset/features, seed, policy optimizer, epoch được
+chọn và raw/filtered setting. Hoàn tất lưới bảng theo một profile đã ghi nhận
+khác với tái lập chính xác con số hoặc protocol tác giả. Không coi cải thiện
+một seed là bằng chứng thống kê. Tách smoke, full và sensitivity results.
+Đọc student `final_result`, không dùng test log cuối. Tài liệu experiment/audit
+giữ bằng chứng chi tiết, không âm thầm sửa kết quả benchmark cũ.
+
+<!-- Giữ anchors trước khi Việt hóa để tương thích liên kết cũ. -->
+<a id="matched-configuration"></a>
+<a id="method-and-data-differences"></a>
+<a id="reporting"></a>
+<a id="source-frozen-versus-learned-rc"></a>
+<a id="supported-reproduction-protocol"></a>
+<a id="supported-scope"></a>

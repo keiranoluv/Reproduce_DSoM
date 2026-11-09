@@ -1,142 +1,135 @@
-# WN9 source audit and prepared inputs — 2026-10-24
+# WN9 — Audit nguồn và inputs đã chuẩn bị, 2026-10-24
 
-Status: **data preparation and CPU verification PASS**. This source audit ran
-without encoder extraction or GPU training and left existing WN18 features,
-datasets, and benchmark results unchanged. Subsequently, the user completed
-fresh WN9 teacher/student training for Table 7; CPU artifact review passed on
-2026-10-24. See the [recorded full result](TABLE7_WN9_REPRODUCTION.md#recorded-full-run--2026-10-24).
+Trạng thái: **preparation/kiểm tra CPU PASS**. Audit không encoder extraction
+hoặc GPU training, giữ WN18 features/data/results cũ. Sau đó người dùng train
+mới WN9 teacher/student Table 7; CPU artifact review PASS ngày 2026-10-24.
+Xem [full result](TABLE7_WN9_REPRODUCTION.md#recorded-full-run--2026-10-24).
 
-## Source and scope
+## Nguồn và phạm vi
 
-The existing audit checkout at
-`../dataset_audit/MoSE4MKGC_WN9/` was already present; it was not downloaded again.
-Repository: [OreOZhao/MoSE4MKGC](https://github.com/OreOZhao/MoSE4MKGC).
-Pinned commit: `192d9ff2882b5be6ef8239a37cbd90c5dd102b5a`.
-All five files in `src_data/WN9/` were compared byte-for-byte with their Git
-blobs at that commit: `train`, `valid`, `test`, `ent_dscp.txt`, `ent_name.txt`.
+Checkout audit `../dataset_audit/MoSE4MKGC_WN9/` đã có, không tải lại.
+Repo [OreOZhao/MoSE4MKGC](https://github.com/OreOZhao/MoSE4MKGC), pin commit
+`192d9ff2882b5be6ef8239a37cbd90c5dd102b5a`. Cả năm files `src_data/WN9/` được
+so từng byte với Git blobs: `train`, `valid`, `test`, `ent_dscp.txt`, `ent_name.txt`.
 
-MoSE's README links WN9 to [IKRL](https://github.com/thunlp/IKRL), while
-[DSoM Appendix C/Table 5](https://arxiv.org/html/2507.20738v1#A3) reports:
+README MoSE dẫn WN9 tới [IKRL](https://github.com/thunlp/IKRL), còn
+[DSoM Appendix C/Table 5](https://arxiv.org/html/2507.20738v1#A3) báo:
 
-| Item | Observed | DSoM paper |
+| Item | Quan sát | DSoM paper |
 |---|---:|---:|
 | Entities | 6,555 | 6,555 |
-| Relations before reciprocal augmentation | 9 | 9 |
+| Relations trước reciprocal augmentation | 9 | 9 |
 | Train triples | 11,741 | 11,741 |
 | Valid triples | 1,337 | 1,337 |
 | Test triples | 1,319 | 1,319 |
 
-All split rows are unique, all entities appear in training, and exact triple
-intersections between every split pair are zero. No valid/test swapping or
-deduplication was performed. The IKRL archive has not been independently
-downloaded/compared; the verified source is the pinned MoSE snapshot.
+Mọi split rows unique, mọi entities xuất hiện training; exact intersections
+giữa split pairs bằng zero. Không đổi valid/test hoặc deduplicate. Chưa tải
+độc lập/so IKRL archive; nguồn verified là pinned MoSE snapshot.
 
-## Inverse facts and WN18 graph comparison
+## Inverse facts và đối chiếu graph WN18
 
-The audit counts reversed facts under the explicitly listed relation pairs
-in `inverse_relation_definition`, including hypernym/hyponym, has_part/part_of,
-member_holonym/member_meronym, topic-domain relations, and the symmetric
-derivational relation. These counts are distinct from exact duplicate triples:
+Audit đếm reverse facts theo relation pairs trong `inverse_relation_definition`,
+gồm hypernym/hyponym, has_part/part_of, member_holonym/member_meronym,
+topic-domain và symmetric derivational relation. Khác với exact duplicates:
 
-| Source / target split | Exact overlap | Same-relation reverse | Named-inverse reverse |
+| Nguồn / target split | Exact overlap | Same-relation reverse | Named-inverse reverse |
 |---|---:|---:|---:|
 | Train / valid | 0 | 5 | 1,198 |
 | Train / test | 0 | 10 | 1,186 |
 | Valid / test | 0 | 0 | 69 |
 
-Thus 1,186 / 1,319 test triples (89.92%) have a named-inverse fact in training.
-This is a property of the downloaded benchmark, not introduced by preprocessing.
-Splits remain unchanged for reproduction; this is not a clean sensitivity split.
+Có 1,186 / 1,319 test triples (89.92%) có named-inverse fact trong train.
+Đây là tính chất benchmark nguồn, không do preprocessing. Giữ nguyên splits
+để reproduce, không phải clean sensitivity split.
 
-WN9 synsets all exist in the current WN18 mapping, but the graph files are not
-simply a split-preserving subset. For example, 1,247 WN9 test facts occur in
-WN18 training. One WN9 training fact is absent from the current WN18 union:
-`(n03868863, _part_of, n03868863)`. It is a self-loop already in the committed
-MoSE source and was retained. Do not replace WN9 triples using WN18 files.
+Mọi WN9 synsets có trong WN18 mapping nhưng graph không đơn thuần là subset
+giữ nguyên splits: 1,247 test facts WN9 có ở WN18 train. Một training fact
+WN9 không có trong WN18 union: `(n03868863, _part_of, n03868863)`, self-loop
+đã có ở MoSE commit và được giữ. Không thay WN9 triples bằng files WN18.
 
-## Feature reuse without encoding
+## Reuse features không encode lại
 
-The mapping explicitly strips the leading `n` from each WN9 noun synset and
-looks up that eight-digit ID in `data/WN18/ent_id`. No row-order or numeric-ID
-equivalence is assumed. All 6,555 entity IDs match. Their nonempty descriptions
-in MoSE exactly match the normalized KG-BERT descriptions used by our WN18
-feature builder.
+Mapping bỏ tiền tố `n` của noun synset WN9, tra ID tám chữ số trong
+`data/WN18/ent_id`; không giả định row order/numeric IDs tương đương. Khớp đủ
+6,555 IDs. Descriptions không rỗng ở MoSE khớp chính xác normalized KG-BERT
+descriptions dùng trong WN18 feature builder.
 
-Prepared WN9 features select the corresponding rows from existing frozen-encoder
-feature arrays:
+WN9 features lấy đúng rows từ frozen-encoder feature arrays hiện có:
 
-| Modality | WN9 array shape | Source |
+| Modality | WN9 array shape | Nguồn |
 |---|---|---|
 | Text | `(6555, 768)`, float32 | Existing WN18 BERT features |
 | Image | `(6555, 1000)`, float32 | Existing WN18 ViT classifier-logit features |
 
-According to the inherited image manifest, 6,547 entities have real-image
-features and 8 have imputed vectors. The selected image paths were checked
-against synset IDs. Missing-image vectors inherit the WN18 RNG sequence/order;
-they were not regenerated using a new WN9 seed. Image preprocessing remains
-`B_16_imagenet1k`, resize 384×384; it is not claimed to match the paper's exact
-224-resolution feature pipeline. Text features are reused from our earlier
-reconstruction, not author-released DSoM features.
+Manifest kế thừa có 6,547 entities ảnh thật, 8 imputed vectors. Kiểm tra paths
+ảnh theo synset IDs. Missing vectors kế thừa RNG sequence/order WN18, không
+tạo lại bằng seed WN9 mới. Vẫn `B_16_imagenet1k`, resize 384×384, không khẳng
+định khớp pipeline input 224 paper. Text features reuse reconstruction trước,
+không phải features DSoM tác giả công bố.
 
-This reuses only frozen generic-encoder features. **WN18 graph-trained teacher
-or student checkpoints must not be reused for WN9**; they have seen many WN9
-held-out facts. The completed Table 7 suite trained both graph models freshly
-on WN9; only generic frozen-encoder features were reused.
+Chỉ reuse generic frozen-encoder features. **Không reuse WN18 graph teacher/
+student checkpoints cho WN9** vì đã thấy held-out facts. Table 7 hoàn thành
+train mới cả hai graph models trên WN9.
 
-## Files and verification
+## Files và kiểm chứng
 
-New raw snapshot: `src_data/WN9/`, containing the five unchanged MoSE files.
-New processed inputs: `data/WN9/`, approximately 46.3 MiB:
+Raw snapshot mới `src_data/WN9/` chứa năm MoSE files nguyên bản; processed
+inputs mới `data/WN9/` khoảng 46.3 MiB:
 
 - `train.pickle`, `valid.pickle`, `test.pickle`;
 - `ent_id`, `rel_id`, `to_skip.pickle`, `probas.pickle`;
 - `img_vec.pickle`, `dscp_vec.pickle`;
-- `wn18_feature_row_map.tsv`: all 6,555 parent-to-child row assignments;
-- `preparation_manifest.json`: source/input/output hashes and protocol limits.
+- `wn18_feature_row_map.tsv`: đủ 6,555 parent-to-child row assignments;
+- `preparation_manifest.json`: source/input/output hashes và giới hạn protocol.
 
-The existing `src/process_datasets.py` generated sorted entity/relation IDs,
-uint64 triples, reciprocal filtered-evaluation lists, and training frequencies.
-The preparer changes only that module's output-directory variable temporarily,
-restores it afterward, and refuses existing WN9 output directories.
-No core training/evaluation implementation was edited.
+`src/process_datasets.py` hiện có tạo sorted entity/relation IDs, uint64
+triples, reciprocal evaluation filters và training frequencies. Preparer chỉ
+đổi tạm biến output-directory rồi khôi phục; từ chối WN9 output đã tồn tại.
+Không sửa core training/evaluation.
 
-Verification independently reconstructs mapped raw triples, split-union filters,
-and training frequencies; it also checks every selected feature value against
-the parent array and all recorded input/output SHA256s. Training NDKD neighbor
-sets remain the existing dataset loader's training-only reciprocal masks.
+Verify độc lập dựng mapped triples, split-union filters, training frequencies;
+so mỗi feature value với parent array và mọi input/output SHA256 đã ghi.
+NDKD neighbors vẫn dùng training-only reciprocal masks của dataset loader.
 
-Versioned evidence: [wn9_source_trace.json](../audits/wn9_source_trace.json).
-Local full report: `runs/audit/wn9_sources_20261023_171406_058679/report.json`.
-Runtime folder timestamps are UTC; the local date is 2026-10-24.
+Bằng chứng versioned: [wn9_source_trace.json](../audits/wn9_source_trace.json).
+Full report local `runs/audit/wn9_sources_20261023_171406_058679/report.json`.
+Timestamp thư mục là UTC; ngày local 2026-10-24.
 
-To verify the already prepared inputs without Torch or GPU:
+Kiểm tra inputs đã chuẩn bị, không Torch/GPU:
 
 ```bash
 CUDA_VISIBLE_DEVICES='' ./dsom/bin/python scripts/prepare_wn9_from_mose.py --mode verify
 CUDA_VISIBLE_DEVICES='' ./dsom/bin/python -m pytest -q tests/test_wn9_preparation.py
 ```
 
-Default mode is an audit only. On a fresh checkout with the pinned MoSE snapshot
-and matching WN18 inputs available, preparation is:
+Default mode chỉ audit. Với fresh checkout có pinned MoSE snapshot và WN18
+inputs khớp, chuẩn bị bằng:
 
 ```bash
 CUDA_VISIBLE_DEVICES='' ./dsom/bin/python scripts/prepare_wn9_from_mose.py --mode prepare
 ```
 
-Do not repeat prepare on the current outputs; use verify. Raw and processed data
-are ignored by Git. Only script/tests/docs/source-trace metadata should be committed.
+Không prepare lại outputs hiện tại; dùng verify. Git ignore raw/processed data.
+Chỉ commit script/tests/docs/source-trace metadata.
 
-## Training follow-up and remaining protocol question
+## Training tiếp theo và vấn đề protocol còn mở
 
-A separate teacher/student workflow with new checkpoints was completed in
-`runs/table7/full/20261023_173538_401388/`, preserving these source hashes.
-Evaluation settings still need reconciliation: [DySarl §4.1.3](https://openreview.net/pdf?id=Gf94NMabeh)
-reports raw ranking, whereas the current DSoM dataset evaluator is filtered.
-Table 7's exact author protocol is not established by this source audit; record
-both raw and filtered results rather than silently comparing different settings.
-Teacher oracle minimum ranks also cannot be reported as student performance.
+Workflow teacher/student tách stages, checkpoints mới hoàn thành tại
+`runs/table7/full/20261023_173538_401388/`, giữ source hashes. Vẫn cần xác minh
+evaluation setting: [DySarl §4.1.3](https://openreview.net/pdf?id=Gf94NMabeh)
+báo raw, DSoM evaluator dùng filtered. Audit không xác nhận exact Table 7
+protocol; báo cả hai, không âm thầm so khác settings. Không báo teacher oracle
+minimum ranks như student performance.
 
-Paper Table 7 targets for DSoM are MRR .9213, Hits@1 .9052, and Hits@10 .9556.
-The completed source-frozen student reached filtered MRR .919634 / H@1 .903336 /
-H@10 .949583 and raw MRR .618763 on the same checkpoint. This audit establishes
-data provenance, not exact author-protocol equivalence.
+Targets DSoM/Table 7: MRR .9213, Hits@1 .9052, Hits@10 .9556. Source-frozen
+student đạt filtered MRR .919634/H@1 .903336/H@10 .949583, raw MRR .618763
+trên cùng checkpoint. Audit xác lập provenance, không exact protocol equivalence.
+
+<!-- Giữ anchors trước khi Việt hóa để tương thích liên kết cũ. -->
+<a id="feature-reuse-without-encoding"></a>
+<a id="files-and-verification"></a>
+<a id="inverse-facts-and-wn18-graph-comparison"></a>
+<a id="source-and-scope"></a>
+<a id="training-follow-up-and-remaining-protocol-question"></a>
+<a id="wn9-source-audit-and-prepared-inputs--2026-10-24"></a>

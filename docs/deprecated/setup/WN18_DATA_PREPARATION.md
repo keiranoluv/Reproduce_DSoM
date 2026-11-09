@@ -1,11 +1,11 @@
-# DSoM Reproduction Notes — WN18 Dataset Preparation
+# Ghi chép reproduction DSoM — Chuẩn bị WN18
 
-**Date:** 18/10/2026  
-**Project:** Reproduce DSoM (ACM MM 2025)  
-**Dataset:** WN18 (không phải WN18RR)  
-**Status:** Dataset preparation completed — Structural, Text, Image PASS.
+**Ngày:** 18/10/2026
+**Dự án:** Reproduce DSoM (ACM MM 2025)
+**Dataset:** WN18, không WN18RR
+**Trạng thái:** Đã chuẩn bị dataset, Structural/Text/Image PASS.
 
-## 1. Environment & Paths
+## 1. Môi trường và đường dẫn
 
 Repository:
 
@@ -13,13 +13,13 @@ Repository:
 /workspace/workspace/DSoM
 ```
 
-Python environment:
+Môi trường Python:
 
 ```text
 /workspace/workspace/DSoM/dsom/bin/python
 ```
 
-Dataset sources:
+Nguồn datasets:
 
 ```text
 /workspace/workspace/kg-bert/data/WN18/
@@ -27,7 +27,7 @@ Dataset sources:
 /workspace/workspace/dataset_audit/kbc/data/WN/
 ```
 
-DSoM dataset directories:
+Thư mục datasets DSoM:
 
 ```text
 DSoM/
@@ -47,7 +47,7 @@ DSoM/
 
 ---
 
-## 2. Dataset Provenance — Nguồn dữ liệu
+## 2. Nguồn dữ liệu
 
 ### 2.1. Structural triples và textual descriptions
 
@@ -133,11 +133,11 @@ Kết quả xác nhận:
 No errors detected in compressed data
 ```
 
-**Note:** Không cần tải lại hoặc giải nén toàn bộ ZIP. Image feature extraction đọc trực tiếp từ archive.
+**Ghi chú:** Không cần tải lại/giải nén toàn ZIP. Image extraction đọc trực tiếp archive.
 
 ---
 
-## 3. Verify Structural Triples Against KBC
+## 3. Đối chiếu structural triples với KBC
 
 DSoM tham chiếu structural data từ KBC. Để bảo đảm KG-BERT WN18 thực sự tương đương KBC, chúng ta đã đối chiếu toàn bộ triples.
 
@@ -145,7 +145,7 @@ Nguồn KBC:
 
 [facebookresearch/kbc](https://github.com/facebookresearch/kbc)
 
-Download:
+Tải nguồn:
 
 ```bash
 cd /workspace/workspace
@@ -160,7 +160,7 @@ wget -c \
 
 KBC sử dụng tên dataset `WN` thay cho `WN18`.
 
-Extract:
+Giải nén:
 
 ```bash
 tar -xzf data.tar.gz \
@@ -192,9 +192,9 @@ ent2id = {entity: str(i) for i, entity in enumerate(entities)}
 rel2id = {relation: str(i) for i, relation in enumerate(relations)}
 ```
 
-**Verified results:**
+**Kết quả đã kiểm tra:**
 
-| Split | KG-BERT | KBC | Difference |
+| Split | KG-BERT | KBC | Chênh lệch |
 |---|---:|---:|---:|
 | Train | 141.442 | 141.442 | 0 |
 | Valid | 5.000 | 5.000 | 0 |
@@ -208,11 +208,12 @@ TEST MATCH: True
 ALL SPLITS MATCH: True
 ```
 
-**Conclusion:** KG-BERT WN18 và KBC/WN chứa cùng các triples ở cả ba splits sau mapping ID. Có thể dùng KG-BERT làm structural source để giữ nguyên WordNet synset IDs, thuận tiện cho việc căn chỉnh text và image features.
+**Kết luận:** KG-BERT WN18 và KBC/WN cùng triples ở cả ba splits sau ID mapping;
+dùng KG-BERT giữ synset IDs để căn chỉnh text/images.
 
 ---
 
-## 4. Prepare Raw Structural Dataset
+## 4. Chuẩn bị raw structural dataset
 
 Script:
 
@@ -238,7 +239,7 @@ Script:
 - Giữ nguyên WordNet synset IDs.
 - Từ chối ghi đè thư mục output đã tồn tại.
 
-Run:
+Chạy:
 
 ```bash
 cd /workspace/workspace/DSoM
@@ -246,7 +247,7 @@ cd /workspace/workspace/DSoM
 ./dsom/bin/python scripts/prepare_wn18_raw.py
 ```
 
-Verified output:
+Output đã kiểm tra:
 
 ```text
 train: 141442 triples
@@ -267,7 +268,7 @@ head -3 src_data/WN18/train
 
 ---
 
-## 5. Preprocess Structural Dataset
+## 5. Preprocessing structural dataset
 
 Script:
 
@@ -302,7 +303,7 @@ data/WN18/
 └── probas.pickle
 ```
 
-Run:
+Chạy:
 
 ```bash
 cd /workspace/workspace/DSoM
@@ -310,7 +311,7 @@ cd /workspace/workspace/DSoM
 ./dsom/bin/python scripts/preprocess_wn18.py
 ```
 
-Expected vocabulary:
+Vocabulary kỳ vọng:
 
 ```text
 40943 entities and 18 relations
@@ -326,11 +327,11 @@ Các file được sinh ra:
 
 DSoM sử dụng 18 original relations; với reciprocal relations, mô hình có thể sử dụng 36 relation IDs.
 
-**Important:** `data/WN18/ent_id` là mapping chuẩn để sắp xếp các hàng trong cả text và image feature matrices.
+**Lưu ý:** `data/WN18/ent_id` là mapping chuẩn cho rows cả text/image matrices.
 
 ---
 
-## 6. Structural Data Audit
+## 6. Audit structural data
 
 Đã chạy:
 
@@ -348,7 +349,7 @@ Các kiểm tra:
 6. Filtered evaluation (`lhs`, `rhs`) đúng theo train + valid + test.
 7. `probas.pickle` đúng phân phối tần suất từ train.
 
-Verified:
+Đã kiểm tra:
 
 ```text
 Entities : 40943
@@ -364,13 +365,13 @@ TRAIN PROBABILITIES: PASS
 WN18 STRUCTURAL AUDIT: PASS
 ```
 
-**Structural preprocessing completed.**
+**Structural preprocessing hoàn tất.**
 
 ---
 
-## 7. WN18 Text Modality
+## 7. Text modality WN18
 
-### 7.1. Description source
+### 7.1. Nguồn descriptions
 
 ```text
 /workspace/workspace/kg-bert/data/WN18/entity2text.txt
@@ -385,11 +386,11 @@ Ví dụ:
 
 Khác FB15K-237 sử dụng `entity2textlong.txt`, WN18 sử dụng `entity2text.txt`.
 
-### 7.2. Text coverage
+### 7.2. Độ phủ text
 
 Đã đối chiếu keys trong `entity2text.txt` với `data/WN18/ent_id`.
 
-Verified:
+Đã kiểm tra:
 
 ```text
 WN18 entities:        40943
@@ -400,7 +401,7 @@ Missing descriptions: 0
 
 Không cần random imputation cho missing descriptions ở WN18.
 
-### 7.3. BERT feature extraction
+### 7.3. Trích xuất BERT features
 
 Script:
 
@@ -410,7 +411,7 @@ scripts/build_wn18_text_features.py
 
 Giữ nguyên thiết lập BERT của FB15K-237 reproduction:
 
-| Parameter | Value |
+| Tham số | Giá trị |
 |---|---|
 | Encoder | `bert-base-uncased` |
 | Hidden layer | `hidden_states[-2]` |
@@ -430,9 +431,9 @@ mask = attention_mask.unsqueeze(-1).type_as(hidden)
 pooled = (hidden * mask).sum(dim=1) / mask.sum(dim=1).clamp(min=1e-9)
 ```
 
-Output rows are aligned to `data/WN18/ent_id`.
+Output rows căn chỉnh theo `data/WN18/ent_id`.
 
-Run:
+Chạy:
 
 ```bash
 cd /workspace/workspace/DSoM
@@ -456,7 +457,7 @@ Final output:
 data/WN18/dscp_vec.pickle
 ```
 
-### 7.4. BERT verification
+### 7.4. Kiểm tra BERT
 
 ```bash
 ./dsom/bin/python - <<'PY'
@@ -478,27 +479,27 @@ print("TEXT FEATURES AUDIT: PASS")
 PY
 ```
 
-**Actual status: PASS.**
+**Trạng thái thực tế: PASS.**
 
 ---
 
-## 8. WN18 Image Modality
+## 8. Image modality WN18
 
-### 8.1. Image source and alignment
+### 8.1. Nguồn ảnh và alignment
 
-Source:
+Nguồn:
 
 ```text
 /workspace/workspace/fb15k_wn18_images.zip
 ```
 
-WN18 image directory format:
+Định dạng WN18 image directory:
 
 ```text
 wn18-images/nXXXXXXXX/image.JPEG
 ```
 
-Image-to-entity alignment:
+Alignment ảnh→entity:
 
 ```python
 synset = "n" + entity
@@ -510,18 +511,18 @@ Entity index lấy từ:
 data/WN18/ent_id
 ```
 
-Verified image coverage:
+Độ phủ ảnh đã kiểm tra:
 
-| Metric | Result |
+| Chỉ số | Result |
 |---|---:|
 | Total entities | 40.943 |
-| Entities with images | 7.801 |
+| Entities có ảnh | 7.801 |
 | Missing images | 33.142 |
 | Image coverage | 19,05% |
 | Missing image rate | 80,95% |
 | Image files in archive | 70.385 |
 
-### 8.2. Image feature extraction
+### 8.2. Trích xuất image features
 
 Script:
 
@@ -531,7 +532,7 @@ scripts/build_wn18_image_features.py
 
 Cấu hình nhất quán với FB15K-237 reproduction:
 
-| Parameter | Value |
+| Tham số | Giá trị |
 |---|---|
 | Encoder | `ViT("B_16_imagenet1k", pretrained=True)` |
 | Library | `pytorch_pretrained_vit` |
@@ -582,7 +583,7 @@ cd /workspace/workspace/DSoM
 
 Smoke test xử lý tối đa 1.000 entities theo internal ID order, tạo checkpoint nhưng không xuất final pickle khi dataset chưa hoàn chỉnh.
 
-### 8.4. Full feature extraction
+### 8.4. Trích xuất features đầy đủ
 
 ```bash
 ./dsom/bin/python -u scripts/build_wn18_image_features.py \
@@ -606,7 +607,7 @@ data/WN18/img_features_manifest.json
 
 Image features được đọc trực tiếp từ ZIP, không cần tạo `data/WN18/raw_images/`.
 
-### 8.5. Image verification
+### 8.5. Kiểm tra image features
 
 ```bash
 ./dsom/bin/python - <<'PY'
@@ -636,7 +637,7 @@ print("WN18 IMAGE AUDIT: PASS")
 PY
 ```
 
-**Actual verified output:**
+**Output thực tế đã kiểm tra:**
 
 ```text
 Shape: (40943, 1000)
@@ -650,7 +651,7 @@ WN18 IMAGE AUDIT: PASS
 
 ---
 
-## 9. Final Dataset Files
+## 9. Files dataset hoàn chỉnh
 
 Sau khi chuẩn bị, các model inputs được lưu tại:
 
@@ -669,7 +670,7 @@ data/WN18/
 └── *.log
 ```
 
-Expected and verified principal shapes:
+Các shape chính kỳ vọng và đã xác minh:
 
 | Artifact | Shape |
 |---|---|
@@ -679,72 +680,101 @@ Expected and verified principal shapes:
 | `dscp_vec.pickle` | (40943, 768) |
 | `img_vec.pickle` | (40943, 1000) |
 
-All model feature arrays have finite values.
+Mọi model feature arrays đều có giá trị finite.
 
 ---
 
-## 10. Reproduction Caveats
+## 10. Các điểm cần lưu ý
 
 ### Structural dataset
 
-**Verified exactly equivalent to KBC/WN after entity/relation ID mapping.**
+**Đã xác minh tương đương chính xác KBC/WN sau entity/relation ID mapping.**
 
-This verification compares all triples across train, valid, and test, not merely dataset sizes.
+So toàn bộ triples của train/valid/test, không chỉ dataset sizes.
 
 ### Text embeddings
 
-100% description coverage is verified.
+Đã xác minh descriptions phủ 100%.
 
-However, using `bert-base-uncased` and mean pooling of the penultimate hidden layer does not prove the embeddings match the original authors' pretrained weights, pooling choices, or preprocessing exactly.
+Dùng `bert-base-uncased` và mean pooling hidden layer áp chót chưa chứng minh
+embeddings khớp chính xác pretrained weights/pooling/preprocessing tác giả.
 
 ### Image embeddings
 
-Image source, coverage, integrity, selection rule and output matrix shape are verified for this reproduction.
+Đã kiểm tra nguồn ảnh, coverage, integrity, quy tắc chọn ảnh và output shape.
 
-The original paper's exact image selection, image encoder checkpoint, preprocessing settings and feature extraction layer are not fully verified.
+Chưa xác minh hoàn toàn image selection, encoder checkpoint, preprocessing
+và feature layer đúng paper.
 
-### Missing images
+### Ảnh bị thiếu
 
-80.95% of WN18 entities have no image in this archive.
+80.95% WN18 entities không có ảnh trong archive này.
 
-Random feature imputation is part of this reproduction setup; the high missing-image ratio should be documented when analyzing Teacher/Student performance.
+Random feature imputation thuộc setup reproduction; cần ghi tỷ lệ thiếu ảnh
+cao khi phân tích teacher/student.
 
-### Reproducibility
+### Khả năng tái lập
 
-For complete reruns, record:
+Để chạy lại đầy đủ, ghi:
 
 - Git commit SHA.
-- Library/model versions.
+- Phiên bản thư viện/model.
 - Random seed.
-- Dataset sources and archive checksums.
-- BERT/ViT encoder configuration.
+- Dataset sources/archive checksums.
+- Cấu hình BERT/ViT.
 - Feature extraction scripts.
-- WN18 modality coverage statistics.
+- Thống kê modality coverage WN18.
 
 ---
 
-## 11. Current Status and Next Step
+## 11. Trạng thái và bước tiếp theo tại thời điểm viết
 
-**Completed:**
+**Đã hoàn thành:**
 
-- [x] Identify WN18 dataset sources.
-- [x] Verify KG-BERT and KBC triples equivalence.
-- [x] Verify MKGformer ZIP integrity.
-- [x] Prepare raw structural triples.
+- [x] Xác định nguồn WN18.
+- [x] So triples KG-BERT/KBC.
+- [x] Kiểm tra MKGformer ZIP.
+- [x] Chuẩn bị raw structural triples.
 - [x] Preprocess structural dataset.
-- [x] Audit structural mapping, filtered evaluation and probabilities.
-- [x] Confirm 100% text coverage.
-- [x] Extract and audit BERT text embeddings.
-- [x] Confirm image coverage at 19.05%.
-- [x] Extract and audit ViT image embeddings.
+- [x] Audit mappings/filtering/probabilities.
+- [x] Xác nhận text phủ 100%.
+- [x] Trích xuất/audit BERT embeddings.
+- [x] Xác nhận ảnh phủ 19.05%.
+- [x] Trích xuất/audit ViT embeddings.
 
-**Remaining:**
+**Còn lại tại thời điểm viết:**
 
-- [ ] Audit WN18 Teacher configuration and paper hyperparameters.
-- [ ] Run WN18 Teacher smoke test.
-- [ ] Train WN18 Teacher.
-- [ ] Run WN18 Student distillation.
-- [ ] Compare Student against DSoM Table 3.
-- [ ] Document experimental deviations and ablations.
+- [ ] Audit WN18 teacher config/paper hyperparameters.
+- [ ] Chạy teacher smoke.
+- [ ] Train teacher.
+- [ ] Distill student.
+- [ ] So student với Table 3.
+- [ ] Ghi deviations/ablations.
 
-**Final conclusion:** WN18 model inputs are prepared and structurally audited. Dataset preparation is complete for the selected BERT/ViT reproduction pipeline. Training and experimental reproduction of Table 3 have not yet been performed.
+**Kết luận tại thời điểm viết:** Inputs WN18 đã chuẩn bị và structural audit
+hoàn tất theo BERT/ViT pipeline này. Khi ghi hồ sơ này chưa train/reproduce
+Table 3.
+
+<!-- Giữ anchors trước khi Việt hóa để tương thích liên kết cũ. -->
+<a id="1-environment--paths"></a>
+<a id="10-reproduction-caveats"></a>
+<a id="11-current-status-and-next-step"></a>
+<a id="2-dataset-provenance--nguồn-dữ-liệu"></a>
+<a id="3-verify-structural-triples-against-kbc"></a>
+<a id="4-prepare-raw-structural-dataset"></a>
+<a id="5-preprocess-structural-dataset"></a>
+<a id="6-structural-data-audit"></a>
+<a id="7-wn18-text-modality"></a>
+<a id="71-description-source"></a>
+<a id="72-text-coverage"></a>
+<a id="73-bert-feature-extraction"></a>
+<a id="74-bert-verification"></a>
+<a id="8-wn18-image-modality"></a>
+<a id="81-image-source-and-alignment"></a>
+<a id="82-image-feature-extraction"></a>
+<a id="84-full-feature-extraction"></a>
+<a id="85-image-verification"></a>
+<a id="9-final-dataset-files"></a>
+<a id="dsom-reproduction-notes--wn18-dataset-preparation"></a>
+<a id="missing-images"></a>
+<a id="reproducibility"></a>

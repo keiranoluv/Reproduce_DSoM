@@ -1,26 +1,25 @@
-# Experiment L6 - Teacher Generalization Gap Audit
+# Thí nghiệm L6 — Audit teacher generalization gap
 
-## Objective
+## Mục tiêu
 
-Measure teacher strategy quality on Train, Validation,
-and Test using the same frozen Teacher MIN checkpoint.
+Đo chất lượng teacher strategies trên train/validation/test bằng cùng frozen Teacher MIN checkpoint.
 
-## Setup
+## Thiết lập
 
 Dataset: FB15K-237
-Evaluation: full dataset
+Đánh giá: full dataset
 Teacher: pretrained MIN, frozen
-Queries: original + reciprocal
-Metric: unfiltered cross-entropy (CE)
+Số queries: original + reciprocal
+Chỉ số: unfiltered cross-entropy (CE)
 
-Queries:
+Số queries:
 - Train: 544230
 - Validation: 35070
 - Test: 40932
 
-## Mean Cross-Entropy
+## Cross-entropy trung bình
 
-| Strategy | Train | Valid | Test |
+| Chiến lược | Train | Valid | Test |
 |---|---:|---:|---:|
 | Structural | 2.6913 | 6.3162 | 6.3383 |
 | Image | 6.1023 | 6.4193 | 6.4497 |
@@ -30,9 +29,9 @@ Queries:
 | Image+Description | 4.9135 | 5.2477 | 5.2702 |
 | All three | 3.7595 | 5.2626 | 5.2836 |
 
-## CE Oracle Strategy Distribution (%)
+## Phân phối CE oracle strategies (%)
 
-| Strategy | Train | Valid | Test |
+| Chiến lược | Train | Valid | Test |
 |---|---:|---:|---:|
 | Structural | 73.74 | 2.44 | 2.42 |
 | Image | 0.89 | 5.32 | 5.37 |
@@ -42,9 +41,9 @@ Queries:
 | Image+Description | 1.34 | 21.91 | 21.21 |
 | All three | 1.99 | 4.44 | 4.95 |
 
-## Train-to-Validation CE Gap
+## CE gap từ train sang validation
 
-| Strategy | Gap |
+| Chiến lược | Gap |
 |---|---:|
 | Structural | +3.6249 |
 | Image | +0.3170 |
@@ -54,39 +53,45 @@ Queries:
 | Image+Description | +0.3342 |
 | All three | +1.5031 |
 
-## Pairwise Comparison
+## So sánh theo cặp
 
-Structural has lower CE than Description:
+Structural có CE thấp hơn Description:
 - Train: 92.48%
 - Validation: 9.69%
 - Test: 9.62%
 
-Description has lower CE than Structural:
+Description có CE thấp hơn Structural:
 - Train: 7.52%
 - Validation: 90.31%
 - Test: 90.38%
 
-## Interpretation
+## Diễn giải
 
-The frozen Teacher exhibits a substantial
-train-to-validation CE gap for Structural predictions.
+Frozen teacher có train-to-validation CE gap lớn ở structural predictions.
 
-The relative quality of Structural and Description
-reverses between training and unseen triples.
+Chất lượng tương đối Structural/Description đảo chiều giữa training và unseen triples.
 
-This provides evidence for a teacher-quality mismatch
-that can contribute to RC preference for Structural
-during training and poor teacher selection on validation.
+Đây là bằng chứng teacher-quality mismatch có thể góp phần khiến RC ưu tiên
+Structural khi training nhưng chọn teacher kém trên validation.
 
-## Limitations
+## Giới hạn
 
-- CE is unfiltered; it is not the filtered ranking metric
-  reported in DSoM Table 3.
-- The findings do not prove the cause of overfitting.
-- They do not establish that an alternative RC strategy
-  improves Student MRR or Hits@K.
+- CE là unfiltered, khác filtered ranking ở Table 3.
+- Chưa chứng minh nguyên nhân overfitting.
+- Chưa chứng minh RC strategy khác cải thiện student MRR/Hits@K.
 
-## Next Experiment
+## Thí nghiệm tiếp theo
 
-L7: Compare teacher ranking quality, prediction confidence,
-and temperature sensitivity on held-out data.
+L7: so teacher ranking quality, confidence và temperature sensitivity trên held-out data.
+
+<!-- Giữ anchors trước khi Việt hóa để tương thích liên kết cũ. -->
+<a id="ce-oracle-strategy-distribution-"></a>
+<a id="experiment-l6---teacher-generalization-gap-audit"></a>
+<a id="interpretation"></a>
+<a id="limitations"></a>
+<a id="mean-cross-entropy"></a>
+<a id="next-experiment"></a>
+<a id="objective"></a>
+<a id="pairwise-comparison"></a>
+<a id="setup"></a>
+<a id="train-to-validation-ce-gap"></a>

@@ -1,35 +1,33 @@
-# Experiment L5 - Counterfactual Teacher Strategy Audit
+# Thí nghiệm L5 — Audit teacher strategy phản thực
 
-## Objective
+## Mục tiêu
 
-Investigate why the RC policy selects Structural during
-the first training steps of continuous CE reward training.
+Kiểm tra vì sao RC chọn Structural ở những steps đầu khi dùng continuous CE reward.
 
-## Setup
+## Thiết lập
 
 - Dataset: FB15K-237
 - Baseline: L3a (continuous CE reward, raw policy input)
-- Training examples: 2048
+- Mẫu training: 2048
 - Batch size: 16
-- Epochs: 1
-- Total optimizer steps: 128
-- Diagnostic batches: first 20
-- Audited training queries: 320
-- Teacher: frozen pretrained MIN
+- Số epochs: 1
+- Tổng optimizer steps: 128
+- Diagnostic batches: 20 đầu
+- Training queries audit: 320
+- Teacher: pretrained MIN đóng băng
 
-## Counterfactual Advantage
+## Advantage phản thực
 
-For each training query, evaluate all seven teacher strategies.
+Đánh giá cả bảy teacher strategies cho mỗi training query.
 
 Advantage(strategy) =
     CE(average teacher) - CE(selected strategy)
 
-Positive advantage means the strategy has lower CE than
-the average-teacher baseline.
+Advantage dương nghĩa là strategy có CE thấp hơn average-teacher baseline.
 
-## Results
+## Kết quả
 
-| Strategy | Mean CE | Mean Advantage | Oracle % | Sampled % |
+| Chiến lược | Mean CE | Mean Advantage | Oracle % | Sampled % |
 |---|---:|---:|---:|---:|
 | Structural | 2.7072 | +1.1887 | 79.38% | 80.94% |
 | Image | 6.4623 | -2.5664 | 0.94% | 1.56% |
@@ -39,34 +37,41 @@ the average-teacher baseline.
 | Image+Description | 5.1580 | -1.2622 | 0.31% | 5.00% |
 | All three | 3.8959 | 0.0000 | 3.44% | 2.50% |
 
-## Findings
+## Phát hiện
 
-1. Structural has the lowest mean teacher CE on the
-   first 320 training queries.
-2. Structural is the CE oracle for 79.38% of these queries.
-3. The policy samples Structural on 80.94% of these queries.
-4. Structural receives positive mean counterfactual advantage.
-5. Early preference for Structural is consistent with the
-   continuous CE reward signal observed on training queries.
+1. Structural có mean CE thấp nhất trên 320 training queries đầu.
+2. Structural là CE oracle của 79.38% queries này.
+3. Policy sample Structural trên 80.94% queries.
+4. Structural nhận mean counterfactual advantage dương.
+5. Ưu tiên Structural ban đầu phù hợp continuous CE reward trên training queries.
 
-## Comparison With Validation
+## So sánh với validation
 
-In the earlier 1024-query validation audit:
+Trong audit 1024 validation queries trước đó:
 - Structural oracle: 2.64%
 - Description oracle: 50.78%
 
-The difference suggests a possible train-validation
-teacher-quality gap.
+Khác biệt gợi ý có thể có teacher-quality gap giữa train và validation.
 
-## Limitations
+## Giới hạn
 
-- Only the first 20 training batches were audited.
-- Model states change across training steps.
-- Validation audit uses a fixed checkpoint.
-- This does not establish causality or prove overfitting.
-- A frozen-teacher train/validation/test audit is needed.
+- Chỉ audit 20 training batches đầu.
+- Model state thay đổi giữa steps.
+- Validation audit dùng checkpoint cố định.
+- Chưa chứng minh nhân quả hoặc overfitting.
+- Cần audit frozen teacher trên train/validation/test.
 
-## Next Step
+## Bước tiếp theo
 
-L6: Teacher generalization gap audit using the same frozen
-Teacher MIN checkpoint across train, validation and test.
+L6: audit generalization gap bằng cùng frozen Teacher MIN checkpoint trên train, validation, test.
+
+<!-- Giữ anchors trước khi Việt hóa để tương thích liên kết cũ. -->
+<a id="comparison-with-validation"></a>
+<a id="counterfactual-advantage"></a>
+<a id="experiment-l5---counterfactual-teacher-strategy-audit"></a>
+<a id="findings"></a>
+<a id="limitations"></a>
+<a id="next-step"></a>
+<a id="objective"></a>
+<a id="results"></a>
+<a id="setup"></a>

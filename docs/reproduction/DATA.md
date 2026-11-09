@@ -1,14 +1,13 @@
-# Download, prepare and verify data
+# Tải, chuẩn bị và kiểm tra dữ liệu
 
-All commands run from the repository root with the environment activated.
-Choose only datasets needed for your table. Dataset preprocessing is CPU-only;
-encoding is a separate, explicitly invoked step. No pretrained graph checkpoints
-or feature arrays are shipped in Git.
+Chạy mọi lệnh từ gốc repo sau khi kích hoạt môi trường. Chỉ chuẩn bị dataset
+cần cho bảng muốn reproduce. Preprocessing chạy CPU; encoding là bước riêng
+phải gọi tường minh. Git không chứa pretrained graph checkpoints hay feature arrays.
 
-## Local layout and sources
+## Cấu trúc thư mục và nguồn
 
-Use any download location; the examples use ignored `raw/`. Pass its paths
-explicitly instead of recreating another machine's `/workspace/...` directory.
+Có thể tải vào thư mục bất kỳ; ví dụ dùng `raw/` đã được Git ignore. Truyền
+đường dẫn tường minh, không cần dựng lại thư mục `/workspace/...` của máy khác.
 
 ```bash
 mkdir -p raw
@@ -18,32 +17,32 @@ git -C raw/kg-bert rev-parse HEAD
 git -C raw/mose rev-parse HEAD
 ```
 
-Record source revisions with your experiment. WN9's audited preparation requires
-the pinned MoSE revision; checkout that version before WN9 preparation:
+Ghi source revision cùng thí nghiệm. Bước chuẩn bị WN9 đã audit yêu cầu MoSE
+revision được pin; checkout đúng phiên bản trước khi chuẩn bị WN9:
 
 ```bash
 git -C raw/mose fetch origin 192d9ff2882b5be6ef8239a37cbd90c5dd102b5a
 git -C raw/mose checkout --detach 192d9ff2882b5be6ef8239a37cbd90c5dd102b5a
 ```
 
-Primary sources:
+Nguồn dữ liệu chính:
 
-| Asset | Source | What to obtain |
+| Asset | Nguồn | Files cần lấy |
 |---|---|---|
-| DB15K, MKG-W, MKG-Y triples/text/links | [MMRNS](https://github.com/quqxui/MMRNS#datasets), [Drive](https://drive.google.com/drive/folders/1sFC-P9RKnikqNXjmLcj0IX7x5zvRs-Yj) | Original files below; HDF5 embeddings are not raw images |
-| FB15K-237 and WN18 triples/text | [KG-BERT](https://github.com/yao8839836/kg-bert/tree/master/data) | Dataset subfolders, including descriptions |
-| FB/WN image archive | [MKGformer](https://github.com/zjunlp/MKGformer#data-download), [Drive archive](https://drive.google.com/file/d/197c4fCLVC6F7sCBqZIDwm5tjWeGJnZ5-/view) | `fb15k_wn18_images.zip` |
-| Alternative FB/WN images | [MoSE](https://github.com/OreOZhao/MoSE4MKGC#dataset-download) | Baidu link in README, code `4xmv`; verify layout/content, not assumed byte-identical |
-| WN9 triples/text | [MoSE WN9](https://github.com/OreOZhao/MoSE4MKGC/tree/main/src_data/WN9), originally [IKRL](https://github.com/thunlp/IKRL) | `train`, `valid`, `test`, `ent_dscp.txt`, `ent_name.txt` |
-| DB15K raw image URLs | [MMKB visual data](https://github.com/mniepert/mmkb#visual-data-for-fb15k-yago15k-and-dbpedia15k) | Published image URL archive plus DB15K SameAs links |
+| DB15K, MKG-W, MKG-Y triples/text/links | [MMRNS](https://github.com/quqxui/MMRNS#datasets), [Drive](https://drive.google.com/drive/folders/1sFC-P9RKnikqNXjmLcj0IX7x5zvRs-Yj) | Files gốc bên dưới; HDF5 embeddings không phải raw images |
+| FB15K-237 và WN18 triples/text | [KG-BERT](https://github.com/yao8839836/kg-bert/tree/master/data) | Dataset subfolders, gồm descriptions |
+| Archive ảnh FB/WN | [MKGformer](https://github.com/zjunlp/MKGformer#data-download), [Drive archive](https://drive.google.com/file/d/197c4fCLVC6F7sCBqZIDwm5tjWeGJnZ5-/view) | `fb15k_wn18_images.zip` |
+| Nguồn ảnh FB/WN thay thế | [MoSE](https://github.com/OreOZhao/MoSE4MKGC#dataset-download) | Baidu link trong README, mã `4xmv`; verify layout/nội dung, không giả định byte-identical |
+| WN9 triples/text | [MoSE WN9](https://github.com/OreOZhao/MoSE4MKGC/tree/main/src_data/WN9), nguồn gốc [IKRL](https://github.com/thunlp/IKRL) | `train`, `valid`, `test`, `ent_dscp.txt`, `ent_name.txt` |
+| URLs raw images DB15K | [MMKB visual data](https://github.com/mniepert/mmkb#visual-data-for-fb15k-yago15k-and-dbpedia15k) | Image URL archive công bố và DB15K SameAs links |
 
-Google Drive/Baidu may require a browser, account, or quota wait. Download the
-specific original assets and arrange them below; do not assume cloning MMRNS
-downloads Drive data. If a source is unavailable, stop at that dataset and record
-the missing asset. Do not silently substitute a similarly named dataset or H5
-features. The documentation work did not redownload large archives.
+Google Drive/Baidu có thể yêu cầu trình duyệt, tài khoản hoặc chờ quota. Tải đúng
+assets gốc và sắp xếp như dưới đây; clone MMRNS không tự tải dữ liệu trên Drive.
+Nếu nguồn không truy cập được, dừng ở dataset đó và ghi nhận asset còn thiếu.
+Không tự thay bằng dataset cùng tên hoặc H5 features. Đợt viết tài liệu không tải
+lại các archive lớn.
 
-Example canonical downloaded layout (before preprocessing):
+Ví dụ cấu trúc dữ liệu tải về trước preprocessing:
 
 ```text
 raw/
@@ -64,30 +63,30 @@ raw/
   mmkb/image-graph_images/m.ENTITY/IMAGE.jpg
 ```
 
-The `descreption` spelling is upstream. If downloaded filenames differ, pass the
-actual paths rather than changing parser assumptions. MMRNS can supply MKG-W
-`ent_links` in its separate raw-data folder: copy that published file into the
-example `raw/mmrns/MKG-W/` folder before the structural command below.
+Tên `descreption` là cách viết từ upstream. Nếu tên file tải về khác, truyền
+đường dẫn thực tế thay vì đổi giả định parser. File `ent_links` của MKG-W có thể
+nằm trong thư mục raw-data riêng của MMRNS: sao chép file đã công bố đó vào
+`raw/mmrns/MKG-W/` trước khi chạy lệnh structural bên dưới.
 
-The shared FB/WN ZIP observed here is about 2.9 GiB compressed. Extraction,
-encoder weights, features, and teacher/distiller checkpoints require additional
-space; an entire experiment grid can use tens of GiB. Check `df -h .` and select
-tables accordingly. Raw images are not committed or redistributed by this repo.
+FB/WN ZIP dùng chung được ghi nhận khoảng 2.9 GiB nén. Giải nén, encoder weights,
+features và teacher/distiller checkpoints cần thêm dung lượng; toàn bộ lưới
+thí nghiệm có thể tốn hàng chục GiB. Kiểm tra `df -h .` và chọn bảng phù hợp.
+Repo không commit hoặc phân phối lại raw images.
 
-## Structural preprocessing
+## Preprocessing structural data
 
-The portable preparer stages source files and calls the existing
-`src/process_datasets.py`. It refuses existing processed outputs. The repository
-already tracks FB15K-237/WN18 raw splits: existing staging is reused only if its
-ordered triples match the downloaded source (newline differences allowed), and
-is never rewritten. Source and staged hashes are both recorded. On success:
+Portable preparer staging các source files rồi gọi `src/process_datasets.py`
+hiện có. Script từ chối nếu processed outputs đã tồn tại. Repo đang track raw
+splits FB15K-237/WN18: chỉ tái sử dụng staging khi thứ tự triples khớp nguồn tải
+về, cho phép khác newline, và không ghi lại file. Hash nguồn và staging đều
+được ghi nhận. Khi thành công:
 
 ```text
 src_data/DATASET/{train,valid,test,...}
 data/DATASET/{ent_id,rel_id,train.pickle,valid.pickle,test.pickle,to_skip.pickle,probas.pickle,...}
 ```
 
-Run only needed commands:
+Chỉ chạy lệnh cho dataset cần dùng:
 
 ```bash
 python scripts/prepare_dataset.py --dataset MKG-Y --source-dir raw/mmrns/MKG-Y
@@ -103,19 +102,19 @@ python scripts/prepare_dataset.py --dataset WN18 \
   --train-file train.tsv --valid-file dev.tsv --test-file test.tsv
 ```
 
-Verify existing outputs instead of rerunning preparation:
+Nếu outputs đã có, kiểm tra thay vì chạy lại preparation:
 
 ```bash
 python scripts/prepare_dataset.py --dataset MKG-Y --verify-only
 ```
 
-Repeat verification with the other dataset names. It reconstructs exact mapped
-triples and reciprocal filters independently. Mapping order is sorted across
-all splits, while NDKD training neighbors come from training only.
+Lặp lại verify với tên dataset khác. Script độc lập dựng lại mapped triples
+và reciprocal filters để đối chiếu chính xác. Mapping được sắp xếp trên mọi
+splits, còn training neighbors của NDKD chỉ lấy từ training.
 
-Expected counts for the actual benchmark files used here:
+Số lượng kỳ vọng theo các benchmark files thực tế đã dùng:
 
-| Dataset | Entities | Original relations | Train | Valid | Test |
+| Dataset | Entities | Base relations | Train | Valid | Test |
 |---|---:|---:|---:|---:|---:|
 | MMKB-DB15K | 12842 | 279 | 79222 | 9904 | 9902 |
 | MKG-W | 15000 | 169 | 34196 | 4276 | 4274 |
@@ -124,19 +123,18 @@ Expected counts for the actual benchmark files used here:
 | WN18 | 40943 | 18 | 141442 | 5000 | 5000 |
 | WN9 | 6555 | 9 | 11741 | 1337 | 1319 |
 
-DB15K downloaded valid/test counts differ from their order in paper Table 5.
-Keep the source file names: original validation has duplicates and overlaps;
-do not deduplicate, swap or resplit it to match a table. See the
-[source trace](../experiments/DB15K_CLEAN_SPLIT_SENSITIVITY.md). CleanV1 is a
-separate sensitivity experiment, not the main benchmark dataset.
+Số valid/test DB15K tải về khác thứ tự được ghi trong Table 5 của paper.
+Giữ tên file nguồn: validation gốc có duplicates và overlaps; không deduplicate,
+đổi chỗ hoặc chia lại để khớp bảng. Xem [truy nguồn](../experiments/DB15K_CLEAN_SPLIT_SENSITIVITY.md).
+CleanV1 là sensitivity experiment riêng, không thay benchmark chính.
 
-## BERT text features
+## Text features BERT
 
-`scripts/build_features.py` adapts explicit input paths to unchanged dataset
-encoders. Default `--mode audit` checks paths and entity mapping without Torch
-or downloads; it is a **path preflight**, not a full media-coverage audit.
-`--mode extract` is the explicit encoding step. These examples use CUDA; text
-supports `--device cpu` too, with much slower execution.
+`scripts/build_features.py` chuyển đường dẫn đầu vào tường minh cho các encoder
+dataset hiện có, không sửa encoder. Mặc định `--mode audit` chỉ kiểm tra đường dẫn
+và entity mapping, không Torch hay download; đây là **kiểm tra đầu vào**, không
+phải audit toàn bộ độ phủ ảnh/văn bản. `--mode extract` mới encoding. Ví dụ dùng
+CUDA; text cũng hỗ trợ `--device cpu` nhưng chậm hơn nhiều.
 
 ```bash
 # First preflight one input:
@@ -157,16 +155,15 @@ python scripts/build_features.py --dataset WN18 --modality text --mode extract \
   --input raw/kg-bert/data/WN18/entity2text.txt --device cuda --batch-size 32
 ```
 
-All use `bert-base-uncased`, penultimate hidden state (`hidden_states[-2]`),
-attention-mask mean pooling and max length 512, with seed-2022 missing vectors.
-For FB15K-237, the long description file is intentional. For MKG-W, Wikidata
-structural URIs must be mapped to DBpedia media keys using `ent_links`. Bare
-row-index matching is invalid. Extraction backends check their expected source
-syntax/coverage; inspect logs/manifests before training.
+Tất cả dùng `bert-base-uncased`, hidden state áp chót (`hidden_states[-2]`),
+attention-mask mean pooling, max length 512 và missing vectors với seed-2022.
+FB15K-237 cố ý dùng file mô tả dài. Với MKG-W, phải ánh xạ structural URIs
+Wikidata sang DBpedia media keys bằng `ent_links`, không ghép theo row index.
+Backend kiểm tra cú pháp/coverage nguồn; xem logs/manifests trước khi training.
 
-## ViT image features
+## Image features ViT
 
-For MKG-Y/MKG-W, use their original raw ZIPs:
+Với MKG-Y/MKG-W, dùng raw ZIP gốc tương ứng:
 
 ```bash
 python scripts/build_features.py --dataset MKG-Y --modality image --mode extract \
@@ -176,7 +173,7 @@ python scripts/build_features.py --dataset MKG-W --modality image --mode extract
   --links src_data/MKG-W/ent_links --batch-size 8
 ```
 
-For FB15K-237, extract the `FB15k-images/` subtree from the shared downloaded ZIP:
+Với FB15K-237, giải nén subtree `FB15k-images/` từ ZIP dùng chung đã tải:
 
 ```bash
 mkdir -p raw/fb-wn-images
@@ -185,17 +182,17 @@ python scripts/build_features.py --dataset FB15K-237 --modality image --mode ext
   --input raw/fb-wn-images/FB15k-images --batch-size 8
 ```
 
-WN18 reads the other subtree directly inside the ZIP; no second extraction:
+WN18 đọc subtree còn lại trực tiếp trong ZIP, không cần giải nén lần nữa:
 
 ```bash
 python scripts/build_features.py --dataset WN18 --modality image --mode extract \
   --input raw/fb15k_wn18_images.zip --batch-size 8
 ```
 
-DB15K uses Freebase-keyed MMKB images aligned through its published SameAs links.
-If you already have the raw images, pass their directory. Otherwise retrieve
-the published URL archive from MMKB, then explicitly run the historical downloader
-with **all paths supplied** (its legacy defaults are machine-specific):
+DB15K dùng MMKB images với Freebase keys, được căn chỉnh qua SameAs links
+đã công bố. Nếu đã có raw images, truyền thư mục đó. Nếu chưa, lấy URL archive
+công bố từ MMKB rồi chạy downloader lịch sử với **đầy đủ đường dẫn tường minh**
+vì các giá trị mặc định legacy phụ thuộc máy cũ:
 
 ```bash
 python scripts/download_db15k_mmkb_images.py \
@@ -212,33 +209,33 @@ python scripts/build_features.py --dataset MMKB-DB15K --modality image --mode ex
   --links raw/mmrns/MMKB-DB15K/DB15K_SameAsLink.txt --batch-size 8
 ```
 
-Old URLs can be dead; record actual coverage. These recovered images are not
-verified as the paper's original set. Do not replace them silently with MMRNS
-BEiT or MMKB VGG H5 vectors. Image backends require CUDA, use
-`pytorch_pretrained_vit/B_16_imagenet1k`, RGB/resize 384/Normalize(.5,.5), first
-valid sorted image, and 1000-dimensional classifier logits. This differs from
-the paper's stated 224 input; exact author feature equivalence is unverified.
+URL cũ có thể hỏng; ghi độ phủ thực tế. Chưa xác nhận ảnh tải lại là đúng tập
+ảnh gốc của paper. Không tự thay bằng MMRNS BEiT hoặc MMKB VGG H5 vectors.
+Image backend cần CUDA, dùng `pytorch_pretrained_vit/B_16_imagenet1k`,
+RGB/resize 384/Normalize(.5,.5), chọn ảnh hợp lệ đầu tiên theo thứ tự tên file
+và lấy classifier logits 1000 chiều. Khác input 224 được paper mô tả; chưa xác
+minh features tương đương chính xác với tác giả.
 
-The wrapper refuses final-output overwrite and binds new feature checkpoints
-to input/mapping/backend fingerprints. Directory images use path/size/mtime
-metadata, not full image-content hashes. A legacy checkpoint without this
-fingerprint is not automatically resumed. Keep existing results; use their
-original builder or a separate clean checkout to reconstruct changed inputs.
+Wrapper từ chối ghi đè final outputs và gắn feature checkpoint mới với
+fingerprints của input/mapping/backend. Với thư mục ảnh, fingerprint dùng
+path/size/mtime metadata, không hash toàn bộ nội dung ảnh. Không tự resume
+checkpoint legacy thiếu fingerprint này. Giữ kết quả cũ; dùng builder gốc
+hoặc checkout sạch riêng nếu tái dựng từ inputs đã thay đổi.
 
-Verify both outputs for each prepared dataset:
+Kiểm tra cả hai outputs cho mỗi dataset đã chuẩn bị:
 
 ```bash
 python scripts/build_features.py --dataset MKG-Y --modality text --mode verify
 python scripts/build_features.py --dataset MKG-Y --modality image --mode verify
 ```
 
-Expected arrays are `(entities,768)` text and `(entities,1000)` image, float32,
-finite, ordered by `ent_id`. Shape/finiteness alone is not proof of semantic
-alignment; retain source links, alignment checks and feature manifests.
+Arrays kỳ vọng là text `(entities,768)` và image `(entities,1000)`, float32,
+finite, theo thứ tự `ent_id`. Shape/finiteness chưa chứng minh alignment đúng
+về ngữ nghĩa; giữ source links, alignment checks và feature manifests.
 
-## WN9 from pinned MoSE + verified WN18 features
+## WN9 từ MoSE đã pin và WN18 features đã kiểm tra
 
-First finish WN18 preparation and both features above. Then:
+Trước hết hoàn tất preparation WN18 và cả hai features ở trên, sau đó:
 
 ```bash
 python scripts/prepare_wn9_from_mose.py --mode audit \
@@ -252,13 +249,20 @@ python scripts/prepare_wn9_from_mose.py --mode prepare \
 python scripts/prepare_wn9_from_mose.py --mode verify
 ```
 
-The preparer requires the pinned MoSE files, matching synsets/descriptions and
-the expected WN18 feature shapes; it gathers features by synset ID, not row
-position. It preserves 6,547 real-image and 8 imputed rows in the recorded source.
-Do not retrain/encode WN9 just to duplicate the same generic frozen features.
-Do train new WN9 graph teacher/student checkpoints: WN18 graph training includes
-many WN9 held-out facts. See [WN9 audit](../experiments/WN9_SOURCE_AUDIT.md).
+Preparer yêu cầu đúng MoSE files đã pin, synsets/descriptions khớp và WN18
+features đúng shape; lấy rows theo synset ID thay vì vị trí hàng. Nguồn đã ghi
+nhận giữ 6,547 rows ảnh thật và 8 rows imputed. Không cần encode WN9 chỉ để lặp
+lại generic frozen features. Phải train mới WN9 graph teacher/student: WN18
+graph training chứa nhiều held-out facts WN9. Xem [audit WN9](../experiments/WN9_SOURCE_AUDIT.md).
 
-Existing processed datasets and final features are never overwritten. Use verification for
-existing datasets, and preserve raw downloads/manifests. Never delete or rewrite
-an existing benchmark merely to make a setup command succeed.
+Không ghi đè processed datasets và final features đã có. Dùng verify cho
+dataset hiện hữu, giữ raw downloads/manifests. Không xóa hoặc viết lại benchmark
+chỉ để một lệnh setup chạy thành công.
+
+<!-- Giữ anchors trước khi Việt hóa để tương thích liên kết cũ. -->
+<a id="bert-text-features"></a>
+<a id="download-prepare-and-verify-data"></a>
+<a id="local-layout-and-sources"></a>
+<a id="structural-preprocessing"></a>
+<a id="vit-image-features"></a>
+<a id="wn9-from-pinned-mose--verified-wn18-features"></a>

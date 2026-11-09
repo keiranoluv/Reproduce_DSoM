@@ -1,66 +1,71 @@
-# RC Policy Optimizer Ablation — FB15K-237
+# Ablation RC policy optimizer — FB15K-237
 
-## Objective
+## Mục tiêu
 
-Investigate RC policy saturation during DSoM student training.
+Khảo sát RC policy saturation khi train DSoM student.
 
-## Setup
+## Thiết lập
 
 - Teacher: FB15K-237 pretrained MIN checkpoint
-- Student optimizer: Adagrad, LR=0.1
-- Training examples: 2048
+- Optimizer student: Adagrad, LR=0.1
+- Mẫu training: 2048
 - Batch size: 16
-- Epochs: 1
-- Evaluation queries: 64
+- Số epochs: 1
+- Queries evaluation: 64
 - Policy network: 43623 -> 1024 -> 7
 - KD temperature: 4
 - RC reward: +1 / -10
 
-## Fixed-Batch Probe (Batch 3)
+## Probe trên batch cố định (batch 3)
 
-| Metric | A: Adagrad 1e-3 | B: Adam 1e-4 | C: Adam 1e-3 | D: Adam 1e-5 |
+| Chỉ số | A: Adagrad 1e-3 | B: Adam 1e-4 | C: Adam 1e-3 | D: Adam 1e-5 |
 |---|---:|---:|---:|---:|
-| Entropy after update | 0.000378 | 0.845803 | 0.010450 | 1.745250 |
-| Hidden RMS after update | 21.264126 | 1.627662 | 12.482269 | 0.842773 |
-| Logit range after update | 213.857391 | 13.630247 | 120.607147 | 2.191428 |
-| Batches with nonzero policy gradient | 22 | 34 | 19 | 31 |
-| Batches with updated fc2 weights | 16 | 125 | 125 | 125 |
+| Entropy sau update | 0.000378 | 0.845803 | 0.010450 | 1.745250 |
+| Hidden RMS sau update | 21.264126 | 1.627662 | 12.482269 | 0.842773 |
+| Logit range sau update | 213.857391 | 13.630247 | 120.607147 | 2.191428 |
+| Batches có policy gradient khác không | 22 | 34 | 19 | 31 |
+| Batches cập nhật fc2 weights | 16 | 125 | 125 | 125 |
 
-All four experiments had the same pre-update probe:
+Cả bốn thí nghiệm có cùng pre-update probe:
 - Entropy: 1.857928
 - Hidden RMS: 0.829591
 - Logit range: 1.246729
 
-## Student Results (Smoke Tests)
+## Kết quả student (smoke tests)
 
-| Metric | B: Adam 1e-4 | C: Adam 1e-3 | D: Adam 1e-5 |
+| Chỉ số | B: Adam 1e-4 | C: Adam 1e-3 | D: Adam 1e-5 |
 |---|---:|---:|---:|
 | Valid MRR | 0.1572 | 0.1765 | 0.1617 |
 | Valid Hits@10 | 0.2344 | 0.2500 | 0.2578 |
 | Test MRR | 0.1138 | 0.1219 | 0.1223 |
 | Test Hits@10 | 0.1641 | 0.1797 | 0.1797 |
 
-## Findings
+## Phát hiện
 
-1. The Adagrad policy at LR=1e-3 experiences severe saturation
-   immediately after its first substantial optimizer update.
-2. Adam at LR=1e-3 also causes rapid saturation.
-3. Adam at LR=1e-4 reduces the initial activation explosion,
-   but the policy approaches deterministic behavior later.
-4. Adam at LR=1e-5 offers the strongest initial stability
-   among the tested configurations.
-5. Higher policy entropy does not guarantee better student MRR.
+1. Adagrad policy LR=1e-3 saturation nặng ngay sau update đáng kể đầu tiên.
+2. Adam LR=1e-3 cũng saturation nhanh.
+3. Adam LR=1e-4 giảm initial activation explosion nhưng về sau policy gần deterministic.
+4. Adam LR=1e-5 ổn định ban đầu nhất trong các cấu hình được thử.
+5. Entropy cao hơn không đảm bảo student MRR tốt hơn.
 
-## Limitations
+## Giới hạn
 
-- Only 2048 training examples and one epoch were used.
-- Evaluation was restricted to 64 queries per side.
-- These results are not directly comparable to DSoM Table 3.
-- The policy optimizer experiments modify the reproduction
-  implementation and are not claimed to match the original paper.
-- Longer training is needed to assess sustained stability.
+- Chỉ 2048 training examples và một epoch.
+- Evaluation giới hạn 64 queries mỗi chiều.
+- Không so trực tiếp với Table 3.
+- Policy optimizer experiments sửa reproduction implementation, không khẳng định khớp paper.
+- Cần training dài hơn để đánh giá ổn định lâu dài.
 
-## Next Experiment
+## Thí nghiệm tiếp theo
 
-Adam policy LR=1e-5, 20000 training examples, 3 epochs,
-with expanded validation evaluation.
+Adam policy LR=1e-5, 20000 training examples, 3 epochs, mở rộng validation evaluation.
+
+<!-- Giữ anchors trước khi Việt hóa để tương thích liên kết cũ. -->
+<a id="findings"></a>
+<a id="fixed-batch-probe-batch-3"></a>
+<a id="limitations"></a>
+<a id="next-experiment"></a>
+<a id="objective"></a>
+<a id="rc-policy-optimizer-ablation--fb15k-237"></a>
+<a id="setup"></a>
+<a id="student-results-smoke-tests"></a>

@@ -1,29 +1,28 @@
-# DSoM RC Policy Diagnostics — FB15K-237
+# Chẩn đoán RC policy DSoM — FB15K-237
 
-## Scope
+## Phạm vi
 
-These experiments investigate RC policy behavior during student
-distillation. They are diagnostics and ablations, not claims of
-faithful reproduction of every detail in the original paper.
+Các thí nghiệm khảo sát RC policy khi distill student; đây là diagnostics/
+ablations, không tuyên bố tái lập mọi chi tiết của paper.
 
-Baseline branch: student-pipeline-fixes
+Nhánh baseline: student-pipeline-fixes
 
-Experimental branch: experiment/rc-policy-stabilization
+Nhánh thí nghiệm: experiment/rc-policy-stabilization
 
 Teacher: FB15K-237 pretrained MIN checkpoint.
 
-## Experiment E — Medium Training
+## Thí nghiệm E — Training quy mô vừa
 
-Configuration:
+Cấu hình:
 
-- Student optimizer: Adagrad, learning rate 0.1
-- Policy optimizer: Adam, learning rate 1e-5
-- Training examples: 20,000
+- Optimizer student: Adagrad, learning rate 0.1
+- Optimizer policy: Adam, learning rate 1e-5
+- Mẫu training: 20,000
 - Batch size: 16
-- Epochs: 3
-- Evaluation queries: 1,024
+- Số epochs: 3
+- Queries evaluation: 1,024
 
-Results:
+Kết quả:
 
 | Epoch | Valid MRR | Test MRR | Test Hits@10 |
 |---|---:|---:|---:|
@@ -31,7 +30,7 @@ Results:
 | 2 | 0.225990 | 0.241456 | 0.380859 |
 | 3 | 0.257907 | 0.263478 | 0.409668 |
 
-Policy entropy at the final minibatch:
+Policy entropy ở minibatch cuối:
 
 | Epoch | Entropy | Near-deterministic |
 |---|---:|---:|
@@ -39,26 +38,24 @@ Policy entropy at the final minibatch:
 | 2 | 0.000929 | 15/16 |
 | 3 | 0.000003 | 16/16 |
 
-Interpretation: Student performance improved, but policy
-became nearly deterministic.
+Diễn giải: student tốt hơn nhưng policy gần deterministic.
 
-## Experiment F — Strategy Quality Audit
+## Thí nghiệm F — Audit chất lượng strategy
 
-Checkpoint: Experiment E best distiller.
+Checkpoint: best distiller Experiment E.
 
-Validation queries: 1,024, including reciprocal queries.
-Policy decision: argmax.
+Validation: 1,024 queries gồm reciprocals. Policy chọn argmax.
 
-- Policy chose Structural-only: 100%
-- Policy-oracle agreement: 2.6367%
+- Policy chọn Structural-only: 100%
+- Độ đồng thuận policy/oracle: 2.6367%
 - Student mean CE: 6.519696
 - Policy mean CE: 6.272866
 - Oracle mean CE: 4.651416
 - Policy mean CE regret: 1.621450
 
-Oracle strategy distribution:
+Phân phối oracle strategies:
 
-| Strategy | Frequency |
+| Chiến lược | Frequency |
 |---|---:|
 | Structural | 2.64% |
 | Image | 5.47% |
@@ -68,16 +65,16 @@ Oracle strategy distribution:
 | Image+Description | 20.61% |
 | All three | 4.69% |
 
-The oracle uses ground-truth labels and is diagnostic only.
+Oracle cần ground-truth labels, chỉ dùng diagnostic.
 
-## Experiment G — Reward Signal Audit
+## Thí nghiệm G — Audit reward signal
 
-Same checkpoint and validation setup as Experiment F.
+Cùng checkpoint và validation setup của Experiment F.
 
-Reward: +1 when strategy CE < student CE, otherwise -10.
-Baseline: reward from mean of all three teacher modalities.
+Reward +1 khi strategy CE < student CE, ngược lại -10.
+Baseline reward từ mean của ba teacher modalities.
 
-| Strategy | Mean CE | Positive reward |
+| Chiến lược | Mean CE | Positive reward |
 |---|---:|---:|
 | Structural | 6.2729 | 55.76% |
 | Image | 6.3664 | 55.47% |
@@ -87,77 +84,83 @@ Baseline: reward from mean of all three teacher modalities.
 | Image+Description | 5.2135 | 85.16% |
 | All three | 5.2242 | 86.52% |
 
-Additional findings:
+Phát hiện bổ sung:
 
-- Identical reward across all strategies: 43.55% of queries
-- At least two strategies receive +1: 91.89%
-- Mean CE gap among positively rewarded strategies: 1.411396
-- Policy reward worse than best available reward: 38.09%
+- Mọi strategies cùng reward: 43.55% queries
+- Ít nhất hai strategies nhận +1: 91.89%
+- Mean CE gap giữa các strategies reward dương: 1.411396
+- Policy reward tệ hơn best available reward: 38.09%
 
-These observations suggest limited reward discrimination.
-They do not by themselves establish the cause of policy collapse.
+Quan sát gợi ý reward phân biệt hạn chế; chưa đủ xác lập nguyên nhân collapse.
 
-## Experiment H — Update Direction Audit
+## Thí nghiệm H — Audit hướng update
 
 Student: Adagrad 0.1.
 Policy: Adam 1e-5.
-Training: 2,048 examples, one epoch.
+Training: 2,048 examples, một epoch.
 
 Batch 3:
-- One negative advantage
-- P(Description) change: -0.091313
-- P(Structural) change: +0.002867
+- Một advantage âm
+- P(Description) thay đổi: -0.091313
+- P(Structural) thay đổi: +0.002867
 
 Batch 8:
-- Two negative advantages
-- P(Image) change: -0.108906
-- P(Structural) change: +0.039095
+- Hai advantages âm
+- P(Image) thay đổi: -0.108906
+- P(Structural) thay đổi: +0.039095
 
-Probabilities were compared on the same minibatch before
-and after optimizer updates, with policy dropout disabled.
+So probabilities trên cùng minibatch trước/sau optimizer updates, tắt policy dropout.
 
-## Experiment I — Advantage Attribution
+## Thí nghiệm I — Phân tích advantage
 
-First 20 batches, 320 examples:
+20 batches đầu, 320 examples:
 
-- Positive advantage samples: 0
-- Negative advantage samples: 7
-- Zero advantage samples: 313
+- Samples advantage dương: 0
+- Samples advantage âm: 7
+- Samples advantage zero: 313
 
-Negative advantage actions:
+Actions có advantage âm:
 
 - Image: 5
 - Description: 1
 - Image+Description: 1
 
-Batch 3: Description received advantage -11.
-Batch 8: Two Image selections each received advantage -11.
+Batch 3: Description nhận advantage -11.
+Batch 8: hai Image selections nhận advantage -11 mỗi selection.
 
-These results are consistent with REINFORCE penalizing the
-sampled strategies. They do not prove that the early updates
-alone caused the final Structural-only policy.
+Phù hợp REINFORCE phạt sampled strategies; chưa chứng minh early updates
+đơn lẻ gây ra Structural-only policy cuối cùng.
 
-## Limitations
+## Giới hạn
 
-- Experiment E used only 20,000 training examples and 3 epochs.
-- Evaluation and audits used sampled query subsets.
-- Experiments F/G evaluated the trained policy on validation.
-- The CE oracle requires ground-truth labels.
-- Experiments H/I measured only the first 20 batches.
-- No conclusion about full Table 3 reproduction follows yet.
+- E chỉ dùng 20,000 examples, 3 epochs.
+- Evaluation/audits dùng sampled queries.
+- F/G đánh giá trained policy trên validation.
+- CE oracle cần nhãn.
+- H/I chỉ đo 20 batches đầu.
+- Chưa thể kết luận full Table 3 reproduction từ những kiểm tra này.
 
-## Next: Experiment J
+## Tiếp theo: thí nghiệm J
 
-Compare student distillation under fixed strategies:
+So distillation với các fixed strategies:
 
 - J0: Structural-only
 - J1: Description-only
-- J2: Average of all modalities
-- J3: Learned RC (Adam 1e-5)
+- J2: trung bình mọi modalities
+- J3: learned RC (Adam 1e-5)
 
-Keep the same student initialization, training subset,
-optimizer, NDKD configuration, epochs, and evaluation
-protocol to the extent possible.
+Giữ student initialization, training subset, optimizer, NDKD config, epochs
+và evaluation protocol giống nhau trong khả năng có thể.
 
-Use validation metrics for model comparison.
-Do not select experimental configurations using test metrics.
+Dùng validation metrics để so model, không chọn cấu hình bằng test metrics.
+
+<!-- Giữ anchors trước khi Việt hóa để tương thích liên kết cũ. -->
+<a id="dsom-rc-policy-diagnostics--fb15k-237"></a>
+<a id="experiment-e--medium-training"></a>
+<a id="experiment-f--strategy-quality-audit"></a>
+<a id="experiment-g--reward-signal-audit"></a>
+<a id="experiment-h--update-direction-audit"></a>
+<a id="experiment-i--advantage-attribution"></a>
+<a id="limitations"></a>
+<a id="next-experiment-j"></a>
+<a id="scope"></a>

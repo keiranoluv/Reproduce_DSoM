@@ -1,15 +1,15 @@
-# Experiment J — Fixed Strategy vs Learned RC
+# Thí nghiệm J — Fixed strategy so với learned RC
 
 Dataset: FB15K-237
 
-Configuration:
+Cấu hình:
 - 20,000 training examples
 - 3 epochs
 - Batch size 16
 - Student: Adagrad, LR 0.1
 - RC policy: Adam, LR 1e-5
-- Evaluation: 1,024 queries per split
-- Checkpoints selected by validation MRR
+- Đánh giá: 1,024 queries mỗi split
+- Chọn checkpoint bằng validation MRR
 
 | Run | Valid MRR | Valid H@10 | Test MRR | Test H@10 |
 |---|---:|---:|---:|---:|
@@ -18,21 +18,23 @@ Configuration:
 | J2 Average | 0.249199 | 0.387207 | 0.249323 | 0.391113 |
 | J3 Learned RC | 0.257907 | 0.407715 | 0.263478 | 0.409668 |
 
-## Findings
+## Phát hiện
 
-Description-only achieved the highest validation MRR.
+Description-only có validation MRR cao nhất.
 
-Learned RC outperformed Structural-only on validation despite
-previous diagnostics showing Structural-only policy collapse.
+Learned RC hơn Structural-only trên validation dù diagnostics trước đó cho thấy policy collapse về Structural-only.
 
-This suggests that final policy decisions alone do not fully
-characterize the effect of dynamic teacher selection during training.
+Điều này gợi ý policy decisions cuối chưa mô tả hết tác động teacher selection động trong training.
 
-## Limitations
+## Giới hạn
 
-Results are from a medium-run with 20,000 examples, 3 epochs,
-and sampled evaluation queries.
+Kết quả từ medium run: 20,000 examples, 3 epochs và sampled evaluation queries.
 
-Initialization and minibatch-order equivalence should be verified.
+Cần kiểm tra tương đương initialization/minibatch order.
 
-No claims about full Table 3 reproduction can be made yet.
+Tại thời điểm thí nghiệm chưa thể khẳng định full Table 3 reproduction.
+
+<!-- Giữ anchors trước khi Việt hóa để tương thích liên kết cũ. -->
+<a id="experiment-j--fixed-strategy-vs-learned-rc"></a>
+<a id="findings"></a>
+<a id="limitations"></a>

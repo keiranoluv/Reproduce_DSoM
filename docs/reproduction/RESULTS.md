@@ -1,13 +1,13 @@
-# Results, integrity, and troubleshooting
+# Kết quả, integrity và xử lý lỗi
 
-## Recognize success
+## Xác nhận chạy thành công
 
-Process exit 0 alone is not the full scientific check. For the portable baseline
-launcher, each completed stage has `stage_result.json` with `status=PASS`, result
-and checkpoint hashes. For table suites, inspect their `summary.json`, `failures`,
-and full-grid/row flag. Smoke flags never certify a full benchmark result.
+Process exit 0 chưa đủ kiểm chứng khoa học. Với portable baseline launcher,
+stage hoàn tất có `stage_result.json` với `status=PASS`, hashes của result và
+checkpoint. Với table suite, xem `summary.json`, `failures` và cờ full-grid/row.
+Smoke flags không chứng nhận full benchmark result.
 
-| Workflow | Final artifacts |
+| Workflow | Artifacts cuối |
 |---|---|
 | Portable baseline/Table 4 reference profile | `teacher/stage_result.json`, `student/stage_result.json`, selected training `result.json` |
 | Table 2 | `summary.json`, `table2_results.md` |
@@ -16,21 +16,21 @@ and full-grid/row flag. Smoke flags never certify a full benchmark result.
 | Table 6 | `summary.json`, `table6_results.md` |
 | Table 7 | `summary.json`, `table7_results.md`, `student/evaluation.json` |
 
-Only Table 7's workflow independently reloads and re-evaluates the selected
-student automatically. Other table launchers validate saved configs, file hashes,
-checkpoint presence and selected curve entries; they do not claim fresh checkpoint
-inference unless it was performed separately.
+Chỉ workflow Table 7 tự reload và đánh giá độc lập selected student. Các
+launcher bảng khác kiểm tra config đã lưu, file hashes, checkpoint tồn tại
+và selected curve entries; không khẳng định inference checkpoint mới nếu
+chưa thực hiện riêng.
 
-## Correct metric selection
+## Chọn đúng metrics
 
-For students use `result.json["final_result"]`, corresponding to the checkpoint
-selected by maximum **validation MRR**, not `result.json["test"]` or the last W&B
-`test/*` values. `best_epoch` identifies that checkpoint. Teacher selection in
-`learn.py` is maximum validation Hits@10 despite some historical messages saying
-"best Valid MRR". With modality split, teacher ranks take the minimum over
-modalities and are an oracle upper-bound diagnostic, not deployable inference.
+Với student, dùng `result.json["final_result"]` của checkpoint có **validation
+MRR lớn nhất**, không dùng `result.json["test"]` hoặc W&B `test/*` cuối cùng.
+`best_epoch` chỉ checkpoint đó. `learn.py` chọn teacher theo validation Hits@10
+lớn nhất dù một số thông báo cũ ghi "best Valid MRR". Khi modality split,
+teacher lấy rank nhỏ nhất giữa modalities: đây là oracle upper-bound diagnostic,
+không phải inference có thể triển khai.
 
-Read registered baseline student results:
+Đọc kết quả baseline student đã đăng ký:
 
 ```bash
 python - <<'PY'
@@ -43,94 +43,87 @@ for dataset, filename in registry['baselines'].items():
 PY
 ```
 
-Metrics are fractions: `.413` MRR equals `41.3%`. A difference of `.01` equals
-**one percentage point**, not one percent relative improvement. Table 3's paper
-does not provide MRR; compare MR and Hits there. Single-seed differences do not
-establish statistical significance. WN9 raw/filtered results use the same saved
-student, and both settings must be labelled.
+Metrics là tỷ lệ: MRR `.413` tương đương `41.3%`. Chênh `.01` là **một điểm
+phần trăm**, không phải cải thiện tương đối một phần trăm. Paper Table 3 không
+báo MRR; so sánh MR và Hits. Khác biệt một seed không chứng minh ý nghĩa
+thống kê. WN9 raw/filtered dùng cùng saved student và phải ghi nhãn cả hai.
 
-## Recorded Table 7 full result
+## Kết quả full Table 7 đã ghi nhận
 
-The user completed `runs/table7/full/20261023_173538_401388/`; CPU artifact review
-on 2026-10-24 passed input/checkpoint/result/evaluation hashes, teacher linkage,
-validation selection, full query coverage and saved evaluation/training metric
-agreement. Existing artifacts were not rewritten and no GPU job was launched
-during review. The saved evaluation was produced by the user's full GPU workflow.
+Người dùng đã hoàn tất full dòng DSoM/WN9 và kiểm tra artifacts trên CPU PASS.
+Metrics, giới hạn protocol và bằng chứng integrity được ghi trong
+[báo cáo Table 7](../experiments/TABLE7_WN9_REPRODUCTION.md#recorded-full-run--2026-10-24)
+và [JSON snapshot](../experiments/table7_results_20261024.json).
+Lệnh thực thi nằm ở [RUNNING.md](RUNNING.md).
 
-| Test setting | MRR | H@1 | H@3 | H@10 |
-|---|---:|---:|---:|---:|
-| Paper DSoM | 0.921300 | 0.905200 | — | 0.955600 |
-| Filtered | 0.919634 | 0.903336 | 0.928355 | 0.949583 |
-| Raw | 0.618763 | 0.520470 | 0.669447 | 0.810083 |
+## Quản lý checkpoint và dữ liệu
 
-Filtered MRR is -0.167 percentage points from
-[paper Table 7](https://arxiv.org/html/2507.20738v1#A4). Student epoch 15 was
-selected by filtered validation MRR; both evaluation settings use this checkpoint.
-The DSoM row is complete under `source_frozen` with seed 2022. Competitors were
-not retrained, learned RC is unverified, and exact author raw/filtered settings
-remain unresolved. The large raw/filtered gap must accompany the near-paper
-filtered score; single-seed agreement does not prove protocol equivalence.
-See the [full record](../experiments/TABLE7_WN9_REPRODUCTION.md#recorded-full-run--2026-10-24)
-and [portable JSON evidence](../experiments/table7_results_20261024.json).
+Outputs training/extraction được ghi vào thư mục mới hoặc từ chối ghi đè final
+files. Full bắt đầu mới, không từ smoke và không tự resume optimizer. Các
+launcher có hỗ trợ sẽ hash và kiểm tra lại frozen teacher checkpoints, features,
+data/maps cùng reference results đã chọn. Giữ source snapshots/manifests
+cùng JSON results.
 
-## Checkpoint and data handling
+Load full-object torch checkpoints dùng `weights_only=False` để tương thích
+model lưu local. Chỉ load checkpoint tự tạo hoặc tin cậy; không thay bằng
+pickle tải từ nguồn bất kỳ. Teacher-only stage không được đăng ký thành
+student baseline. Full student phải dùng full teacher với dataset/input hashes khớp.
 
-All training/extraction outputs go to new directories or refuse overwriting
-final files. A full command starts fresh, not from smoke. There is no implicit
-optimizer resume. Frozen teacher checkpoints, features, data/maps and selected
-reference result files are hashed and checked again where the launcher supports
-it. Preserve source snapshots/manifests along with JSON results.
+Registry snapshot artifacts đã chọn; thêm baseline sau đó không sửa suite
+plans cũ. Chuyển dataset/checkpoint sang filesystem path khác có thể cần cấu
+hình lại vì manifest cũ thường ghi absolute paths. Không viết lại manifest
+để vượt verify; tạo preparation/run mới có tài liệu hoặc giữ layout đường dẫn cũ.
 
-Full-object torch checkpoint loading uses `weights_only=False` for compatibility
-with locally saved models. Load only checkpoints you created or otherwise trust;
-do not replace local checkpoints with arbitrary downloaded pickle files.
-Teacher-only stages cannot be registered as student baselines. Full students
-must use full teachers with matching dataset and input hashes.
+## Các lỗi thường gặp
 
-The registry snapshots which artifacts were selected; adding a new baseline to
-the registry later does not edit old suite plans. Moving datasets/checkpoints
-to another filesystem path can require reconfiguration: old manifests often
-record absolute paths. Do not rewrite an old manifest to make a verification
-pass; create a new documented preparation/run or preserve the old path layout.
-
-## Common failures
-
-| Symptom | Action |
+| Lỗi | Cách xử lý |
 |---|---|
-| `No module named torch/transformers/...` | Activate the intended venv; run `check_environment.py` with the relevant groups and `python -m pip check` |
-| Child Python under `dsom/` missing | Use current Python launchers from this guide; historical Bash commands can retain that path |
-| `Commit tracked changes` / untracked workflow source | Review and commit source/config changes before full mode; no need to commit ignored data/runs |
-| Missing baseline/reference or old timestamp | Pass `--references references.local.json`; generate/register the required full students first |
-| Duplicate registry entry | Select a new registry for a fresh experiment; existing entry is deliberately not overwritten |
-| Existing dataset/feature/run output | Verify it, or use a separate fresh checkout/output; do not delete benchmark results automatically |
-| Source mapping/count/coverage mismatch | Check exact dataset version, filenames and ent_links/SameAs mapping; do not swap splits or use H5 vectors to bypass it |
-| Google Drive/Baidu cannot download | Use the linked original source manually; retain exact filenames and record availability; no silent fallback |
-| Missing encoder weights offline | Populate Hugging Face/torch caches on an allowed network before extraction |
-| Feature checkpoint fingerprint mismatch | Preserve the old checkpoint; do not resume with changed raw inputs/mapping/backend |
-| CUDA/driver/VRAM error | Run the explicit environment GPU check on your host; smoke at documented rank, inspect training logs; changing batch/rank creates a different protocol |
-| W&B authentication error | Authenticate, use `WANDB_MODE=offline`, or omit `--wandb`; local results do not require tracking |
-| Teacher smoke rejected by full student | Train a new full teacher first; full never continues smoke |
-| Selected-checkpoint/metric/hash mismatch | Stop and inspect the saved plan/logs; do not report or overwrite the suspect artifacts |
+| `No module named torch/transformers/...` | Kích hoạt đúng venv; chạy `check_environment.py` với nhóm phù hợp và `python -m pip check` |
+| Thiếu Python con trong `dsom/` | Dùng Python launcher hiện tại; Bash scripts lịch sử có thể còn đường dẫn đó |
+| `Commit tracked changes` / workflow source chưa track | Review và commit source/config trước full; không commit data/runs đã ignore |
+| Thiếu baseline/reference hoặc timestamp cũ | Truyền `--references references.local.json`; tạo/đăng ký full students cần thiết trước |
+| Trùng registry entry | Chọn registry mới; cố ý không overwrite entry cũ |
+| Dataset/features/run output đã tồn tại | Verify hoặc dùng checkout/output riêng; không tự xóa benchmark results |
+| Mapping/count/coverage nguồn không khớp | Kiểm tra đúng dataset version, tên files, ent_links/SameAs; không đổi splits hoặc thay H5 để vượt kiểm tra |
+| Không tải được Google Drive/Baidu | Tải thủ công từ nguồn gốc; giữ tên files, ghi khả dụng; không âm thầm đổi nguồn |
+| Thiếu encoder weights khi offline | Tải đủ Hugging Face/torch caches qua mạng được phép trước extraction |
+| Fingerprint feature checkpoint không khớp | Giữ checkpoint cũ; không resume khi raw inputs/mapping/backend đã đổi |
+| Lỗi CUDA/driver/VRAM | Chạy GPU check tường minh trên máy; smoke đúng rank và xem logs; đổi batch/rank là đổi protocol |
+| Lỗi đăng nhập W&B | Đăng nhập, dùng `WANDB_MODE=offline` hoặc bỏ `--wandb`; local results không cần tracking |
+| Full student từ chối smoke teacher | Train full teacher mới trước; full không tiếp tục smoke |
+| Selected checkpoint/metrics/hash không khớp | Dừng, kiểm tra plan/logs; không báo kết quả hay ghi đè artifacts nghi vấn |
 
-Failed stages save logs, and supported orchestration stops queued dependent jobs.
-The portable feature adapter checks paths before importing a backend; its audit
-does not decode every image or establish feature equivalence with the paper.
+Stage thất bại lưu logs; orchestration có hỗ trợ sẽ dừng các job phụ thuộc
+đang chờ. Portable feature adapter kiểm tra đường dẫn trước khi import backend;
+audit không decode mọi ảnh và không chứng minh feature equivalence với paper.
 
-## What was validated for this guide?
+## Phạm vi đã được kiểm chứng
 
-The installed environment and public availability of direct pins were inspected.
-A new isolated Python 3.12 venv installed the CPU torch build and all requirement
-groups; `pip check` and all 160 tests passed. All ten historical encoder modules
-imported, and a tiny randomly initialized BERT completed a CPU forward without
-pretrained downloads. Tests also include tiny real teacher/student optimizer steps
-and mocked orchestration; no full GPU experiment was executed.
+Đã kiểm tra môi trường cài đặt và package metadata công khai của direct pins.
+Một venv Python 3.12 độc lập cài CPU torch và đủ requirements groups; `pip check`
+và 160 tests PASS. Cả mười encoder modules lịch sử import được, BERT nhỏ với
+random initialization chạy CPU forward không tải pretrained weights. Tests
+có optimizer steps teacher/student thật ở kích thước nhỏ và mocked orchestration;
+không chạy full GPU experiment.
 
-A relocated local clone with spaces in its path, no historical runs, and no
-repo-local `dsom/bin/python` passed environment checks, feature verification and
-baseline planning. This test linked existing prepared MKG-Y features rather than
-redownloading/re-encoding them. The new portable feature adapter and generic
-baseline entrypoint have not been run through full extraction/training on a new
-GPU machine. Historical core runs and the user's completed WN9 full workflow
-are separate evidence; the latter is documented above, not a full run of the
-new portable baseline launcher.
-The compact [validation record](validation.json) distinguishes these scopes.
+Một local clone chuyển sang đường dẫn có dấu cách, không historical runs và
+không `dsom/bin/python` trong repo, đã qua environment checks, feature verify
+và baseline plan. Kiểm tra này liên kết MKG-Y features đã chuẩn bị, không tải
+hay encode lại. Portable feature adapter và generic baseline entrypoint chưa
+được chạy full extraction/training trên máy GPU mới. Historical core runs và
+full WN9 workflow của người dùng là bằng chứng riêng; WN9 không phải full run
+của portable baseline launcher mới. [Validation record](validation.json)
+phân biệt rõ các phạm vi này.
+
+Kiểm tra documentation refactor được lưu riêng trong
+[documentation_validation.json](documentation_validation.json); không chứng nhận
+GPU reproduction từ máy sạch.
+
+<!-- Giữ anchors trước khi Việt hóa để tương thích liên kết cũ. -->
+<a id="checkpoint-and-data-handling"></a>
+<a id="common-failures"></a>
+<a id="correct-metric-selection"></a>
+<a id="recognize-success"></a>
+<a id="recorded-table-7-full-result"></a>
+<a id="results-integrity-and-troubleshooting"></a>
+<a id="what-was-validated-for-this-guide"></a>

@@ -1,251 +1,152 @@
-# Table 7 — WN9 teacher/student workflow
+# Table 7 — Workflow teacher/student WN9
 
-Status: **user completed full WN9 teacher/student training and checkpoint
-evaluation; CPU/file verification PASS on 2026-10-24**. The DSoM row is complete
-under the documented source-frozen protocol; competitor rows were not trained.
-The assistant did not launch GPU jobs. Data preparation is documented in
-[WN9_SOURCE_AUDIT.md](WN9_SOURCE_AUDIT.md).
+Trạng thái: **người dùng hoàn tất full WN9 teacher/student và checkpoint
+evaluation; kiểm tra CPU/files PASS ngày 2026-10-24**. Đủ dòng DSoM theo
+source-frozen protocol; chưa train competitors. Trợ lý không chạy GPU.
+Chuẩn bị dữ liệu ở [WN9_SOURCE_AUDIT.md](WN9_SOURCE_AUDIT.md).
 
-## Recorded full run — 2026-10-24
+## Full run đã ghi nhận — 2026-10-24
 
-Suite: `runs/table7/full/20261023_173538_401388/` (folder timestamp is UTC).
-Training source: `cc00d7e94c57266a2e5ebfd6df56e483f17ef45a`; seed 2022;
-policy optimizer `source_frozen`. Both stages and E2E summary report **PASS**;
+Suite: `runs/table7/full/20261023_173538_401388/`, timestamp thư mục là UTC.
+Training source `cc00d7e94c57266a2e5ebfd6df56e483f17ef45a`, seed 2022,
+policy optimizer `source_frozen`. Hai stages/E2E summary đều **PASS**;
 `full_table7_dsom_row_completed=true`, `exact_author_protocol_reproduced=false`.
-Portable evidence: [table7_results_20261024.json](table7_results_20261024.json).
+Bằng chứng: [table7_results_20261024.json](table7_results_20261024.json).
 
-| Setting | MR | MRR | H@1 | H@3 | H@10 |
+| Thiết lập | MR | MRR | H@1 | H@3 | H@10 |
 |---|---:|---:|---:|---:|---:|
 | Paper DSoM | — | 0.921300 | 0.905200 | — | 0.955600 |
 | Reproduction, filtered | 6.131160 | 0.919634 | 0.903336 | 0.928355 | 0.949583 |
 | Reproduction, raw | 14.506444 | 0.618763 | 0.520470 | 0.669447 | 0.810083 |
 
-Relative to [paper Table 7](https://arxiv.org/html/2507.20738v1#A4), filtered
-MRR/H@1/H@10 differ by **-0.167 / -0.186 / -0.602 percentage points**.
-This numerical closeness is conditional on filtered evaluation. Raw MRR differs
-by -30.254 pp; the evaluation setting has a much larger effect than the filtered
-paper gap. Both settings use the same checkpoint selected using filtered valid
-MRR; raw did not receive a separate checkpoint search. This does not resolve the
-paper's protocol, establish statistical significance, or verify learned RC.
+So [paper Table 7](https://arxiv.org/html/2507.20738v1#A4), filtered MRR/H@1/H@10
+chênh **-0.167 / -0.186 / -0.602 điểm phần trăm**. Mức gần này phụ thuộc filtered
+evaluation. Raw MRR chênh -30.254 pp; evaluation setting ảnh hưởng lớn hơn
+nhiều gap filtered so paper. Hai setting dùng cùng checkpoint chọn bằng
+filtered valid MRR, không tìm checkpoint riêng cho raw. Chưa giải quyết
+protocol paper, chứng minh thống kê hoặc xác minh learned RC.
 
-Teacher selected epoch **33**, stopped at epoch 44; student selected epoch **15**,
-stopped at epoch 26. Student selected validation MRR is .916170.
-The saved independent checkpoint evaluation covers all **1,337 validation and
-1,319 test queries per direction** (RHS and reciprocal LHS).
-Teacher oracle scores are excluded from the comparison above. Tracking:
+Teacher chọn epoch **33**, dừng epoch 44; student chọn epoch **15**, dừng
+epoch 26. Selected validation MRR student .916170. Independent checkpoint
+evaluation lưu đủ **1,337 validation và 1,319 test queries mỗi chiều** RHS/LHS
+reciprocal. Không đưa teacher oracle scores vào bảng so sánh. Tracking:
 [teacher](https://wandb.ai/keiranoluv-hcmus/DSoM-Reproduction/runs/cj92k47u),
 [student](https://wandb.ai/keiranoluv-hcmus/DSoM-Reproduction/runs/8k36o3o8).
 
-The CPU review re-ran the summarizer's validation with writes intercepted and
-required generated summary text to match the existing JSON/Markdown exactly.
-It verified data/feature input hashes, teacher and student checkpoint/result
-hashes, teacher-to-student linkage, validation-based epoch selection, evaluation
-hash and complete coverage, and saved reloaded-checkpoint metrics against training
-metrics (tolerance 2e-6). No Torch import, checkpoint inference or training was
-performed during this review; original artifacts were left byte-for-byte intact.
-Inverse-fact leakage, reconstructed feature equivalence, SUM NDKD, retained
-scheduler direction and single-seed limitations below still apply.
+CPU review chạy lại summarizer validation nhưng chặn ghi file, yêu cầu summary
+text sinh ra khớp chính xác JSON/Markdown cũ. Kiểm tra input hashes, teacher/student
+checkpoint/result hashes, liên kết teacher→student, chọn epoch theo validation,
+evaluation hash/coverage và metrics reloaded đã lưu so training (tolerance 2e-6).
+Không import Torch, inference checkpoint hoặc training; artifacts gốc giữ
+nguyên từng byte. Giới hạn inverse facts, features tái dựng, SUM NDKD, scheduler
+và một seed tiếp tục áp dụng.
 
-## Independent stages and E2E composition
+## Stages độc lập và ghép E2E
 
-- `scripts/run_wn9_teacher.py`: fresh multimodal WN9 teacher via existing `learn.py`.
-- `scripts/run_wn9_student.py`: fresh structural student via existing `kd_learn.py`,
-  given a completed, validated WN9 teacher stage directory.
-- `scripts/run_table7.py`: calls the same two stages sequentially, then aggregates
-  the separately reloaded student checkpoint's raw/filtered evaluation.
-- `scripts/eval_wn9_student.py` / `src/wn9_evaluation.py`: standalone raw/filtered
-  scoring of the selected student, never teacher minimum/oracle ranks.
-- `scripts/wn9_workflow.py`: shared metadata, configuration, subprocess launching,
-  checkpoint/provenance validation, and summary. No Torch import in plans.
+- `scripts/run_wn9_teacher.py`: train multimodal WN9 teacher mới qua `learn.py`.
+- `scripts/run_wn9_student.py`: train structural student mới qua `kd_learn.py`, nhận completed/validated WN9 teacher stage.
+- `scripts/run_table7.py`: chạy hai stages tuần tự, tổng hợp raw/filtered evaluation của student reload độc lập.
+- `scripts/eval_wn9_student.py` / `src/wn9_evaluation.py`: chấm selected student raw/filtered độc lập, không teacher minimum/oracle ranks.
+- `scripts/wn9_workflow.py`: metadata, configs, subprocess, checkpoint/provenance validation và summary dùng chung; plan không import Torch.
 
-No existing training, loss, dataset evaluator, or model implementation is edited.
-Teacher/student processes are separate, so GPU memory is released between stages.
-The new evaluator runs as another separate process after student training exits.
-Teacher failure prevents student launch. Student/evaluation failure prevents a
-passing E2E summary; logs and `failure.json` remain for inspection.
+Không sửa implementation training, loss, evaluator dataset hay model hiện có.
+Teacher/student chạy process riêng, giải phóng GPU giữa stages. Evaluator chạy
+process riêng sau khi student train xong. Teacher lỗi thì không launch student;
+student/eval lỗi thì không có E2E PASS, giữ logs và `failure.json` để kiểm tra.
 
-Both standalone and E2E entrypoints default to **plan**. Plan checks prepared
-WN9 inputs and hashes data without Torch/CUDA or training. E2E plan's student
-checkpoint is explicitly pending; actual student commands are generated only
-after selecting and validating the new teacher checkpoint. Each executed
-stage's `plan.json` and `command.sh` record its actual command.
+Standalone và E2E mặc định **plan**: kiểm tra inputs/hashes WN9, không Torch/CUDA
+hoặc training. E2E plan đánh dấu student checkpoint pending; chỉ tạo student
+command thực sau khi chọn/validate teacher checkpoint mới. `plan.json` và
+`command.sh` mỗi executed stage ghi lệnh thực tế.
 
-## Default protocol
+## Protocol mặc định
 
 Full teacher: WN9 6555 entities / 18 reciprocal relations, rank 2000, Adagrad LR
 .1, batch 1000, N3 .01, init .001, modality split S/V/D, alpha 1, scale 20,
-max 200 epochs, validate every 3, early stopping 10, seed 2022.
-The existing `min` scheduler direction is retained. Teacher selection follows
-the released training implementation: **highest filtered validation Hits@10**,
-with minimum rank across modalities (oracle diagnostic). Teacher `best_mrr` is
-the MRR at that selected epoch, not necessarily the maximum MRR. These teacher
-metrics are not the final Table 7 prediction performance.
+tối đa 200 epochs, validation mỗi 3, early stopping 10, seed 2022. Giữ scheduler
+`min`. Chọn teacher bằng **filtered validation Hits@10 lớn nhất**, dùng minimum
+rank giữa modalities (oracle diagnostic) như released code. `best_mrr` là MRR
+của epoch được chọn, không nhất thiết maximum MRR. Teacher metrics không phải
+final prediction performance Table 7.
 
-Student: same structural ComplEx rank/optimizer/regularizer/schedule, CE/KD weights
-1/2, temperature 4, NDKD alpha/beta 1/1, seven-action binary +1/-10 RC, hidden
-1024, policy temperature 1, no policy input normalization. Teacher is frozen.
-Student checkpoint selection is **highest filtered validation MRR**.
+Student giữ structural ComplEx rank/optimizer/regularizer/schedule, CE/KD weights
+1/2, temperature 4, NDKD alpha/beta 1/1, RC bảy actions binary +1/-10, hidden
+1024, policy temperature 1, không normalize policy input. Teacher đóng băng.
+Chọn student checkpoint bằng **filtered validation MRR lớn nhất**.
 
-Default policy optimizer is **source_frozen**, consistent with the prior main
-table baselines. Policy parameters are initialized/sampled but excluded from
-optimization. This does not verify learned RL. Optional
-`--policy-optimizer Adam --policy-lr 0.00001` runs the separately adapted learned
-RC variant; keep it in its own new suite. Full Adam students require recorded
-nonzero policy updates. Smoke only checks update instrumentation: zero updates
-can be legitimate when a tiny run has no nonzero binary reward advantages.
+Default policy optimizer **source_frozen** khớp main baseline trước đó;
+khởi tạo/sample policy nhưng không optimize, không xác minh learned RL.
+`--policy-optimizer Adam --policy-lr 0.00001` là learned-RC adaptation riêng,
+giữ suite riêng. Full Adam cần ghi nonzero policy updates. Smoke chỉ kiểm tra
+instrumentation; zero update hợp lệ nếu run nhỏ không có binary reward
+advantage khác không.
 
-Smoke retains rank 2000 and all entity/relation mappings/features, but runs each
-stage for 1 epoch on 1000 reciprocal-augmented training examples, validates each
-epoch, and evaluates 64 queries per direction. Training masks still use the full
-training-only neighbor map. Smoke metrics are execution checks, not Table 7 scores.
-Full E2E always trains a **new full teacher and new student**, never resumes or
-reuses smoke checkpoints.
+Smoke giữ rank 2000 cùng mọi maps/features; mỗi stage 1 epoch trên 1000
+reciprocal-augmented training examples, validation mỗi epoch, evaluation
+64 queries mỗi chiều. Masks vẫn dùng full training-only neighbor map. Smoke
+chỉ kiểm tra thực thi, không phải score Table 7. Full E2E luôn train **full
+teacher và student mới**, không resume/reuse smoke checkpoint.
 
-## Raw and filtered evaluation
+## Đánh giá raw và filtered
 
-The saved student is reloaded, checked as a unimodal `ComplExMDR` with WN9 shape,
-and evaluated on valid/test RHS and reciprocal LHS. Both protocols use identical
-queries and pessimistic `>=` ties; the target itself is excluded. Raw keeps all
-other entities; filtered additionally excludes known answers in the original
-split-union filters. NumPy unsigned IDs are explicitly converted to long indices.
-Batch size 2000 and `get_queries @ get_rhs` / `score` match the legacy student
-ranking path. No oracle modality minimum or target-aware action choice is used.
+Reload student, kiểm tra unimodal `ComplExMDR` đúng WN9 shape, evaluate
+valid/test RHS và reciprocal LHS. Hai protocol cùng queries, pessimistic ties
+`>=`, loại target hiện tại. Raw giữ mọi entity khác; filtered loại thêm các
+known answers trong split-union filters gốc. Đổi unsigned NumPy IDs sang long
+indices. Batch 2000 và `get_queries @ get_rhs` / `score` khớp legacy student
+ranking. Không dùng oracle minimum hoặc target-aware action selection.
 
-Full student stage verifies complete valid/test coverage and agreement between
-reloaded filtered validation/test MRR and the selected training checkpoint, plus
-test Hits@1/3/10 (tolerance 2e-6). Smoke uses a fixed seed 2022 evaluation subset;
-it differs from the legacy trainer's random smoke subsets, so equal smoke
-metrics are not required.
+Full student kiểm tra đủ valid/test queries, filtered validation/test MRR
+reload khớp selected training checkpoint, cùng test Hits@1/3/10 (tolerance 2e-6).
+Smoke dùng evaluation subset seed 2022 cố định, khác random smoke subsets
+của trainer legacy nên không bắt buộc metrics bằng nhau.
 
-[DSoM Table 7](https://arxiv.org/html/2507.20738v1#A4) gives MRR .9213, H@1 .9052,
-H@10 .9556. The exact evaluation protocol for that table remains unresolved:
-[DySarl §4.1.3](https://openreview.net/pdf?id=Gf94NMabeh) reports raw metrics,
-whereas the DSoM released dataset evaluator uses filtered ranking. This workflow
-reports both settings on the **same filtered-validation-selected checkpoint**.
-It does not select a different checkpoint based on raw test performance, or
-claim that the raw result uses raw-validation checkpoint selection.
+[DSoM Table 7](https://arxiv.org/html/2507.20738v1#A4) báo MRR .9213, H@1 .9052,
+H@10 .9556. Protocol chính xác chưa rõ: [DySarl §4.1.3](https://openreview.net/pdf?id=Gf94NMabeh)
+báo raw, còn DSoM released evaluator dùng filtered. Workflow báo cả hai trên
+**cùng checkpoint chọn bằng filtered validation**; không chọn checkpoint khác
+theo raw test hoặc tuyên bố raw dùng raw-validation checkpoint selection.
 
-Other retained limits: inverse facts in WN9 splits, reconstructed frozen-encoder
-features and eight inherited missing-image vectors, released SUM NDKD versus
-paper MEAN, single seed, and the original scheduler direction. No graph-trained
-WN18 checkpoint is accepted. The teacher must be a completed workflow stage
-with matching WN9 data/feature hashes and a verified checkpoint hash. Full
-student rejects smoke teacher; standalone smoke student may use a full teacher.
+Giới hạn còn giữ: inverse facts WN9, reconstructed frozen-encoder features và
+tám missing-image vectors kế thừa, SUM NDKD so với MEAN paper, một seed và
+scheduler gốc. Không nhận WN18 graph checkpoint. Teacher phải là completed
+stage với WN9 data/feature hashes khớp, checkpoint hash verified. Full student
+từ chối smoke teacher; standalone smoke student có thể dùng full teacher.
 
-## CPU review and commit
+## Hướng dẫn thực thi
 
-```bash
-CUDA_VISIBLE_DEVICES='' ./dsom/bin/python -m pytest -q tests/test_table7.py
-CUDA_VISIBLE_DEVICES='' ./dsom/bin/python scripts/run_table7.py --mode plan
-CUDA_VISIBLE_DEVICES='' ./dsom/bin/python scripts/run_wn9_teacher.py --mode plan
+Lệnh chạy hiện tại, chọn từng ô/toàn bảng và prerequisites: [RUNNING.md](../reproduction/RUNNING.md).
 
-git add scripts/run_wn9_teacher.py scripts/run_wn9_student.py \
-  scripts/run_table7.py scripts/wn9_workflow.py scripts/eval_wn9_student.py \
-  src/wn9_evaluation.py tests/test_table7.py \
-  docs/experiments/TABLE7_WN9_REPRODUCTION.md
-git diff --cached --check
-git diff --cached --stat
-git commit -m "exp(wn9): add separate teacher/student stages and Table 7 E2E workflow"
-```
+Standalone student nhận completed teacher stage directory, không nhận
+checkpoint bất kỳ; source-frozen/learned-RC adaptations giữ suite riêng.
 
-Full mode requires a clean tracked working tree and committed workflow sources.
-Plans/smoke permit review of uncommitted sources and save source snapshots.
-All commands below are **for the user to execute on GPU**, not assistant actions.
+## Outputs và kiểm tra lại
 
-## Recommended E2E smoke, then full
-
-```bash
-./dsom/bin/python scripts/run_table7.py --mode smoke
-```
-
-Wait for `PASS E2E` and inspect `runs/table7/smoke/<SUITE>/summary.json`.
-After smoke passes:
-
-```bash
-WANDB_PROJECT=DSoM-Reproduction \
-./dsom/bin/python scripts/run_table7.py --mode full --wandb
-```
-
-This launches **one fresh teacher, then one fresh student**, sequentially, plus
-checkpoint evaluation. No competitors are trained. W&B is opt-in, one run per
-training stage, grouped under the E2E suite. W&B's last `test/*` entries need not
-equal selected-checkpoint results; final raw/filtered metrics live in the saved
-JSON/Markdown, not W&B's last epoch summary. Standalone evaluation does not open
-an additional W&B run.
-
-To run the learned-RC adaptation in a separate suite, append:
-
-```text
---policy-optimizer Adam --policy-lr 0.00001
-```
-
-Use the same option on its E2E smoke before its full run. The default
-source-frozen suite does not need to be rerun solely because this variant exists.
-
-## Running the two stages independently
-
-Teacher smoke:
-
-```bash
-./dsom/bin/python scripts/run_wn9_teacher.py --mode smoke
-```
-
-Then student smoke, using the teacher stage directory printed by that command:
-
-```bash
-./dsom/bin/python scripts/run_wn9_student.py --mode smoke \
-  --teacher-run runs/table7/teacher/smoke/TEACHER_SUITE
-```
-
-For independent full training, first run a full teacher:
-
-```bash
-WANDB_PROJECT=DSoM-Reproduction \
-./dsom/bin/python scripts/run_wn9_teacher.py --mode full --wandb
-```
-
-Then a full student from that teacher:
-
-```bash
-WANDB_PROJECT=DSoM-Reproduction \
-./dsom/bin/python scripts/run_wn9_student.py --mode full --wandb \
-  --teacher-run runs/table7/teacher/full/TEACHER_SUITE
-```
-
-Standalone student automatically runs checkpoint evaluation too. It saves
-`stage_result.json` and `evaluation.json`; the E2E launcher additionally combines
-the stage results into Table 7 Markdown. Standalone student plan requires an
-already completed **full** teacher because plan previews full settings.
-`--teacher-run` accepts a stage directory, not a checkpoint `.pth` path or an
-arbitrary legacy teacher run. For a teacher produced by E2E, use its `teacher/`
-subdirectory.
-
-## Outputs and rechecking
-
-E2E: `runs/table7/{plan,smoke,full}/<UTC timestamp>/` with `teacher/`, `student/`,
+E2E: `runs/table7/{plan,smoke,full}/<UTC timestamp>/`, gồm `teacher/`, `student/`,
 `summary.json`, `table7_results.md`, root/stage plans, source snapshots, commands,
-training/evaluation logs, selected checkpoints, and integrity hashes.
-Independent stages: `runs/table7/{teacher,student}/{mode}/<UTC timestamp>/`.
-Every invocation creates a NEW directory and refuses overwriting. `--output`
-can select a new directory within `runs/table7/`. There is no optimizer resume
-or implicit GPU launch from a plan. Existing dataset/feature files are verified
-before and after, not rewritten. Teacher checkpoint/results are protected during
-student training.
+training/eval logs, selected checkpoints, hashes. Independent stages tại
+`runs/table7/{teacher,student}/{mode}/<UTC timestamp>/`. Mỗi lần gọi tạo thư mục
+MỚI, từ chối ghi đè. `--output` chọn thư mục mới trong `runs/table7/`. Không
+resume optimizer hoặc ngầm launch GPU từ plan. Verify datasets/features trước
+sau, không ghi lại. Bảo vệ teacher checkpoint/results khi student training.
 
-Regenerate an already completed E2E summary with CPU/file checks only:
+Cách tái tạo summary được ghi trong RUNNING.md.
 
-```bash
-CUDA_VISIBLE_DEVICES='' ./dsom/bin/python scripts/run_table7.py --mode summarize \
-  --output runs/table7/full/YOUR_SUITE
-```
+`full_table7_dsom_row_completed=true` cần đủ hai full stages, liên kết fresh
+WN9 checkpoints, evaluation đầy đủ và metrics khớp. Vẫn giữ
+`exact_author_protocol_reproduced=false`. Smoke luôn full-row flag false,
+không có paper deltas.
 
-`full_table7_dsom_row_completed=true` requires both full stages, fresh WN9
-checkpoint linkage, complete checkpoint evaluation and metric agreement.
-`exact_author_protocol_reproduced=false` remains explicit. Smoke always leaves
-the full-row flag false and omits paper deltas.
+CPU tests gồm optimizer step multimodal teacher thật cỡ nhỏ, save/load teacher,
+frozen teacher/student distillation, bảo toàn source-frozen policy, save/load
+student, so raw/filtered với legacy `get_ranking`, uint64 filters, parse CLI
+không CUDA setup, orchestration standalone/E2E với mocked training processes.
+Tests không thay smoke GPU thực tế của người dùng.
 
-CPU tests include a real tiny multimodal teacher optimizer step, teacher save/load,
-frozen teacher/student distillation, source-frozen policy preservation, student
-save/load, raw/filtered scoring compared with legacy `get_ranking`, NumPy uint64
-filters, CLI parsing without executing CUDA setup, and separate/E2E orchestration
-with mocked training processes. These do not replace the user's real GPU smoke.
+<!-- Giữ anchors trước khi Việt hóa để tương thích liên kết cũ. -->
+<a id="default-protocol"></a>
+<a id="independent-stages-and-e2e-composition"></a>
+<a id="outputs-and-rechecking"></a>
+<a id="raw-and-filtered-evaluation"></a>
+<a id="recorded-full-run--2026-10-24"></a>
+<a id="table-7--wn9-teacherstudent-workflow"></a>
