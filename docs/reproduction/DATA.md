@@ -1,8 +1,10 @@
 # Tải, chuẩn bị và kiểm tra dữ liệu
 
-Chạy mọi lệnh từ gốc repo sau khi kích hoạt môi trường. Chỉ chuẩn bị dataset
-cần cho bảng muốn reproduce. Preprocessing chạy CPU; encoding là bước riêng
-phải gọi tường minh. Git không chứa pretrained graph checkpoints hay feature arrays.
+Chạy lệnh từ gốc repo sau khi kích hoạt môi trường. Chỉ chuẩn bị dataset cần
+cho workflow bạn định chạy. Thứ tự là **tải raw assets → tiền xử lý dữ liệu cấu
+trúc → trích xuất text/image features → verify**. Tiền xử lý chạy CPU; feature
+extraction là bước riêng cần gọi tường minh. Raw assets, feature arrays và graph
+checkpoints không được lưu trong Git.
 
 ## Cấu trúc thư mục và nguồn
 
@@ -123,10 +125,10 @@ Số lượng kỳ vọng theo các benchmark files thực tế đã dùng:
 | WN18 | 40943 | 18 | 141442 | 5000 | 5000 |
 | WN9 | 6555 | 9 | 11741 | 1337 | 1319 |
 
-Số valid/test DB15K tải về khác thứ tự được ghi trong Table 5 của paper.
-Giữ tên file nguồn: validation gốc có duplicates và overlaps; không deduplicate,
-đổi chỗ hoặc chia lại để khớp bảng. Xem [truy nguồn](../experiments/DB15K_CLEAN_SPLIT_SENSITIVITY.md).
-CleanV1 là sensitivity experiment riêng, không thay benchmark chính.
+Số valid/test DB15K trong file nguồn khác thứ tự được ghi trong Table 5 của paper.
+Giữ nguyên tên file và nội dung nguồn: không deduplicate, đổi chỗ hoặc chia lại
+splits để khớp bảng. CleanV1 là một tập dữ liệu riêng, không thay thế nguồn gốc.
+Hồ sơ phân tích dữ liệu nằm trong [mục lục nghiên cứu](../research/README.md).
 
 ## Text features BERT
 
@@ -253,11 +255,13 @@ Preparer yêu cầu đúng MoSE files đã pin, synsets/descriptions khớp và 
 features đúng shape; lấy rows theo synset ID thay vì vị trí hàng. Nguồn đã ghi
 nhận giữ 6,547 rows ảnh thật và 8 rows imputed. Không cần encode WN9 chỉ để lặp
 lại generic frozen features. Phải train mới WN9 graph teacher/student: WN18
-graph training chứa nhiều held-out facts WN9. Xem [audit WN9](../experiments/WN9_SOURCE_AUDIT.md).
+graph training chứa nhiều facts được giữ lại trong WN9. Audit nguồn và feature reuse
+nằm trong [mục lục nghiên cứu](../research/README.md).
 
 Không ghi đè processed datasets và final features đã có. Dùng verify cho
 dataset hiện hữu, giữ raw downloads/manifests. Không xóa hoặc viết lại benchmark
-chỉ để một lệnh setup chạy thành công.
+chỉ để một lệnh setup chạy thành công. Sau khi verify dữ liệu/features cần dùng,
+chuyển sang [hướng dẫn chạy](RUNNING.md) và chọn workflow tương ứng.
 
 <!-- Giữ anchors trước khi Việt hóa để tương thích liên kết cũ. -->
 <a id="bert-text-features"></a>

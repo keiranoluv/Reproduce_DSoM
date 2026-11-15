@@ -222,7 +222,9 @@ def test_complete_summary_uses_selected_metrics_and_snapshotted_targets(workspac
     directory, plan = runner.prepare(runner.parser().parse_args([]))
     for job in plan["jobs"]:
         save_result(Path(job["directory"]) / "checkpoints/0/result.json", job["config"])
-    (workspace / "docs/experiments/table6_paper_targets.json").write_text("{}")
+    (workspace / "docs/research/tables/reference/table6_paper_targets.json").write_text(
+        "{}"
+    )
     assert runner.summarize(directory)
     summary = json.loads((directory / "summary.json").read_text())
     assert summary["full_table6_grid_completed"]

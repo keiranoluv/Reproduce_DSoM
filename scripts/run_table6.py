@@ -47,8 +47,8 @@ SOURCES = (
     "scripts/run_table2.py",
     "scripts/run_table6.py",
     "tests/test_table6.py",
-    "docs/experiments/TABLE6_REPRODUCTION.md",
-    "docs/experiments/table6_paper_targets.json",
+    "docs/research/tables/TABLE6_REPRODUCTION.md",
+    "docs/research/tables/reference/table6_paper_targets.json",
 )
 
 
@@ -310,7 +310,9 @@ def summarize(directory):
     verify_inputs(plan)
     # Use snapshotted targets so a future documentation change cannot alter old scores.
     with zipfile.ZipFile(directory / "source_snapshot.zip") as archive:
-        paper = json.loads(archive.read("docs/experiments/table6_paper_targets.json"))
+        paper = json.loads(
+            archive.read("docs/research/tables/reference/table6_paper_targets.json")
+        )
     rows, failures = [], []
     for cell, reused in [(cell, True) for cell in plan["references"]] + [
         (cell, False) for cell in plan["jobs"]

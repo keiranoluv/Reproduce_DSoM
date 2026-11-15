@@ -40,8 +40,8 @@ SOURCES = (
     "src/utils.py",
     "scripts/run_table2.py",
     "tests/test_table2.py",
-    "docs/experiments/table2_paper_targets.json",
-    "docs/experiments/TABLE2_REPRODUCTION.md",
+    "docs/research/tables/reference/table2_paper_targets.json",
+    "docs/research/tables/TABLE2_REPRODUCTION.md",
 )
 MATCHED = (
     "rank",
@@ -207,7 +207,7 @@ def summarize(directory):
     plan = json.loads((directory / "plan.json").read_text())
     verify_inputs(plan)
     targets = json.loads(
-        (ROOT / "docs/experiments/table2_paper_targets.json").read_text()
+        (ROOT / "docs/research/tables/reference/table2_paper_targets.json").read_text()
     )
     rows, failures = [], []
     for dataset, info in plan["baselines"].items():

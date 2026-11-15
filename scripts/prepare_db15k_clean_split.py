@@ -21,7 +21,7 @@ ORIGINAL = ROOT / "data/MMKB-DB15K"
 NAME = "MMKB-DB15K-CleanV1"
 OUTPUT = ROOT / "data" / NAME
 RAW_OUTPUT = ROOT / "src_data" / NAME
-REPORT = ROOT / "docs/audits/db15k_source_trace.json"
+REPORT = ROOT / "docs/research/provenance/db15k_source_trace.json"
 
 
 def sha256(path):

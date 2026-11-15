@@ -1,23 +1,29 @@
-# Chạy reproduction DSoM
+# Chạy workflow
 
-Đây là nguồn lệnh training/evaluation chính thức cho Tables 1/2/3/4/6/7.
-Trước khi chạy: hoàn thành [môi trường](ENVIRONMENT.md) và
-[dữ liệu/features](DATA.md), kích hoạt venv và đứng ở thư mục gốc repo.
-Chỉ model `ComplExMDR` và các cấu hình nêu dưới đây được hỗ trợ;
-repo không retrain toàn bộ competitor trong paper.
+Trang này liệt kê lệnh chạy hiện hành theo từng bảng. Trước khi bắt đầu, cài môi trường và chuẩn bị dataset/features cần thiết theo các hướng dẫn tương ứng. Kích hoạt virtual environment và chạy mọi lệnh từ thư mục gốc repo. Chọn đúng một workflow; không cần chạy cả danh sách nếu chỉ tái lập một phần.
+
+## Chọn workflow
+
+| Bảng | Runner chính | Dữ liệu hoặc prerequisite chính | Lệnh chi tiết |
+|---|---|---|---|
+| Table 1 | `scripts/run_reproduction.py` | DB15K, MKG-W hoặc MKG-Y cùng structural data và features | [Table 1](#table-1) |
+| Table 2 | `scripts/run_table2.py` | Baseline full đã đăng ký cho dataset được chọn | [Table 2](#table-2) |
+| Table 3 | `scripts/run_reproduction.py` | FB15K-237 hoặc WN18 cùng structural data và features | [Table 3](#table-3) |
+| Table 4 | `scripts/run_reproduction.py`, `scripts/run_table4_components.py`, `scripts/run_table4_ensembles.py` | DB15K teacher và các reference students theo thứ tự | [Table 4](#table-4) |
+| Table 5 | `scripts/prepare_dataset.py`, `scripts/prepare_wn9_from_mose.py` | Dữ liệu đã tải và chuẩn bị | [Table 5](#table-5) |
+| Table 6 | `scripts/run_table6.py` | Baseline full/teacher đã đăng ký cho dataset được chọn | [Table 6](#table-6) |
+| Table 7 | `scripts/run_table7.py` | WN9 đã chuẩn bị cùng WN18 frozen features | [Table 7](#table-7) |
 
 ## Quy ước chạy
 
-`--mode plan` kiểm tra file, hash và ghi kế hoạch; không import Torch hay khởi tạo
-GPU trong các launcher dưới đây. `smoke` là kiểm tra thực thi nhỏ trên GPU;
-`full` bắt đầu training mới, không tiếp tục smoke và yêu cầu source đã commit,
-working tree tracked sạch. Không sửa hyperparameters để biến smoke thành full.
-Full có early stopping nên không nhất thiết chạy đủ 200 epochs.
+`--mode plan` kiểm tra đầu vào và ghi kế hoạch. `smoke` thực hiện một lượt chạy nhỏ.
+`full` bắt đầu training mới, không tiếp tục từ smoke; các thay đổi source cần
+được commit trước khi bắt đầu. Mỗi lệnh tạo suite mới và không ghi đè artifacts cũ.
 
-Mỗi ô là một method × dataset, trả về tất cả MR/MRR/Hits được hỗ trợ. `--mode`
-chọn cách thực thi; `--methods`, `--components`, `--profile` mới chọn phương pháp.
-Một ô PASS không có nghĩa toàn bảng hoàn thành. Các suite chạy riêng không tự
-động gộp thành một full-grid report.
+Các tùy chọn `--datasets`, `--methods`, `--components` và `--profile` chọn phần
+workflow cần chạy; mặc định của mỗi runner có thể chọn toàn bảng. Một suite chạy
+riêng không tự gộp với suite khác. Kiểm tra summary và phạm vi hoàn thành theo
+hướng dẫn output sau khi chạy.
 
 Các lệnh full minh họa bật `--wandb`; cần cài `requirements/tracking.txt` và
 đăng nhập theo ENVIRONMENT.md nếu dùng online. Có thể bỏ cờ này để chỉ lưu local hoặc đặt
@@ -153,7 +159,6 @@ best_conf mulde` là 4 student mới. Muốn retrain dòng DSoM, dùng Table 1.
 Output: `runs/table2/{plan,smoke,full}/SUITE/`. Sau training đọc `summary.json`
 và `table2_results.md`. Kiểm tra `failures=[]`; một ô full PASS có
 `completed_new_cells=1`, nhưng `full_benchmark_grid_completed=false` là đúng.
-MulDE là adaptation; xem [protocol nghiên cứu](../experiments/TABLE2_REPRODUCTION.md).
 
 <a id="table-3"></a>
 
@@ -179,8 +184,7 @@ for dataset in FB15K-237 WN18; do
 done
 ```
 
-Stages riêng, output và cách chọn `final_result` giống Table 1. Paper Table 3
-không công bố MRR; so sánh MR/Hits trong [báo cáo Table 3](../experiments/TABLE3_FB15K237_WN18_SOURCE_FROZEN_RC.md).
+Stages riêng và output dùng cùng cấu trúc như Table 1.
 
 <a id="table-4"></a>
 
@@ -384,12 +388,11 @@ không có flag training riêng `--filtered`. Kết quả tại
 `full_table7_dsom_row_completed=true` không đồng nghĩa
 `exact_author_protocol_reproduced=true`; raw/filtered của paper còn chưa xác minh.
 
-## Đọc kết quả và tổng hợp lại
+## Tổng hợp output
 
-Chỉ dùng student `result.json["final_result"]` của epoch chọn bằng validation MRR,
-không dùng test epoch cuối hay W&B cuối run. Giữ source snapshot, source commit,
-data/feature hashes và selected checkpoint. Xem [RESULTS.md](RESULTS.md) để
-kiểm tra integrity và xử lý lỗi; [PROTOCOL.md](PROTOCOL.md) để diễn giải khoa học.
+Giữ source commit, dữ liệu đầu vào, registry và artifacts của cùng một suite.
+Hướng dẫn kiểm tra trạng thái, output và xử lý lỗi nằm trong
+[RUN_OUTPUTS.md](RUN_OUTPUTS.md).
 
 Đặt `SUITE` thành thư mục suite đã hoàn thành của đúng bảng rồi chọn **một** lệnh:
 

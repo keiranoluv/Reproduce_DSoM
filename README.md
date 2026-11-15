@@ -1,53 +1,22 @@
-# DSoM — Tái lập kết quả paper
+# DSoM — Hướng dẫn chạy lại thực nghiệm
 
-DSoM (*Dark Side of Modalities: Reinforced Multimodal Distillation for Multimodal
-Knowledge Graph Reasoning*, ACM MM 2025) dùng multimodal teacher để distill một
-structural student cho bài toán knowledge graph reasoning.
-[Paper](https://arxiv.org/abs/2507.20738v1) · [Code tác giả](https://github.com/OreOZhao/DSoM)
+Repository này chứa mã nguồn và hướng dẫn chuẩn bị môi trường, dữ liệu, đặc trưng và chạy các workflow thực nghiệm được hỗ trợ cho bài báo *Dark Side of Modalities: Reinforced Multimodal Distillation for Multimodal Knowledge Graph Reasoning* (ACM Multimedia 2025).
 
-Repository này ghi nhận reproduction, nguồn dữ liệu và khác biệt với paper;
-cung cấp workflow chuẩn bị dữ liệu, features, teacher → student và evaluation.
-Model được hỗ trợ là `ComplExMDR`. Các competitor trong paper không được retrain
-bởi các workflow này.
+- Repository: [github.com/keiranoluv/Reproduce_DSoM](https://github.com/keiranoluv/Reproduce_DSoM)
+- Bài báo: [arXiv:2507.20738](https://arxiv.org/abs/2507.20738v1)
+- Mã nguồn của tác giả: [github.com/OreOZhao/DSoM](https://github.com/OreOZhao/DSoM)
 
-## Trạng thái reproduction
+Mục lục tài liệu và thứ tự tái lập từ đầu nằm tại [docs/README.md](docs/README.md).
 
-Đã có full results cho dòng DSoM của **Tables 1 và 3**, teacher-selection methods
-của **Table 2**, chín dòng của **Table 4**, 12 ô của **Table 6** và dòng DSoM/WN9
-của **Table 7**. Table 5 là thống kê dataset, không có training.
+## Môi trường
 
-Đây là kết quả dưới protocol đã ghi nhận, **chưa khẳng định exact reproduction**.
-Baseline chính dùng `source_frozen` RC; learned-RC của Table 4 là cấu hình riêng.
-Features BERT/ViT được tái dựng, DB15K có validation contamination, WordNet có
-inverse facts, và protocol raw/filtered chính xác của Table 7 chưa được xác minh.
+Các lệnh trong README dành cho Linux x86_64 và Python 3.12. Môi trường đã được ghi nhận khi chạy là Python 3.12.3, PyTorch 2.7.0+cu128, torchvision 0.22.0+cu128 và NVIDIA RTX 5090 với 32 GiB VRAM. CUDA training và trích xuất đặc trưng ảnh cần GPU NVIDIA cùng driver tương thích. Repo chưa xác định VRAM tối thiểu; cấu hình khác cần được kiểm tra trên máy sử dụng. CPU dùng được cho tiền xử lý dữ liệu và các bước kiểm tra/plan; khả năng chạy full training trên CPU chưa được xác nhận.
 
-## Kết quả chính
-
-MRR dưới đây là test score của student tại checkpoint chọn bằng validation MRR,
-không phải teacher oracle hay test score ở epoch cuối.
-
-| Dataset | Paper MRR | Reproduced MRR |
-|---|---:|---:|
-| DB15K | 0.426800 | 0.413046 |
-| MKG-W | 0.409000 | 0.405840 |
-| MKG-Y | 0.400200 | 0.406919 |
-| WN9, reproduced filtered | 0.921300 | 0.919634 |
-
-WN9 **raw MRR = 0.618763** trên cùng checkpoint; kết quả filtered gần paper không
-chứng minh hai bên dùng cùng protocol. Với Table 3, paper không báo MRR:
-FB15K-237 có reproduced MR **116.5569** so với paper **116**;
-WN18 có MR **8.9588** so với **7**. Chỉ một seed, không kết luận ý nghĩa thống kê.
-Báo cáo và provenance nằm trong [mục lục nghiên cứu](docs/experiments/README.md).
-
-## Cài đặt cơ bản
-
-Chạy ở gốc repository trên Linux với Python 3.12. Ví dụ dùng profile PyTorch
-2.7.0/CUDA 12.8; máy ghi nhận trước đây dùng RTX 5090 32 GiB, chưa xác định VRAM
-tối thiểu. Cần driver phù hợp trên máy của bạn.
+### Cài đặt
 
 ```bash
-git clone https://github.com/keiranoluv/Reproduce_DSoM.git DSoM
-cd DSoM
+git clone https://github.com/keiranoluv/Reproduce_DSoM.git
+cd Reproduce_DSoM
 python3.12 -m venv .venv
 source .venv/bin/activate
 python -m pip install --upgrade pip
@@ -55,105 +24,82 @@ python -m pip install torch==2.7.0 torchvision==0.22.0 \
   --index-url https://download.pytorch.org/whl/cu128
 python -m pip install -c requirements/constraints-tested.txt \
   -r requirements/train.txt -r requirements/data-features.txt -r requirements/dev.txt
-python scripts/check_environment.py --features --dev
+python scripts/check_environment.py --features --gpu
 python -m pip check
 ```
 
-[Cài đặt chi tiết](docs/reproduction/ENVIRONMENT.md) có CPU-only setup, W&B và
-kiểm tra GPU. W&B là tùy chọn; bỏ `--wandb` nếu không dùng. Môi trường CPU sạch
-đã qua tests; chưa kiểm chứng toàn bộ pipeline GPU trên máy mới từ đầu.
+`--gpu` khởi tạo CUDA và thực hiện một phép tính nhỏ để kiểm tra GPU. Cấu hình cài CPU, tracking W&B tùy chọn, và ghi chú tương thích driver nằm trong [hướng dẫn môi trường](docs/reproduction/ENVIRONMENT.md). Cần tải các trọng số encoder khi trích xuất đặc trưng lần đầu; chúng được lưu trong cache của thư viện tương ứng.
 
-## Quick Start: một dataset từ đầu đến kết quả
+## Dữ liệu
 
-Ví dụ MKG-Y. Trước tiên tải **triples, descriptions và raw image ZIP** theo
-[hướng dẫn dữ liệu](docs/reproduction/DATA.md), đặt đúng layout `raw/mmrns/`.
-Clone repo không tự tải các assets này; features/checkpoints không được đóng gói.
+Raw datasets, đặc trưng đã trích xuất và model checkpoints không được lưu trong Git. Tải đúng nguồn dữ liệu, sắp xếp file theo cấu trúc hướng dẫn, rồi chạy lệnh preprocessing và feature extraction tương ứng. [Hướng dẫn dữ liệu](docs/reproduction/DATA.md) liệt kê nguồn tải, tên file, cấu trúc thư mục và lệnh cho từng dataset. Ví dụ bên dưới dùng MKG-Y.
+
+## Chạy nhanh một workflow
+
+Chạy các lệnh từ thư mục gốc repo sau khi kích hoạt virtual environment và chuẩn bị assets theo [hướng dẫn dữ liệu](docs/reproduction/DATA.md).
 
 ```bash
-# CPU: chuẩn bị structural data mới. Nếu đã tồn tại, dùng --verify-only.
+# Chuẩn bị dữ liệu cấu trúc
 python scripts/prepare_dataset.py --dataset MKG-Y --source-dir raw/mmrns/MKG-Y
 
-# GPU: tạo hai feature arrays; cần raw assets và pretrained encoder weights.
+# Trích xuất đặc trưng văn bản và hình ảnh
 python scripts/build_features.py --dataset MKG-Y --modality text --mode extract \
-  --input raw/mmrns/MKG-W-Y-raw_data/MKG-Y_ent2descreption.txt --device cuda --batch-size 16
+  --input raw/mmrns/MKG-W-Y-raw_data/MKG-Y_ent2descreption.txt \
+  --device cuda --batch-size 16
 python scripts/build_features.py --dataset MKG-Y --modality image --mode extract \
   --input raw/mmrns/MKG-W-Y-raw_data/MKG-Y_img.zip --batch-size 8
 
-# Kiểm tra features và plan trước khi training.
+# Kiểm tra đầu vào và thực hiện lần chạy thử
 python scripts/build_features.py --dataset MKG-Y --modality text --mode verify
 python scripts/build_features.py --dataset MKG-Y --modality image --mode verify
-CUDA_VISIBLE_DEVICES='' python scripts/run_reproduction.py --dataset MKG-Y --mode plan
+CUDA_VISIBLE_DEVICES='' python scripts/run_reproduction.py \
+  --dataset MKG-Y --mode plan
 python scripts/run_reproduction.py --dataset MKG-Y --mode smoke
 ```
 
-Sau smoke PASS, review/commit mọi thay đổi source trước khi chạy full:
+Sau khi smoke hoàn tất, chạy full:
 
 ```bash
 python scripts/run_reproduction.py --dataset MKG-Y --mode full \
   --registry references.local.json
 ```
 
-Full train mới teacher → student và thực hiện validation/test evaluation.
-Mở thư mục suite được in ra dưới `runs/reproduction/MKG-Y/baseline/full/`:
-kiểm tra `teacher/stage_result.json`, `student/stage_result.json` đều PASS;
-đọc `student/checkpoints/0/result.json`, key `final_result`.
-Workflow này đánh giá trong training; chỉ workflow Table 7 tự reload checkpoint
-để evaluation độc lập sau training.
+`plan` kiểm tra và lập kế hoạch chạy; `smoke` kiểm tra workflow với lần chạy nhỏ; `full` bắt đầu một lượt training mới. Trước khi full, bảo đảm các thay đổi source cần thiết đã được commit. `references.local.json` là registry cục bộ được tạo/cập nhật bởi lệnh full thành công và được Git ignore; nó dùng để nối các workflow phụ thuộc kết quả đã chạy trước đó. Muốn ghi log lên W&B, cài tracking, đăng nhập rồi thêm `--wandb` vào lệnh full. Cấu hình tracking offline hoặc local được mô tả trong [hướng dẫn môi trường](docs/reproduction/ENVIRONMENT.md).
 
-`references.local.json` được tạo khi full student PASS, lưu đường dẫn kết quả
-để các bảng khác sử dụng; file này không commit lên Git. `--registry` ghi đăng ký,
-`--references` đọc đăng ký. [Giải thích và prerequisite](docs/reproduction/RUNNING.md#registry).
+Lệnh cài tracking tùy chọn:
 
-## Chạy từng Table
+```bash
+python -m pip install -c requirements/constraints-tested.txt -r requirements/tracking.txt
+wandb login
+```
 
-Nguồn lệnh chính thức là [RUNNING.md](docs/reproduction/RUNNING.md): mỗi phần có
-lệnh **plan → smoke → full**, chọn một ô hoặc toàn bảng, output và cách đọc score.
+Mỗi suite plan/smoke/full ghi cấu hình, lệnh, log và artifacts vào thư mục mới dưới `runs/`. Giữ thư mục này cùng registry và ghi lại commit mã nguồn, nguồn dữ liệu, cấu hình môi trường và seed khi lưu hồ sơ chạy. Thư mục `runs/`, dữ liệu tải về và registry cục bộ không được commit theo `.gitignore`.
 
-- [Table 1](docs/reproduction/RUNNING.md#table-1): `run_reproduction.py --dataset MKG-Y`;
-  thay dataset bằng `MMKB-DB15K` hoặc `MKG-W` cho hai ô còn lại.
-- [Table 2](docs/reproduction/RUNNING.md#table-2): `run_table2.py --datasets MKG-Y --methods best_conf`;
-  cần baseline full của dataset được chọn.
-- [Table 3](docs/reproduction/RUNNING.md#table-3): `run_reproduction.py --dataset WN18`
-  hoặc `--dataset FB15K-237`.
-- [Table 4](docs/reproduction/RUNNING.md#table-4): reference students → components
-  → ensembles; dùng chung DB15K teacher và đủ references trước bước phụ thuộc.
-- [Table 6](docs/reproduction/RUNNING.md#table-6): `run_table6.py --datasets MKG-Y --methods visual`;
-  chọn `--rerun-existing` nếu muốn train lại ô đã có.
-- [Table 7](docs/reproduction/RUNNING.md#table-7): `run_table7.py`; WN9 teacher/student
-  mới, tự báo cả raw và filtered.
+## Các workflow và entrypoint
 
-Các tên script ở trên nằm trong `scripts/`; đây là chỉ dẫn chọn workflow,
-không phải chuỗi lệnh cần chạy tất cả. Lệnh đầy đủ, registry và thứ tự prerequisites
-chỉ được duy trì tại RUNNING.md.
+Các lệnh đầy đủ, thứ tự prerequisite, chế độ plan/smoke/full và cách chạy một phần hoặc toàn bộ bảng được duy trì tại [hướng dẫn chạy](docs/reproduction/RUNNING.md).
 
-## Tài liệu chuyên sâu và citation
+| Workflow trong bài báo | Entry point chính |
+|---|---|
+| Table 1 và Table 3 | `scripts/run_reproduction.py` |
+| Table 2 | `scripts/run_table2.py` |
+| Table 4 | `scripts/run_table4_components.py`, `scripts/run_table4_ensembles.py` |
+| Table 5 | `scripts/prepare_dataset.py`, `scripts/prepare_wn9_from_mose.py` |
+| Table 6 | `scripts/run_table6.py` |
+| Table 7 | `scripts/run_table7.py` |
 
-[Đọc kết quả và xử lý lỗi](docs/reproduction/RESULTS.md) ·
-[Protocol và giới hạn](docs/reproduction/PROTOCOL.md) ·
-[Bằng chứng nghiên cứu](docs/experiments/README.md).
-Hướng dẫn setup/handoff đã bị thay thế được lưu ở
-[docs/deprecated](docs/deprecated/README.md), không dùng cho fresh clone.
+Để xem thứ tự hướng dẫn, tài liệu output và archive, bắt đầu từ [mục lục docs](docs/README.md). Chỉ chạy workflow cần thiết; prerequisites và đầy đủ lệnh cho từng bảng nằm trong [hướng dẫn chạy](docs/reproduction/RUNNING.md).
 
-Nếu sử dụng paper hoặc code tác giả, vui lòng trích dẫn:
+## Trích dẫn
 
 ```bibtex
 @inproceedings{zhao2025DSoM,
-author = {Zhao, Yu and Zhang, Ying and Sui, Xuhui and Zhou, Baohang and Zhu, Haoze and Pan, Jeff Z. and Yuan, Xiaojie},
-title = {Dark Side of Modalities: Reinforced Multimodal Distillation for Multimodal Knowledge Graph Reasoning},
-year = {2025},
-isbn = {9798400720352},
-publisher = {Association for Computing Machinery},
-address = {New York, NY, USA},
-url = {https://doi.org/10.1145/3746027.3754576},
-doi = {10.1145/3746027.3754576},
-booktitle = {Proceedings of the 33rd ACM International Conference on Multimedia},
-pages = {2506–2515},
-numpages = {10},
-keywords = {knowledge distillation, multimodal knowledge graphs, multimodal knowledge reasoning, multimodal learning},
-location = {Dublin, Ireland},
-series = {MM '25}
+  author = {Zhao, Yu and Zhang, Ying and Sui, Xuhui and Zhou, Baohang and Zhu, Haoze and Pan, Jeff Z. and Yuan, Xiaojie},
+  title = {Dark Side of Modalities: Reinforced Multimodal Distillation for Multimodal Knowledge Graph Reasoning},
+  year = {2025},
+  publisher = {Association for Computing Machinery},
+  booktitle = {Proceedings of the 33rd ACM International Conference on Multimedia},
+  pages = {2506--2515},
+  doi = {10.1145/3746027.3754576}
 }
 ```
-
-<!-- Giữ anchors trước khi Việt hóa để tương thích liên kết cũ. -->
-<a id="dsom--reproduce-paper"></a>

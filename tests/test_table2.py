@@ -425,10 +425,12 @@ def test_summary_uses_best_checkpoint_metrics_and_marks_missing_jobs(
 
     module = runner()
     module.ROOT = tmp_path
-    targets = tmp_path / "docs/experiments/table2_paper_targets.json"
+    targets = tmp_path / "docs/research/tables/reference/table2_paper_targets.json"
     targets.parent.mkdir(parents=True)
     targets.write_bytes(
-        (SRC.parent / "docs/experiments/table2_paper_targets.json").read_bytes()
+        (
+            SRC.parent / "docs/research/tables/reference/table2_paper_targets.json"
+        ).read_bytes()
     )
     original_path = tmp_path / "baseline.json"
     metrics = {"MR": 100.0, "MRR": 0.4, "hits@[1,3,10]": [0.3, 0.4, 0.5]}
