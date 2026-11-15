@@ -3949,7 +3949,7 @@
       ],
       "questionId": "q03",
       "observation": "Pedal nối tới lever bằng _hypernym và tới bicycle bằng _part_of. Train còn có bicycle → _has_part → bicycle wheel và handlebar.",
-      "lesson": "Pedal là một loại lever và là một bộ phận của bicycle. Đọc đúng nhãn quan hệ giúp phân biệt quan hệ phân loại với quan hệ bộ phận–tổng thể."
+      "lesson": "Pedal là một loại lever và là một bộ phận của bicycle. Đọc đúng nhãn quan hệ giúp phân biệt quan hệ phân loại với quan hệ giữa bộ phận và toàn thể."
     },
     {
       "id": "c03",

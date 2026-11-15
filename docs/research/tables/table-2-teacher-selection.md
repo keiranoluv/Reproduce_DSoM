@@ -6,7 +6,7 @@ Table 2 gồm 15 tổ hợp phương pháp/dataset: 12 student train mới và 3
 
 [Bản tổng hợp JSON](reference/table2_results_20261023.json) lưu đủ chỉ số, giá trị paper, epoch, đường dẫn và hash của từng file kết quả. Ngày 2026-11-08, cả 15 file gốc đã được đối chiếu lại với summary; giá trị paper được kiểm tra với Table 2, trang 7 của DSoM v1.
 
-Các chỉ số dùng thang 0–1. Δ MRR = tái lập − paper; nhân 100 để đổi sang điểm phần trăm. Epoch thuộc checkpoint được chọn theo validation MRR.
+Các chỉ số dùng thang 0-1. Δ MRR = tái lập − paper; nhân 100 để đổi sang điểm phần trăm. Epoch thuộc checkpoint được chọn theo validation MRR.
 
 | Dataset | Method | Epoch | Test MRR | H@1 | H@3 | H@10 | Paper MRR | Delta MRR |
 |---|---|---:|---:|---:|---:|---:|---:|---:|
@@ -51,7 +51,7 @@ Scheduler giữ `min` trên validation Hits@10 để khớp lần chạy gốc, 
 
 ## Cách cài đặt MulDE adaptation
 
-Source DSoM ở commit `171e59cb069d50abf039fa824b079e23b8956696` có các heuristic selector nhưng thiếu cấu hình MulDE adaptation. Bản kiểm tra nguồn nằm ở `runs/audit/table2_sources/`. Repo triển khai theo [MulDE, §3.2–3.4, Eq.7 và Eq.10–14](https://arxiv.org/html/2010.07152v3), với các lựa chọn sau:
+Source DSoM ở commit `171e59cb069d50abf039fa824b079e23b8956696` có các heuristic selector nhưng thiếu cấu hình MulDE adaptation. Bản kiểm tra nguồn nằm ở `runs/audit/table2_sources/`. Repo triển khai theo [MulDE, §3.2-3.4, Eq.7 và Eq.10-14](https://arxiv.org/html/2010.07152v3), với các lựa chọn sau:
 
 - Dùng ba nhánh ComplEx đã train và đóng băng thay cho hyperbolic teacher của MulDE.
 - Junior chọn top `min(300, entity_count)` candidate, không ép target vào danh sách.

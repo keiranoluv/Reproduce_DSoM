@@ -4,7 +4,7 @@ Thư mục này giữ các lần thử, ghi chú tiến độ và hướng dẫn
 
 | Thư mục | Nội dung |
 |---|---|
-| [Các lần thử policy](experiments/README.md) | Chuỗi thí nghiệm E–L, optimizer và phân tích RC |
+| [Các lần thử policy](experiments/README.md) | Chuỗi thí nghiệm E-L, optimizer và phân tích RC |
 | [Tiến độ cũ](handoffs/) | Tiến độ FB15K-237/DB15K tại các mốc trước khi hoàn tất bảng chính |
 | [Chuẩn bị dữ liệu ban đầu](setup/) | Cách chuẩn bị MKG-Y, MKG-W và WN18 ở máy chạy cũ |
 | [Các bản đã thay thế](superseded/) | Hướng dẫn từng ô/toàn bảng và bản kết quả MKG-Y đầu tiên |

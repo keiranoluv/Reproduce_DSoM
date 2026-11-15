@@ -1,4 +1,4 @@
-# E–I: theo dõi strategy, reward và policy update
+# E-I: theo dõi strategy, reward và policy update
 
 Chuỗi kiểm tra này dùng pretrained MIN teacher FB15K-237. Baseline ở nhánh `student-pipeline-fixes`; nhánh thử nghiệm là `experiment/rc-policy-stabilization`. Mục đích là hiểu hành vi policy trong các cấu hình nhỏ trước khi train đầy đủ.
 

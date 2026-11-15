@@ -52,7 +52,7 @@ Script bỏ tiền tố `n` của noun synset WN9 rồi tra ID tám chữ số t
 - `train.pickle`, `valid.pickle`, `test.pickle`.
 - `ent_id`, `rel_id`, `to_skip.pickle`, `probas.pickle`.
 - `img_vec.pickle`, `dscp_vec.pickle`.
-- `wn18_feature_row_map.tsv`: 6.555 ánh xạ hàng cha–con.
+- `wn18_feature_row_map.tsv`: 6.555 ánh xạ hàng cha và con.
 - `preparation_manifest.json`: hash nguồn, input/output và cấu hình.
 
 Preparer dùng `src/process_datasets.py` để tạo sorted ID, uint64 triples, reciprocal filters và training frequency. Nó từ chối output đã có. Verify dựng lại triples/filters/frequency, so từng giá trị đặc trưng với parent array và đối chiếu SHA256. NDKD vẫn dùng training-only neighbor map.

@@ -279,7 +279,7 @@ def write_summary(directory, plan, results):
     )
     (directory / "summary.json").write_text(json.dumps(report, indent=2) + "\n")
     lines = [
-        "# Table 4 — teacher ensemble adaptation and existing student results",
+        "# Table 4: teacher ensemble adaptation and existing student results",
         "",
         f"Mode: {plan['mode']}. Smoke scores are not benchmark results.",
         "",

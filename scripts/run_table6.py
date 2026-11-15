@@ -375,7 +375,7 @@ def summarize(directory):
     )
     (directory / "summary.json").write_text(json.dumps(summary, indent=2) + "\n")
     text = [
-        "# Table 6 — modality ablation",
+        "# Table 6: modality ablation",
         "",
         f"Mode: {plan['training_mode']}; smoke scores are execution checks only.",
         "Full-modality rows use source_frozen RC. Single-modality rows use fixed NDKD.",

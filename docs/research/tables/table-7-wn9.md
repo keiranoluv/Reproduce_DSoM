@@ -10,7 +10,7 @@ Suite `runs/table7/full/20261023_173538_401388/` dùng timestamp UTC, commit `cc
 
 | Thiết lập | MR | MRR | H@1 | H@3 | H@10 |
 |---|---:|---:|---:|---:|---:|
-| Paper DSoM | — | 0.921300 | 0.905200 | — | 0.955600 |
+| Paper DSoM | n/a | 0.921300 | 0.905200 | n/a | 0.955600 |
 | Reproduction, filtered | 6.131160 | 0.919634 | 0.903336 | 0.928355 | 0.949583 |
 | Reproduction, raw | 14.506444 | 0.618763 | 0.520470 | 0.669447 | 0.810083 |
 
@@ -56,7 +56,7 @@ Student plan/full cần full WN9 teacher với data/feature/checkpoint hash kh�
 
 ## Kiểm tra lại và khác biệt còn lại
 
-Ngày 2026-10-24, summary và các file gốc đã được đối chiếu lại: hash input/checkpoint/result/evaluation, liên kết teacher–student, epoch được chọn, độ phủ query và chỉ số reload. Việc kiểm tra file này không train hoặc inference lại.
+Ngày 2026-10-24, summary và các file gốc đã được đối chiếu lại: hash input/checkpoint/result/evaluation, liên kết teacher và student, epoch được chọn, độ phủ query và chỉ số reload. Việc kiểm tra file này không train hoặc inference lại.
 
 `full_table7_dsom_row_completed=true` xác nhận đủ hai stage full và đánh giá checkpoint. `exact_author_protocol_reproduced=false` giữ vì cách đánh giá paper còn chưa rõ. Ngoài ra còn có inverse facts giữa split, tám vector ảnh thiếu kế thừa từ WN18, đặc trưng dựng lại, NDKD SUM thay vì MEAN và một seed.
 

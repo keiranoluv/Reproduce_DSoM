@@ -234,7 +234,7 @@ def summarize(directory):
     }
     (directory / "summary.json").write_text(json.dumps(summary, indent=2) + "\n")
     text = [
-        "# Table 4 — Student component ablations",
+        "# Table 4: Student component ablations",
         "",
         f"Mode: {plan['training_mode']}; smoke scores are execution checks only.",
         "Original DB15K split; learned RC; released-code neighbor SUM (paper describes MEAN).",

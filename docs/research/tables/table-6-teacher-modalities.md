@@ -6,7 +6,7 @@ Table 6 so sánh full DSoM với teacher chỉ dùng cấu trúc (S), ảnh (V) 
 
 Suite `runs/table6/full/20261023_110036_163721/` đã hoàn tất 12 ô vào ngày 2026-10-23: 7 student train mới và 5 kết quả dùng lại. Commit training là `f717d2444d05bbbe3782c78f5cb8728c6fe7812b`, seed 2022; bảy student mới mất khoảng 33 phút.
 
-[Bản tổng hợp JSON](reference/table6_results_20261023.json) lưu chỉ số, hash và đường dẫn result. Chỉ số dùng thang 0–1; Δ MRR trong bảng tính bằng điểm phần trăm.
+[Bản tổng hợp JSON](reference/table6_results_20261023.json) lưu chỉ số, hash và đường dẫn result. Chỉ số dùng thang 0-1; Δ MRR trong bảng tính bằng điểm phần trăm.
 
 | Dataset | Phương pháp | Reuse | Epoch tốt nhất | Test MRR | H@1 | H@3 | H@10 | MRR paper | MRR delta (pp) |
 |---|---|---|---:|---:|---:|---:|---:|---:|---:|

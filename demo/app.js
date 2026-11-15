@@ -1014,7 +1014,7 @@ function renderNotes() {
 
 async function init() {
   try {
-    const response = await fetch("data/demo.json?v=3");
+    const response = await fetch("data/demo.json?v=4");
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
     data = await response.json();
     entities = new Map(data.entities.map((entity) => [entity.id, entity]));

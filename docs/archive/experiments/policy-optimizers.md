@@ -29,7 +29,7 @@ Adagrad `1e-3` và Adam `1e-3` làm policy tập trung nhanh. Adam `1e-4` giảm
 
 Entropy cao hơn chưa bảo đảm student MRR tốt hơn. Các số này thuộc smoke với ít dữ liệu, chưa dùng để so Table 3. Đổi optimizer policy là một biến thể thực nghiệm, chưa được xác nhận là thiết lập của paper.
 
-[Thí nghiệm E–I](e-i-policy-diagnostics.md) tiếp tục với Adam `1e-5`, 20.000 training example và ba epoch.
+[Thí nghiệm E-I](e-i-policy-diagnostics.md) tiếp tục với Adam `1e-5`, 20.000 training example và ba epoch.
 
 <!-- Liên kết từ các phiên bản tài liệu trước. -->
 <a id="findings"></a>

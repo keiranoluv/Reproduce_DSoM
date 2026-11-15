@@ -33,7 +33,7 @@ Test MRR của K1 là 0.353423, K2 là 0.345857. K1 tốt hơn ở mọi chỉ s
 
 Đây là full-data pilot năm epoch, chọn checkpoint bằng sampled validation MRR. Hai cấu hình đổi cả cách chọn teacher lẫn policy optimization, nên chưa tách được tác động riêng của RC. Mỗi cấu hình có một seed và chưa khớp toàn bộ chỉ số Table 3.
 
-Các lần kiểm tra tiếp theo nằm trong [L0/L1](l0-l1-policy-momentum.md), [L2](l2-normalized-input.md) và chuỗi L3–L9 ở [mục lục](README.md). Baseline Table 3 sau đó được ghi riêng trong [kết quả chính](../../research/tables/table-3-fb15k237-wn18.md).
+Các lần kiểm tra tiếp theo nằm trong [L0/L1](l0-l1-policy-momentum.md), [L2](l2-normalized-input.md) và chuỗi L3-L9 ở [mục lục](README.md). Baseline Table 3 sau đó được ghi riêng trong [kết quả chính](../../research/tables/table-3-fb15k237-wn18.md).
 
 <!-- Liên kết từ các phiên bản tài liệu trước. -->
 <a id="experiment-k---full-data-student-ablation"></a>

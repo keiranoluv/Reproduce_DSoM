@@ -10,7 +10,7 @@ Teacher ở `runs/teacher/FB15K-237/full/20261017_000249/` có MRR 0.4334, H@10 
 
 ## Những thử nghiệm trước K
 
-Các kiểm tra A–I cho thấy Adam policy LR `1e-5` trì hoãn saturation đầu nhưng policy cuối vẫn chọn structural-only ở 100% sampled validation query. Trong mẫu đó, structural chỉ là CE oracle ở 2.64% query; description thường có CE tốt hơn. Binary reward ít phân biệt strategy và early updates chủ yếu có advantage âm.
+Các kiểm tra A-I cho thấy Adam policy LR `1e-5` trì hoãn saturation đầu nhưng policy cuối vẫn chọn structural-only ở 100% sampled validation query. Trong mẫu đó, structural chỉ là CE oracle ở 2.64% query; description thường có CE tốt hơn. Binary reward ít phân biệt strategy và early updates chủ yếu có advantage âm.
 
 J so bốn cách chọn teacher trên 20.000 example, ba epoch, batch 16 và 1.024 evaluation query:
 
@@ -27,7 +27,7 @@ Description có validation MRR tốt nhất; learned RC tốt hơn fixed structu
 
 K1 description và K2 learned RC dùng đủ 544.230 training example, batch 16, tối đa năm epoch và 1.024 query để validation. Hai run được xếp tuần tự trong tmux, log ở `runs/student/FB15K-237/experiment_k/`.
 
-Khi quan sát trên RTX 5090, student dùng khoảng 3.3 GB VRAM, GPU utilization 88% và công suất 427 W. Batch 16 tương ứng khoảng 34.015 step/epoch, ước lượng 8–13 phút/epoch tùy strategy. Các quan sát này thuộc cấu hình pilot; code gốc dùng batch 1000 và tối đa 200 epoch.
+Khi quan sát trên RTX 5090, student dùng khoảng 3.3 GB VRAM, GPU utilization 88% và công suất 427 W. Batch 16 tương ứng khoảng 34.015 step/epoch, ước lượng 8-13 phút/epoch tùy strategy. Các quan sát này thuộc cấu hình pilot; code gốc dùng batch 1000 và tối đa 200 epoch.
 
 Các bước dự định lúc đó gồm hoàn tất K, kiểm tra policy, đo throughput/peak memory ở batch lớn hơn và đối chiếu cấu hình paper. Các kết quả tiếp nối nằm trong [archive thí nghiệm](../experiments/README.md); lệnh mới dùng [hướng dẫn chạy](../../reproduction/running.md).
 

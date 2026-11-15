@@ -85,7 +85,7 @@ def gline(label, mask):
 
 
 lines = [
-    "# DB15K RC Policy Audit — A5, A9, A10",
+    "# DB15K RC Policy Audit: A5, A9, A10",
     "",
     "**Status:** Completed; exploratory, single seed (2022).",
     "",

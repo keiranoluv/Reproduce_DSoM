@@ -273,7 +273,7 @@ def summarize(directory):
     }
     (directory / "summary.json").write_text(json.dumps(summary, indent=2) + "\n")
     text = [
-        "# Table 2 — local reproduction results",
+        "# Table 2: local reproduction results",
         "",
         "Smoke results are execution checks only. MulDE-adapted has documented unpublished-setting assumptions.",
         f"Completed new cells: {summary['completed_new_cells']}/12; full benchmark grid completed: {summary['full_benchmark_grid_completed']}.",

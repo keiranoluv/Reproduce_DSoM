@@ -500,7 +500,7 @@ def summarize(directory):
     )
     (directory / "summary.json").write_text(json.dumps(summary, indent=2) + "\n")
     text = [
-        "# Table 7 — WN9 DSoM row",
+        "# Table 7: WN9 DSoM row",
         "",
         f"Mode: {root_plan['mode']}; policy optimizer: {summary['policy_optimizer']}.",
         "Student chosen by filtered validation MRR; raw/filtered share one checkpoint.",
@@ -517,7 +517,7 @@ def summarize(directory):
             + " | ".join(f"{h:.6f}" for h in v["hits@[1,3,10]"])
             + f" | {delta} |"
         )
-    text.append("| Paper DSoM | .9213 | .9052 | — | .9556 | reference |")
+    text.append("| Paper DSoM | .9213 | .9052 | n/a | .9556 | reference |")
     (directory / "table7_results.md").write_text("\n".join(text) + "\n")
     print(f"PASS E2E: {directory / 'summary.json'}", flush=True)
     return summary

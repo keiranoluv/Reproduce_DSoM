@@ -68,10 +68,10 @@ Teacher ba modality dùng ComplExMDR, rank 2000, batch 1000, Adagrad LR 0.1, N3 
 
 | Chỉ số | Validation | Test |
 |---|---:|---:|
-| MR | — | 7.4043 |
+| MR | n/a | 7.4043 |
 | MRR | 0.959601 | 0.962368 |
-| Hits@1 | — | 95.48% |
-| Hits@3 | — | 96.73% |
+| Hits@1 | n/a | 95.48% |
+| Hits@3 | n/a | 96.73% |
 | Hits@10 | 97.49% | 97.62% |
 
 Evaluator teacher lấy minimum ground-truth rank giữa các modality. Cần đọc đây là oracle metric; nó dùng nhãn để biết nhánh nào xếp hạng đúng nhất. Chỉ số student trong bảng so sánh dùng inference của structural student.
