@@ -11,8 +11,9 @@ Mục lục tài liệu và thứ tự tái lập từ đầu nằm tại [docs/
 ## Demo tương tác
 
 [**Mở DSoM Explorer**](https://keiranoluv.github.io/Reproduce_DSoM/) để khám phá
-150 thực thể MKG-Y, trả lời 10 câu hỏi từ validation/test và xem 5 case study về
-cấu trúc, ảnh và văn bản. Demo chạy trong trình duyệt, không cần inference model.
+150 thực thể WN9 về động vật và đồ vật, trả lời 5 câu hỏi từ validation/test và
+xem 5 case study. Mỗi câu có đồ thị bằng chứng, nguồn triple và bảng xếp hạng minh họa.
+Demo chạy trong trình duyệt, không cần checkpoint hoặc inference model.
 [Mã nguồn, dữ liệu và cách chạy tại máy](demo/README.md).
 
 ## Môi trường

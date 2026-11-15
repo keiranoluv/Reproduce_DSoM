@@ -13,27 +13,27 @@ const escapeHtml = (value) =>
   );
 const svgNS = "http://www.w3.org/2000/svg";
 const kindLabels = {
-  person: "Người",
-  work: "Tác phẩm",
-  place: "Địa điểm",
-  organization: "Tổ chức / nhóm",
-  entity: "Thực thể",
+  animal: "Động vật",
+  object: "Đồ vật",
+  plant: "Thực vật",
+  concept: "Khái niệm",
 };
 const colors = {
-  person: "#11766c",
-  work: "#6684b2",
-  place: "#cb8659",
-  organization: "#9b87ab",
-  entity: "#9b87ab",
+  animal: "#11766c",
+  object: "#6684b2",
+  plant: "#cb8659",
+  concept: "#9b87ab",
 };
-const storageKey = "dsom-explorer:quiz:1";
+const storageKey = "dsom-explorer:WN9:quiz:1";
 let data, entities, relations;
-let selectedId = "Franklin_J._Schaffner";
+let selectedId = "n02112826";
 let currentQuestion = 0,
   currentCase = 0,
   selectedOption = null,
   activeHint = null;
 let answers = {};
+let explanationOpen = false,
+  selectedEvidenceId = "answer";
 let graphMode = "overview",
   view = { x: 0, y: 0, scale: 1 };
 let graphDragging = false;
@@ -65,9 +65,9 @@ function renderInspector() {
   $("#entity-inspector").innerHTML = `
     <div class="entity-type"><span class="status-dot" style="background:${colors[entity.kind]}"></span>${escapeHtml(kindLabels[entity.kind])}</div>
     ${imageMarkup(entity, "entity-photo")}
-    <h3>${escapeHtml(entity.label)}</h3>
-    ${entity.description ? `<p class="entity-description" lang="en">${escapeHtml(entity.description)}</p>` : '<p class="missing-note">Nguồn MKG-Y không có mô tả cho thực thể này.</p>'}
-    <a class="entity-source" href="${escapeHtml(entity.sourceUrl)}" target="_blank" rel="noopener noreferrer">Định danh trên DBpedia ↗</a>
+    <h3>${escapeHtml(entity.label)}</h3><p class="entity-synset">${escapeHtml(entity.id)}</p>
+    ${entity.description ? `<p class="entity-description" lang="en">${escapeHtml(entity.description)}</p>` : '<p class="missing-note">Nguồn WN9 không có mô tả cho thực thể này.</p>'}
+    <a class="entity-source" href="${escapeHtml(entity.sourceUrl)}" target="_blank" rel="noopener noreferrer">Bản ghi định danh nguồn ↗</a>
     <hr class="inspector-divider"><p class="neighbors-title">${linked.length} LIÊN KẾT TRAIN TRONG LÁT CẮT</p>
     <div class="neighbor-list">${
       linked
@@ -283,7 +283,7 @@ function renderGraph() {
       group.append(
         makeSvg("circle", {
           r: radius,
-          fill: colors[point.kind] || colors.entity,
+          fill: colors[point.kind] || colors.concept,
         }),
       );
       const visible =
@@ -501,13 +501,17 @@ function bindGraph() {
       return;
     }
     const matches = data.entities
-      .filter((entity) => entity.label.toLocaleLowerCase("vi").includes(term))
+      .filter((entity) =>
+        [entity.label, entity.id, ...(entity.aliases || [])].some((value) =>
+          value.toLocaleLowerCase("vi").includes(term),
+        ),
+      )
       .slice(0, 8);
     results.innerHTML =
       matches
         .map(
           (entity) =>
-            `<button type="button" data-search-id="${escapeHtml(entity.id)}">${escapeHtml(entity.label)} <small class="muted">· ${escapeHtml(kindLabels[entity.kind])}</small></button>`,
+            `<button type="button" data-search-id="${escapeHtml(entity.id)}">${escapeHtml(entity.label)} <small class="muted">· ${escapeHtml(entity.id)}</small></button>`,
         )
         .join("") || "<p>Không có thực thể phù hợp trong 150 mẫu đã chọn.</p>";
     results.hidden = false;
@@ -572,23 +576,300 @@ function renderQuiz() {
   const score = data.questions.filter(
     (q) => answers[q.id] && isCorrect(q, answers[q.id]),
   ).length;
-  $("#quiz-score").textContent = `${count} / 10 đã trả lời · ${score} đúng`;
+  $("#quiz-score").textContent =
+    `${count} / ${data.questions.length} đã trả lời · ${score} đúng`;
   $("#quiz-question").innerHTML =
-    `<div class="quiz-meta">CÂU ${String(currentQuestion + 1).padStart(2, "0")} / 10 <span class="split-tag">${question.split === "valid" ? "VALIDATION · HƯỚNG DẪN" : "TEST · THỬ THÁCH"}</span></div>
+    `<div class="quiz-meta">CÂU ${String(currentQuestion + 1).padStart(2, "0")} / ${data.questions.length} <span class="split-tag">${question.split === "valid" ? "VALIDATION" : "TEST"}</span></div>
     <h3 id="active-question">${escapeHtml(question.prompt)}</h3>
     <div class="query-equation">${escapeHtml(entityName(question.head))} <b>→ ${escapeHtml(question.relation)} → ?</b></div>
     <fieldset class="quiz-options" aria-labelledby="active-question"><legend class="sr-only">Chọn một đáp án</legend>${question.options.map((id, index) => `<label class="quiz-option ${submitted && isCorrect(question, id) ? "right-answer" : ""} ${submitted === id && !isCorrect(question, id) ? "wrong-answer" : ""}"><input type="radio" name="quiz-answer" value="${escapeHtml(id)}" ${selectedOption === id ? "checked" : ""} ${submitted ? "disabled" : ""}><span>${escapeHtml(entityName(id))}</span></label>`).join("")}</fieldset>
-    <div class="quiz-controls"><button id="submit-answer" type="button" class="button primary" ${submitted || !selectedOption ? "disabled" : ""}>Kiểm tra đáp án <span aria-hidden="true">→</span></button><button id="next-question" type="button" class="text-link">${currentQuestion === 9 ? "Về câu đầu" : "Câu tiếp theo"} →</button></div>
+    <div class="quiz-controls"><button id="submit-answer" type="button" class="button primary" ${submitted || !selectedOption ? "disabled" : ""}>Kiểm tra đáp án <span aria-hidden="true">→</span></button><button id="next-question" type="button" class="text-link">${currentQuestion === data.questions.length - 1 ? "Về câu đầu" : "Câu tiếp theo"} →</button></div>
     <div id="quiz-feedback" role="status">${submitted ? feedbackMarkup(question, submitted) : ""}</div>`;
-  $("#quiz-summary").hidden = count !== 10;
-  if (count === 10)
+  $("#quiz-summary").hidden = count !== data.questions.length;
+  if (count === data.questions.length)
     $("#quiz-summary").innerHTML =
-      `<strong>Bạn đã tìm đúng ${score}/10 liên kết.</strong><span>Đây là kết quả chơi của bạn trên lát cắt minh họa, không phải chỉ số đánh giá model.</span>`;
+      `<strong>Bạn đã tìm đúng ${score}/${data.questions.length} liên kết.</strong><span>Đây là kết quả chơi của bạn trên lát cắt minh họa, không phải chỉ số đánh giá model.</span>`;
   renderHint();
+  renderExplanation();
 }
 function feedbackMarkup(question, answer) {
   const correct = isCorrect(question, answer);
-  return `<div class="quiz-feedback ${correct ? "" : "incorrect"}"><strong>${correct ? "Đúng với liên kết trong dataset!" : "Cùng khám phá đáp án trong dataset."}</strong><p>${escapeHtml(question.explanation)}</p><span class="feedback-triple">${escapeHtml(entityName(question.head))} → ${escapeHtml(relationName(question.relation))} → <b>${escapeHtml(entityName(question.answer))}</b></span></div>`;
+  return `<div class="quiz-feedback ${correct ? "" : "incorrect"}"><strong>${correct ? "Đúng với liên kết trong dataset!" : "Cùng khám phá đáp án trong dataset."}</strong><p>${escapeHtml(question.explanation)}</p><span class="feedback-triple">${escapeHtml(entityName(question.head))} → ${escapeHtml(relationName(question.relation))} → <b>${escapeHtml(entityName(question.answer))}</b></span></div><button id="show-explanation" type="button" class="button evidence-button" aria-expanded="${explanationOpen}" aria-controls="explanation-panel">Khám phá bằng chứng <span aria-hidden="true">↗</span></button>`;
+}
+
+function evidenceRecords(question) {
+  const evidence = question.evidence;
+  const edgeIds = [
+    ...new Set([...evidence.inverseEdgeIds, ...evidence.contextEdgeIds]),
+  ];
+  return [
+    { id: "answer", ...evidence.answerRecord },
+    ...edgeIds.map((id) => {
+      const edge = data.edges.find((item) => item.id === id);
+      return {
+        id,
+        split: "train",
+        row: edge.sourceRow,
+        triple: [edge.source, edge.relation, edge.target],
+      };
+    }),
+  ];
+}
+
+function recordHref(record) {
+  const revision =
+    data.meta.sourceRevision || "192d9ff2882b5be6ef8239a37cbd90c5dd102b5a";
+  return `https://github.com/OreOZhao/MoSE4MKGC/blob/${revision}/src_data/WN9/${record.split}#L${record.row}`;
+}
+
+function tripleText(triple) {
+  return `${entityName(triple[0])} → ${triple[1]} → ${entityName(triple[2])}`;
+}
+
+function illustrativeRanking(question) {
+  // Authored teaching examples, not output from a model or a global entity ranking.
+  const distractors = question.options.filter((id) => id !== question.answer);
+  const order = [question.answer, ...distractors];
+  if (["q03", "q05"].includes(question.id))
+    [order[0], order[1]] = [order[1], order[0]];
+  const scores = [8.4, 6.7, 4.2, 2.4];
+  return order.map((id, index) => ({ id, score: scores[index] }));
+}
+
+function renderExplanation() {
+  const panel = $("#explanation-panel"),
+    question = data.questions[currentQuestion];
+  panel.hidden = !explanationOpen || !answers[question.id];
+  if (panel.hidden) {
+    panel.replaceChildren();
+    return;
+  }
+  const records = evidenceRecords(question),
+    ranking = illustrativeRanking(question);
+  panel.innerHTML = `<div class="explanation-heading"><div><p class="eyebrow">DỮ KIỆN ĐẾN TỪ ĐÂU?</p><h3 id="explanation-title">Mở từng liên kết. Hiểu từng nguồn.</h3></div><button type="button" class="text-button" data-close-explanation>Thu gọn ↑</button></div>
+    <p class="explanation-intro">${escapeHtml(question.evidence.explanation)}</p>
+    <div class="explanation-grid"><div class="evidence-data"><div class="evidence-legend"><span><i></i>Cạnh train</span><span><i class="answer-line"></i>Đáp án ${question.split === "valid" ? "validation" : "test"}</span></div><div class="evidence-graph-wrap"><svg id="evidence-graph" role="group" aria-label="Đồ thị bằng chứng. Chọn cạnh hoặc nút để xem nguồn."></svg></div><p class="evidence-instruction">Bấm một cạnh để xem triple, split và dòng dữ liệu gốc. Bấm nút để xem synset.</p><div class="evidence-record-list">${records.map((record) => `<button type="button" data-evidence-record="${escapeHtml(record.id)}" aria-pressed="${selectedEvidenceId === record.id}"><span class="record-split ${record.id === "answer" ? "heldout" : ""}">${record.split}:${record.row}</span><span>${escapeHtml(tripleText(record.triple))}</span></button>`).join("")}</div><div id="evidence-record" class="evidence-record" role="status"></div></div>
+    <aside class="illustrative-ranking"><p class="eyebrow">XẾP HẠNG MINH HỌA</p><h4>Đọc một bảng xếp hạng</h4><p class="ranking-caption">Trong 4 lựa chọn của câu hỏi này.</p><ol>${ranking.map((item, index) => `<li><div class="ranking-row"><span class="ranking-position">${index + 1}</span><strong>${escapeHtml(entityName(item.id))}</strong><span class="ranking-value">${item.score.toFixed(1)}</span></div><div class="ranking-bar"><span style="width:${(item.score / 8.4) * 100}%"></span></div>${item.id === question.answer ? '<span class="ranking-truth">Đáp án dataset</span>' : ""}</li>`).join("")}</ol><p class="ranking-caption">Điểm minh họa, không phải xác suất.</p><div class="ranking-reading">${ranking[0].id === question.answer ? "Trong ví dụ này, ứng viên đứng đầu khớp đáp án dataset." : `Trong ví dụ này, ${escapeHtml(entityName(ranking[0].id))} đứng đầu nhưng khác đáp án dataset. Điểm cao không tự xác nhận một liên kết đúng.`}</div><details class="ranking-about"><summary>Cách đọc phần minh họa</summary><p>Thứ tự và điểm được soạn sẵn để minh họa cả trường hợp đúng và sai; không chạy checkpoint. Bảng chỉ xếp hạng bốn lựa chọn, không phải toàn bộ 6.555 thực thể WN9.</p></details></aside></div>
+    <p class="explanation-limit">Các cạnh highlight là ngữ cảnh có thật trong dataset. Chúng giúp đọc dữ kiện, chưa chứng minh model đã dựa vào chính các cạnh này. Ảnh và mô tả là gợi ý cho người xem.</p>`;
+  renderEvidenceGraph();
+  renderEvidenceRecord();
+}
+
+function renderEvidenceRecord() {
+  const question = data.questions[currentQuestion];
+  const record = evidenceRecords(question).find(
+    (item) => item.id === selectedEvidenceId,
+  );
+  const target = $("#evidence-record");
+  if (!target) return;
+  $$("[data-evidence-record]").forEach((button) =>
+    button.setAttribute(
+      "aria-pressed",
+      String(button.dataset.evidenceRecord === selectedEvidenceId),
+    ),
+  );
+  if (record) {
+    const [head, relation, tail] = record.triple;
+    target.innerHTML = `<p class="eyebrow">${record.id === "answer" ? "LIÊN KẾT CỦA CÂU HỎI" : "DỮ KIỆN ĐÃ CÓ TRONG TRAIN"}</p><p class="record-triple">${escapeHtml(tripleText(record.triple))}</p><code>${escapeHtml(head)} ${escapeHtml(relation)} ${escapeHtml(tail)}</code><p><b>${escapeHtml(record.split)}</b> · Dòng ${record.row} · WN9 / MoSE</p><a class="text-link" href="${escapeHtml(recordHref(record))}" target="_blank" rel="noopener noreferrer">Xem đúng dòng dữ liệu gốc ↗</a>`;
+  } else {
+    const entity = entities.get(selectedEvidenceId);
+    if (!entity) return;
+    target.innerHTML = `<p class="eyebrow">SYNSET TRONG DATASET</p><p class="record-triple">${escapeHtml(entity.label)} <code>${escapeHtml(entity.id)}</code></p><p lang="en">${escapeHtml(entity.description || "No source description available.")}</p><a class="text-link" href="${escapeHtml(entity.sourceUrl)}" target="_blank" rel="noopener noreferrer">Xem định danh nguồn ↗</a>`;
+  }
+}
+
+function renderEvidenceGraph() {
+  const graph = $("#evidence-graph");
+  if (!graph) return;
+  const question = data.questions[currentQuestion];
+  const ids = [
+    ...new Set([
+      question.head,
+      question.answer,
+      ...question.evidence.entityIds,
+    ]),
+  ];
+  const width = Math.max(240, graph.parentElement.clientWidth),
+    columns = width >= 560 ? 3 : 2;
+  const nodeWidth = Math.min(164, width / columns - 22),
+    nodeHeight = 58;
+  const height = Math.ceil(ids.length / columns) * 136 + 35;
+  graph.setAttribute("viewBox", `0 0 ${width} ${height}`);
+  graph.style.height = `${height}px`;
+  graph.replaceChildren();
+  const defs = makeSvg("defs", {}),
+    marker = makeSvg("marker", {
+      id: "evidence-arrow",
+      viewBox: "0 0 10 10",
+      refX: 9,
+      refY: 5,
+      markerWidth: 6,
+      markerHeight: 6,
+      orient: "auto",
+    });
+  marker.append(
+    makeSvg("path", { d: "M0 0L10 5L0 10z", fill: "context-stroke" }),
+  );
+  defs.append(marker);
+  graph.append(defs);
+  const positions = new Map(
+    ids.map((id, index) => [
+      id,
+      {
+        x: (((index % columns) + 0.5) * width) / columns,
+        y: 75 + Math.floor(index / columns) * 136,
+      },
+    ]),
+  );
+  const edgePriority = (record) =>
+    record.id === "answer"
+      ? 2
+      : question.evidence.inverseEdgeIds.includes(record.id)
+        ? 1
+        : 0;
+  evidenceRecords(question)
+    .sort((a, b) => edgePriority(a) - edgePriority(b))
+    .forEach((record, index) => {
+      const [head, relation, tail] = record.triple,
+        source = positions.get(head),
+        target = positions.get(tail);
+      if (!source || !target) return;
+      const dx = target.x - source.x,
+        dy = target.y - source.y,
+        distance = Math.max(1, Math.hypot(dx, dy)),
+        ux = dx / distance,
+        uy = dy / distance;
+      const padding = Math.min(
+        nodeWidth / 2 / Math.max(0.01, Math.abs(ux)),
+        nodeHeight / 2 / Math.max(0.01, Math.abs(uy)),
+      );
+      const x1 = source.x + ux * padding,
+        y1 = source.y + uy * padding,
+        x2 = target.x - ux * (padding + 5),
+        y2 = target.y - uy * (padding + 5);
+      const bend =
+        Math.abs(dy) < 10 ? (dx > 0 ? -90 : 90) : (index % 2 ? 1 : -1) * 28;
+      const cx = (x1 + x2) / 2,
+        cy = (y1 + y2) / 2 + bend;
+      const path = makeSvg("path", {
+        d: `M${x1} ${y1} Q${cx} ${cy} ${x2} ${y2}`,
+        class: `evidence-path ${record.id === "answer" ? "answer-path" : ""} ${record.id === selectedEvidenceId ? "active" : ""}`,
+        "marker-end": "url(#evidence-arrow)",
+        "data-evidence-record": record.id,
+      });
+      const hit = makeSvg("path", {
+        d: `M${x1} ${y1} Q${cx} ${cy} ${x2} ${y2}`,
+        class: "evidence-hit",
+        "data-evidence-record": record.id,
+        role: "button",
+        tabindex: 0,
+        "aria-label": `${tripleText(record.triple)}, ${record.split} dòng ${record.row}`,
+      });
+      const title = makeSvg("title", {});
+      title.textContent = `${tripleText(record.triple)} · ${record.split}:${record.row}`;
+      path.append(title);
+      graph.append(path, hit);
+      if (record.id === selectedEvidenceId) {
+        const text = makeSvg("text", {
+          x: cx,
+          y: (y1 + y2) / 2 + bend / 2 - 5,
+          "text-anchor": "middle",
+          class: "evidence-relation",
+        });
+        text.textContent = relation;
+        graph.append(text);
+      }
+    });
+  ids.forEach((id) => {
+    const entity = entities.get(id),
+      point = positions.get(id),
+      group = makeSvg("g", {
+        class: `evidence-node ${id === question.answer ? "answer-node" : ""}`,
+        transform: `translate(${point.x},${point.y})`,
+        role: "button",
+        tabindex: 0,
+        "data-evidence-node": id,
+        "aria-label": `${entity.label}, ${id}`,
+      });
+    group.append(
+      makeSvg("rect", {
+        x: -nodeWidth / 2,
+        y: -nodeHeight / 2,
+        width: nodeWidth,
+        height: nodeHeight,
+        rx: 9,
+      }),
+    );
+    const label = makeSvg("text", {
+      x: 0,
+      y: -2,
+      "text-anchor": "middle",
+      class: "evidence-node-name",
+    });
+    const maxCharacters = Math.max(9, Math.floor((nodeWidth - 12) / 8));
+    label.textContent =
+      entity.label.length > maxCharacters
+        ? entity.label.slice(0, maxCharacters - 1) + "…"
+        : entity.label;
+    const synset = makeSvg("text", {
+      x: 0,
+      y: 18,
+      "text-anchor": "middle",
+      class: "evidence-node-id",
+    });
+    synset.textContent = id;
+    group.append(label, synset);
+    graph.append(group);
+  });
+}
+
+function bindExplanation() {
+  const panel = $("#explanation-panel");
+  panel.addEventListener("click", (event) => {
+    if (event.target.closest("[data-close-explanation]")) {
+      explanationOpen = false;
+      renderExplanation();
+      $("#show-explanation").setAttribute("aria-expanded", "false");
+      $("#show-explanation").focus();
+      return;
+    }
+    const record = event.target.closest("[data-evidence-record]"),
+      node = event.target.closest("[data-evidence-node]");
+    if (!record && !node) return;
+    const fromGraph = Boolean(event.target.closest("#evidence-graph"));
+    selectedEvidenceId = record
+      ? record.dataset.evidenceRecord
+      : node.dataset.evidenceNode;
+    renderEvidenceRecord();
+    renderEvidenceGraph();
+    if (fromGraph) {
+      const selector = record ? ".evidence-hit" : ".evidence-node";
+      $$(selector)
+        .find(
+          (item) =>
+            (record
+              ? item.dataset.evidenceRecord
+              : item.dataset.evidenceNode) === selectedEvidenceId,
+        )
+        ?.focus({ preventScroll: true });
+    }
+  });
+  panel.addEventListener("keydown", (event) => {
+    if (
+      (event.key === "Enter" || event.key === " ") &&
+      event.target.matches(".evidence-hit,.evidence-node")
+    ) {
+      event.preventDefault();
+      event.target.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+    }
+  });
+  let resizeTimer;
+  window.addEventListener("resize", () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      if (explanationOpen) renderEvidenceGraph();
+    }, 100);
+  });
 }
 function renderHint() {
   const question = data.questions[currentQuestion],
@@ -607,18 +888,20 @@ function renderHint() {
   }
   if (activeHint === "image") {
     container.innerHTML = entity.image
-      ? `<img src="${escapeHtml(entity.image)}" alt="Ảnh gợi ý của ${escapeHtml(entity.label)}" width="440" height="320"><p style="font-size:14px;margin-top:8px">${escapeHtml(entity.label)} · Ảnh từ archive MKG-Y</p>`
-      : `<div class="hint-placeholder"><span>▧</span>${entity.imageAvailable ? "Ảnh có trong nguồn nhưng chưa đóng gói trong bản demo nhỏ này." : "Nguồn MKG-Y không có ảnh cho thực thể này."}</div>`;
+      ? `<img src="${escapeHtml(entity.image)}" alt="Ảnh gợi ý của ${escapeHtml(entity.label)}" width="440" height="320"><p style="font-size:14px;margin-top:8px">${escapeHtml(entity.label)} · Ảnh nguồn WN9, kế thừa từ WN18</p>`
+      : `<div class="hint-placeholder"><span>▧</span>${entity.imageAvailable ? "Ảnh có trong nguồn nhưng chưa đóng gói trong bản demo nhỏ này." : "Nguồn WN9 không có ảnh cho thực thể này."}</div>`;
   } else if (activeHint === "text") {
     container.innerHTML = entity.description
       ? `<h4>${escapeHtml(entity.label)}</h4><p class="hint-quote" lang="en">“${escapeHtml(entity.description)}”</p><p style="font-size:14px;margin-top:10px">Trích đoạn mô tả gốc tiếng Anh trong dataset.</p>`
-      : '<div class="hint-placeholder"><span>≡</span>Không có mô tả cho thực thể này trong nguồn MKG-Y. Thiếu modality cũng là một phần của bài toán.</div>';
+      : '<div class="hint-placeholder"><span>≡</span>Không có mô tả cho thực thể này trong nguồn WN9. Thiếu modality cũng là một phần của bài toán.</div>';
   } else {
     const linked = neighbors(question.head).slice(0, 5);
     container.innerHTML = `<h4>${escapeHtml(entity.label)} · ngữ cảnh train</h4>${linked.map((edge) => `<div class="hint-neighbor"><span>${edge.source === question.head ? "→" : "←"} ${escapeHtml(edge.relation)}</span><br>${escapeHtml(entityName(otherEnd(edge, question.head)))}</div>`).join("") || "<p>Chưa có cạnh train trong lát cắt này. Bạn có thể thử một nguồn gợi ý khác.</p>"}<button class="text-link" type="button" data-explore-head="${escapeHtml(question.head)}" style="margin-top:13px;font-size:14px">Xem trên đồ thị ↗</button>`;
   }
 }
 function goQuestion(index, scroll = false) {
+  explanationOpen = false;
+  selectedEvidenceId = "answer";
   currentQuestion = index;
   activeHint = null;
   renderQuiz();
@@ -635,8 +918,22 @@ function bindQuiz() {
     $("#submit-answer").disabled = false;
   });
   $("#quiz-question").addEventListener("click", (event) => {
+    if (event.target.closest("#show-explanation")) {
+      explanationOpen = !explanationOpen;
+      renderExplanation();
+      $("#show-explanation").setAttribute(
+        "aria-expanded",
+        String(explanationOpen),
+      );
+      if (explanationOpen)
+        $("#explanation-panel").scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+      return;
+    }
     if (event.target.closest("#next-question")) {
-      goQuestion((currentQuestion + 1) % 10);
+      goQuestion((currentQuestion + 1) % data.questions.length);
       return;
     }
     if (event.target.closest("#submit-answer") && selectedOption) {
@@ -666,7 +963,8 @@ function bindQuiz() {
     answers = {};
     saveAnswers();
     goQuestion(0);
-    $("#quiz-score").textContent = "Đã bắt đầu lại · 0 / 10 đã trả lời";
+    $("#quiz-score").textContent =
+      `Đã bắt đầu lại · 0 / ${data.questions.length} đã trả lời`;
   });
 }
 
@@ -711,12 +1009,12 @@ function renderNotes() {
   const meta = data.meta;
   $("#data-notes-content").className = "data-notes-content";
   $("#data-notes-content").innerHTML =
-    `<div><p><b>Dữ liệu thật, phạm vi nhỏ.</b> ${escapeHtml(meta.selectionNote)} Đồ thị gồm ${meta.edgeCount} cạnh train. ${escapeHtml(meta.graphNote)}</p><p>${escapeHtml(meta.optionsNote)}</p><p>Nhóm người/tác phẩm/địa điểm được suy ra để hiển thị, không phải nhãn phân loại gốc. Gợi ý có thể tiết lộ đáp án: đây là trải nghiệm học và khám phá, không phải giao thức đánh giá benchmark.</p><p><b>Tiến độ:</b> câu trả lời chỉ lưu trong localStorage của trình duyệt hiện tại; bấm “Làm lại” để xóa.</p></div><div><p><b>Phương pháp:</b> ${escapeHtml(meta.protocol)} RC ở biến thể này được đóng băng, không được mô tả là policy RL đã học.</p><p><b>Ảnh và văn bản:</b> ${meta.thumbnailCount} thumbnail được đóng gói; ${meta.selectedRawImageCount}/${meta.entityCount} thực thể có ảnh nguồn, ${meta.selectedTextCount}/${meta.entityCount} có mô tả. Không có thumbnail trong bundle không đồng nghĩa nguồn thiếu ảnh.</p><p>${escapeHtml(meta.imageCredit)} ${escapeHtml(meta.textCredit)}</p><p>${meta.sourceLinks.map((link) => `<a href="${escapeHtml(link.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(link.title)} ↗</a>`).join(" · ")} · <a href="data/provenance.json" target="_blank" rel="noopener noreferrer">Manifest dữ liệu ↗</a></p></div>`;
+    `<div><p><b>Dữ liệu thật, phạm vi nhỏ.</b> ${escapeHtml(meta.selectionNote)} Đồ thị gồm ${meta.edgeCount} cạnh train. ${escapeHtml(meta.graphNote)}</p><p>${escapeHtml(meta.optionsNote)}</p><p><b>Giải thích bằng dữ kiện:</b> mỗi câu có nguồn đáp án, số dòng, các cạnh train liên quan và nhãn quan hệ đảo chiều nếu có. Vùng đồ thị là ngữ cảnh đọc dữ liệu; không phải kết luận về ảnh hưởng nhân quả của từng triple lên model.</p><p><b>Tiến độ:</b> câu trả lời chỉ lưu trong localStorage của trình duyệt hiện tại; bấm “Làm lại” để xóa.</p></div><div><p><b>Xếp hạng minh họa:</b> thứ tự và điểm được soạn sẵn trong bốn lựa chọn để minh họa cả trường hợp đúng và sai. Không chạy checkpoint; không phải xác suất hay bảng xếp hạng toàn bộ thực thể.</p><p><b>Phương pháp:</b> ${escapeHtml(meta.protocol)}</p><p><b>Ảnh và văn bản:</b> ${meta.thumbnailCount} thumbnail được đóng gói; ${meta.selectedRawImageCount}/${meta.entityCount} thực thể có ảnh nguồn, ${meta.selectedTextCount}/${meta.entityCount} có mô tả. Không có thumbnail trong bundle không đồng nghĩa nguồn thiếu ảnh.</p><p>${escapeHtml(meta.imageCredit)} ${escapeHtml(meta.textCredit)}</p><p>${meta.sourceLinks.map((link) => `<a href="${escapeHtml(link.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(link.title)} ↗</a>`).join(" · ")} · <a href="data/provenance.json" target="_blank" rel="noopener noreferrer">Manifest dữ liệu ↗</a></p></div>`;
 }
 
 async function init() {
   try {
-    const response = await fetch("data/demo.json");
+    const response = await fetch("data/demo.json?v=3");
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
     data = await response.json();
     entities = new Map(data.entities.map((entity) => [entity.id, entity]));
@@ -728,6 +1026,7 @@ async function init() {
       const option = document.createElement("option");
       option.value = relation.id;
       option.textContent = relation.label;
+      option.title = relation.meaning || relation.label;
       $("#relation-filter").append(option);
     });
     $$("[data-stat='entities']").forEach(
@@ -735,6 +1034,9 @@ async function init() {
     );
     $("#selection-note").textContent =
       `${data.meta.entityCount} thực thể được tuyển chọn từ benchmark`;
+    if (entities.get(selectedId)?.image)
+      $("#hero-entity-image").innerHTML =
+        `<img src="${escapeHtml(entities.get(selectedId).image)}" alt="corgi trong dataset WN9" width="50" height="50">`;
     readSavedAnswers();
     renderInspector();
     renderGraph();
@@ -743,6 +1045,7 @@ async function init() {
     renderNotes();
     bindGraph();
     bindQuiz();
+    bindExplanation();
     bindCases();
     $("#load-status").hidden = true;
     $("#app").hidden = false;
