@@ -679,7 +679,7 @@ def main() -> None:
                 },
                 {
                     "title": "WN9 · source audit",
-                    "url": "https://github.com/keiranoluv/Reproduce_DSoM/blob/main/docs/research/provenance/WN9_SOURCE_AUDIT.md",
+                    "url": "https://github.com/keiranoluv/Reproduce_DSoM/blob/main/docs/research/provenance/wn9-sources.md",
                 },
                 {"title": "DSoM · paper", "url": "https://arxiv.org/abs/2507.20738"},
                 {
@@ -688,7 +688,7 @@ def main() -> None:
                 },
                 {
                     "title": "Reproduction · protocol",
-                    "url": "https://github.com/keiranoluv/Reproduce_DSoM/blob/main/docs/research/methodology/PROTOCOL.md",
+                    "url": "https://github.com/keiranoluv/Reproduce_DSoM/blob/main/docs/research/methodology/protocol.md",
                 },
             ],
         },

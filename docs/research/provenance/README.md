@@ -1,9 +1,12 @@
-# Provenance và audit
+# Nguồn dữ liệu và kiểm tra mapping
 
-Tài liệu này ghi nguồn dữ liệu, quá trình ánh xạ và kiểm tra mã nguồn để đối chiếu lại các asset được dùng.
+Các file ở đây giúp đối chiếu dữ liệu đầu vào với nguồn công khai. Để tải và chuẩn bị dataset, dùng [hướng dẫn dữ liệu](../../reproduction/data.md).
 
-- `db15k_source_trace.json`, `wn9_source_trace.json`: metadata/hash nguồn dữ liệu.
-- `table3_code_audit.txt`: audit code liên quan tới Table 3.
-- `WN9_SOURCE_AUDIT.md`: kiểm tra nguồn WN9 và cách dữ liệu/features được chuẩn bị.
+| File | Nội dung |
+|---|---|
+| [DB15K source trace](db15k_source_trace.json) | File ID, URL, hash và số lượng của raw DB15K |
+| [WN9 source trace](wn9_source_trace.json) | Commit MoSE, hash nguồn và mapping đặc trưng |
+| [Nguồn WN9](wn9-sources.md) | Kiểm tra triples, inverse facts và cách lấy đặc trưng WN18 |
+| [Trích đoạn code Table 3](table3_code_audit.txt) | Nhánh/commit và dòng code được kiểm tra khi phân tích policy |
 
-Hướng dẫn tải và chuẩn bị dataset mới nằm trong `docs/reproduction/DATA.md`.
+JSON và trích đoạn code giữ thông tin tại thời điểm kiểm tra. Các đường dẫn `runs/` trong đó trỏ tới file trên máy thực nghiệm, được giữ ngoài Git.

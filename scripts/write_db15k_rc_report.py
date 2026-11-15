@@ -9,7 +9,7 @@ import numpy as np
 root = Path(__file__).resolve().parent.parent
 p = root / "runs/audit/db15k_rc_policy/20261021_194427_3194329"
 a = root / "runs/audit/db15k_a5_selection/20261021_200624_3249374"
-out = root / "docs/research/analysis/db15k_rc_policy_analysis.md"
+out = root / "docs/archive/experiments/db15k-policy.md"
 
 
 def j(path):

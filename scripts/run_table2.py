@@ -41,7 +41,7 @@ SOURCES = (
     "scripts/run_table2.py",
     "tests/test_table2.py",
     "docs/research/tables/reference/table2_paper_targets.json",
-    "docs/research/tables/TABLE2_REPRODUCTION.md",
+    "docs/research/tables/table-2-teacher-selection.md",
 )
 MATCHED = (
     "rank",

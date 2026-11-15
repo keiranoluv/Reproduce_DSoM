@@ -47,7 +47,7 @@ SOURCES = (
     "scripts/run_table2.py",
     "scripts/run_table6.py",
     "tests/test_table6.py",
-    "docs/research/tables/TABLE6_REPRODUCTION.md",
+    "docs/research/tables/table-6-teacher-modalities.md",
     "docs/research/tables/reference/table6_paper_targets.json",
 )
 

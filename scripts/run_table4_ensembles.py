@@ -21,7 +21,7 @@ SOURCES = (
     "scripts/run_table4_ensembles.py",
     "src/table4_ensembles.py",
     "tests/test_table4_ensembles.py",
-    "docs/research/tables/TABLE4_TEACHER_ENSEMBLES.md",
+    "docs/research/tables/table-4-teachers.md",
     "docs/research/tables/reference/table4_ensemble_sources.json",
     "scripts/run_table2.py",
     "scripts/run_table4_components.py",

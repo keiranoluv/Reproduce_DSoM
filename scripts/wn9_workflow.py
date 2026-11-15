@@ -39,7 +39,7 @@ SOURCES = (
     "src/regularizers.py",
     "src/utils.py",
     "tests/test_table7.py",
-    "docs/research/tables/TABLE7_WN9_REPRODUCTION.md",
+    "docs/research/tables/table-7-wn9.md",
 )
 LIMITATIONS = [
     "Original MoSE WN9 benchmark with inverse facts across splits; unchanged",

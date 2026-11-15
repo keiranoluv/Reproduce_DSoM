@@ -55,7 +55,7 @@ SOURCES = (
     "scripts/run_table2.py",
     "scripts/run_table4_components.py",
     "tests/test_table4_components.py",
-    "docs/research/tables/TABLE4_COMPONENT_ABLATIONS.md",
+    "docs/research/tables/table-4-students.md",
 )
 REFERENCES = {
     "A4_average_NDKD": (

@@ -1,7 +1,13 @@
-# Dữ liệu tham chiếu cho bảng
+# Số liệu và file tham chiếu
 
-Các JSON trong thư mục này là targets, nguồn ensemble hoặc snapshot artifacts được dùng bởi report/runner tương ứng. Runner đọc một số file này để lập kế hoạch hoặc kiểm tra dữ liệu tham chiếu; không sửa file để thay đổi một lần chạy đã ghi nhận.
+Thư mục này lưu giá trị paper và bản tổng hợp kết quả đã chạy. Có thể mở JSON để xem chỉ số khi chưa có checkpoint trên máy.
 
-- `table2_paper_targets.json`, `table6_paper_targets.json`: giá trị tham chiếu được dùng ở các bảng tương ứng.
-- `table4_ensemble_sources.json`: nguồn checkpoint cho các tổ hợp teacher ensemble.
-- `table2_results_*.json`, `table6_results_*.json`, `table7_results_*.json`: snapshot có timestamp, gắn với báo cáo và hồ sơ lần chạy tương ứng.
+| File | Dùng để làm gì? |
+|---|---|
+| `table2_paper_targets.json`, `table6_paper_targets.json` | Giá trị paper để runner đối chiếu kết quả |
+| `table4_ensemble_sources.json` | Commit/hash nguồn dùng khi dựng teacher ensemble |
+| `table2_results_20261023.json` | Kết quả Table 2 và đường dẫn/hash từng result |
+| `table6_results_20261023.json` | Kết quả Table 6, gồm các ô dùng lại |
+| `table7_results_20261024.json` | Kết quả WN9 raw/filtered |
+
+Runner đọc một số file trong thư mục này khi lập plan hoặc kiểm tra kết quả. Giữ bản tổng hợp gắn với suite gốc; lần chạy mới có summary riêng dưới `runs/`.

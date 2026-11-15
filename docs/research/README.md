@@ -1,25 +1,19 @@
-# Báo cáo và hồ sơ nghiên cứu
+# Kết quả tái lập
 
-Thư mục này lưu báo cáo bảng, phân tích bổ sung, cấu hình tham chiếu và provenance. Đây là tài liệu nghiên cứu, không phải hướng dẫn setup hoặc chạy workflow.
+Các trang dưới đây tổng hợp kết quả đã chạy và so sánh với paper. Mỗi trang ghi cách chọn checkpoint, cấu hình và đường dẫn file kết quả. Để chạy lại, dùng [hướng dẫn thực nghiệm](../reproduction/running.md).
 
-## Báo cáo theo bảng
+| Bảng | Kết quả |
+|---|---|
+| Table 1 | [MKG-Y và MKG-W](tables/table-1-mkg-y-mkg-w.md) |
+| Table 1, DB15K | [Baseline và thử nghiệm CleanV1](tables/db15k-clean-split.md) |
+| Table 2 | [So sánh cách chọn teacher](tables/table-2-teacher-selection.md) |
+| Table 3 | [FB15K-237 và WN18](tables/table-3-fb15k237-wn18.md) |
+| Table 4 | [Student NEKD/NNKD](tables/table-4-students.md), [teacher ensemble](tables/table-4-teachers.md) |
+| Table 6 | [Chọn từng modality của teacher](tables/table-6-teacher-modalities.md) |
+| Table 7 | [WN9 với raw và filtered evaluation](tables/table-7-wn9.md) |
 
-- Table 1: [MKG-Y/MKG-W](tables/TABLE1_MKGY_MKGW_EXP01_RESULTS.md), [DB15K và sensitivity](tables/DB15K_CLEAN_SPLIT_SENSITIVITY.md).
-- Table 2: [teacher selection](tables/TABLE2_REPRODUCTION.md).
-- Table 3: [FB15K-237/WN18](tables/TABLE3_FB15K237_WN18_SOURCE_FROZEN_RC.md).
-- Table 4: [component ablations](tables/TABLE4_COMPONENT_ABLATIONS.md), [teacher ensembles](tables/TABLE4_TEACHER_ENSEMBLES.md).
-- Table 6: [modality ablation](tables/TABLE6_REPRODUCTION.md).
-- Table 7: [WN9](tables/TABLE7_WN9_REPRODUCTION.md).
-- Snapshot JSON và targets được giải thích trong [chỉ mục dữ liệu bảng](tables/reference/README.md).
+Table 5 là thống kê dataset, nằm trong [hướng dẫn dữ liệu](../reproduction/data.md). [Các file tham chiếu](tables/reference/README.md) lưu số liệu paper và bản tổng hợp JSON để đọc khi chưa có checkpoint trên máy.
 
-## Phân tích và protocol
+Khi đối chiếu số liệu, xem thêm [cấu hình và khác biệt với paper](methodology/protocol.md). Baseline chính giữ policy `source_frozen`; các thí nghiệm learned RC có nhãn riêng. Mỗi cấu hình chỉ có một seed.
 
-- [Phân tích chẩn đoán và các thí nghiệm bổ sung](analysis/README.md) — policy, ablation và các lượt thử nghiệm ngoài bảng chính.
-- [Protocol và giới hạn](methodology/PROTOCOL.md) — cấu hình, khác biệt dữ liệu và các lưu ý khi diễn giải.
-
-## Provenance
-
-- [Chỉ mục provenance](provenance/README.md) và [audit nguồn WN9](provenance/WN9_SOURCE_AUDIT.md).
-- [DB15K source trace](provenance/db15k_source_trace.json), [WN9 source trace](provenance/wn9_source_trace.json) và [Table 3 code audit](provenance/table3_code_audit.txt).
-
-Các handoff và hướng dẫn đã bị thay thế được giữ trong [archive](../archive/README.md); không dùng chúng thay cho hướng dẫn chạy hiện tại.
+[Nguồn dữ liệu](provenance/README.md) giúp kiểm tra lại mapping và file đầu vào. Những lần thử policy và ghi chép tiến độ trước đây được lưu trong [archive](../archive/README.md).

@@ -1,20 +1,14 @@
 # Tài liệu DSoM
 
-Trang này là mục lục chính của tài liệu. Nếu muốn chạy lại từ một clone mới, hãy đi theo thứ tự **môi trường → dữ liệu → workflow chạy → kiểm tra artifacts**. Chỉ cần mở các báo cáo nghiên cứu riêng khi cần xem hồ sơ hoặc phân tích của một bảng.
+Nếu bắt đầu từ một bản clone mới, làm lần lượt bốn bước:
 
-## Chạy lại thực nghiệm
+1. [Cài môi trường](reproduction/environment.md): tạo virtual environment, cài PyTorch và kiểm tra GPU.
+2. [Chuẩn bị dữ liệu](reproduction/data.md): tải dataset, tạo mapping và trích xuất đặc trưng.
+3. [Chạy thực nghiệm](reproduction/running.md): chọn bảng, chạy thử rồi train đầy đủ.
+4. [Đọc kết quả](reproduction/outputs.md): tìm checkpoint được chọn, tổng hợp chỉ số và xử lý lỗi.
 
-1. [Cài môi trường](reproduction/ENVIRONMENT.md) — Python, PyTorch/CUDA, GPU và dependencies.
-2. [Chuẩn bị dữ liệu](reproduction/DATA.md) — nguồn tải, cấu trúc thư mục, preprocessing và feature extraction.
-3. [Chọn và chạy workflow](reproduction/RUNNING.md) — lệnh `plan`, `smoke`, `full`, prerequisites và vị trí output.
-4. [Kiểm tra output và xử lý lỗi](reproduction/RUN_OUTPUTS.md) — kiểm tra trạng thái suite, artifacts và lỗi thường gặp.
+Muốn xem số liệu đã chạy, mở [kết quả và so sánh với paper](research/README.md). Các trang này ghi cấu hình, bảng số liệu và khác biệt cần lưu ý khi đối chiếu.
 
-Đi theo thứ tự trên; các hướng dẫn này là nguồn lệnh hiện hành. Không cần chạy mọi bảng nếu chỉ tái lập một workflow.
+[Cấu hình thực nghiệm](research/methodology/protocol.md) giải thích `source_frozen`, cách chọn checkpoint và các khác biệt giữa code với paper. [Nguồn dữ liệu](research/provenance/README.md) lưu thông tin để kiểm tra lại dataset và mapping.
 
-## Hồ sơ nghiên cứu
-
-[Mục lục báo cáo](research/README.md) chia nội dung thành báo cáo theo bảng, phân tích chẩn đoán, protocol và provenance dữ liệu/mã nguồn. Đây là tài liệu nghiên cứu và bằng chứng, không phải hướng dẫn cài đặt.
-
-## Tài liệu lưu trữ
-
-[Archive](archive/README.md) chứa handoff, hướng dẫn cũ và tài liệu đã được thay thế. Các lệnh và trạng thái trong đó có thể không còn áp dụng cho clone hiện tại.
+[Tài liệu cũ](archive/README.md) gồm các lần thử policy, ghi chú tiến độ và hướng dẫn đã có bản thay thế. Các trạng thái “đang chạy” hoặc “chưa hoàn tất” trong đó thuộc thời điểm viết.

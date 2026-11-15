@@ -1,13 +1,15 @@
-# Tài liệu lưu trữ
+# Tài liệu cũ
 
-Các file ở đây ghi lại trạng thái hoặc hướng dẫn cũ. Đường dẫn, lệnh và trạng thái hoàn thành bên trong có tính lịch sử; không dùng để chạy trên fresh clone.
+Thư mục này giữ các lần thử, ghi chú tiến độ và hướng dẫn đã có bản thay thế. Để chạy trên clone mới, bắt đầu từ [mục lục tài liệu](../README.md).
 
-## Nội dung
+| Thư mục | Nội dung |
+|---|---|
+| [Các lần thử policy](experiments/README.md) | Chuỗi thí nghiệm E–L, optimizer và phân tích RC |
+| [Tiến độ cũ](handoffs/) | Tiến độ FB15K-237/DB15K tại các mốc trước khi hoàn tất bảng chính |
+| [Chuẩn bị dữ liệu ban đầu](setup/) | Cách chuẩn bị MKG-Y, MKG-W và WN18 ở máy chạy cũ |
+| [Các bản đã thay thế](superseded/) | Hướng dẫn từng ô/toàn bảng và bản kết quả MKG-Y đầu tiên |
+| [Chỉ mục cũ](reproduction-legacy/) | Hai trang chỉ mục cũ, nay trỏ tới hướng dẫn chạy chung |
 
-- [`handoffs/`](handoffs/) — ghi chú tiến độ và bàn giao trước khi workflow hiện tại được hợp nhất.
-- [`setup/`](setup/) — hướng dẫn chuẩn bị dữ liệu theo các bước/máy cũ.
-- [`superseded/`](superseded/) — bản kết quả hoặc hướng dẫn đã được thay thế.
-- [`reproduction-legacy/`](reproduction-legacy/) — hai trang cũ đã hợp nhất vào `docs/reproduction/RUNNING.md`.
-- [`documentation-validation.json`](documentation-validation.json) — snapshot kiểm tra tài liệu của một lần refactor trước.
+Các lệnh có thể dùng đường dẫn hoặc virtual environment của máy cũ. Trạng thái và việc còn chờ thuộc thời điểm ghi chép; xem [kết quả theo bảng](../research/README.md) để biết số liệu tổng hợp sau đó.
 
-Hướng dẫn hiện hành nằm trong `docs/reproduction/`; mục này chỉ lưu tài liệu cũ.
+`documentation-validation.json` là bản ghi kiểm tra từ lần sắp xếp tài liệu trước, được giữ nguyên để đối chiếu lịch sử.
