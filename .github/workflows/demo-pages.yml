@@ -1,0 +1,56 @@
+name: Deploy DSoM Explorer
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "demo/**"
+      - "scripts/export_demo_data.py"
+      - "tests/test_demo_data.py"
+      - ".github/workflows/demo-pages.yml"
+  pull_request:
+    branches: [main]
+    paths:
+      - "demo/**"
+      - "scripts/export_demo_data.py"
+      - "tests/test_demo_data.py"
+      - ".github/workflows/demo-pages.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: read
+
+concurrency:
+  group: dsom-pages-${{ github.event_name == 'pull_request' && github.ref || 'production' }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Check demo data and assets
+        run: python3 -m unittest discover -s tests -p 'test_demo_data.py' -v
+      - name: Configure Pages
+        if: github.event_name != 'pull_request'
+        uses: actions/configure-pages@v5
+      - name: Upload static site
+        if: github.event_name != 'pull_request'
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: demo
+  deploy:
+    if: github.event_name != 'pull_request'
+    needs: validate
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

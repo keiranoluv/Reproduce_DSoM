@@ -8,6 +8,13 @@ Repository này chứa mã nguồn và hướng dẫn chuẩn bị môi trườn
 
 Mục lục tài liệu và thứ tự tái lập từ đầu nằm tại [docs/README.md](docs/README.md).
 
+## Demo tương tác
+
+[**Mở DSoM Explorer**](https://keiranoluv.github.io/Reproduce_DSoM/) để khám phá
+150 thực thể MKG-Y, trả lời 10 câu hỏi từ validation/test và xem 5 case study về
+cấu trúc, ảnh và văn bản. Demo chạy trong trình duyệt, không cần inference model.
+[Mã nguồn, dữ liệu và cách chạy tại máy](demo/README.md).
+
 ## Môi trường
 
 Các lệnh trong README dành cho Linux x86_64 và Python 3.12. Môi trường đã được ghi nhận khi chạy là Python 3.12.3, PyTorch 2.7.0+cu128, torchvision 0.22.0+cu128 và NVIDIA RTX 5090 với 32 GiB VRAM. CUDA training và trích xuất đặc trưng ảnh cần GPU NVIDIA cùng driver tương thích. Repo chưa xác định VRAM tối thiểu; cấu hình khác cần được kiểm tra trên máy sử dụng. CPU dùng được cho tiền xử lý dữ liệu và các bước kiểm tra/plan; khả năng chạy full training trên CPU chưa được xác nhận.

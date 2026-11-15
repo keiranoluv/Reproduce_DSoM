@@ -35,3 +35,7 @@ raw/
 references.local.json
 src_data/FB15K-237/
 src_data/WN18/
+
+# Small, curated public demo snapshots (raw training data remains ignored).
+!demo/data/
+!demo/data/*.json

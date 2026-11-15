@@ -1,0 +1,3330 @@
+{
+  "meta": {
+    "dataset": "MKG-Y",
+    "version": "1.0.0",
+    "seed": 2022,
+    "entityCount": 150,
+    "edgeCount": 182,
+    "questionCount": 10,
+    "caseCount": 5,
+    "splitCounts": {
+      "train": 21310,
+      "valid": 2665,
+      "test": 2663
+    },
+    "selectedTextCount": 119,
+    "selectedRawImageCount": 149,
+    "thumbnailCount": 48,
+    "selectionNote": "150 thực thể được tuyển chọn quanh 10 truy vấn và 5 case study; các thực thể bổ sung được nối theo cạnh train. Đây là lát cắt minh họa có chủ đích, không đại diện ngẫu nhiên cho toàn benchmark.",
+    "graphNote": "Đồ thị chỉ chứa các cạnh train. Hai câu hướng dẫn từ validation; tám câu thử thách từ test. Mỗi triple câu hỏi vắng mặt ở train; các câu test cũng vắng mặt ở validation.",
+    "optionsNote": "Mỗi câu có một đáp án trong bốn lựa chọn. Distractors đã loại toàn bộ đuôi dương đã biết cho cùng head/relation trong train/valid/test; quan hệ vẫn có thể có nhiều đuôi đúng ngoài các lựa chọn.",
+    "kindNote": "Nhóm hiển thị người/tác phẩm/địa điểm/tổ chức được suy ra từ vai trò quan hệ, không phải nhãn phân loại gốc của benchmark.",
+    "protocol": "Source-Frozen RC reproduction. Demo không chạy inference và không đưa ra dự đoán model. Các gợi ý và case study giúp con người khám phá dữ liệu.",
+    "imageCredit": "48 ảnh thu nhỏ từ archive MKG-Y_img.zip của MMRNS, theo đúng sources_by_internal_id trong manifest reproduction. Quyền ảnh thuộc các chủ sở hữu gốc; việc xuất demo không cấp thêm giấy phép cho ảnh. Đường dẫn file nguồn được lưu trong provenance.json.",
+    "textCredit": "Trích đoạn mô tả tiếng Anh nguyên văn từ MKG-Y_ent2descreption.txt; liên kết DBpedia trên từng thực thể là liên kết tham khảo định danh, không phải xác nhận URL ảnh gốc.",
+    "sourceLinks": [
+      {
+        "title": "MMRNS · nguồn MKG-Y",
+        "url": "https://github.com/quqxui/MMRNS#datasets"
+      },
+      {
+        "title": "DSoM · mã tác giả",
+        "url": "https://github.com/OreOZhao/DSoM"
+      },
+      {
+        "title": "DSoM · bài báo",
+        "url": "https://arxiv.org/abs/2507.20738"
+      },
+      {
+        "title": "Reproduction · nguồn và protocol",
+        "url": "https://github.com/keiranoluv/Reproduce_DSoM/blob/main/docs/research/methodology/PROTOCOL.md"
+      }
+    ]
+  },
+  "relations": [
+    {
+      "id": "actedIn",
+      "label": "diễn xuất trong"
+    },
+    {
+      "id": "created",
+      "label": "tạo nên"
+    },
+    {
+      "id": "diedIn",
+      "label": "qua đời tại"
+    },
+    {
+      "id": "directed",
+      "label": "đạo diễn"
+    },
+    {
+      "id": "edited",
+      "label": "dựng phim"
+    },
+    {
+      "id": "graduatedFrom",
+      "label": "tốt nghiệp tại"
+    },
+    {
+      "id": "happenedIn",
+      "label": "diễn ra tại"
+    },
+    {
+      "id": "isLocatedIn",
+      "label": "nằm tại"
+    },
+    {
+      "id": "isMarriedTo",
+      "label": "kết hôn với"
+    },
+    {
+      "id": "wasBornIn",
+      "label": "sinh tại"
+    },
+    {
+      "id": "wroteMusicFor",
+      "label": "soạn nhạc cho"
+    }
+  ],
+  "entities": [
+    {
+      "id": "55_Days_at_Peking",
+      "label": "55 Days at Peking",
+      "kind": "work",
+      "description": "55 Days at Peking is a 1963 American epic historical war film dramatizing the siege of the foreign legations' compounds in Peking (now known as Beijing) during the Boxer Rebellion, which took place in China from 1899 to 1901. It was produced by Samuel Bronston for Allied Artists, with a screenplay by Philip Yordan and Bernard Gordon with uncredited contributions from Robert Hamer, Julian Halevy, and Ben Barzman.…",
+      "textAvailable": true,
+      "image": null,
+      "imageAvailable": true,
+      "imageSource": "DY_open/55_Days_at_Peking/1.55-Days-at-Peking-1963-Hollywood-Movie-Watch-Online.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/55_Days_at_Peking"
+    },
+    {
+      "id": "ABBA",
+      "label": "ABBA",
+      "kind": "organization",
+      "description": "ABBA (, Swedish pronunciation: [ˈabːa]) is a Swedish pop supergroup formed in Stockholm in 1972 by Agnetha Fältskog, Björn Ulvaeus, Benny Andersson, and Anni-Frid Lyngstad. The group's name is an acronym of the first letters of their first names.…",
+      "textAvailable": true,
+      "image": null,
+      "imageAvailable": true,
+      "imageSource": "DY_open/ABBA/12.23172-004-1094DE4F.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/ABBA"
+    },
+    {
+      "id": "A_Bill_of_Divorcement_(1932_film)",
+      "label": "A Bill of Divorcement (1932 film)",
+      "kind": "work",
+      "description": null,
+      "textAvailable": false,
+      "image": null,
+      "imageAvailable": true,
+      "imageSource": "DY_open/A_Bill_of_Divorcement_(1932_film)/28.bill-of-divorcement-1932-george-cukor-dir-bodv-001-vs-BKMF3K.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/A_Bill_of_Divorcement_(1932_film)"
+    },
+    {
+      "id": "Alfred_Hitchcock",
+      "label": "Alfred Hitchcock",
+      "kind": "person",
+      "description": "Sir Alfred Joseph Hitchcock (13 August 1899 – 29 April 1980) was an English film director and producer. He is one of the most influential and extensively studied filmmakers in the history of cinema.…",
+      "textAvailable": true,
+      "image": "assets/images/a21013925b1b14b6.webp",
+      "imageAvailable": true,
+      "imageSource": "DY_open/Alfred_Hitchcock/14.10-11062012-20000232AA.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/Alfred_Hitchcock"
+    },
+    {
+      "id": "All_About_Lovin'_You",
+      "label": "All About Lovin' You",
+      "kind": "work",
+      "description": "\"All About Lovin' You\" is a song by American rock band Bon Jovi. It was released as the third single from the band's 2002 album Bounce.",
+      "textAvailable": true,
+      "image": null,
+      "imageAvailable": true,
+      "imageSource": "DY_open/All_About_Lovin'_You/1.bon-jovi-all-about-lovin-you.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/All_About_Lovin'_You"
+    },
+    {
+      "id": "Alma_Reville",
+      "label": "Alma Reville",
+      "kind": "person",
+      "description": "Alma Lucy Reville, Lady Hitchcock (14 August 1899 – 6 July 1982), was an English screenwriter and film editor, and the wife of director Alfred Hitchcock. She collaborated on scripts for her husband's films, including Shadow of a Doubt, Suspicion, and The Lady Vanishes, as well as scripts for other directors, including Henrik Galeen, Maurice Elvey, and Berthold Viertel.",
+      "textAvailable": true,
+      "image": null,
+      "imageAvailable": true,
+      "imageSource": "DY_open/Alma_Reville/21.AlmaReville_001.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/Alma_Reville"
+    },
+    {
+      "id": "Angels_&_Demons_(film)",
+      "label": "Angels & Demons (film)",
+      "kind": "work",
+      "description": "Angels & Demons is a 2009 American mystery thriller film directed by Ron Howard and written by Akiva Goldsman and David Koepp, based on Dan Brown's 2000 novel of the same title. It is the sequel to the 2006 film The Da Vinci Code, also directed by Howard, and the second installment in the Robert Langdon film series.…",
+      "textAvailable": true,
+      "image": null,
+      "imageAvailable": true,
+      "imageSource": "DY_open/Angels_&_Demons_(film)/01003171936.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/Angels_%26_Demons_(film)"
+    },
+    {
+      "id": "Armageddon_(1998_film)",
+      "label": "Armageddon (1998 film)",
+      "kind": "work",
+      "description": "Armageddon is a 1998 American science fiction disaster film produced and directed by Michael Bay, produced by Jerry Bruckheimer, and released by Touchstone Pictures. The film follows a group of blue-collar deep-core drillers sent by NASA to stop a gigantic asteroid on a collision course with Earth.…",
+      "textAvailable": true,
+      "image": null,
+      "imageAvailable": true,
+      "imageSource": "DY_open/Armageddon_(1998_film)/2.Armageddon-324080832-large.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/Armageddon_(1998_film)"
+    },
+    {
+      "id": "Bachelor_Party_(1984_film)",
+      "label": "Bachelor Party (1984 film)",
+      "kind": "work",
+      "description": null,
+      "textAvailable": false,
+      "image": null,
+      "imageAvailable": true,
+      "imageSource": "DY_open/Bachelor_Party_(1984_film)/OIP (2).jpg",
+      "sourceUrl": "https://dbpedia.org/resource/Bachelor_Party_(1984_film)"
+    },
+    {
+      "id": "Bad_Boys_(1995_film)",
+      "label": "Bad Boys (1995 film)",
+      "kind": "work",
+      "description": "Bad Boys is a 1995 American action comedy film directed by Michael Bay, in his feature directorial debut, produced by Don Simpson and Jerry Bruckheimer and starring Martin Lawrence and Will Smith as two Miami narcotics detectives, Marcus Burnett and Mike Lowrey. The film received mixed reviews from critics, and was commercially successful and gained a cult following.…",
+      "textAvailable": true,
+      "image": null,
+      "imageAvailable": true,
+      "imageSource": "DY_open/Bad_Boys_(1995_film)/1.11167976_ori.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/Bad_Boys_(1995_film)"
+    },
+    {
+      "id": "Baltimore",
+      "label": "Baltimore",
+      "kind": "place",
+      "description": "Baltimore ( BAWL-tim-or, locally: ) is the most populous city in the U.S. state of Maryland, as well as the 30th most populous city in the United States, with an estimated population of 593,490 in 2019. Baltimore was designated an independent city by the Constitution of Maryland in 1851, and today is the largest independent city in the United States.…",
+      "textAvailable": true,
+      "image": "assets/images/3a361d05d29256d4.webp",
+      "imageAvailable": true,
+      "imageSource": "DY_open/Baltimore/12.tMYsoe.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/Baltimore"
+    },
+    {
+      "id": "Baltimore_Ravens",
+      "label": "Baltimore Ravens",
+      "kind": "place",
+      "description": "The Baltimore Ravens are a professional American football team based in Baltimore. The Ravens compete in the National Football League (NFL) as a member club of the American Football Conference (AFC) North division.…",
+      "textAvailable": true,
+      "image": null,
+      "imageAvailable": true,
+      "imageSource": "DY_open/Baltimore_Ravens/21.large.png",
+      "sourceUrl": "https://dbpedia.org/resource/Baltimore_Ravens"
+    },
+    {
+      "id": "Bartolomeo_Beccari",
+      "label": "Bartolomeo Beccari",
+      "kind": "person",
+      "description": null,
+      "textAvailable": false,
+      "image": null,
+      "imageAvailable": true,
+      "imageSource": "DY_open/Bartolomeo_Beccari/1601570141(1).jpg",
+      "sourceUrl": "https://dbpedia.org/resource/Bartolomeo_Beccari"
+    },
+    {
+      "id": "Battle_of_Antietam",
+      "label": "Battle of Antietam",
+      "kind": "place",
+      "description": "The Battle of Antietam (), also known as the Battle of Sharpsburg, particularly in the Southern United States, was a battle of the American Civil War, fought on September 17, 1862, between Confederate General Robert E. Lee's Army of Northern Virginia and Union General George B.…",
+      "textAvailable": true,
+      "image": null,
+      "imageAvailable": true,
+      "imageSource": "DY_open/Battle_of_Antietam/2.s-l1000.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/Battle_of_Antietam"
+    },
+    {
+      "id": "Battle_of_Cedar_Creek",
+      "label": "Battle of Cedar Creek",
+      "kind": "place",
+      "description": "The Battle of Cedar Creek, or Battle of Belle Grove, fought October 19, 1864, was the culminating battle of the Valley Campaigns of 1864 during the American Civil War. Confederate Lt.…",
+      "textAvailable": true,
+      "image": null,
+      "imageAvailable": true,
+      "imageSource": "DY_open/Battle_of_Cedar_Creek/11.Cedar%20Creek%20Hero.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/Battle_of_Cedar_Creek"
+    },
+    {
+      "id": "Battle_of_South_Mountain",
+      "label": "Battle of South Mountain",
+      "kind": "place",
+      "description": "The Battle of South Mountain—known in several early Southern accounts as the Battle of Boonsboro Gap—was fought on September 14, 1862, as part of the Maryland campaign of the American Civil War. Three pitched battles were fought for possession of three South Mountain passes: Crampton's, Turner's, and Fox's Gaps.…",
+      "textAvailable": true,
+      "image": null,
+      "imageAvailable": true,
+      "imageSource": "DY_open/Battle_of_South_Mountain/2.Battle-of-South-Mountain.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/Battle_of_South_Mountain"
+    },
+    {
+      "id": "Bedhead_(film)",
+      "label": "Bedhead (film)",
+      "kind": "work",
+      "description": "Bedhead is a 1991 short family-comedy-fantasy film directed and co-written by Robert Rodriguez.Made while he was a student at the University of Texas at Austin, Rodriguez shot the film with his brothers and sisters as actors and with his family and friends as crew. It was entered into several competitive film festivals, where it won cash prizes that Rodriguez then used to help produce his first feature film, El Mariachi.",
+      "textAvailable": true,
+      "image": null,
+      "imageAvailable": true,
+      "imageSource": "DY_open/Bedhead_(film)/1601612852(1).jpg",
+      "sourceUrl": "https://dbpedia.org/resource/Bedhead_(film)"
+    },
+    {
+      "id": "Betty_Compson",
+      "label": "Betty Compson",
+      "kind": "person",
+      "description": "Betty Compson (born Eleanor Luicime Compson; March 19, 1897 – April 18, 1974) was an American actress and film producer who got her start during Hollywood's silent era. She is best known for her performances in The Docks of New York and The Barker, the latter of which earned her an Academy Award nomination for Best Actress.",
+      "textAvailable": true,
+      "image": null,
+      "imageAvailable": true,
+      "imageSource": "DY_open/Betty_Compson/12.416full-betty-compson.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/Betty_Compson"
+    },
+    {
+      "id": "Björn_Ulvaeus",
+      "label": "Björn Ulvaeus",
+      "kind": "person",
+      "description": "Björn Kristian Ulvaeus ([ˈbjœːɳ ɵlˈvěːɵs] (); born 25 April 1945) is a Swedish songwriter, producer, a member of the Swedish musical group ABBA, and co-composer of the musicals Chess, Kristina från Duvemåla, and Mamma Mia!. He co-produced the film Mamma Mia! with fellow ABBA member and close friend Benny Andersson.",
+      "textAvailable": true,
+      "image": null,
+      "imageAvailable": true,
+      "imageSource": "DY_open/Björn_Ulvaeus/5.166358346-bjorn_ulvaeus_5158188.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/Bj%C3%B6rn_Ulvaeus"
+    },
+    {
+      "id": "Black_Hawk_Down_(film)",
+      "label": "Black Hawk Down (film)",
+      "kind": "work",
+      "description": "Black Hawk Down is a 2001 war film produced and directed by Ridley Scott, from a screenplay by Ken Nolan. It is based on the 1999 non-fiction book of the same name by journalist Mark Bowden, about the U.S. military's 1993 raid in Mogadishu.…",
+      "textAvailable": true,
+      "image": "assets/images/0e3a3669a9c2cc94.webp",
+      "imageAvailable": true,
+      "imageSource": "DY_open/Black_Hawk_Down_(film)/1.black-hawk-down-522547ede30de.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/Black_Hawk_Down_(film)"
+    },
+    {
+      "id": "Bologna",
+      "label": "Bologna",
+      "kind": "place",
+      "description": "Bologna (, UK also , Italian: [boˈloɲɲa] (listen); Bolognese: Bulåggna [buˈlʌɲːa]; Latin: Bonōnia) is the capital and largest city of the Emilia-Romagna region in Northern Italy. It is the seventh most populous city in Italy with about 390,000 inhabitants and 150 different nationalities.…",
+      "textAvailable": true,
+      "image": "assets/images/0f6ffd3024796718.webp",
+      "imageAvailable": true,
+      "imageSource": "DY_open/Bologna/15.Bologna-Italy-at-Sunset-Exploring-Bologna-in-One-Day-1024x768.jpeg",
+      "sourceUrl": "https://dbpedia.org/resource/Bologna"
+    },
+    {
+      "id": "Bologna_F.C._1909",
+      "label": "Bologna F.C. 1909",
+      "kind": "place",
+      "description": "Bologna Football Club 1909, commonly referred to as Bologna (Italian pronunciation: [boˈloɲɲa]), is an Italian football club based in Bologna, Emilia-Romagna. The club are nicknamed the Rossoblù due to the red-and-blue striped shirts which they wear, which are also the official colours of the city.…",
+      "textAvailable": true,
+      "image": null,
+      "imageAvailable": true,
+      "imageSource": "DY_open/Bologna_F.C._1909/16.988379.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/Bologna_F.C._1909"
+    },
+    {
+      "id": "Bon_Jovi",
+      "label": "Bon Jovi",
+      "kind": "organization",
+      "description": "Bon Jovi is an American rock band formed in 1983 in Sayreville, New Jersey. It consists of singer Jon Bon Jovi, keyboardist David Bryan, drummer Tico Torres, guitarist Phil X, and bassist Hugh McDonald.…",
+      "textAvailable": true,
+      "image": "assets/images/a761fb5bd163ded0.webp",
+      "imageAvailable": true,
+      "imageSource": "DY_open/Bon_Jovi/1601994431(1).jpg",
+      "sourceUrl": "https://dbpedia.org/resource/Bon_Jovi"
+    },
+    {
+      "id": "Bon_Voyage_(1944_film)",
+      "label": "Bon Voyage (1944 film)",
+      "kind": "work",
+      "description": "Bon Voyage (1944) is a short French language propaganda film made by Alfred Hitchcock for the British Ministry of Information. Although the film is short (26 minutes), it uses two radically different interpretations of the same events, a technique not unlike that used by Akira Kurosawa in Rashomon (1950), Errol Morris in The Thin Blue Line (1988), and Fernando Meirelles in Cidade de Deus (2002).Hitchcock had offered his…",
+      "textAvailable": true,
+      "image": null,
+      "imageAvailable": true,
+      "imageSource": "DY_open/Bon_Voyage_(1944_film)/MV5BMTUyMTk4NTM2MV5BMl5BanBnXkFtZTcwOTYwMDUzMQ@@._V1_.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/Bon_Voyage_(1944_film)"
+    },
+    {
+      "id": "Bruce_Willis",
+      "label": "Bruce Willis",
+      "kind": "person",
+      "description": "Walter Bruce Willis (born March 19, 1955) is an American actor, producer, and singer. Born in Germany to a German mother and American father, Willis moved to the U.S. with his family when he was two years old.…",
+      "textAvailable": true,
+      "image": "assets/images/d0dde114ad130530.webp",
+      "imageAvailable": true,
+      "imageSource": "DY_open/Bruce_Willis/12.Bruce-Willis.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/Bruce_Willis"
+    },
+    {
+      "id": "Burning_for_Love",
+      "label": "Burning for Love",
+      "kind": "work",
+      "description": null,
+      "textAvailable": false,
+      "image": null,
+      "imageAvailable": true,
+      "imageSource": "DY_open/Burning_for_Love/14.s-l300.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/Burning_for_Love"
+    },
+    {
+      "id": "Candice_Bergen",
+      "label": "Candice Bergen",
+      "kind": "person",
+      "description": "Candice Patricia Bergen (born May 9, 1946) is an American actress and former fashion model. She won five Primetime Emmy Awards and two Golden Globe Awards for her portrayal of the title character on the CBS sitcom Murphy Brown (1988–1998, 2018-2019).…",
+      "textAvailable": true,
+      "image": "assets/images/73e8b5599e8703cc.webp",
+      "imageAvailable": true,
+      "imageSource": "DY_open/Candice_Bergen/16.candice-bergen-author-photo-croppedjpg.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/Candice_Bergen"
+    },
+    {
+      "id": "Charlton_Heston",
+      "label": "Charlton Heston",
+      "kind": "person",
+      "description": "Charlton Heston (born John Charles Carter; October 4, 1923 – April 5, 2008) was an American actor and political activist.As a Hollywood star, he appeared in almost 100 films over the course of 60 years. He played Moses in the epic film The Ten Commandments (1956), for which he received his first nomination for the Golden Globe Award for Best Actor – Motion Picture Drama.…",
+      "textAvailable": true,
+      "image": "assets/images/8bf8459c781b3d70.webp",
+      "imageAvailable": true,
+      "imageSource": "DY_open/Charlton_Heston/10.200px-CharltonHeston1981_2_crop.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/Charlton_Heston"
+    },
+    {
+      "id": "Chris_Lebenzon",
+      "label": "Chris Lebenzon",
+      "kind": "person",
+      "description": "Christopher John Lebenzon (born October 29, 1953) is an American film editor with more than 36 film credits dating from 1976. The films he has edited have grossed over 10 billion dollars worldwide.…",
+      "textAvailable": true,
+      "image": null,
+      "imageAvailable": true,
+      "imageSource": "DY_open/Chris_Lebenzon/4.Lebenzon.png",
+      "sourceUrl": "https://dbpedia.org/resource/Chris_Lebenzon"
+    },
+    {
+      "id": "Claire_Trevor",
+      "label": "Claire Trevor",
+      "kind": "person",
+      "description": "Claire Trevor (née Wemlinger; March 8, 1910 – April 8, 2000) was an American actress. She appeared in 68 feature films from 1933 to 1982, winning the Academy Award for Best Supporting Actress for her role in Key Largo (1948), and received nominations for her roles in The High and the Mighty (1954) and Dead End (1937).…",
+      "textAvailable": true,
+      "image": "assets/images/805b24f9c205bbac.webp",
+      "imageAvailable": true,
+      "imageSource": "DY_open/Claire_Trevor/13.claire-trevors-quotes-2.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/Claire_Trevor"
+    },
+    {
+      "id": "Claudio_Simonetti",
+      "label": "Claudio Simonetti",
+      "kind": "person",
+      "description": "Claudio Simonetti (born 19 February 1952) is an Italian musician and film composer. He moved with his family to Italy at the age of 11.…",
+      "textAvailable": true,
+      "image": null,
+      "imageAvailable": true,
+      "imageSource": "DY_open/Claudio_Simonetti/1.simonetti.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/Claudio_Simonetti"
+    },
+    {
+      "id": "Crimson_Tide_(film)",
+      "label": "Crimson Tide (film)",
+      "kind": "work",
+      "description": null,
+      "textAvailable": false,
+      "image": null,
+      "imageAvailable": true,
+      "imageSource": "DY_open/Crimson_Tide_(film)/1.large_36DbhkwRhLCbACzItivEw9qM42U.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/Crimson_Tide_(film)"
+    },
+    {
+      "id": "Dario_Argento",
+      "label": "Dario Argento",
+      "kind": "person",
+      "description": null,
+      "textAvailable": false,
+      "image": "assets/images/e07ef811ba158e5d.webp",
+      "imageAvailable": true,
+      "imageSource": "DY_open/Dario_Argento/1.argento.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/Dario_Argento"
+    },
+    {
+      "id": "David_Copperfield_(1935_film)",
+      "label": "David Copperfield (1935 film)",
+      "kind": "work",
+      "description": "David Copperfield is a 1935 American film released by Metro-Goldwyn-Mayer based upon Charles Dickens' 1850 novel The Personal History, Adventures, Experience, & Observation of David Copperfield the Younger. A number of characters and incidents from the novel were omitted – notably David's time at Salem House boarding school, although one character he met at Salem House (Steerforth) was retained for the film as a head boy…",
+      "textAvailable": true,
+      "image": "assets/images/ecea5d7c14748857.webp",
+      "imageAvailable": true,
+      "imageSource": "DY_open/David_Copperfield_(1935_film)/1.the-personal-history-adventures-experience-and-observation-of-david-copperfield-the-younger-157424l-175x0-w-a6fe5633.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/David_Copperfield_(1935_film)"
+    },
+    {
+      "id": "Denzel_Washington",
+      "label": "Denzel Washington",
+      "kind": "person",
+      "description": "Denzel Hayes Washington Jr. (born December 28, 1954) is an American actor, director, and producer. He has received two Golden Globe awards, one Tony Award, and two Academy Awards: Best Supporting Actor for the historical war drama film Glory (1989) and Best Actor for his role as corrupt detective Alonzo Harris in the crime thriller Training Day (2001).",
+      "textAvailable": true,
+      "image": null,
+      "imageAvailable": true,
+      "imageSource": "DY_open/Denzel_Washington/1.denzel-washington-oscars-so-white-1481922619.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/Denzel_Washington"
+    },
+    {
+      "id": "Desmond_Child",
+      "label": "Desmond Child",
+      "kind": "person",
+      "description": null,
+      "textAvailable": false,
+      "image": null,
+      "imageAvailable": true,
+      "imageSource": "DY_open/Desmond_Child/12.Desmond+Child+Clive+Davis+Recording+Academy+9326UOHCm3wl.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/Desmond_Child"
+    },
+    {
+      "id": "Dimitri_Tiomkin",
+      "label": "Dimitri Tiomkin",
+      "kind": "person",
+      "description": null,
+      "textAvailable": false,
+      "image": "assets/images/730857b710108325.webp",
+      "imageAvailable": true,
+      "imageSource": "DY_open/Dimitri_Tiomkin/1.DT111L.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/Dimitri_Tiomkin"
+    },
+    {
+      "id": "Dracula_3D",
+      "label": "Dracula 3D",
+      "kind": "work",
+      "description": "Dracula 3D is a 2012 vampire horror film co-written and directed by Dario Argento and starring Thomas Kretschmann, Rutger Hauer, Marta Gastini, and Unax Ugalde. An Italian-Spanish-French co-production, the film is Argento's first 3D film.…",
+      "textAvailable": true,
+      "image": "assets/images/e7bd2927f6bb9f99.webp",
+      "imageAvailable": true,
+      "imageSource": "DY_open/Dracula_3D/1.large_yBr1nJXyeAdHJGFRtv5GCHzyc8E.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/Dracula_3D"
+    },
+    {
+      "id": "Dragnet_(1987_film)",
+      "label": "Dragnet (1987 film)",
+      "kind": "work",
+      "description": "Dragnet is a 1987 American buddy cop comedy film, directed and co-written by Tom Mankiewicz in his directorial debut. Starring Dan Aykroyd and Tom Hanks, the film is based on the radio and television crime drama of the same name.…",
+      "textAvailable": true,
+      "image": null,
+      "imageAvailable": true,
+      "imageSource": "DY_open/Dragnet_(1987_film)/17.dragnet_bluray.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/Dragnet_(1987_film)"
+    },
+    {
+      "id": "Elijah_Wood",
+      "label": "Elijah Wood",
+      "kind": "person",
+      "description": "Elijah Wood (born January 28, 1981) is an American actor and producer. He is best known for his portrayal of Frodo Baggins in the Lord of the Rings film trilogy (2001–2003) and The Hobbit: An Unexpected Journey (2012).Wood made his film debut with a small part in Back to the Future Part II (1989).…",
+      "textAvailable": true,
+      "image": "assets/images/4c2c45a9c9ab4899.webp",
+      "imageAvailable": true,
+      "imageSource": "DY_open/Elijah_Wood/12.elijah-wood-1.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/Elijah_Wood"
+    },
+    {
+      "id": "Enemy_of_the_State_(film)",
+      "label": "Enemy of the State (film)",
+      "kind": "work",
+      "description": null,
+      "textAvailable": false,
+      "image": null,
+      "imageAvailable": true,
+      "imageSource": "DY_open/Enemy_of_the_State_(film)/1.enemy_of_the_state_%28film%29_poster_art.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/Enemy_of_the_State_(film)"
+    },
+    {
+      "id": "Eternal_Sunshine_of_the_Spotless_Mind",
+      "label": "Eternal Sunshine of the Spotless Mind",
+      "kind": "work",
+      "description": null,
+      "textAvailable": false,
+      "image": null,
+      "imageAvailable": true,
+      "imageSource": "DY_open/Eternal_Sunshine_of_the_Spotless_Mind/2.eternal-sunshine-of-the-spotless-mind.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/Eternal_Sunshine_of_the_Spotless_Mind"
+    },
+    {
+      "id": "Four_Rooms",
+      "label": "Four Rooms",
+      "kind": "work",
+      "description": null,
+      "textAvailable": false,
+      "image": null,
+      "imageAvailable": true,
+      "imageSource": "DY_open/Four_Rooms/3.8a3bf76b-8559-4b10-9664-8a1ba3b2d512_625x352.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/Four_Rooms"
+    },
+    {
+      "id": "Francesco_Maria_Grimaldi",
+      "label": "Francesco Maria Grimaldi",
+      "kind": "person",
+      "description": null,
+      "textAvailable": false,
+      "image": null,
+      "imageAvailable": true,
+      "imageSource": "DY_open/Francesco_Maria_Grimaldi/10.Portrait_Grimaldi.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/Francesco_Maria_Grimaldi"
+    },
+    {
+      "id": "Frank_McDonald_(director)",
+      "label": "Frank McDonald (director)",
+      "kind": "person",
+      "description": "Frank McDonald (November 9, 1899 – March 8, 1980) was an American film and television director, active from 1935 to 1966. He directed more than 100 films, including many Westerns starring Gene Autry and Roy Rogers, and numerous TV show episodes.…",
+      "textAvailable": true,
+      "image": null,
+      "imageAvailable": true,
+      "imageSource": "DY_open/Frank_McDonald_(director)/1617691308(1).jpg",
+      "sourceUrl": "https://dbpedia.org/resource/Frank_McDonald_(director)"
+    },
+    {
+      "id": "Franklin_J._Schaffner",
+      "label": "Franklin J. Schaffner",
+      "kind": "person",
+      "description": "Franklin James Schaffner (May 30, 1920 – July 2, 1989) was an American film, television, and stage director. He won the Academy Award for Best Director for Patton (1970), and is known for the films Planet of the Apes (1968), Nicholas and Alexandra (1971), Papillon (1973), and The Boys from Brazil (1978).…",
+      "textAvailable": true,
+      "image": "assets/images/b297a2a8da081fbe.webp",
+      "imageAvailable": true,
+      "imageSource": "DY_open/Franklin_J._Schaffner/6.1200px-Franklin_J._Schaffner.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/Franklin_J._Schaffner"
+    },
+    {
+      "id": "Frederick_County,_Maryland",
+      "label": "Frederick County, Maryland",
+      "kind": "place",
+      "description": "Frederick County is located in the northern part of the U.S. state of Maryland. As of the 2010 U.S.…",
+      "textAvailable": true,
+      "image": null,
+      "imageAvailable": true,
+      "imageSource": "DY_open/Frederick_County,_Maryland/1617328574(1).jpg",
+      "sourceUrl": "https://dbpedia.org/resource/Frederick_County,_Maryland"
+    },
+    {
+      "id": "Friedrich_Hollaender",
+      "label": "Friedrich Hollaender",
+      "kind": "person",
+      "description": "Friedrich Hollaender (in exile also Frederick Hollander; 18 October 1896 – 18 January 1976) was a German film composer and author.",
+      "textAvailable": true,
+      "image": "assets/images/a210927b234f3722.webp",
+      "imageAvailable": true,
+      "imageSource": "DY_open/Friedrich_Hollaender/1.friedrich_hollaender-213x300.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/Friedrich_Hollaender"
+    },
+    {
+      "id": "Gene_Hackman",
+      "label": "Gene Hackman",
+      "kind": "person",
+      "description": "Eugene Allen Hackman (born January 30, 1930) is a retired American actor and novelist. In a career that spanned more than six decades, Hackman won two Academy Awards, four Golden Globes, one Screen Actors Guild Award, and two BAFTAs.",
+      "textAvailable": true,
+      "image": "assets/images/3d5f234bc4c46e68.webp",
+      "imageAvailable": true,
+      "imageSource": "DY_open/Gene_Hackman/12.31189503_1300x1733.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/Gene_Hackman"
+    },
+    {
+      "id": "George_Cukor",
+      "label": "George Cukor",
+      "kind": "person",
+      "description": "George Dewey Cukor (; July 7, 1899 – January 24, 1983) was an American film director. He mainly concentrated on comedies and literary adaptations.…",
+      "textAvailable": true,
+      "image": "assets/images/2ec4a0151ab83919.webp",
+      "imageAvailable": true,
+      "imageSource": "DY_open/George_Cukor/24.george-cukor.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/George_Cukor"
+    },
+    {
+      "id": "Gerald_R._Molen",
+      "label": "Gerald R. Molen",
+      "kind": "person",
+      "description": "Gerald Robert \"Jerry\" Molen (born January 6, 1935) is an American film producer. He has worked closely with Steven Spielberg, having produced five of his films, and won an Academy Award for co-producing Schindler's List.…",
+      "textAvailable": true,
+      "image": null,
+      "imageAvailable": true,
+      "imageSource": "DY_open/Gerald_R._Molen/1.225px-Gerald_R._Molen_by_Gage_Skidmore.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/Gerald_R._Molen"
+    },
+    {
+      "id": "Giao_Thủy_District",
+      "label": "Giao Thủy District",
+      "kind": "place",
+      "description": "Giao Thủy is a rural district of Nam Định Province in the Red River Delta region of Vietnam. As of 2003 the district had a population of 207,273.…",
+      "textAvailable": true,
+      "image": null,
+      "imageAvailable": true,
+      "imageSource": "DY_open/Giao_Thủy_District/3.The-location-of-the-Giao-Thuy-district-in-the-Nam-Dinh-province_Q320.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/Giao_Th%E1%BB%A7y_District"
+    },
+    {
+      "id": "Harvey_Keitel",
+      "label": "Harvey Keitel",
+      "kind": "person",
+      "description": "Harvey Keitel ( ky-TEL; born May 13, 1939) is an American actor and producer. He has played in such films as Mean Streets (1973), Taxi Driver (1976),The Last Temptation of Christ (1988), Thelma & Louise (1991), Reservoir Dogs (1992), Pulp Fiction (1994), Cop Land (1997), The Grand Budapest Hotel (2014), and The Irishman (2019).",
+      "textAvailable": true,
+      "image": null,
+      "imageAvailable": true,
+      "imageSource": "DY_open/Harvey_Keitel/11.wenn3120395.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/Harvey_Keitel"
+    },
+    {
+      "id": "Have_a_Nice_Day_(Bon_Jovi_song)",
+      "label": "Have a Nice Day (Bon Jovi song)",
+      "kind": "work",
+      "description": "\"Have a Nice Day\" is a song by American rock band Bon Jovi. Written, composed and produced by Jon Bon Jovi, Richie Sambora, and John Shanks, \"Have a Nice Day\" was the first single released from the band's 2005 album of the same name.…",
+      "textAvailable": true,
+      "image": null,
+      "imageAvailable": true,
+      "imageSource": "DY_open/Have_a_Nice_Day_(Bon_Jovi_song)/20.Bon-Jovi-Have-A-Nice-Day-European-Import-CD-Album-940112691_L.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/Have_a_Nice_Day_(Bon_Jovi_song)"
+    },
+    {
+      "id": "Hawaiian_Vacation",
+      "label": "Hawaiian Vacation",
+      "kind": "work",
+      "description": "Toy Story Toons: Hawaiian Vacation is a 2011 American computer animated short directed by Gary Rydstrom. It is the first short in the Toy Story Toons series.…",
+      "textAvailable": true,
+      "image": null,
+      "imageAvailable": true,
+      "imageSource": "DY_open/Hawaiian_Vacation/1.hawaii-vacations.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/Hawaiian_Vacation"
+    },
+    {
+      "id": "Hokkaido",
+      "label": "Hokkaido",
+      "kind": "place",
+      "description": "Hokkaido (Japanese: 北海道, Hokkaidō [hokːaꜜidoː] (), \"Northern Sea Circuit\") is the second largest island of Japan, and the largest and northernmost prefecture. The Tsugaru Strait separates Hokkaido from Honshu, and the two islands are connected by the undersea railway Seikan Tunnel.…",
+      "textAvailable": true,
+      "image": "assets/images/a1d2ae83a474f1c0.webp",
+      "imageAvailable": true,
+      "imageSource": "DY_open/Hokkaido/19.hokkaido.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/Hokkaido"
+    },
+    {
+      "id": "Holiday_(1938_film)",
+      "label": "Holiday (1938 film)",
+      "kind": "work",
+      "description": null,
+      "textAvailable": false,
+      "image": null,
+      "imageAvailable": true,
+      "imageSource": "DY_open/Holiday_(1938_film)/7.1938-film-title-holiday-director-george-cukor-studio-columbia-pictured-f6hb9n.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/Holiday_(1938_film)"
+    },
+    {
+      "id": "Islands_in_the_Stream_(film)",
+      "label": "Islands in the Stream (film)",
+      "kind": "work",
+      "description": "Islands in the Stream is a 1977 American drama film, an adaptation of Ernest Hemingway's posthumously published 1970 novel of the same name. The film was directed by Franklin J.…",
+      "textAvailable": true,
+      "image": "assets/images/0faa18b4ac09880e.webp",
+      "imageAvailable": true,
+      "imageSource": "DY_open/Islands_in_the_Stream_(film)/1.Islands_in_the_stream.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/Islands_in_the_Stream_(film)"
+    },
+    {
+      "id": "James_Mason",
+      "label": "James Mason",
+      "kind": "person",
+      "description": "James Neville Mason (; 15 May 1909 – 27 July 1984) was an English actor. Mason is widely considered to be one of the greatest film actors of the 20th century; he achieved considerable success in British cinema before becoming one of Hollywood's biggest stars.…",
+      "textAvailable": true,
+      "image": "assets/images/188218caca6c4ccf.webp",
+      "imageAvailable": true,
+      "imageSource": "DY_open/James_Mason/10.james_mason.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/James_Mason"
+    },
+    {
+      "id": "Jerry_Bruckheimer",
+      "label": "Jerry Bruckheimer",
+      "kind": "person",
+      "description": null,
+      "textAvailable": false,
+      "image": "assets/images/20d4557442d2acbe.webp",
+      "imageAvailable": true,
+      "imageSource": "DY_open/Jerry_Bruckheimer/2.Jerry_Bruckheimer.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/Jerry_Bruckheimer"
+    },
+    {
+      "id": "John_Barrymore",
+      "label": "John Barrymore",
+      "kind": "person",
+      "description": "John Barrymore (born John Sidney Blyth; February 14 or 15, 1882 – May 29, 1942) was an American actor on stage, screen and radio. A member of the Drew and Barrymore theatrical families, he initially tried to avoid the stage, and briefly attempted a career as an artist, but appeared on stage together with his father Maurice in 1900, and then his sister Ethel the following year.…",
+      "textAvailable": true,
+      "image": "assets/images/8354f505738f8625.webp",
+      "imageAvailable": true,
+      "imageSource": "DY_open/John_Barrymore/1.barrymore-j-11111.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/John_Barrymore"
+    },
+    {
+      "id": "John_Shanks",
+      "label": "John Shanks",
+      "kind": "person",
+      "description": "John Matthew Shanks (born December 18, 1964) is an American songwriter, record producer and guitarist.",
+      "textAvailable": true,
+      "image": null,
+      "imageAvailable": true,
+      "imageSource": "DY_open/John_Shanks/3.John+Shanks+Bon+Jovi+Performs+Concert+T+Mobile+eiNy79ud5knl.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/John_Shanks"
+    },
+    {
+      "id": "Johns_Hopkins_School_of_Medicine",
+      "label": "Johns Hopkins School of Medicine",
+      "kind": "place",
+      "description": null,
+      "textAvailable": false,
+      "image": null,
+      "imageAvailable": true,
+      "imageSource": "DY_open/Johns_Hopkins_School_of_Medicine/16.johns_hopkins_university.png",
+      "sourceUrl": "https://dbpedia.org/resource/Johns_Hopkins_School_of_Medicine"
+    },
+    {
+      "id": "Jon_Bon_Jovi",
+      "label": "Jon Bon Jovi",
+      "kind": "person",
+      "description": "John Francis Bongiovi Jr. (born March 2, 1962), known professionally as Jon Bon Jovi, is an American singer-songwriter, record producer, philanthropist, and actor. Bon Jovi is best known as the founder and frontman of the Grammy Award-winning rock band Bon Jovi, which was formed in 1983.…",
+      "textAvailable": true,
+      "image": "assets/images/e94abe7ec474a3af.webp",
+      "imageAvailable": true,
+      "imageSource": "DY_open/Jon_Bon_Jovi/1.jon-bon-jovi-3.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/Jon_Bon_Jovi"
+    },
+    {
+      "id": "Josh_Hartnett",
+      "label": "Josh Hartnett",
+      "kind": "person",
+      "description": "Joshua Daniel Hartnett (born July 21, 1978) is an American actor and producer. He first came to attention in 1997 for his role as Michael Fitzgerald in the television crime drama series Cracker.…",
+      "textAvailable": true,
+      "image": null,
+      "imageAvailable": true,
+      "imageSource": "DY_open/Josh_Hartnett/11.josh-hartnett-ge--6400117-.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/Josh_Hartnett"
+    },
+    {
+      "id": "Julie_Bowen",
+      "label": "Julie Bowen",
+      "kind": "person",
+      "description": null,
+      "textAvailable": false,
+      "image": "assets/images/d2261ac0cfa3c186.webp",
+      "imageAvailable": true,
+      "imageSource": "DY_open/Julie_Bowen/1.julie-bowen2_sc_768x1024.png",
+      "sourceUrl": "https://dbpedia.org/resource/Julie_Bowen"
+    },
+    {
+      "id": "Jurassic_Park_(film)",
+      "label": "Jurassic Park (film)",
+      "kind": "work",
+      "description": "Jurassic Park is a 1993 American science fiction adventure film directed by Steven Spielberg and produced by Kathleen Kennedy and Gerald R. Molen.…",
+      "textAvailable": true,
+      "image": null,
+      "imageAvailable": true,
+      "imageSource": "DY_open/Jurassic_Park_(film)/1.456FcvyTujRwzgoMoKKoheeCOlU.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/Jurassic_Park_(film)"
+    },
+    {
+      "id": "Keeper_of_the_Flame_(film)",
+      "label": "Keeper of the Flame (film)",
+      "kind": "work",
+      "description": "Keeper of the Flame is a 1942 Metro-Goldwyn-Mayer (MGM) drama film directed by George Cukor, and starring Spencer Tracy and Katharine Hepburn.The screenplay by Donald Ogden Stewart is adapted from the 1942 novel Keeper of the Flame by I. A.…",
+      "textAvailable": true,
+      "image": null,
+      "imageAvailable": true,
+      "imageSource": "DY_open/Keeper_of_the_Flame_(film)/2.Poster%20-%20Keeper%20of%20the%20Flame_02.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/Keeper_of_the_Flame_(film)"
+    },
+    {
+      "id": "Kill_Bill",
+      "label": "Kill Bill",
+      "kind": "work",
+      "description": null,
+      "textAvailable": false,
+      "image": null,
+      "imageAvailable": true,
+      "imageSource": "DY_open/Kill_Bill/22.Kill-bill-vol-1.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/Kill_Bill"
+    },
+    {
+      "id": "Kirk_Douglas",
+      "label": "Kirk Douglas",
+      "kind": "person",
+      "description": "Kirk Douglas (born Issur Danielovitch; December 9, 1916 – February 5, 2020) was an American actor, producer, director, philanthropist, and writer. After an impoverished childhood with immigrant parents and six sisters, he made his film debut in The Strange Love of Martha Ivers (1946) with Barbara Stanwyck.…",
+      "textAvailable": true,
+      "image": "assets/images/8219866d5e74ebb3.webp",
+      "imageAvailable": true,
+      "imageSource": "DY_open/Kirk_Douglas/12.f-douglas-a-20181213-870x601.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/Kirk_Douglas"
+    },
+    {
+      "id": "Last_Train_from_Gun_Hill",
+      "label": "Last Train from Gun Hill",
+      "kind": "work",
+      "description": "Last Train from Gun Hill is a 1959 Western in VistaVision and Technicolor by action director John Sturges. It stars Kirk Douglas and Anthony Quinn.…",
+      "textAvailable": true,
+      "image": null,
+      "imageAvailable": true,
+      "imageSource": "DY_open/Last_Train_from_Gun_Hill/1.hXbBkFAcJZBHH629Kj4Ujrq1r2l.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/Last_Train_from_Gun_Hill"
+    },
+    {
+      "id": "Lay_All_Your_Love_on_Me",
+      "label": "Lay All Your Love on Me",
+      "kind": "work",
+      "description": "\"Lay All Your Love on Me\" is a song recorded by Swedish pop group ABBA in 1980 for their seventh studio album, Super Trouper. The original was released only as a 12-inch single in 1981 in limited territories, rather than as a standard 7-inch record.…",
+      "textAvailable": true,
+      "image": null,
+      "imageAvailable": true,
+      "imageSource": "DY_open/Lay_All_Your_Love_on_Me/2.Lay-All-Your-Love-on-Me-sheet-music-page_2818-10-1.png",
+      "sourceUrl": "https://dbpedia.org/resource/Lay_All_Your_Love_on_Me"
+    },
+    {
+      "id": "Lay_Your_Hands_on_Me",
+      "label": "Lay Your Hands on Me",
+      "kind": "work",
+      "description": "\"Lay Your Hands on Me\" is a song by American rock band Bon Jovi. It was released on August 1, 1989 as the fourth single from the band's 1988 album New Jersey.…",
+      "textAvailable": true,
+      "image": null,
+      "imageAvailable": true,
+      "imageSource": "DY_open/Lay_Your_Hands_on_Me/16.THOMPSON_TWINS_LAY_YOUR_HANDS_ON_ME_ACETATE_7_2.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/Lay_Your_Hands_on_Me"
+    },
+    {
+      "id": "Lewis_Stone",
+      "label": "Lewis Stone",
+      "kind": "person",
+      "description": "Lewis Shepard Stone (November 15, 1879 – September 12, 1953) was an American film actor. He spent 29 years as a contract player at Metro-Goldwyn-Mayer, and was best known for his role as Judge James Hardy in their Andy Hardy film series.…",
+      "textAvailable": true,
+      "image": null,
+      "imageAvailable": true,
+      "imageSource": "DY_open/Lewis_Stone/1.Lewis_Stone_R2-433x565.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/Lewis_Stone"
+    },
+    {
+      "id": "Leytonstone",
+      "label": "Leytonstone",
+      "kind": "place",
+      "description": "Leytonstone is a town in east London, England, within the London Borough of Waltham Forest. It adjoins Leyton to the west, Walthamstow to the north-west, Wanstead to the east, Forest Gate to the south-east and Stratford to the south-west, and is 7 miles (11.3 km) north-east of Charing Cross.Originally part of the ancient parish of Leyton in the county of Essex, Leytonstone was largely rural until the opening of a railway…",
+      "textAvailable": true,
+      "image": "assets/images/6fb205e98a0dac26.webp",
+      "imageAvailable": true,
+      "imageSource": "DY_open/Leytonstone/16.leytonstone.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/Leytonstone"
+    },
+    {
+      "id": "Livin'_on_a_Prayer",
+      "label": "Livin' on a Prayer",
+      "kind": "work",
+      "description": "\"Livin' on a Prayer\" is a song by the American rock band Bon Jovi, and is the band's second chart-topping single from their third album Slippery When Wet. Written by Jon Bon Jovi, Richie Sambora and Desmond Child, the single, released in late 1986, was well received at both rock and pop radio and its music video was given heavy rotation at MTV, giving the band their first No. 1 on the Billboard Mainstream Rock chart and…",
+      "textAvailable": true,
+      "image": null,
+      "imageAvailable": true,
+      "imageSource": "DY_open/Livin'_on_a_Prayer/1.R-5255609-1453850291-7803.jpeg.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/Livin'_on_a_Prayer"
+    },
+    {
+      "id": "Lost_Highway_(Bon_Jovi_song)",
+      "label": "Lost Highway (Bon Jovi song)",
+      "kind": "work",
+      "description": "\"Lost Highway\" is a song by American rock band Bon Jovi. Written by Jon Bon Jovi, Richie Sambora and John Shanks, it is the first track on the album of the same name and was released in September 2007 as the album's second single.…",
+      "textAvailable": true,
+      "image": null,
+      "imageAvailable": true,
+      "imageSource": "DY_open/Lost_Highway_(Bon_Jovi_song)/1.s-l1000.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/Lost_Highway_(Bon_Jovi_song)"
+    },
+    {
+      "id": "Lubbock,_Texas",
+      "label": "Lubbock, Texas",
+      "kind": "place",
+      "description": "Lubbock ( LUB-ək)is the 11th-most populous city in the U.S. state of Texas and the county seat of Lubbock County. With a population of 258,862 in 2019, the city is also the 83rd-most populous in the United States.…",
+      "textAvailable": true,
+      "image": "assets/images/b78895f5ceeed331.webp",
+      "imageAvailable": true,
+      "imageSource": "DY_open/Lubbock,_Texas/13.324px-Lubbock_County_South_Plains_Fair_2012.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/Lubbock,_Texas"
+    },
+    {
+      "id": "Lust_for_Life_(film)",
+      "label": "Lust for Life (film)",
+      "kind": "work",
+      "description": null,
+      "textAvailable": false,
+      "image": null,
+      "imageAvailable": true,
+      "imageSource": "DY_open/Lust_for_Life_(film)/1.220px-lust_for_life_1956_poster.png",
+      "sourceUrl": "https://dbpedia.org/resource/Lust_for_Life_(film)"
+    },
+    {
+      "id": "Machete_(film)",
+      "label": "Machete (film)",
+      "kind": "work",
+      "description": null,
+      "textAvailable": false,
+      "image": null,
+      "imageAvailable": true,
+      "imageSource": "DY_open/Machete_(film)/1.machete-54ea61da8750c.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/Machete_(film)"
+    },
+    {
+      "id": "Manhattan_Melodrama",
+      "label": "Manhattan Melodrama",
+      "kind": "work",
+      "description": null,
+      "textAvailable": false,
+      "image": null,
+      "imageAvailable": true,
+      "imageSource": "DY_open/Manhattan_Melodrama/1.Manhattan-Melodrama-03-Poster.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/Manhattan_Melodrama"
+    },
+    {
+      "id": "Mark_Goldblatt",
+      "label": "Mark Goldblatt",
+      "kind": "person",
+      "description": "Mark Goldblatt is an Academy Award nominated American film editor and film director and president emeritus of the American Cinema Editors.Brooklyn born Goldblatt studied at the University of Wisconsin and London Film School, where his instructors included Mike Leigh, Clive Donner and Frank Clarke. Upon his return to the United States, Goldblatt observed Alfred Hitchcock on the set of one of his final films, Family Plot,…",
+      "textAvailable": true,
+      "image": null,
+      "imageAvailable": true,
+      "imageSource": "DY_open/Mark_Goldblatt/13.A3Feat.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/Mark_Goldblatt"
+    },
+    {
+      "id": "Marnie_(film)",
+      "label": "Marnie (film)",
+      "kind": "work",
+      "description": "Marnie is a 1964 American psychological thriller film directed by Alfred Hitchcock. The screenplay by Jay Presson Allen was based on the 1961 novel of the same name by Winston Graham.…",
+      "textAvailable": true,
+      "image": null,
+      "imageAvailable": true,
+      "imageSource": "DY_open/Marnie_(film)/14.14317105_f520.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/Marnie_(film)"
+    },
+    {
+      "id": "Mary_(1931_film)",
+      "label": "Mary (1931 film)",
+      "kind": "work",
+      "description": "Mary (1931) is a British-German thriller film, directed by Alfred Hitchcock, and is the German language version of Hitchcock's Murder! (1930), shot simultaneously on the same sets with German speaking actors. The film is based on the 1928 book Enter Sir John by Clemence Dane and Helen Simpson, and stars Alfred Abel and Olga Tschechowa.…",
+      "textAvailable": true,
+      "image": null,
+      "imageAvailable": true,
+      "imageSource": "DY_open/Mary_(1931_film)/1601782904(1).png",
+      "sourceUrl": "https://dbpedia.org/resource/Mary_(1931_film)"
+    },
+    {
+      "id": "Maryland",
+      "label": "Maryland",
+      "kind": "place",
+      "description": "Maryland (US: () MERR-ə-lənd) is a state in the Mid-Atlantic region of the Eastern United States, bordering Virginia, West Virginia, and the District of Columbia to its south and west; Pennsylvania to its north; and Delaware and the Atlantic Ocean to its east. The state's largest city is Baltimore, and its capital is Annapolis.…",
+      "textAvailable": true,
+      "image": "assets/images/0cd76db09cc7f001.webp",
+      "imageAvailable": true,
+      "imageSource": "DY_open/Maryland/10.maryland-map.png",
+      "sourceUrl": "https://dbpedia.org/resource/Maryland"
+    },
+    {
+      "id": "Maureen_O'Sullivan",
+      "label": "Maureen O'Sullivan",
+      "kind": "person",
+      "description": "Maureen O'Sullivan (17 May 1911 – 23 June 1998) was an Irish-American actress. She was best known for playing Jane in the Tarzan series of films during the era of Johnny Weissmuller.…",
+      "textAvailable": true,
+      "image": null,
+      "imageAvailable": true,
+      "imageSource": "DY_open/Maureen_O'Sullivan/12.mos79.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/Maureen_O'Sullivan"
+    },
+    {
+      "id": "Mickey_Rourke",
+      "label": "Mickey Rourke",
+      "kind": "person",
+      "description": "Philip Andre \"Mickey\" Rourke Jr. is an American actor, screenwriter, activist, and former boxer who has appeared primarily as a leading man in drama, action, and thriller films.During the 1980s, Rourke starred in the comedy-drama Diner (1982), the drama Rumble Fish (1983), the crime-black-comedy film The Pope of Greenwich Village (1984), and the erotic drama 9½ Weeks (1986). He received critical praise for his work in the…",
+      "textAvailable": true,
+      "image": "assets/images/87f6e06fc1326c09.webp",
+      "imageAvailable": true,
+      "imageSource": "DY_open/Mickey_Rourke/19.7794595311_sipa-00834007-000006.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/Mickey_Rourke"
+    },
+    {
+      "id": "Misunderstood_(Bon_Jovi_song)",
+      "label": "Misunderstood (Bon Jovi song)",
+      "kind": "work",
+      "description": "\"Misunderstood\" is a single by American rock band Bon Jovi from the album Bounce. Released on December 2, 2002, the song peaked at No. 34 on Billboard's Mainstream Top 40 chart and was nominated for a Grammy Award for Best Pop Performance by a Duo or Group with Vocal.…",
+      "textAvailable": true,
+      "image": null,
+      "imageAvailable": true,
+      "imageSource": "DY_open/Misunderstood_(Bon_Jovi_song)/1602410556(1).jpg",
+      "sourceUrl": "https://dbpedia.org/resource/Misunderstood_(Bon_Jovi_song)"
+    },
+    {
+      "id": "Mr._&_Mrs._Smith_(1941_film)",
+      "label": "Mr. & Mrs. Smith (1941 film)",
+      "kind": "work",
+      "description": "Mr. & Mrs. Smith is a 1941 American screwball comedy film directed by Alfred Hitchcock, written by Norman Krasna, and starring Carole Lombard and Robert Montgomery.…",
+      "textAvailable": true,
+      "image": null,
+      "imageAvailable": true,
+      "imageSource": "DY_open/Mr._&_Mrs._Smith_(1941_film)/20201005161842.png",
+      "sourceUrl": "https://dbpedia.org/resource/Mr._%26_Mrs._Smith_(1941_film)"
+    },
+    {
+      "id": "Myrna_Loy",
+      "label": "Myrna Loy",
+      "kind": "person",
+      "description": "Myrna Loy (born Myrna Adele Williams; August 2, 1905 – December 14, 1993) was an American film, television and stage actress. Trained as a dancer, Loy devoted herself fully to an acting career following a few minor roles in silent films.…",
+      "textAvailable": true,
+      "image": "assets/images/e0257a3b92b5654c.webp",
+      "imageAvailable": true,
+      "imageSource": "DY_open/Myrna_Loy/12.600full-myrna-loy.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/Myrna_Loy"
+    },
+    {
+      "id": "Nam_Định_Province",
+      "label": "Nam Định Province",
+      "kind": "place",
+      "description": "Nam Định (listen) (Vietnamese: Tỉnh Nam Định) is a province in the southern part of the Red River Delta region of northern Vietnam. It borders Ninh Bình province to the southwest, Hà Nam province to the northwest, Thái Bình province to the northeast, and the Gulf of Tonkin to the southeast.…",
+      "textAvailable": true,
+      "image": "assets/images/e49486d7e5bf277d.webp",
+      "imageAvailable": true,
+      "imageSource": "DY_open/Nam_Định_Province/1.1200px-C%E1%BB%95ng_ch%C3%A0o_Nam_%C4%90%E1%BB%8Bnh_%28Nam_Dinh_City_Gate%2C_Vietnam%29.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/Nam_%C4%90%E1%BB%8Bnh_Province"
+    },
+    {
+      "id": "Never_Say_Goodbye_(Bon_Jovi_song)",
+      "label": "Never Say Goodbye (Bon Jovi song)",
+      "kind": "work",
+      "description": "\"Never Say Goodbye\" is a song by American rock band Bon Jovi, written by Jon Bon Jovi and Richie Sambora. It was a track off the band's third album, Slippery When Wet, in June 15, 1987, and reached number 11 on the mainstream rock charts and number 21 in the UK Singles Chart.…",
+      "textAvailable": true,
+      "image": null,
+      "imageAvailable": true,
+      "imageSource": "DY_open/Never_Say_Goodbye_(Bon_Jovi_song)/18.R-4922342-1515164949-2223.jpeg.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/Never_Say_Goodbye_(Bon_Jovi_song)"
+    },
+    {
+      "id": "Once_Upon_a_Time_in_Mexico",
+      "label": "Once Upon a Time in Mexico",
+      "kind": "work",
+      "description": "Once Upon a Time in Mexico (also known as Desperado 2) is a 2003 American neo-Western action film written, directed, produced, photographed, scored, and edited by Robert Rodriguez. It is the third and final film in Rodriguez's Mexico Trilogy, and it is a sequel to 1992's El Mariachi and 1995's Desperado.…",
+      "textAvailable": true,
+      "image": null,
+      "imageAvailable": true,
+      "imageSource": "DY_open/Once_Upon_a_Time_in_Mexico/15.once-upon-a-time-in-mexico-5681603c1280d.png",
+      "sourceUrl": "https://dbpedia.org/resource/Once_Upon_a_Time_in_Mexico"
+    },
+    {
+      "id": "Opera_(film)",
+      "label": "Opera (film)",
+      "kind": "work",
+      "description": null,
+      "textAvailable": false,
+      "image": null,
+      "imageAvailable": true,
+      "imageSource": "DY_open/Opera_(film)/1601961253(1).png",
+      "sourceUrl": "https://dbpedia.org/resource/Opera_(film)"
+    },
+    {
+      "id": "Pearl_Harbor_(film)",
+      "label": "Pearl Harbor (film)",
+      "kind": "work",
+      "description": "Pearl Harbor is a 2001 American romantic war drama film directed by Michael Bay, produced by Bay and Jerry Bruckheimer and written by Randall Wallace. It stars Ben Affleck, Kate Beckinsale, Josh Hartnett, Cuba Gooding Jr., Tom Sizemore, Jon Voight, Colm Feore, and Alec Baldwin.…",
+      "textAvailable": true,
+      "image": null,
+      "imageAvailable": true,
+      "imageSource": "DY_open/Pearl_Harbor_(film)/2.Pearl_Harbor-843244751-large.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/Pearl_Harbor_(film)"
+    },
+    {
+      "id": "People_Need_Love",
+      "label": "People Need Love",
+      "kind": "work",
+      "description": null,
+      "textAvailable": false,
+      "image": "assets/images/b43e00947867d8a2.webp",
+      "imageAvailable": true,
+      "imageSource": "DY_open/People_Need_Love/2.32796049-origpic-260eea.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/People_Need_Love"
+    },
+    {
+      "id": "Planet_Terror",
+      "label": "Planet Terror",
+      "kind": "work",
+      "description": "Planet Terror is a 2007 American horror comedy film written, directed, photographed and co-edited by Robert Rodriguez. It stars Rose McGowan, Freddy Rodriguez, Josh Brolin, Marley Shelton, Naveen Andrews, Michael Biehn, Jeff Fahey, Stacy Ferguson, and Bruce Willis.…",
+      "textAvailable": true,
+      "image": null,
+      "imageAvailable": true,
+      "imageSource": "DY_open/Planet_Terror/13.548560725_o.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/Planet_Terror"
+    },
+    {
+      "id": "Planet_of_the_Apes_(1968_film)",
+      "label": "Planet of the Apes (1968 film)",
+      "kind": "work",
+      "description": "Planet of the Apes is a 1968 American science fiction film directed by Franklin J. Schaffner and loosely based on the 1963 French novel La Planète des Singes by Pierre Boulle.…",
+      "textAvailable": true,
+      "image": "assets/images/7ee5ab7cb3b8c750.webp",
+      "imageAvailable": true,
+      "imageSource": "DY_open/Planet_of_the_Apes_(1968_film)/24.planet-of-the-apes.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/Planet_of_the_Apes_(1968_film)"
+    },
+    {
+      "id": "Preakness_Stakes",
+      "label": "Preakness Stakes",
+      "kind": "place",
+      "description": "The Preakness Stakes is an American flat thoroughbred horse race held on the third Saturday in May each year at Pimlico Race Course in Baltimore, Maryland. It is a Grade I race run over a distance of 9.5 furlongs (1 3⁄16 miles (1,900 m)) on dirt.…",
+      "textAvailable": true,
+      "image": null,
+      "imageAvailable": true,
+      "imageSource": "DY_open/Preakness_Stakes/3.2018-Preakness-Stakes-Online-Betting-Quip-1024x682.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/Preakness_Stakes"
+    },
+    {
+      "id": "Psycho_(franchise)",
+      "label": "Psycho (franchise)",
+      "kind": "work",
+      "description": "Psycho is an American horror franchise consisting of six films loosely based on the Psycho novels by Robert Bloch: Psycho, Psycho II, Psycho III, Bates Motel, Psycho IV: The Beginning, the 1998 remake of the original film, and additional merchandise spanning various media. The first film, Psycho, was directed by filmmaker Alfred Hitchcock.…",
+      "textAvailable": true,
+      "image": null,
+      "imageAvailable": true,
+      "imageSource": "DY_open/Psycho_(franchise)/00.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/Psycho_(franchise)"
+    },
+    {
+      "id": "Quentin_Tarantino",
+      "label": "Quentin Tarantino",
+      "kind": "person",
+      "description": "Quentin Jerome Tarantino (; born March 27, 1963) is an American filmmaker and actor. His films are characterized by nonlinear storylines, aestheticization of violence, extended scenes of dialogue, ensemble casts, references to popular culture and a wide variety of other films, soundtracks primarily containing songs and score pieces from the 1960s to the 1980s, alternate history, and features of neo-noir film.",
+      "textAvailable": true,
+      "image": "assets/images/6db7c826102ad99b.webp",
+      "imageAvailable": true,
+      "imageSource": "DY_open/Quentin_Tarantino/4.987px-Quentin_Tarantino_@_2010_Academy_Awards_cropped.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/Quentin_Tarantino"
+    },
+    {
+      "id": "Radio_Flyer_(film)",
+      "label": "Radio Flyer (film)",
+      "kind": "work",
+      "description": "Radio Flyer is a 1992 American drama-fantasy film directed by Richard Donner and written by David Mickey Evans. It stars Lorraine Bracco, John Heard, Elijah Wood, Joseph Mazzello, Adam Baldwin and Ben Johnson.…",
+      "textAvailable": true,
+      "image": null,
+      "imageAvailable": true,
+      "imageSource": "DY_open/Radio_Flyer_(film)/24.90s_movie_poster.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/Radio_Flyer_(film)"
+    },
+    {
+      "id": "Real_Life_(Bon_Jovi_song)",
+      "label": "Real Life (Bon Jovi song)",
+      "kind": "work",
+      "description": "\"Real Life\" is a single by American rock band Bon Jovi, released in 1999. It is taken from the soundtrack of the film EDtv.…",
+      "textAvailable": true,
+      "image": null,
+      "imageAvailable": true,
+      "imageSource": "DY_open/Real_Life_(Bon_Jovi_song)/10.s-l400.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/Real_Life_(Bon_Jovi_song)"
+    },
+    {
+      "id": "Red_River_Delta",
+      "label": "Red River Delta",
+      "kind": "place",
+      "description": null,
+      "textAvailable": false,
+      "image": null,
+      "imageAvailable": true,
+      "imageSource": "DY_open/Red_River_Delta/1600521395(1).jpg",
+      "sourceUrl": "https://dbpedia.org/resource/Red_River_Delta"
+    },
+    {
+      "id": "Remember_the_Titans",
+      "label": "Remember the Titans",
+      "kind": "work",
+      "description": "Remember the Titans is a 2000 American biographical sports film produced by Jerry Bruckheimer and directed by Boaz Yakin. The screenplay, written by Gregory Allen Howard, is based on the true story of coach Herman Boone, portrayed by Denzel Washington, and his attempt to integrate the T.…",
+      "textAvailable": true,
+      "image": null,
+      "imageAvailable": true,
+      "imageSource": "DY_open/Remember_the_Titans/1.remember-the-titans-54f9ae7e1bca3.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/Remember_the_Titans"
+    },
+    {
+      "id": "Richie_Sambora",
+      "label": "Richie Sambora",
+      "kind": "person",
+      "description": "Richard Stephen Sambora (born July 11, 1959) is an American rock guitarist, singer, songwriter and producer, best known as the lead guitarist of the rock band Bon Jovi for 30 years. Sambora and lead singer Jon Bon Jovi formed the main songwriting unit for the band.…",
+      "textAvailable": true,
+      "image": null,
+      "imageAvailable": true,
+      "imageSource": "DY_open/Richie_Sambora/10.2015+MusiCares+Person+Year+Gala+Honoring+Bob+t-KlpxMX-Mpx.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/Richie_Sambora"
+    },
+    {
+      "id": "Ring_Ring_(song)",
+      "label": "Ring Ring (song)",
+      "kind": "work",
+      "description": null,
+      "textAvailable": false,
+      "image": "assets/images/39034a2981c62ff3.webp",
+      "imageAvailable": true,
+      "imageSource": "DY_open/Ring_Ring_(song)/4.R-802560-1341640520-5529.jpeg.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/Ring_Ring_(song)"
+    },
+    {
+      "id": "Robert_Rodriguez",
+      "label": "Robert Rodriguez",
+      "kind": "person",
+      "description": "Robert Anthony Rodriguez (; born June 20, 1968) is an American filmmaker and visual effects supervisor. He shoots, edits, produces, and scores many of his films in Mexico and in his home state of Texas.…",
+      "textAvailable": true,
+      "image": "assets/images/261f3618d1ec764d.webp",
+      "imageAvailable": true,
+      "imageSource": "DY_open/Robert_Rodriguez/19.robert-rodriguez-hed-2014.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/Robert_Rodriguez"
+    },
+    {
+      "id": "Roddy_McDowall",
+      "label": "Roddy McDowall",
+      "kind": "person",
+      "description": "Roderick Andrew Anthony Jude McDowall (17 September 1928 – 3 October 1998) was a British-born American actor, film director and photographer. He is best known for portraying Cornelius and Caesar in the original Planet of the Apes film series, as well as Galen in the spin-off television series.…",
+      "textAvailable": true,
+      "image": "assets/images/e5020a44beea7b07.webp",
+      "imageAvailable": true,
+      "imageSource": "DY_open/Roddy_McDowall/16.tkfmva5bwjkaavbk.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/Roddy_McDowall"
+    },
+    {
+      "id": "Sam_Shepard",
+      "label": "Sam Shepard",
+      "kind": "person",
+      "description": "Samuel Shepard Rogers III (November 5, 1943 – July 27, 2017) was an American actor, playwright, author, screenwriter, and director whose career spanned half a century. He won 10 Obie Awards for writing and directing, the most won by any writer or director.…",
+      "textAvailable": true,
+      "image": null,
+      "imageAvailable": true,
+      "imageSource": "DY_open/Sam_Shepard/20.b034c8c4-2267-11df-b2b7-001cc4c03286.image.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/Sam_Shepard"
+    },
+    {
+      "id": "Schindler's_List",
+      "label": "Schindler's List",
+      "kind": "work",
+      "description": "Schindler's List is a 1993 American historical drama film directed and produced by Steven Spielberg and written by Steven Zaillian. It is based on the 1982 novel Schindler's Ark by Australian novelist Thomas Keneally.…",
+      "textAvailable": true,
+      "image": null,
+      "imageAvailable": true,
+      "imageSource": "DY_open/Schindler's_List/18.lJiLP05Pm72fVEKVH3Z2bNNYHQv.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/Schindler's_List"
+    },
+    {
+      "id": "Shadow_of_a_Doubt",
+      "label": "Shadow of a Doubt",
+      "kind": "work",
+      "description": "Shadow of a Doubt is a 1943 American psychological thriller film noir directed by Alfred Hitchcock, and starring Teresa Wright and Joseph Cotten. Written by Thornton Wilder, Sally Benson, and Alma Reville, the film was nominated for an Academy Award for Best Story for Gordon McDonell.…",
+      "textAvailable": true,
+      "image": "assets/images/bdeaa1b1cfef1ba5.webp",
+      "imageAvailable": true,
+      "imageSource": "DY_open/Shadow_of_a_Doubt/30.21_midi.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/Shadow_of_a_Doubt"
+    },
+    {
+      "id": "Sin_City_(film)",
+      "label": "Sin City (film)",
+      "kind": "work",
+      "description": null,
+      "textAvailable": false,
+      "image": "assets/images/e899fe117a98024e.webp",
+      "imageAvailable": true,
+      "imageSource": "DY_open/Sin_City_(film)/14.large_jGPNqyMchm1RX8cSTOMeLaox5zf.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/Sin_City_(film)"
+    },
+    {
+      "id": "Steven_Spielberg",
+      "label": "Steven Spielberg",
+      "kind": "person",
+      "description": "Steven Allan Spielberg (; born December 18, 1946) is an American film director, producer, and screenwriter. He is considered one of the founding pioneers of the New Hollywood era and one of the most popular directors and producers in film history.…",
+      "textAvailable": true,
+      "image": null,
+      "imageAvailable": true,
+      "imageSource": "DY_open/Steven_Spielberg/1.ff_spielberg-face.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/Steven_Spielberg"
+    },
+    {
+      "id": "Suspicion_(1941_film)",
+      "label": "Suspicion (1941 film)",
+      "kind": "work",
+      "description": "Suspicion is a 1941 romantic psychological thriller film directed by Alfred Hitchcock and starring Cary Grant and Joan Fontaine as a married couple. It also features Sir Cedric Hardwicke, Nigel Bruce, Dame May Whitty, Isabel Jeans, Heather Angel, and Leo G.…",
+      "textAvailable": true,
+      "image": null,
+      "imageAvailable": true,
+      "imageSource": "DY_open/Suspicion_(1941_film)/18.suspicion-movie-poster-md.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/Suspicion_(1941_film)"
+    },
+    {
+      "id": "The_Adventures_of_Huck_Finn_(1993_film)",
+      "label": "The Adventures of Huck Finn (1993 film)",
+      "kind": "work",
+      "description": "The Adventures of Huck Finn is a 1993 American adventure film written and directed by Stephen Sommers and starring Elijah Wood, Courtney B. Vance, Jason Robards and Robbie Coltrane.…",
+      "textAvailable": true,
+      "image": null,
+      "imageAvailable": true,
+      "imageSource": "DY_open/The_Adventures_of_Huck_Finn_(1993_film)/1.open-uri20150422-12561-b8svhd_7b52207e.jpeg",
+      "sourceUrl": "https://dbpedia.org/resource/The_Adventures_of_Huck_Finn_(1993_film)"
+    },
+    {
+      "id": "The_Animal_Kingdom",
+      "label": "The Animal Kingdom",
+      "kind": "work",
+      "description": "The Animal Kingdom (also known as The Woman in His House in the UK) is a 1932 American pre-Code comedy-drama film directed by Edward H. Griffith based upon a comedy of manners play of the same name by Philip Barry.…",
+      "textAvailable": true,
+      "image": null,
+      "imageAvailable": true,
+      "imageSource": "DY_open/The_Animal_Kingdom/007163011.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/The_Animal_Kingdom"
+    },
+    {
+      "id": "The_Bird_with_the_Crystal_Plumage",
+      "label": "The Bird with the Crystal Plumage",
+      "kind": "work",
+      "description": "The Bird with the Crystal Plumage (Italian: L'uccello dalle piume di cristallo) is a 1970 giallo film directed by Dario Argento, in his directorial debut. The film has been credited with popularizing the Italian giallo genre.…",
+      "textAvailable": true,
+      "image": null,
+      "imageAvailable": true,
+      "imageSource": "DY_open/The_Bird_with_the_Crystal_Plumage/2.e627778572ee4cc844a1c2a629860d11.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/The_Bird_with_the_Crystal_Plumage"
+    },
+    {
+      "id": "The_Boys_from_Brazil_(film)",
+      "label": "The Boys from Brazil (film)",
+      "kind": "work",
+      "description": null,
+      "textAvailable": false,
+      "image": "assets/images/39a6f4898a3a7e3f.webp",
+      "imageAvailable": true,
+      "imageSource": "DY_open/The_Boys_from_Brazil_(film)/1.the-boys-from-brazil-566958272ea9b.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/The_Boys_from_Brazil_(film)"
+    },
+    {
+      "id": "The_Fall_of_the_Roman_Empire_(film)",
+      "label": "The Fall of the Roman Empire (film)",
+      "kind": "work",
+      "description": "The Fall of the Roman Empire is a 1964 American epic film directed by Anthony Mann and produced by Samuel Bronston, with a screenplay by Ben Barzman, Basilio Franchina and Philip Yordan. The film stars Sophia Loren, Stephen Boyd, Alec Guinness, James Mason, Christopher Plummer, Mel Ferrer, and Omar Sharif.…",
+      "textAvailable": true,
+      "image": null,
+      "imageAvailable": true,
+      "imageSource": "DY_open/The_Fall_of_the_Roman_Empire_(film)/1.22304_front.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/The_Fall_of_the_Roman_Empire_(film)"
+    },
+    {
+      "id": "The_Five_Days",
+      "label": "The Five Days",
+      "kind": "work",
+      "description": "The Five Days (Italian: Le cinque giornate; also known as The Five Days of Milan) is a 1973 comedy-drama film directed by Dario Argento.",
+      "textAvailable": true,
+      "image": null,
+      "imageAvailable": true,
+      "imageSource": "DY_open/The_Five_Days/1.16708-the-five-days-0-230-0-345-crop.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/The_Five_Days"
+    },
+    {
+      "id": "The_Last_Witch_Hunter",
+      "label": "The Last Witch Hunter",
+      "kind": "work",
+      "description": "The Last Witch Hunter is a 2015 American fantasy action film directed by Breck Eisner and written by Cory Goodman, Matt Sazama, and Burk Sharpless. The film stars Vin Diesel as an immortal witch hunter who must stop a plague from ravaging the entire world.…",
+      "textAvailable": true,
+      "image": null,
+      "imageAvailable": true,
+      "imageSource": "DY_open/The_Last_Witch_Hunter/1.14973.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/The_Last_Witch_Hunter"
+    },
+    {
+      "id": "The_Man_Who_Knew_Too_Much_(1934_film)",
+      "label": "The Man Who Knew Too Much (1934 film)",
+      "kind": "work",
+      "description": "The Man Who Knew Too Much is a 1934 British thriller film directed by Alfred Hitchcock, featuring Leslie Banks and Peter Lorre, and released by Gaumont British. It was one of the most successful and critically acclaimed films of Hitchcock's British period.The film is Hitchcock's first film using this title and was followed later with his own 1956 film using the same name featuring a significantly different plot and script…",
+      "textAvailable": true,
+      "image": null,
+      "imageAvailable": true,
+      "imageSource": "DY_open/The_Man_Who_Knew_Too_Much_(1934_film)/19.Poster%20-%20Man%20Who%20Knew%20Too%20Much,%20The%20%281956%29_05.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/The_Man_Who_Knew_Too_Much_(1934_film)"
+    },
+    {
+      "id": "The_Romantics_(film)",
+      "label": "The Romantics (film)",
+      "kind": "work",
+      "description": "The Romantics is a 2010 romantic comedy film based on the novel of the same name by Galt Niederhoffer, who also wrote the screenplay and directed the film.",
+      "textAvailable": true,
+      "image": null,
+      "imageAvailable": true,
+      "imageSource": "DY_open/The_Romantics_(film)/17.Les_romantiques___The_romantics__Canadienne_-19181515032011.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/The_Romantics_(film)"
+    },
+    {
+      "id": "The_Stendhal_Syndrome",
+      "label": "The Stendhal Syndrome",
+      "kind": "work",
+      "description": null,
+      "textAvailable": false,
+      "image": null,
+      "imageAvailable": true,
+      "imageSource": "DY_open/The_Stendhal_Syndrome/22.s-l225.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/The_Stendhal_Syndrome"
+    },
+    {
+      "id": "The_Stripper_(film)",
+      "label": "The Stripper (film)",
+      "kind": "work",
+      "description": "The Stripper is a 1963 American drama film about a struggling, aging actress-turned-stripper, played by Joanne Woodward, and the people she knows. It is based on the play A Loss of Roses by William Inge.This was the feature film debut of director Franklin J.…",
+      "textAvailable": true,
+      "image": "assets/images/93b9f280ae70d627.webp",
+      "imageAvailable": true,
+      "imageSource": "DY_open/The_Stripper_(film)/12.s-l400.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/The_Stripper_(film)"
+    },
+    {
+      "id": "The_War_Wagon",
+      "label": "The War Wagon",
+      "kind": "work",
+      "description": "The War Wagon is a 1967 American Western film directed by Burt Kennedy and starring John Wayne and Kirk Douglas. It has the form of a light-hearted heist movie.…",
+      "textAvailable": true,
+      "image": null,
+      "imageAvailable": true,
+      "imageSource": "DY_open/The_War_Wagon/1.11177061_800.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/The_War_Wagon"
+    },
+    {
+      "id": "The_White_Shadow_(film)",
+      "label": "The White Shadow (film)",
+      "kind": "work",
+      "description": "The White Shadow, also known as White Shadows in the United States, is a 1923 British drama film directed by Graham Cutts and starring Betty Compson, Clive Brook, and Henry Victor.",
+      "textAvailable": true,
+      "image": null,
+      "imageAvailable": true,
+      "imageSource": "DY_open/The_White_Shadow_(film)/1.The_White_Shadow_%28film%29.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/The_White_Shadow_(film)"
+    },
+    {
+      "id": "These_Days_(Bon_Jovi_song)",
+      "label": "These Days (Bon Jovi song)",
+      "kind": "work",
+      "description": "“These Days” is a song by American rock band Bon Jovi. It was released in February 6, 1996 as the fourth single from their 1995 album These Days, and showcases the darker tone that Jon Bon Jovi and Richie Sambora’s lyrics sought to achieve with the album.…",
+      "textAvailable": true,
+      "image": null,
+      "imageAvailable": true,
+      "imageSource": "DY_open/These_Days_(Bon_Jovi_song)/27.140169_w_560x720.jpeg",
+      "sourceUrl": "https://dbpedia.org/resource/These_Days_(Bon_Jovi_song)"
+    },
+    {
+      "id": "This_Is_Our_House",
+      "label": "This Is Our House",
+      "kind": "work",
+      "description": "\"This Is Our House\" is a song by American rock band Bon Jovi. It was originally written by Jon Bon Jovi, Richie Sambora and Desmond Child and recorded in 2009.…",
+      "textAvailable": true,
+      "image": null,
+      "imageAvailable": false,
+      "imageSource": null,
+      "sourceUrl": "https://dbpedia.org/resource/This_Is_Our_House"
+    },
+    {
+      "id": "Till_We_Ain't_Strangers_Anymore",
+      "label": "Till We Ain't Strangers Anymore",
+      "kind": "work",
+      "description": "\"Till We Ain't Strangers Anymore\" is a song by American rock band Bon Jovi, from their tenth studio album, Lost Highway, released in 2007. The song was released by Mercury Nashville to radio in the United States, and as a CD Maxi in Germany, Switzerland and Austria in November 2007 as the album's third single.…",
+      "textAvailable": true,
+      "image": null,
+      "imageAvailable": true,
+      "imageSource": "DY_open/Till_We_Ain't_Strangers_Anymore/22.cover_dwnl_5d272e9b58bcf.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/Till_We_Ain't_Strangers_Anymore"
+    },
+    {
+      "id": "Tom_Hanks",
+      "label": "Tom Hanks",
+      "kind": "person",
+      "description": "Thomas Jeffrey Hanks (born July 9, 1956) is an American actor and filmmaker. Known for both his comedic and dramatic roles, Hanks is one of the most popular and recognizable film stars worldwide, and is widely regarded as an American cultural icon.…",
+      "textAvailable": true,
+      "image": "assets/images/0b3685eeb3491f9e.webp",
+      "imageAvailable": true,
+      "imageSource": "DY_open/Tom_Hanks/12.62982_v9_bb.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/Tom_Hanks"
+    },
+    {
+      "id": "Tom_Wilkinson",
+      "label": "Tom Wilkinson",
+      "kind": "person",
+      "description": "Thomas Geoffrey Wilkinson (born 5 February 1948) is an English actor. He has twice been nominated for an Academy Award, for his roles in In the Bedroom (2001) and Michael Clayton (2007).…",
+      "textAvailable": true,
+      "image": null,
+      "imageAvailable": true,
+      "imageSource": "DY_open/Tom_Wilkinson/11.59416.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/Tom_Wilkinson"
+    },
+    {
+      "id": "Trevor_Rabin",
+      "label": "Trevor Rabin",
+      "kind": "person",
+      "description": null,
+      "textAvailable": false,
+      "image": "assets/images/53bcdbafb42361c2.webp",
+      "imageAvailable": true,
+      "imageSource": "DY_open/Trevor_Rabin/2.music_TrevorRabin_creditAnilPrasad_CreativeCommons.59d791e1f3153.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/Trevor_Rabin"
+    },
+    {
+      "id": "Turner_&_Hooch",
+      "label": "Turner & Hooch",
+      "kind": "work",
+      "description": null,
+      "textAvailable": false,
+      "image": "assets/images/df46a544e9f6bd7f.webp",
+      "imageAvailable": true,
+      "imageSource": "DY_open/Turner_&_Hooch/MV5BMGYxNjdjMTItMmUwYy00NzNhLTk1NjctZWVkZTMzZTYzNjBmXkEyXkFqcGdeQXVyNzc5MjA3OA@@._V1_UX182_CR0,0,182,268_AL_.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/Turner_%26_Hooch"
+    },
+    {
+      "id": "Two-Faced_Woman",
+      "label": "Two-Faced Woman",
+      "kind": "work",
+      "description": "Two-Faced Woman is a 1941 American romantic comedy film directed by George Cukor and starring Greta Garbo in her final film role, Melvyn Douglas, Constance Bennett, and Roland Young. The movie was distributed by Metro-Goldwyn-Mayer.Garbo plays a wife who pretends to be her own fictitious twin sister in order to recapture the affections of her estranged husband (Douglas), who has left her for a former girlfriend (Bennett).…",
+      "textAvailable": true,
+      "image": null,
+      "imageAvailable": true,
+      "imageSource": "DY_open/Two-Faced_Woman/下载 (2).jpg",
+      "sourceUrl": "https://dbpedia.org/resource/Two-Faced_Woman"
+    },
+    {
+      "id": "Two_Evil_Eyes",
+      "label": "Two Evil Eyes",
+      "kind": "work",
+      "description": "Two Evil Eyes (Italian: Due occhi diabolici) is a 1990 Italian-American anthology horror film written and directed by George A. Romero and Dario Argento.…",
+      "textAvailable": true,
+      "image": null,
+      "imageAvailable": true,
+      "imageSource": "DY_open/Two_Evil_Eyes/12.213px-%D0%94%D0%B2%D0%B0_%D0%B7%D0%BB%D0%BE%D0%B1%D0%BD%D1%8B%D1%85_%D0%B3%D0%BB%D0%B0%D0%B7%D0%B0.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/Two_Evil_Eyes"
+    },
+    {
+      "id": "Virginia",
+      "label": "Virginia",
+      "kind": "place",
+      "description": "Virginia ( ()), officially the Commonwealth of Virginia, is a state in the Southeastern and Mid-Atlantic regions of the United States located between the Atlantic Coast and the Appalachian Mountains. The geography and climate of the Commonwealth are shaped by the Blue Ridge Mountains and the Chesapeake Bay, which provide habitat for much of its flora and fauna.…",
+      "textAvailable": true,
+      "image": "assets/images/0ee033b5f7f9fc3a.webp",
+      "imageAvailable": true,
+      "imageSource": "DY_open/Virginia/1.west-virginia.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/Virginia"
+    },
+    {
+      "id": "W._S._Van_Dyke",
+      "label": "W. S. Van Dyke",
+      "kind": "person",
+      "description": "Woodbridge Strong Van Dyke II (Woody) (March 21, 1889 – February 5, 1943) was an American film director and writer who made several successful early sound films, including Tarzan the Ape Man in 1932, The Thin Man in 1934, San Francisco in 1936, and six popular musicals with Nelson Eddy and Jeanette MacDonald. He received two Academy Award nominations for Best Director for The Thin Man and San Francisco, and directed four…",
+      "textAvailable": true,
+      "image": null,
+      "imageAvailable": true,
+      "imageSource": "DY_open/W._S._Van_Dyke/1.ws_van_dyke.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/W._S._Van_Dyke"
+    },
+    {
+      "id": "Walter_Dandy",
+      "label": "Walter Dandy",
+      "kind": "entity",
+      "description": "Walter Edward Dandy (April 6, 1886 – April 19, 1946) was an American neurosurgeon and scientist. He is considered one of the founding fathers of neurosurgery, along with Victor Horsley (1857–1916) and Harvey Cushing (1869–1939).…",
+      "textAvailable": true,
+      "image": null,
+      "imageAvailable": true,
+      "imageSource": "DY_open/Walter_Dandy/3.Walter-Edward-Dandy_3_pyramid.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/Walter_Dandy"
+    },
+    {
+      "id": "Wanted_Dead_or_Alive_(Bon_Jovi_song)",
+      "label": "Wanted Dead or Alive (Bon Jovi song)",
+      "kind": "work",
+      "description": "\"Wanted Dead or Alive\" is a song by American rock band Bon Jovi. It is from their 1986 album Slippery When Wet.…",
+      "textAvailable": true,
+      "image": null,
+      "imageAvailable": true,
+      "imageSource": "DY_open/Wanted_Dead_or_Alive_(Bon_Jovi_song)/13.R-2018796-1260027280.jpeg.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/Wanted_Dead_or_Alive_(Bon_Jovi_song)"
+    },
+    {
+      "id": "Washington_County,_Maryland",
+      "label": "Washington County, Maryland",
+      "kind": "place",
+      "description": "Washington County is located in the western part of the U.S. state of Maryland. As of the 2010 census, the population was 147,430.…",
+      "textAvailable": true,
+      "image": null,
+      "imageAvailable": true,
+      "imageSource": "DY_open/Washington_County,_Maryland/2.249-washington-county-maryland.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/Washington_County,_Maryland"
+    },
+    {
+      "id": "Waterloo_(ABBA_song)",
+      "label": "Waterloo (ABBA song)",
+      "kind": "work",
+      "description": "\"Waterloo\" is the first single from the Swedish pop group ABBA's second album, Waterloo, and their first under the Epic and Atlantic labels. This was also the first single to be credited to the group performing under the name ABBA.…",
+      "textAvailable": true,
+      "image": "assets/images/c171968dcfe641ce.webp",
+      "imageAvailable": true,
+      "imageSource": "DY_open/Waterloo_(ABBA_song)/2.waterloo.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/Waterloo_(ABBA_song)"
+    },
+    {
+      "id": "Welcome_Home_(1989_film)",
+      "label": "Welcome Home (1989 film)",
+      "kind": "work",
+      "description": "Welcome Home is a 1989 drama film directed by Franklin Schaffner. This film stars Kris Kristofferson as a Vietnam War veteran who returns to his family and tries to readjust to life after a nearly 20 year absence.…",
+      "textAvailable": true,
+      "image": null,
+      "imageAvailable": true,
+      "imageSource": "DY_open/Welcome_Home_(1989_film)/4.30727418_610x813.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/Welcome_Home_(1989_film)"
+    },
+    {
+      "id": "Welcome_to_Wherever_You_Are_(song)",
+      "label": "Welcome to Wherever You Are (song)",
+      "kind": "work",
+      "description": "\"Welcome to Wherever You Are\" is a song by American rock band Bon Jovi from their 2005 album, Have a Nice Day. It was released as the album's third single in the US, following \"Have a Nice Day\" and \"Who Says You Can't Go Home\", while worldwide it was released as the album's second single.",
+      "textAvailable": true,
+      "image": null,
+      "imageAvailable": true,
+      "imageSource": "DY_open/Welcome_to_Wherever_You_Are_(song)/1.R-1590510-1471086768-4613.jpeg.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/Welcome_to_Wherever_You_Are_(song)"
+    },
+    {
+      "id": "Whole_Lot_of_Leavin'",
+      "label": "Whole Lot of Leavin'",
+      "kind": "work",
+      "description": "\"Whole Lot of Leavin'\" is a song by American rock band Bon Jovi. It was written by Jon Bon Jovi and John Shanks and it was released only in Europe as the fourth single from the band's album Lost Highway.",
+      "textAvailable": true,
+      "image": null,
+      "imageAvailable": true,
+      "imageSource": "DY_open/Whole_Lot_of_Leavin'/1.BON-JOVI-Whole-Lot-Of-Leavin.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/Whole_Lot_of_Leavin'"
+    },
+    {
+      "id": "Will_Smith",
+      "label": "Will Smith",
+      "kind": "person",
+      "description": "Willard Carroll Smith Jr. (born September 25, 1968) is an American actor, rapper, and film producer. Smith has been nominated for five Golden Globe Awards and two Academy Awards, and has won four Grammy Awards.During the late 1980s, he achieved modest fame as a rapper under the name The Fresh Prince.…",
+      "textAvailable": true,
+      "image": null,
+      "imageAvailable": true,
+      "imageSource": "DY_open/Will_Smith/3.shutterstock_777394681.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/Will_Smith"
+    },
+    {
+      "id": "Xuân_Trường_town",
+      "label": "Xuân Trường town",
+      "kind": "place",
+      "description": null,
+      "textAvailable": false,
+      "image": "assets/images/90f773295453fc25.webp",
+      "imageAvailable": true,
+      "imageSource": "DY_open/Xuân_Trường_town/下载 (4).jpg",
+      "sourceUrl": "https://dbpedia.org/resource/Xu%C3%A2n_Tr%C6%B0%E1%BB%9Dng_town"
+    },
+    {
+      "id": "You_Give_Love_a_Bad_Name_(song)",
+      "label": "You Give Love a Bad Name (song)",
+      "kind": "work",
+      "description": null,
+      "textAvailable": false,
+      "image": null,
+      "imageAvailable": true,
+      "imageSource": "DY_open/You_Give_Love_a_Bad_Name_(song)/1.You-Give-Love-A-Bad-Name.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/You_Give_Love_a_Bad_Name_(song)"
+    },
+    {
+      "id": "Zaza_(1939_film)",
+      "label": "Zaza (1939 film)",
+      "kind": "work",
+      "description": "Zaza is a 1939 American romantic drama film made by Paramount Pictures, and directed by George Cukor. The screenplay was written by Zoë Akins, based on the play Zaza.…",
+      "textAvailable": true,
+      "image": null,
+      "imageAvailable": true,
+      "imageSource": "DY_open/Zaza_(1939_film)/007102314.jpg",
+      "sourceUrl": "https://dbpedia.org/resource/Zaza_(1939_film)"
+    }
+  ],
+  "edges": [
+    {
+      "id": "e001",
+      "source": "ABBA",
+      "target": "Lay_All_Your_Love_on_Me",
+      "relation": "created",
+      "split": "train"
+    },
+    {
+      "id": "e002",
+      "source": "ABBA",
+      "target": "People_Need_Love",
+      "relation": "created",
+      "split": "train"
+    },
+    {
+      "id": "e003",
+      "source": "ABBA",
+      "target": "Ring_Ring_(song)",
+      "relation": "created",
+      "split": "train"
+    },
+    {
+      "id": "e004",
+      "source": "ABBA",
+      "target": "Waterloo_(ABBA_song)",
+      "relation": "created",
+      "split": "train"
+    },
+    {
+      "id": "e005",
+      "source": "Alfred_Hitchcock",
+      "target": "Bon_Voyage_(1944_film)",
+      "relation": "directed",
+      "split": "train"
+    },
+    {
+      "id": "e006",
+      "source": "Alfred_Hitchcock",
+      "target": "Marnie_(film)",
+      "relation": "directed",
+      "split": "train"
+    },
+    {
+      "id": "e007",
+      "source": "Alfred_Hitchcock",
+      "target": "Mary_(1931_film)",
+      "relation": "directed",
+      "split": "train"
+    },
+    {
+      "id": "e008",
+      "source": "Alfred_Hitchcock",
+      "target": "Psycho_(franchise)",
+      "relation": "directed",
+      "split": "train"
+    },
+    {
+      "id": "e009",
+      "source": "Alfred_Hitchcock",
+      "target": "Suspicion_(1941_film)",
+      "relation": "directed",
+      "split": "train"
+    },
+    {
+      "id": "e010",
+      "source": "Alfred_Hitchcock",
+      "target": "The_Man_Who_Knew_Too_Much_(1934_film)",
+      "relation": "directed",
+      "split": "train"
+    },
+    {
+      "id": "e011",
+      "source": "Alfred_Hitchcock",
+      "target": "The_White_Shadow_(film)",
+      "relation": "directed",
+      "split": "train"
+    },
+    {
+      "id": "e012",
+      "source": "Alfred_Hitchcock",
+      "target": "Alma_Reville",
+      "relation": "isMarriedTo",
+      "split": "train"
+    },
+    {
+      "id": "e013",
+      "source": "Alfred_Hitchcock",
+      "target": "Leytonstone",
+      "relation": "wasBornIn",
+      "split": "train"
+    },
+    {
+      "id": "e014",
+      "source": "Alma_Reville",
+      "target": "Mary_(1931_film)",
+      "relation": "created",
+      "split": "train"
+    },
+    {
+      "id": "e015",
+      "source": "Alma_Reville",
+      "target": "Alfred_Hitchcock",
+      "relation": "isMarriedTo",
+      "split": "train"
+    },
+    {
+      "id": "e016",
+      "source": "Baltimore",
+      "target": "Maryland",
+      "relation": "isLocatedIn",
+      "split": "train"
+    },
+    {
+      "id": "e017",
+      "source": "Baltimore_Ravens",
+      "target": "Baltimore",
+      "relation": "isLocatedIn",
+      "split": "train"
+    },
+    {
+      "id": "e018",
+      "source": "Baltimore_Ravens",
+      "target": "Maryland",
+      "relation": "isLocatedIn",
+      "split": "train"
+    },
+    {
+      "id": "e019",
+      "source": "Bartolomeo_Beccari",
+      "target": "Bologna",
+      "relation": "diedIn",
+      "split": "train"
+    },
+    {
+      "id": "e020",
+      "source": "Bartolomeo_Beccari",
+      "target": "Bologna",
+      "relation": "wasBornIn",
+      "split": "train"
+    },
+    {
+      "id": "e021",
+      "source": "Battle_of_Antietam",
+      "target": "Maryland",
+      "relation": "happenedIn",
+      "split": "train"
+    },
+    {
+      "id": "e022",
+      "source": "Battle_of_Antietam",
+      "target": "Washington_County,_Maryland",
+      "relation": "happenedIn",
+      "split": "train"
+    },
+    {
+      "id": "e023",
+      "source": "Battle_of_Cedar_Creek",
+      "target": "Virginia",
+      "relation": "happenedIn",
+      "split": "train"
+    },
+    {
+      "id": "e024",
+      "source": "Battle_of_Cedar_Creek",
+      "target": "Virginia",
+      "relation": "isLocatedIn",
+      "split": "train"
+    },
+    {
+      "id": "e025",
+      "source": "Battle_of_South_Mountain",
+      "target": "Frederick_County,_Maryland",
+      "relation": "happenedIn",
+      "split": "train"
+    },
+    {
+      "id": "e026",
+      "source": "Battle_of_South_Mountain",
+      "target": "Maryland",
+      "relation": "happenedIn",
+      "split": "train"
+    },
+    {
+      "id": "e027",
+      "source": "Battle_of_South_Mountain",
+      "target": "Washington_County,_Maryland",
+      "relation": "happenedIn",
+      "split": "train"
+    },
+    {
+      "id": "e028",
+      "source": "Battle_of_South_Mountain",
+      "target": "Frederick_County,_Maryland",
+      "relation": "isLocatedIn",
+      "split": "train"
+    },
+    {
+      "id": "e029",
+      "source": "Battle_of_South_Mountain",
+      "target": "Maryland",
+      "relation": "isLocatedIn",
+      "split": "train"
+    },
+    {
+      "id": "e030",
+      "source": "Battle_of_South_Mountain",
+      "target": "Washington_County,_Maryland",
+      "relation": "isLocatedIn",
+      "split": "train"
+    },
+    {
+      "id": "e031",
+      "source": "Betty_Compson",
+      "target": "The_White_Shadow_(film)",
+      "relation": "actedIn",
+      "split": "train"
+    },
+    {
+      "id": "e032",
+      "source": "Björn_Ulvaeus",
+      "target": "Lay_All_Your_Love_on_Me",
+      "relation": "created",
+      "split": "train"
+    },
+    {
+      "id": "e033",
+      "source": "Björn_Ulvaeus",
+      "target": "People_Need_Love",
+      "relation": "created",
+      "split": "train"
+    },
+    {
+      "id": "e034",
+      "source": "Björn_Ulvaeus",
+      "target": "Ring_Ring_(song)",
+      "relation": "created",
+      "split": "train"
+    },
+    {
+      "id": "e035",
+      "source": "Björn_Ulvaeus",
+      "target": "Waterloo_(ABBA_song)",
+      "relation": "created",
+      "split": "train"
+    },
+    {
+      "id": "e036",
+      "source": "Bologna_F.C._1909",
+      "target": "Bologna",
+      "relation": "isLocatedIn",
+      "split": "train"
+    },
+    {
+      "id": "e037",
+      "source": "Bon_Jovi",
+      "target": "Burning_for_Love",
+      "relation": "created",
+      "split": "train"
+    },
+    {
+      "id": "e038",
+      "source": "Bon_Jovi",
+      "target": "Have_a_Nice_Day_(Bon_Jovi_song)",
+      "relation": "created",
+      "split": "train"
+    },
+    {
+      "id": "e039",
+      "source": "Bon_Jovi",
+      "target": "Lay_Your_Hands_on_Me",
+      "relation": "created",
+      "split": "train"
+    },
+    {
+      "id": "e040",
+      "source": "Bon_Jovi",
+      "target": "Misunderstood_(Bon_Jovi_song)",
+      "relation": "created",
+      "split": "train"
+    },
+    {
+      "id": "e041",
+      "source": "Bon_Jovi",
+      "target": "Never_Say_Goodbye_(Bon_Jovi_song)",
+      "relation": "created",
+      "split": "train"
+    },
+    {
+      "id": "e042",
+      "source": "Bon_Jovi",
+      "target": "Real_Life_(Bon_Jovi_song)",
+      "relation": "created",
+      "split": "train"
+    },
+    {
+      "id": "e043",
+      "source": "Bon_Jovi",
+      "target": "Till_We_Ain't_Strangers_Anymore",
+      "relation": "created",
+      "split": "train"
+    },
+    {
+      "id": "e044",
+      "source": "Bon_Jovi",
+      "target": "Wanted_Dead_or_Alive_(Bon_Jovi_song)",
+      "relation": "created",
+      "split": "train"
+    },
+    {
+      "id": "e045",
+      "source": "Bon_Jovi",
+      "target": "Welcome_to_Wherever_You_Are_(song)",
+      "relation": "created",
+      "split": "train"
+    },
+    {
+      "id": "e046",
+      "source": "Bon_Jovi",
+      "target": "Whole_Lot_of_Leavin'",
+      "relation": "created",
+      "split": "train"
+    },
+    {
+      "id": "e047",
+      "source": "Bon_Jovi",
+      "target": "You_Give_Love_a_Bad_Name_(song)",
+      "relation": "created",
+      "split": "train"
+    },
+    {
+      "id": "e048",
+      "source": "Bruce_Willis",
+      "target": "Armageddon_(1998_film)",
+      "relation": "actedIn",
+      "split": "train"
+    },
+    {
+      "id": "e049",
+      "source": "Bruce_Willis",
+      "target": "Planet_Terror",
+      "relation": "actedIn",
+      "split": "train"
+    },
+    {
+      "id": "e050",
+      "source": "Bruce_Willis",
+      "target": "Sin_City_(film)",
+      "relation": "actedIn",
+      "split": "train"
+    },
+    {
+      "id": "e051",
+      "source": "Candice_Bergen",
+      "target": "The_Romantics_(film)",
+      "relation": "actedIn",
+      "split": "train"
+    },
+    {
+      "id": "e052",
+      "source": "Charlton_Heston",
+      "target": "55_Days_at_Peking",
+      "relation": "actedIn",
+      "split": "train"
+    },
+    {
+      "id": "e053",
+      "source": "Charlton_Heston",
+      "target": "Planet_of_the_Apes_(1968_film)",
+      "relation": "actedIn",
+      "split": "train"
+    },
+    {
+      "id": "e054",
+      "source": "Chris_Lebenzon",
+      "target": "Armageddon_(1998_film)",
+      "relation": "edited",
+      "split": "train"
+    },
+    {
+      "id": "e055",
+      "source": "Chris_Lebenzon",
+      "target": "Crimson_Tide_(film)",
+      "relation": "edited",
+      "split": "train"
+    },
+    {
+      "id": "e056",
+      "source": "Chris_Lebenzon",
+      "target": "Enemy_of_the_State_(film)",
+      "relation": "edited",
+      "split": "train"
+    },
+    {
+      "id": "e057",
+      "source": "Chris_Lebenzon",
+      "target": "Pearl_Harbor_(film)",
+      "relation": "edited",
+      "split": "train"
+    },
+    {
+      "id": "e058",
+      "source": "Chris_Lebenzon",
+      "target": "The_Last_Witch_Hunter",
+      "relation": "edited",
+      "split": "train"
+    },
+    {
+      "id": "e059",
+      "source": "Claire_Trevor",
+      "target": "The_Stripper_(film)",
+      "relation": "actedIn",
+      "split": "train"
+    },
+    {
+      "id": "e060",
+      "source": "Claudio_Simonetti",
+      "target": "Dracula_3D",
+      "relation": "wroteMusicFor",
+      "split": "train"
+    },
+    {
+      "id": "e061",
+      "source": "Claudio_Simonetti",
+      "target": "Opera_(film)",
+      "relation": "wroteMusicFor",
+      "split": "train"
+    },
+    {
+      "id": "e062",
+      "source": "Dario_Argento",
+      "target": "Opera_(film)",
+      "relation": "directed",
+      "split": "train"
+    },
+    {
+      "id": "e063",
+      "source": "Dario_Argento",
+      "target": "The_Bird_with_the_Crystal_Plumage",
+      "relation": "directed",
+      "split": "train"
+    },
+    {
+      "id": "e064",
+      "source": "Dario_Argento",
+      "target": "The_Five_Days",
+      "relation": "directed",
+      "split": "train"
+    },
+    {
+      "id": "e065",
+      "source": "Dario_Argento",
+      "target": "The_Stendhal_Syndrome",
+      "relation": "directed",
+      "split": "train"
+    },
+    {
+      "id": "e066",
+      "source": "Dario_Argento",
+      "target": "Two_Evil_Eyes",
+      "relation": "directed",
+      "split": "train"
+    },
+    {
+      "id": "e067",
+      "source": "Denzel_Washington",
+      "target": "Crimson_Tide_(film)",
+      "relation": "actedIn",
+      "split": "train"
+    },
+    {
+      "id": "e068",
+      "source": "Denzel_Washington",
+      "target": "Remember_the_Titans",
+      "relation": "actedIn",
+      "split": "train"
+    },
+    {
+      "id": "e069",
+      "source": "Desmond_Child",
+      "target": "Livin'_on_a_Prayer",
+      "relation": "created",
+      "split": "train"
+    },
+    {
+      "id": "e070",
+      "source": "Desmond_Child",
+      "target": "Real_Life_(Bon_Jovi_song)",
+      "relation": "created",
+      "split": "train"
+    },
+    {
+      "id": "e071",
+      "source": "Desmond_Child",
+      "target": "You_Give_Love_a_Bad_Name_(song)",
+      "relation": "created",
+      "split": "train"
+    },
+    {
+      "id": "e072",
+      "source": "Dimitri_Tiomkin",
+      "target": "55_Days_at_Peking",
+      "relation": "wroteMusicFor",
+      "split": "train"
+    },
+    {
+      "id": "e073",
+      "source": "Dimitri_Tiomkin",
+      "target": "Last_Train_from_Gun_Hill",
+      "relation": "wroteMusicFor",
+      "split": "train"
+    },
+    {
+      "id": "e074",
+      "source": "Dimitri_Tiomkin",
+      "target": "Shadow_of_a_Doubt",
+      "relation": "wroteMusicFor",
+      "split": "train"
+    },
+    {
+      "id": "e075",
+      "source": "Dimitri_Tiomkin",
+      "target": "The_Fall_of_the_Roman_Empire_(film)",
+      "relation": "wroteMusicFor",
+      "split": "train"
+    },
+    {
+      "id": "e076",
+      "source": "Dimitri_Tiomkin",
+      "target": "The_War_Wagon",
+      "relation": "wroteMusicFor",
+      "split": "train"
+    },
+    {
+      "id": "e077",
+      "source": "Elijah_Wood",
+      "target": "Eternal_Sunshine_of_the_Spotless_Mind",
+      "relation": "actedIn",
+      "split": "train"
+    },
+    {
+      "id": "e078",
+      "source": "Elijah_Wood",
+      "target": "Radio_Flyer_(film)",
+      "relation": "actedIn",
+      "split": "train"
+    },
+    {
+      "id": "e079",
+      "source": "Elijah_Wood",
+      "target": "The_Adventures_of_Huck_Finn_(1993_film)",
+      "relation": "actedIn",
+      "split": "train"
+    },
+    {
+      "id": "e080",
+      "source": "Francesco_Maria_Grimaldi",
+      "target": "Bologna",
+      "relation": "diedIn",
+      "split": "train"
+    },
+    {
+      "id": "e081",
+      "source": "Francesco_Maria_Grimaldi",
+      "target": "Bologna",
+      "relation": "wasBornIn",
+      "split": "train"
+    },
+    {
+      "id": "e082",
+      "source": "Frank_McDonald_(director)",
+      "target": "Baltimore",
+      "relation": "wasBornIn",
+      "split": "train"
+    },
+    {
+      "id": "e083",
+      "source": "Franklin_J._Schaffner",
+      "target": "Islands_in_the_Stream_(film)",
+      "relation": "directed",
+      "split": "train"
+    },
+    {
+      "id": "e084",
+      "source": "Franklin_J._Schaffner",
+      "target": "The_Boys_from_Brazil_(film)",
+      "relation": "directed",
+      "split": "train"
+    },
+    {
+      "id": "e085",
+      "source": "Franklin_J._Schaffner",
+      "target": "The_Stripper_(film)",
+      "relation": "directed",
+      "split": "train"
+    },
+    {
+      "id": "e086",
+      "source": "Frederick_County,_Maryland",
+      "target": "Maryland",
+      "relation": "isLocatedIn",
+      "split": "train"
+    },
+    {
+      "id": "e087",
+      "source": "Friedrich_Hollaender",
+      "target": "Zaza_(1939_film)",
+      "relation": "wroteMusicFor",
+      "split": "train"
+    },
+    {
+      "id": "e088",
+      "source": "Gene_Hackman",
+      "target": "Enemy_of_the_State_(film)",
+      "relation": "actedIn",
+      "split": "train"
+    },
+    {
+      "id": "e089",
+      "source": "George_Cukor",
+      "target": "A_Bill_of_Divorcement_(1932_film)",
+      "relation": "directed",
+      "split": "train"
+    },
+    {
+      "id": "e090",
+      "source": "George_Cukor",
+      "target": "Lust_for_Life_(film)",
+      "relation": "directed",
+      "split": "train"
+    },
+    {
+      "id": "e091",
+      "source": "George_Cukor",
+      "target": "The_Animal_Kingdom",
+      "relation": "directed",
+      "split": "train"
+    },
+    {
+      "id": "e092",
+      "source": "George_Cukor",
+      "target": "Two-Faced_Woman",
+      "relation": "directed",
+      "split": "train"
+    },
+    {
+      "id": "e093",
+      "source": "Gerald_R._Molen",
+      "target": "Jurassic_Park_(film)",
+      "relation": "created",
+      "split": "train"
+    },
+    {
+      "id": "e094",
+      "source": "Gerald_R._Molen",
+      "target": "Schindler's_List",
+      "relation": "created",
+      "split": "train"
+    },
+    {
+      "id": "e095",
+      "source": "Gerald_R._Molen",
+      "target": "Steven_Spielberg",
+      "relation": "created",
+      "split": "train"
+    },
+    {
+      "id": "e096",
+      "source": "Giao_Thủy_District",
+      "target": "Nam_Định_Province",
+      "relation": "isLocatedIn",
+      "split": "train"
+    },
+    {
+      "id": "e097",
+      "source": "Giao_Thủy_District",
+      "target": "Red_River_Delta",
+      "relation": "isLocatedIn",
+      "split": "train"
+    },
+    {
+      "id": "e098",
+      "source": "Harvey_Keitel",
+      "target": "Two_Evil_Eyes",
+      "relation": "actedIn",
+      "split": "train"
+    },
+    {
+      "id": "e099",
+      "source": "James_Mason",
+      "target": "The_Boys_from_Brazil_(film)",
+      "relation": "actedIn",
+      "split": "train"
+    },
+    {
+      "id": "e100",
+      "source": "James_Mason",
+      "target": "The_Fall_of_the_Roman_Empire_(film)",
+      "relation": "actedIn",
+      "split": "train"
+    },
+    {
+      "id": "e101",
+      "source": "Jerry_Bruckheimer",
+      "target": "Bad_Boys_(1995_film)",
+      "relation": "created",
+      "split": "train"
+    },
+    {
+      "id": "e102",
+      "source": "Jerry_Bruckheimer",
+      "target": "Crimson_Tide_(film)",
+      "relation": "created",
+      "split": "train"
+    },
+    {
+      "id": "e103",
+      "source": "Jerry_Bruckheimer",
+      "target": "Pearl_Harbor_(film)",
+      "relation": "created",
+      "split": "train"
+    },
+    {
+      "id": "e104",
+      "source": "Jerry_Bruckheimer",
+      "target": "Remember_the_Titans",
+      "relation": "created",
+      "split": "train"
+    },
+    {
+      "id": "e105",
+      "source": "John_Barrymore",
+      "target": "A_Bill_of_Divorcement_(1932_film)",
+      "relation": "actedIn",
+      "split": "train"
+    },
+    {
+      "id": "e106",
+      "source": "John_Shanks",
+      "target": "Have_a_Nice_Day_(Bon_Jovi_song)",
+      "relation": "created",
+      "split": "train"
+    },
+    {
+      "id": "e107",
+      "source": "John_Shanks",
+      "target": "Lost_Highway_(Bon_Jovi_song)",
+      "relation": "created",
+      "split": "train"
+    },
+    {
+      "id": "e108",
+      "source": "John_Shanks",
+      "target": "Welcome_to_Wherever_You_Are_(song)",
+      "relation": "created",
+      "split": "train"
+    },
+    {
+      "id": "e109",
+      "source": "John_Shanks",
+      "target": "Whole_Lot_of_Leavin'",
+      "relation": "created",
+      "split": "train"
+    },
+    {
+      "id": "e110",
+      "source": "Johns_Hopkins_School_of_Medicine",
+      "target": "Baltimore",
+      "relation": "isLocatedIn",
+      "split": "train"
+    },
+    {
+      "id": "e111",
+      "source": "Johns_Hopkins_School_of_Medicine",
+      "target": "Maryland",
+      "relation": "isLocatedIn",
+      "split": "train"
+    },
+    {
+      "id": "e112",
+      "source": "Jon_Bon_Jovi",
+      "target": "Have_a_Nice_Day_(Bon_Jovi_song)",
+      "relation": "created",
+      "split": "train"
+    },
+    {
+      "id": "e113",
+      "source": "Jon_Bon_Jovi",
+      "target": "Lay_Your_Hands_on_Me",
+      "relation": "created",
+      "split": "train"
+    },
+    {
+      "id": "e114",
+      "source": "Jon_Bon_Jovi",
+      "target": "Livin'_on_a_Prayer",
+      "relation": "created",
+      "split": "train"
+    },
+    {
+      "id": "e115",
+      "source": "Jon_Bon_Jovi",
+      "target": "Misunderstood_(Bon_Jovi_song)",
+      "relation": "created",
+      "split": "train"
+    },
+    {
+      "id": "e116",
+      "source": "Jon_Bon_Jovi",
+      "target": "Never_Say_Goodbye_(Bon_Jovi_song)",
+      "relation": "created",
+      "split": "train"
+    },
+    {
+      "id": "e117",
+      "source": "Jon_Bon_Jovi",
+      "target": "Real_Life_(Bon_Jovi_song)",
+      "relation": "created",
+      "split": "train"
+    },
+    {
+      "id": "e118",
+      "source": "Jon_Bon_Jovi",
+      "target": "These_Days_(Bon_Jovi_song)",
+      "relation": "created",
+      "split": "train"
+    },
+    {
+      "id": "e119",
+      "source": "Jon_Bon_Jovi",
+      "target": "Wanted_Dead_or_Alive_(Bon_Jovi_song)",
+      "relation": "created",
+      "split": "train"
+    },
+    {
+      "id": "e120",
+      "source": "Jon_Bon_Jovi",
+      "target": "Welcome_to_Wherever_You_Are_(song)",
+      "relation": "created",
+      "split": "train"
+    },
+    {
+      "id": "e121",
+      "source": "Jon_Bon_Jovi",
+      "target": "Whole_Lot_of_Leavin'",
+      "relation": "created",
+      "split": "train"
+    },
+    {
+      "id": "e122",
+      "source": "Jon_Bon_Jovi",
+      "target": "You_Give_Love_a_Bad_Name_(song)",
+      "relation": "created",
+      "split": "train"
+    },
+    {
+      "id": "e123",
+      "source": "Josh_Hartnett",
+      "target": "Black_Hawk_Down_(film)",
+      "relation": "actedIn",
+      "split": "train"
+    },
+    {
+      "id": "e124",
+      "source": "Josh_Hartnett",
+      "target": "Pearl_Harbor_(film)",
+      "relation": "actedIn",
+      "split": "train"
+    },
+    {
+      "id": "e125",
+      "source": "Kirk_Douglas",
+      "target": "Last_Train_from_Gun_Hill",
+      "relation": "actedIn",
+      "split": "train"
+    },
+    {
+      "id": "e126",
+      "source": "Kirk_Douglas",
+      "target": "Lust_for_Life_(film)",
+      "relation": "actedIn",
+      "split": "train"
+    },
+    {
+      "id": "e127",
+      "source": "Kirk_Douglas",
+      "target": "The_War_Wagon",
+      "relation": "actedIn",
+      "split": "train"
+    },
+    {
+      "id": "e128",
+      "source": "Lewis_Stone",
+      "target": "David_Copperfield_(1935_film)",
+      "relation": "actedIn",
+      "split": "train"
+    },
+    {
+      "id": "e129",
+      "source": "Mark_Goldblatt",
+      "target": "Armageddon_(1998_film)",
+      "relation": "edited",
+      "split": "train"
+    },
+    {
+      "id": "e130",
+      "source": "Mark_Goldblatt",
+      "target": "Pearl_Harbor_(film)",
+      "relation": "edited",
+      "split": "train"
+    },
+    {
+      "id": "e131",
+      "source": "Maureen_O'Sullivan",
+      "target": "David_Copperfield_(1935_film)",
+      "relation": "actedIn",
+      "split": "train"
+    },
+    {
+      "id": "e132",
+      "source": "Mickey_Rourke",
+      "target": "Once_Upon_a_Time_in_Mexico",
+      "relation": "actedIn",
+      "split": "train"
+    },
+    {
+      "id": "e133",
+      "source": "Mickey_Rourke",
+      "target": "Sin_City_(film)",
+      "relation": "actedIn",
+      "split": "train"
+    },
+    {
+      "id": "e134",
+      "source": "Myrna_Loy",
+      "target": "Manhattan_Melodrama",
+      "relation": "actedIn",
+      "split": "train"
+    },
+    {
+      "id": "e135",
+      "source": "Myrna_Loy",
+      "target": "The_Animal_Kingdom",
+      "relation": "actedIn",
+      "split": "train"
+    },
+    {
+      "id": "e136",
+      "source": "Nam_Định_Province",
+      "target": "Red_River_Delta",
+      "relation": "isLocatedIn",
+      "split": "train"
+    },
+    {
+      "id": "e137",
+      "source": "Preakness_Stakes",
+      "target": "Baltimore",
+      "relation": "isLocatedIn",
+      "split": "train"
+    },
+    {
+      "id": "e138",
+      "source": "Preakness_Stakes",
+      "target": "Maryland",
+      "relation": "isLocatedIn",
+      "split": "train"
+    },
+    {
+      "id": "e139",
+      "source": "Quentin_Tarantino",
+      "target": "Kill_Bill",
+      "relation": "created",
+      "split": "train"
+    },
+    {
+      "id": "e140",
+      "source": "Quentin_Tarantino",
+      "target": "Four_Rooms",
+      "relation": "directed",
+      "split": "train"
+    },
+    {
+      "id": "e141",
+      "source": "Quentin_Tarantino",
+      "target": "Kill_Bill",
+      "relation": "directed",
+      "split": "train"
+    },
+    {
+      "id": "e142",
+      "source": "Quentin_Tarantino",
+      "target": "Sin_City_(film)",
+      "relation": "directed",
+      "split": "train"
+    },
+    {
+      "id": "e143",
+      "source": "Richie_Sambora",
+      "target": "All_About_Lovin'_You",
+      "relation": "created",
+      "split": "train"
+    },
+    {
+      "id": "e144",
+      "source": "Richie_Sambora",
+      "target": "Burning_for_Love",
+      "relation": "created",
+      "split": "train"
+    },
+    {
+      "id": "e145",
+      "source": "Richie_Sambora",
+      "target": "Lay_Your_Hands_on_Me",
+      "relation": "created",
+      "split": "train"
+    },
+    {
+      "id": "e146",
+      "source": "Richie_Sambora",
+      "target": "Livin'_on_a_Prayer",
+      "relation": "created",
+      "split": "train"
+    },
+    {
+      "id": "e147",
+      "source": "Richie_Sambora",
+      "target": "Lost_Highway_(Bon_Jovi_song)",
+      "relation": "created",
+      "split": "train"
+    },
+    {
+      "id": "e148",
+      "source": "Richie_Sambora",
+      "target": "Misunderstood_(Bon_Jovi_song)",
+      "relation": "created",
+      "split": "train"
+    },
+    {
+      "id": "e149",
+      "source": "Richie_Sambora",
+      "target": "Never_Say_Goodbye_(Bon_Jovi_song)",
+      "relation": "created",
+      "split": "train"
+    },
+    {
+      "id": "e150",
+      "source": "Richie_Sambora",
+      "target": "These_Days_(Bon_Jovi_song)",
+      "relation": "created",
+      "split": "train"
+    },
+    {
+      "id": "e151",
+      "source": "Richie_Sambora",
+      "target": "Wanted_Dead_or_Alive_(Bon_Jovi_song)",
+      "relation": "created",
+      "split": "train"
+    },
+    {
+      "id": "e152",
+      "source": "Richie_Sambora",
+      "target": "Welcome_to_Wherever_You_Are_(song)",
+      "relation": "created",
+      "split": "train"
+    },
+    {
+      "id": "e153",
+      "source": "Robert_Rodriguez",
+      "target": "Bedhead_(film)",
+      "relation": "created",
+      "split": "train"
+    },
+    {
+      "id": "e154",
+      "source": "Robert_Rodriguez",
+      "target": "Four_Rooms",
+      "relation": "created",
+      "split": "train"
+    },
+    {
+      "id": "e155",
+      "source": "Robert_Rodriguez",
+      "target": "Machete_(film)",
+      "relation": "created",
+      "split": "train"
+    },
+    {
+      "id": "e156",
+      "source": "Robert_Rodriguez",
+      "target": "Once_Upon_a_Time_in_Mexico",
+      "relation": "created",
+      "split": "train"
+    },
+    {
+      "id": "e157",
+      "source": "Robert_Rodriguez",
+      "target": "Planet_Terror",
+      "relation": "created",
+      "split": "train"
+    },
+    {
+      "id": "e158",
+      "source": "Robert_Rodriguez",
+      "target": "Sin_City_(film)",
+      "relation": "created",
+      "split": "train"
+    },
+    {
+      "id": "e159",
+      "source": "Robert_Rodriguez",
+      "target": "Bedhead_(film)",
+      "relation": "directed",
+      "split": "train"
+    },
+    {
+      "id": "e160",
+      "source": "Robert_Rodriguez",
+      "target": "Machete_(film)",
+      "relation": "directed",
+      "split": "train"
+    },
+    {
+      "id": "e161",
+      "source": "Robert_Rodriguez",
+      "target": "Once_Upon_a_Time_in_Mexico",
+      "relation": "directed",
+      "split": "train"
+    },
+    {
+      "id": "e162",
+      "source": "Robert_Rodriguez",
+      "target": "Planet_Terror",
+      "relation": "directed",
+      "split": "train"
+    },
+    {
+      "id": "e163",
+      "source": "Robert_Rodriguez",
+      "target": "Sin_City_(film)",
+      "relation": "directed",
+      "split": "train"
+    },
+    {
+      "id": "e164",
+      "source": "Robert_Rodriguez",
+      "target": "Once_Upon_a_Time_in_Mexico",
+      "relation": "edited",
+      "split": "train"
+    },
+    {
+      "id": "e165",
+      "source": "Robert_Rodriguez",
+      "target": "Bedhead_(film)",
+      "relation": "wroteMusicFor",
+      "split": "train"
+    },
+    {
+      "id": "e166",
+      "source": "Roddy_McDowall",
+      "target": "Planet_of_the_Apes_(1968_film)",
+      "relation": "actedIn",
+      "split": "train"
+    },
+    {
+      "id": "e167",
+      "source": "Sam_Shepard",
+      "target": "Black_Hawk_Down_(film)",
+      "relation": "actedIn",
+      "split": "train"
+    },
+    {
+      "id": "e168",
+      "source": "Steven_Spielberg",
+      "target": "Schindler's_List",
+      "relation": "actedIn",
+      "split": "train"
+    },
+    {
+      "id": "e169",
+      "source": "Steven_Spielberg",
+      "target": "Jurassic_Park_(film)",
+      "relation": "directed",
+      "split": "train"
+    },
+    {
+      "id": "e170",
+      "source": "Steven_Spielberg",
+      "target": "Schindler's_List",
+      "relation": "directed",
+      "split": "train"
+    },
+    {
+      "id": "e171",
+      "source": "Tom_Hanks",
+      "target": "Bachelor_Party_(1984_film)",
+      "relation": "actedIn",
+      "split": "train"
+    },
+    {
+      "id": "e172",
+      "source": "Tom_Hanks",
+      "target": "Dragnet_(1987_film)",
+      "relation": "actedIn",
+      "split": "train"
+    },
+    {
+      "id": "e173",
+      "source": "Tom_Hanks",
+      "target": "Hawaiian_Vacation",
+      "relation": "actedIn",
+      "split": "train"
+    },
+    {
+      "id": "e174",
+      "source": "Tom_Wilkinson",
+      "target": "Eternal_Sunshine_of_the_Spotless_Mind",
+      "relation": "actedIn",
+      "split": "train"
+    },
+    {
+      "id": "e175",
+      "source": "Trevor_Rabin",
+      "target": "Armageddon_(1998_film)",
+      "relation": "wroteMusicFor",
+      "split": "train"
+    },
+    {
+      "id": "e176",
+      "source": "Trevor_Rabin",
+      "target": "Remember_the_Titans",
+      "relation": "wroteMusicFor",
+      "split": "train"
+    },
+    {
+      "id": "e177",
+      "source": "W._S._Van_Dyke",
+      "target": "Manhattan_Melodrama",
+      "relation": "directed",
+      "split": "train"
+    },
+    {
+      "id": "e178",
+      "source": "Walter_Dandy",
+      "target": "Baltimore",
+      "relation": "diedIn",
+      "split": "train"
+    },
+    {
+      "id": "e179",
+      "source": "Walter_Dandy",
+      "target": "Johns_Hopkins_School_of_Medicine",
+      "relation": "graduatedFrom",
+      "split": "train"
+    },
+    {
+      "id": "e180",
+      "source": "Washington_County,_Maryland",
+      "target": "Maryland",
+      "relation": "isLocatedIn",
+      "split": "train"
+    },
+    {
+      "id": "e181",
+      "source": "Will_Smith",
+      "target": "Bad_Boys_(1995_film)",
+      "relation": "actedIn",
+      "split": "train"
+    },
+    {
+      "id": "e182",
+      "source": "Will_Smith",
+      "target": "Enemy_of_the_State_(film)",
+      "relation": "actedIn",
+      "split": "train"
+    }
+  ],
+  "questions": [
+    {
+      "id": "q01",
+      "head": "Bon_Jovi",
+      "relation": "created",
+      "answer": "This_Is_Our_House",
+      "options": [
+        "This_Is_Our_House",
+        "Waterloo_(ABBA_song)",
+        "People_Need_Love",
+        "Ring_Ring_(song)"
+      ],
+      "split": "valid",
+      "prompt": "Trong các tác phẩm sau, Bon Jovi được nối với tác phẩm nào qua quan hệ created?",
+      "acceptedIds": [
+        "All_About_Lovin'_You",
+        "Burning_for_Love",
+        "Have_a_Nice_Day_(Bon_Jovi_song)",
+        "Lay_Your_Hands_on_Me",
+        "Livin'_on_a_Prayer",
+        "Lost_Highway_(Bon_Jovi_song)",
+        "Misunderstood_(Bon_Jovi_song)",
+        "Never_Say_Goodbye_(Bon_Jovi_song)",
+        "Real_Life_(Bon_Jovi_song)",
+        "These_Days_(Bon_Jovi_song)",
+        "This_Is_Our_House",
+        "Till_We_Ain't_Strangers_Anymore",
+        "Wanted_Dead_or_Alive_(Bon_Jovi_song)",
+        "Welcome_to_Wherever_You_Are_(song)",
+        "Whole_Lot_of_Leavin'",
+        "You_Give_Love_a_Bad_Name_(song)"
+      ],
+      "explanation": "Triple gốc trong valid: Bon Jovi → tạo nên → This Is Our House. Đây là đáp án được ghi nhận trong benchmark; các lựa chọn còn lại không phải liên kết dương đã biết cho truy vấn này trong toàn bộ train/valid/test. Một liên kết không xuất hiện trong benchmark không đồng nghĩa chắc chắn sai ngoài đời."
+    },
+    {
+      "id": "q02",
+      "head": "George_Cukor",
+      "relation": "directed",
+      "answer": "David_Copperfield_(1935_film)",
+      "options": [
+        "Sin_City_(film)",
+        "Planet_of_the_Apes_(1968_film)",
+        "David_Copperfield_(1935_film)",
+        "Black_Hawk_Down_(film)"
+      ],
+      "split": "valid",
+      "prompt": "Trong các phim sau, George Cukor đạo diễn phim nào?",
+      "acceptedIds": [
+        "A_Bill_of_Divorcement_(1932_film)",
+        "David_Copperfield_(1935_film)",
+        "Holiday_(1938_film)",
+        "Keeper_of_the_Flame_(film)",
+        "Lust_for_Life_(film)",
+        "Manhattan_Melodrama",
+        "The_Animal_Kingdom",
+        "Two-Faced_Woman",
+        "Zaza_(1939_film)"
+      ],
+      "explanation": "Triple gốc trong valid: George Cukor → đạo diễn → David Copperfield (1935 film). Đây là đáp án được ghi nhận trong benchmark; các lựa chọn còn lại không phải liên kết dương đã biết cho truy vấn này trong toàn bộ train/valid/test. Một liên kết không xuất hiện trong benchmark không đồng nghĩa chắc chắn sai ngoài đời."
+    },
+    {
+      "id": "q03",
+      "head": "Franklin_J._Schaffner",
+      "relation": "directed",
+      "answer": "Planet_of_the_Apes_(1968_film)",
+      "options": [
+        "Black_Hawk_Down_(film)",
+        "David_Copperfield_(1935_film)",
+        "Sin_City_(film)",
+        "Planet_of_the_Apes_(1968_film)"
+      ],
+      "split": "test",
+      "prompt": "Trong các phim sau, Franklin J. Schaffner đạo diễn phim nào?",
+      "acceptedIds": [
+        "Islands_in_the_Stream_(film)",
+        "Planet_of_the_Apes_(1968_film)",
+        "The_Boys_from_Brazil_(film)",
+        "The_Stripper_(film)",
+        "Welcome_Home_(1989_film)"
+      ],
+      "explanation": "Triple gốc trong test: Franklin J. Schaffner → đạo diễn → Planet of the Apes (1968 film). Đây là đáp án được ghi nhận trong benchmark; các lựa chọn còn lại không phải liên kết dương đã biết cho truy vấn này trong toàn bộ train/valid/test. Một liên kết không xuất hiện trong benchmark không đồng nghĩa chắc chắn sai ngoài đời."
+    },
+    {
+      "id": "q04",
+      "head": "Elijah_Wood",
+      "relation": "actedIn",
+      "answer": "Sin_City_(film)",
+      "options": [
+        "Planet_of_the_Apes_(1968_film)",
+        "Black_Hawk_Down_(film)",
+        "David_Copperfield_(1935_film)",
+        "Sin_City_(film)"
+      ],
+      "split": "test",
+      "prompt": "Trong các phim sau, Elijah Wood diễn xuất trong phim nào?",
+      "acceptedIds": [
+        "Eternal_Sunshine_of_the_Spotless_Mind",
+        "Radio_Flyer_(film)",
+        "Sin_City_(film)",
+        "The_Adventures_of_Huck_Finn_(1993_film)",
+        "The_Last_Witch_Hunter",
+        "The_Romantics_(film)"
+      ],
+      "explanation": "Triple gốc trong test: Elijah Wood → diễn xuất trong → Sin City (film). Đây là đáp án được ghi nhận trong benchmark; các lựa chọn còn lại không phải liên kết dương đã biết cho truy vấn này trong toàn bộ train/valid/test. Một liên kết không xuất hiện trong benchmark không đồng nghĩa chắc chắn sai ngoài đời."
+    },
+    {
+      "id": "q05",
+      "head": "Jerry_Bruckheimer",
+      "relation": "created",
+      "answer": "Black_Hawk_Down_(film)",
+      "options": [
+        "Planet_of_the_Apes_(1968_film)",
+        "Sin_City_(film)",
+        "David_Copperfield_(1935_film)",
+        "Black_Hawk_Down_(film)"
+      ],
+      "split": "test",
+      "prompt": "Trong các tác phẩm sau, Jerry Bruckheimer được nối với tác phẩm nào qua quan hệ created?",
+      "acceptedIds": [
+        "Armageddon_(1998_film)",
+        "Bad_Boys_(1995_film)",
+        "Black_Hawk_Down_(film)",
+        "Crimson_Tide_(film)",
+        "Enemy_of_the_State_(film)",
+        "Pearl_Harbor_(film)",
+        "Remember_the_Titans"
+      ],
+      "explanation": "Triple gốc trong test: Jerry Bruckheimer → tạo nên → Black Hawk Down (film). Đây là đáp án được ghi nhận trong benchmark; các lựa chọn còn lại không phải liên kết dương đã biết cho truy vấn này trong toàn bộ train/valid/test. Một liên kết không xuất hiện trong benchmark không đồng nghĩa chắc chắn sai ngoài đời."
+    },
+    {
+      "id": "q06",
+      "head": "Dario_Argento",
+      "relation": "directed",
+      "answer": "Dracula_3D",
+      "options": [
+        "David_Copperfield_(1935_film)",
+        "Sin_City_(film)",
+        "Dracula_3D",
+        "Planet_of_the_Apes_(1968_film)"
+      ],
+      "split": "test",
+      "prompt": "Trong các phim sau, Dario Argento đạo diễn phim nào?",
+      "acceptedIds": [
+        "Dracula_3D",
+        "Opera_(film)",
+        "The_Bird_with_the_Crystal_Plumage",
+        "The_Five_Days",
+        "The_Stendhal_Syndrome",
+        "Two_Evil_Eyes"
+      ],
+      "explanation": "Triple gốc trong test: Dario Argento → đạo diễn → Dracula 3D. Đây là đáp án được ghi nhận trong benchmark; các lựa chọn còn lại không phải liên kết dương đã biết cho truy vấn này trong toàn bộ train/valid/test. Một liên kết không xuất hiện trong benchmark không đồng nghĩa chắc chắn sai ngoài đời."
+    },
+    {
+      "id": "q07",
+      "head": "Tom_Hanks",
+      "relation": "actedIn",
+      "answer": "Turner_&_Hooch",
+      "options": [
+        "Planet_of_the_Apes_(1968_film)",
+        "Turner_&_Hooch",
+        "David_Copperfield_(1935_film)",
+        "Sin_City_(film)"
+      ],
+      "split": "test",
+      "prompt": "Trong các phim sau, Tom Hanks diễn xuất trong phim nào?",
+      "acceptedIds": [
+        "Angels_&_Demons_(film)",
+        "Bachelor_Party_(1984_film)",
+        "Dragnet_(1987_film)",
+        "Hawaiian_Vacation",
+        "Turner_&_Hooch"
+      ],
+      "explanation": "Triple gốc trong test: Tom Hanks → diễn xuất trong → Turner & Hooch. Đây là đáp án được ghi nhận trong benchmark; các lựa chọn còn lại không phải liên kết dương đã biết cho truy vấn này trong toàn bộ train/valid/test. Một liên kết không xuất hiện trong benchmark không đồng nghĩa chắc chắn sai ngoài đời."
+    },
+    {
+      "id": "q08",
+      "head": "Alfred_Hitchcock",
+      "relation": "directed",
+      "answer": "Shadow_of_a_Doubt",
+      "options": [
+        "Shadow_of_a_Doubt",
+        "Sin_City_(film)",
+        "David_Copperfield_(1935_film)",
+        "Planet_of_the_Apes_(1968_film)"
+      ],
+      "split": "test",
+      "prompt": "Trong các phim sau, Alfred Hitchcock đạo diễn phim nào?",
+      "acceptedIds": [
+        "Bon_Voyage_(1944_film)",
+        "Marnie_(film)",
+        "Mary_(1931_film)",
+        "Mr._&_Mrs._Smith_(1941_film)",
+        "Psycho_(franchise)",
+        "Shadow_of_a_Doubt",
+        "Suspicion_(1941_film)",
+        "The_Man_Who_Knew_Too_Much_(1934_film)",
+        "The_White_Shadow_(film)"
+      ],
+      "explanation": "Triple gốc trong test: Alfred Hitchcock → đạo diễn → Shadow of a Doubt. Đây là đáp án được ghi nhận trong benchmark; các lựa chọn còn lại không phải liên kết dương đã biết cho truy vấn này trong toàn bộ train/valid/test. Một liên kết không xuất hiện trong benchmark không đồng nghĩa chắc chắn sai ngoài đời."
+    },
+    {
+      "id": "q09",
+      "head": "Julie_Bowen",
+      "relation": "wasBornIn",
+      "answer": "Baltimore",
+      "options": [
+        "Baltimore",
+        "Bologna",
+        "Lubbock,_Texas",
+        "Leytonstone"
+      ],
+      "split": "test",
+      "prompt": "Theo MKG-Y, Julie Bowen sinh tại đâu?",
+      "acceptedIds": [
+        "Baltimore"
+      ],
+      "explanation": "Triple gốc trong test: Julie Bowen → sinh tại → Baltimore. Đây là đáp án được ghi nhận trong benchmark; các lựa chọn còn lại không phải liên kết dương đã biết cho truy vấn này trong toàn bộ train/valid/test. Một liên kết không xuất hiện trong benchmark không đồng nghĩa chắc chắn sai ngoài đời."
+    },
+    {
+      "id": "q10",
+      "head": "Xuân_Trường_town",
+      "relation": "isLocatedIn",
+      "answer": "Nam_Định_Province",
+      "options": [
+        "Hokkaido",
+        "Maryland",
+        "Virginia",
+        "Nam_Định_Province"
+      ],
+      "split": "test",
+      "prompt": "Theo MKG-Y, Xuân Trường town nằm tại đâu?",
+      "acceptedIds": [
+        "Nam_Định_Province",
+        "Red_River_Delta"
+      ],
+      "explanation": "Triple gốc trong test: Xuân Trường town → nằm tại → Nam Định Province. Đây là đáp án được ghi nhận trong benchmark; các lựa chọn còn lại không phải liên kết dương đã biết cho truy vấn này trong toàn bộ train/valid/test. Một liên kết không xuất hiện trong benchmark không đồng nghĩa chắc chắn sai ngoài đời."
+    }
+  ],
+  "cases": [
+    {
+      "id": "c01",
+      "title": "Bắt đầu từ các liên kết",
+      "subtitle": "Cấu trúc · những gì đồ thị đã biết",
+      "category": "structure",
+      "entityIds": [
+        "Franklin_J._Schaffner",
+        "The_Boys_from_Brazil_(film)",
+        "Islands_in_the_Stream_(film)",
+        "The_Stripper_(film)"
+      ],
+      "questionId": "q03",
+      "observation": "Trong train, Franklin J. Schaffner đã nối với ba tác phẩm qua quan hệ directed. Liên kết tới Planet of the Apes (1968) nằm ở test và được giữ kín trong ngữ cảnh câu hỏi.",
+      "lesson": "Link prediction đặt câu hỏi về một liên kết chưa quan sát. Các cạnh lân cận cung cấp ngữ cảnh, nhưng không tự chứng minh đáp án."
+    },
+    {
+      "id": "c02",
+      "title": "Khi văn bản bổ sung ngữ cảnh",
+      "subtitle": "Văn bản · đọc thêm về một thực thể",
+      "category": "text",
+      "entityIds": [
+        "Alfred_Hitchcock",
+        "Shadow_of_a_Doubt"
+      ],
+      "questionId": "q08",
+      "observation": "MKG-Y có mô tả tiếng Anh cho Alfred Hitchcock và Shadow of a Doubt. Bạn có thể đọc trích đoạn gốc bên cạnh các quan hệ của từng thực thể.",
+      "lesson": "Mô tả có thể cung cấp nghề nghiệp, thời gian hoặc tên riêng mà vùng đồ thị nhỏ chưa thể hiện. Đây là gợi ý cho người xem, không phải bằng chứng model đã dùng những từ đó."
+    },
+    {
+      "id": "c03",
+      "title": "Nhận diện qua hình ảnh",
+      "subtitle": "Hình ảnh · một góc nhìn khác",
+      "category": "image",
+      "entityIds": [
+        "Planet_of_the_Apes_(1968_film)",
+        "Franklin_J._Schaffner"
+      ],
+      "questionId": "q03",
+      "observation": "Hai ảnh thu nhỏ này được lấy đúng từ các file mà manifest MKG-Y đã chọn cho bộ phim Planet of the Apes (1968) và đạo diễn Franklin J. Schaffner.",
+      "lesson": "Ảnh có thể giúp nhận diện một thực thể. Muốn xác định quan hệ như directed, ta vẫn cần ngữ cảnh; việc nhìn thấy hai ảnh không xác nhận quan hệ giữa chúng."
+    },
+    {
+      "id": "c04",
+      "title": "Một bộ phim, nhiều vai trò",
+      "subtitle": "Mơ hồ · nhìn quen chưa đủ để biết quan hệ",
+      "category": "ambiguity",
+      "entityIds": [
+        "Sin_City_(film)",
+        "Robert_Rodriguez",
+        "Quentin_Tarantino",
+        "Bruce_Willis",
+        "Elijah_Wood"
+      ],
+      "questionId": "q04",
+      "observation": "Trong train, Sin City nối với Robert Rodriguez qua các quan hệ directed và created; Quentin Tarantino qua directed; Bruce Willis qua actedIn. Cạnh actedIn của Elijah Wood nằm ở test.",
+      "lesson": "Cùng một tác phẩm có nhiều người và nhiều vai trò. Một gợi ý hình ảnh hoặc tên phim có thể gây nhầm giữa diễn viên và đạo diễn. Đây là minh họa khái niệm, không phải kết luận về lỗi của model."
+    },
+    {
+      "id": "c05",
+      "title": "Khi một modality vắng mặt",
+      "subtitle": "Thiếu dữ liệu · khoảng trống có thật trong nguồn",
+      "category": "missing",
+      "entityIds": [
+        "Dario_Argento",
+        "Jerry_Bruckheimer",
+        "Julie_Bowen",
+        "This_Is_Our_House"
+      ],
+      "questionId": "q06",
+      "observation": "Dario Argento, Jerry Bruckheimer và Julie Bowen có ảnh trong archive đã dùng, nhưng không có mô tả trong file MKG-Y_ent2descreption.txt. Ngược lại, manifest ảnh không ghi nhận ảnh nguồn cho This Is Our House.",
+      "lesson": "Ảnh, văn bản và cấu trúc không phải lúc nào cũng đầy đủ. DSoM truyền tri thức từ teacher đa phương thức sang student dùng cấu trúc; bản reproduction được liên kết ở đây là Source-Frozen RC, không chứng minh hiệu quả của learned RL."
+    }
+  ]
+}

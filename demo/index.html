@@ -1,0 +1,396 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f5f6f0" />
+    <meta
+      name="description"
+      content="Khám phá bài toán hoàn thiện đồ thị tri thức đa phương thức qua 150 thực thể, 10 câu hỏi và 5 case study từ MKG-Y."
+    />
+    <title>DSoM Explorer — Một liên kết thiếu. Nhiều cách nhìn.</title>
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#explore">Đến phần khám phá</a>
+    <header class="site-header">
+      <a class="brand" href="#top" aria-label="DSoM Explorer, trang đầu"
+        ><svg viewBox="0 0 32 32" aria-hidden="true">
+          <path d="M8 8 24 12 13 25 8 8Z" />
+          <circle cx="8" cy="8" r="4" />
+          <circle cx="24" cy="12" r="4" />
+          <circle cx="13" cy="25" r="4" /></svg
+        ><span>DSoM<span class="brand-light"> / explorer</span></span></a
+      >
+      <nav aria-label="Điều hướng chính">
+        <a href="#explore">Khám phá</a><a href="#challenge">Thử thách</a
+        ><a href="#stories">Góc nhìn</a><a href="#method">Phương pháp</a>
+      </nav>
+      <a
+        class="repo-link"
+        href="https://github.com/keiranoluv/Reproduce_DSoM"
+        target="_blank"
+        rel="noopener noreferrer"
+        >GitHub <span aria-hidden="true">↗</span></a
+      >
+    </header>
+
+    <main id="top">
+      <div id="load-status" class="load-status" role="status">
+        Đang mở bộ dữ liệu MKG-Y…
+      </div>
+      <div id="app" hidden>
+        <section class="hero wrap" aria-labelledby="hero-title">
+          <div class="hero-copy">
+            <p class="eyebrow">
+              <span class="status-dot"></span> MULTIMODAL KNOWLEDGE GRAPH ·
+              INTERACTIVE DEMO
+            </p>
+            <h1 id="hero-title">
+              Một liên kết thiếu.<br /><span>Nhiều cách nhìn.</span>
+            </h1>
+            <p class="hero-description">
+              Ai đạo diễn bộ phim này? Một bức ảnh có đủ để trả lời?<br
+                class="desktop-break"
+              />
+              Tự khám phá cách đồ thị, hình ảnh và văn bản cùng kể một câu
+              chuyện.
+            </p>
+            <div class="hero-actions">
+              <a class="button primary" href="#explore"
+                >Khám phá đồ thị <span aria-hidden="true">↗</span></a
+              ><a class="text-link" href="#challenge"
+                >Thử trả lời 10 câu hỏi <span aria-hidden="true">→</span></a
+              >
+            </div>
+            <div class="hero-facts">
+              <span><b data-stat="entities">150</b> thực thể</span
+              ><span><b>10</b> câu hỏi thật</span><span><b>5</b> góc nhìn</span
+              ><span class="dataset-tag">MKG-Y</span>
+            </div>
+          </div>
+          <div
+            class="hero-diagram"
+            aria-label="Minh họa truy vấn Franklin J. Schaffner đạo diễn bộ phim nào?"
+          >
+            <div class="diagram-kicker">
+              <span class="mini-cross">+</span> MỘT CÂU HỎI TỪ TEST SET
+            </div>
+            <div class="diagram-grid" aria-hidden="true"></div>
+            <svg class="diagram-lines" viewBox="0 0 460 290" aria-hidden="true">
+              <path
+                d="M80 52 122 140 60 242M122 140 238 140 358 140M358 140 408 52M358 140 410 240"
+              />
+              <circle cx="80" cy="52" r="5" />
+              <circle cx="60" cy="242" r="5" />
+              <circle cx="408" cy="52" r="5" />
+              <circle cx="410" cy="240" r="5" />
+            </svg>
+            <div class="diagram-node node-person">
+              <div class="node-symbol">F.</div>
+              <strong>Franklin J.<br />Schaffner</strong
+              ><span>THỰC THỂ ĐẦU</span>
+            </div>
+            <div class="diagram-relation">directed <span>→</span></div>
+            <div class="diagram-node node-unknown">
+              <div class="node-symbol">?</div>
+              <strong>Bộ phim nào?</strong><span>LIÊN KẾT CÒN THIẾU</span>
+            </div>
+            <div class="diagram-caption">
+              <span class="status-dot"></span> Tìm thực thể phù hợp cho (head,
+              relation, <b>?</b>)
+            </div>
+          </div>
+        </section>
+
+        <section
+          class="wrap section"
+          id="explore"
+          aria-labelledby="explore-title"
+        >
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow section-number">01 / KHÁM PHÁ</p>
+              <h2 id="explore-title">Dữ kiện luôn có kết nối.</h2>
+            </div>
+            <p>
+              Chọn một nút để xem thực thể và các quan hệ.<br />
+              Đồ thị này chỉ hiển thị cạnh từ tập <b>train</b>.
+            </p>
+          </div>
+          <div class="workbench">
+            <div class="graph-toolbar">
+              <div class="search-box">
+                <svg viewBox="0 0 20 20" aria-hidden="true">
+                  <circle cx="8" cy="8" r="5" />
+                  <path d="m12 12 5 5" /></svg
+                ><label class="sr-only" for="entity-search">Tìm thực thể</label
+                ><input
+                  id="entity-search"
+                  type="search"
+                  placeholder="Tìm người, phim, địa điểm…"
+                  autocomplete="off"
+                />
+                <div id="search-results" class="search-results" hidden></div>
+              </div>
+              <label class="relation-control"
+                ><span>Quan hệ</span
+                ><select id="relation-filter">
+                  <option value="all">Tất cả quan hệ</option>
+                </select></label
+              ><button id="overview-button" class="button subtle" type="button">
+                Tổng quan
+              </button>
+            </div>
+            <div class="graph-body">
+              <div class="graph-stage">
+                <div class="graph-topline">
+                  <span><span class="status-dot"></span> MKG-Y / TRAIN</span
+                  ><span id="graph-count"></span>
+                </div>
+                <svg
+                  id="knowledge-graph"
+                  viewBox="0 0 820 540"
+                  role="group"
+                  aria-label="Đồ thị tri thức MKG-Y. Dùng Tab để vào đồ thị, phím mũi tên để chọn nút và Enter để xem chi tiết."
+                >
+                  <defs>
+                    <marker
+                      id="arrow"
+                      viewBox="0 0 10 10"
+                      refX="19"
+                      refY="5"
+                      markerWidth="5"
+                      markerHeight="5"
+                      orient="auto-start-reverse"
+                    >
+                      <path d="M 0 0 L 10 5 L 0 10 z" fill="context-stroke" />
+                    </marker>
+                  </defs>
+                  <g id="graph-viewport"></g>
+                </svg>
+                <div class="graph-bottomline">
+                  <div class="legend">
+                    <span><i class="person"></i>Người</span
+                    ><span><i class="work"></i>Tác phẩm</span
+                    ><span><i class="place"></i>Địa điểm</span
+                    ><span><i class="other"></i>Khác</span>
+                  </div>
+                  <div class="zoom-controls">
+                    <button
+                      id="zoom-out"
+                      type="button"
+                      aria-label="Thu nhỏ đồ thị"
+                    >
+                      −</button
+                    ><button
+                      id="zoom-reset"
+                      type="button"
+                      aria-label="Đặt lại góc nhìn"
+                    >
+                      ↺</button
+                    ><button
+                      id="zoom-in"
+                      type="button"
+                      aria-label="Phóng to đồ thị"
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+                <p id="graph-empty" class="graph-empty" hidden>
+                  Không có cạnh train thuộc quan hệ này trong phần dữ liệu đã
+                  chọn.
+                </p>
+              </div>
+              <aside
+                id="entity-inspector"
+                class="entity-inspector"
+                aria-label="Chi tiết thực thể"
+              ></aside>
+            </div>
+            <div class="workbench-footer">
+              <span
+                >Kéo nền để di chuyển · Cuộn để zoom · Bấm nút để khám phá</span
+              ><span id="selection-note"
+                >150 thực thể được tuyển chọn từ benchmark</span
+              >
+            </div>
+          </div>
+        </section>
+
+        <section
+          class="challenge-section"
+          id="challenge"
+          aria-labelledby="challenge-title"
+        >
+          <div class="wrap section">
+            <div class="section-heading">
+              <div>
+                <p class="eyebrow section-number">02 / THỬ THÁCH</p>
+                <h2 id="challenge-title">Bạn điền được liên kết nào?</h2>
+              </div>
+              <p>
+                10 câu hỏi lấy nguyên từ validation và test.<br />
+                Mở gợi ý, chọn đáp án và khám phá dữ kiện còn thiếu.
+              </p>
+            </div>
+            <div class="quiz-shell">
+              <div class="quiz-progress-row">
+                <div
+                  id="question-nav"
+                  class="question-nav"
+                  aria-label="Chọn câu hỏi"
+                ></div>
+                <span id="quiz-score" class="quiz-score" aria-live="polite"
+                  >0 / 10 đã trả lời</span
+                ><button id="quiz-reset" class="text-button" type="button">
+                  Làm lại
+                </button>
+              </div>
+              <div class="quiz-grid">
+                <div id="quiz-question" class="quiz-question"></div>
+                <aside class="quiz-evidence">
+                  <p class="eyebrow">THÊM MỘT GÓC NHÌN</p>
+                  <h3>Cần một gợi ý?</h3>
+                  <p class="muted">
+                    Khám phá dữ liệu gắn với thực thể trong câu hỏi.
+                  </p>
+                  <div
+                    id="hint-tabs"
+                    class="hint-tabs"
+                    role="group"
+                    aria-label="Loại gợi ý"
+                  >
+                    <button type="button" data-hint="structure">Đồ thị</button
+                    ><button type="button" data-hint="image">Hình ảnh</button
+                    ><button type="button" data-hint="text">Văn bản</button>
+                  </div>
+                  <div id="hint-content" class="hint-content"></div>
+                  <p class="hint-footnote">
+                    Gợi ý dành cho bạn. Đây là trò chơi tìm liên kết từ dữ liệu;
+                    không thực hiện suy luận model.
+                  </p>
+                </aside>
+              </div>
+              <div
+                id="quiz-summary"
+                class="quiz-summary"
+                hidden
+                aria-live="polite"
+              ></div>
+            </div>
+          </div>
+        </section>
+
+        <section
+          class="wrap section"
+          id="stories"
+          aria-labelledby="stories-title"
+        >
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow section-number">03 / NĂM GÓC NHÌN</p>
+              <h2 id="stories-title">Thêm thông tin. Thêm câu hỏi.</h2>
+            </div>
+            <p>
+              Những tình huống từ chính dữ liệu MKG-Y.<br />
+              Khám phá trực giác phía sau “Dark Side of Modalities”.
+            </p>
+          </div>
+          <div class="stories-layout">
+            <div
+              id="case-nav"
+              class="case-nav"
+              aria-label="Chọn case study"
+            ></div>
+            <article
+              id="case-detail"
+              class="case-detail"
+              aria-live="polite"
+            ></article>
+          </div>
+        </section>
+
+        <section
+          class="method-section"
+          id="method"
+          aria-labelledby="method-title"
+        >
+          <div class="wrap section">
+            <div class="method-grid">
+              <div>
+                <p class="eyebrow section-number">04 / PHƯƠNG PHÁP</p>
+                <h2 id="method-title">
+                  Từ nhiều modality<br />đến một student.
+                </h2>
+                <p>
+                  DSoM nghiên cứu cách chuyển tri thức từ teacher đa phương thức
+                  sang student dùng cấu trúc đồ thị. Ảnh và văn bản hỗ trợ quá
+                  trình học; student trong workflow này chỉ dùng cấu trúc.
+                </p>
+                <a
+                  class="text-link"
+                  href="https://github.com/keiranoluv/Reproduce_DSoM/blob/main/docs/research/methodology/PROTOCOL.md"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >Đọc protocol reproduction
+                  <span aria-hidden="true">↗</span></a
+                >
+              </div>
+              <div class="method-flow">
+                <div class="modality-row">
+                  <span>◉ Cấu trúc</span><span>▧ Hình ảnh</span
+                  ><span>≡ Văn bản</span>
+                </div>
+                <div class="flow-connector" aria-hidden="true">↓</div>
+                <div class="flow-box">
+                  <span>TEACHER</span><strong>Tri thức đa phương thức</strong>
+                </div>
+                <div class="flow-connector">
+                  <span aria-hidden="true">↓</span
+                  ><small>Knowledge distillation</small>
+                </div>
+                <div class="flow-box student">
+                  <span>STUDENT</span
+                  ><strong>Hoàn thiện đồ thị bằng cấu trúc</strong>
+                </div>
+              </div>
+            </div>
+            <details class="data-notes">
+              <summary>
+                Dữ liệu, nguồn và giới hạn của bản demo
+                <span aria-hidden="true">+</span>
+              </summary>
+              <div id="data-notes-content"></div>
+            </details>
+          </div>
+        </section>
+      </div>
+    </main>
+    <footer class="wrap site-footer">
+      <a class="brand" href="#top"
+        >DSoM<span class="brand-light"> / explorer</span></a
+      >
+      <p>Một bản demo nhỏ để hiểu một bài toán lớn.</p>
+      <a
+        href="https://arxiv.org/abs/2507.20738"
+        target="_blank"
+        rel="noopener noreferrer"
+        >Paper <span aria-hidden="true">↗</span></a
+      ><a
+        href="https://github.com/keiranoluv/Reproduce_DSoM"
+        target="_blank"
+        rel="noopener noreferrer"
+        >Source <span aria-hidden="true">↗</span></a
+      >
+    </footer>
+    <noscript
+      ><p class="wrap">
+        Vui lòng bật JavaScript để dùng đồ thị và câu hỏi tương tác.
+      </p></noscript
+    >
+  </body>
+</html>

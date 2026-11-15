@@ -1,0 +1,479 @@
+{
+  "exporter": "scripts/export_demo_data.py",
+  "schemaVersion": 1,
+  "inputs": {
+    "split/train": {
+      "file": "src_data/MKG-Y/train",
+      "sha256": "400d4db97399dc7192adfdd3c16178b2ef55561e12f67f8846a55ed73d3f1dec",
+      "rows": 21310
+    },
+    "split/valid": {
+      "file": "src_data/MKG-Y/valid",
+      "sha256": "b057427fe171c6b2789e0def88c788809462ed8e4a9d3d93e00415818bc91b21",
+      "rows": 2665
+    },
+    "split/test": {
+      "file": "src_data/MKG-Y/test",
+      "sha256": "d76ded01d1b542a30ecbd3deb6c70ec0e9b9e4336ca9bec92f9a8638a0185a74",
+      "rows": 2663
+    },
+    "entityMapping": {
+      "file": "data/MKG-Y/ent_id",
+      "sha256": "4b9bb803e3d472b88c65965d44b3750866648ff7a298da1551ec17964c7737c3"
+    },
+    "descriptions": {
+      "file": "MKG-Y_ent2descreption.txt",
+      "sha256": "f481248281a8fe746e5e14464b62c1758965cdbdc0da4517ca232dcd609bfbdc"
+    },
+    "imageManifest": {
+      "file": "img_features_manifest.json",
+      "sha256": "3c5a59ab3dc8dbf64e36c52c774b7f4874049384987235de2c55fc2315654ef8"
+    },
+    "imageArchive": {
+      "file": "MKG-Y_img.zip",
+      "bytes": 6314079011,
+      "note": "Archive not rehashed; selected members recorded with size and CRC32 below."
+    }
+  },
+  "selection": "Fixed ten source triples and five cases; deterministic train-neighbor expansion to 150 IDs; seed-2022 option shuffling.",
+  "benchmarkMutated": false,
+  "inferencePerformed": false,
+  "images": [
+    {
+      "entity": "Bon_Jovi",
+      "archiveMember": "DY_open/Bon_Jovi/1601994431(1).jpg",
+      "archiveMemberBytes": 152993,
+      "archiveMemberCRC32": "a69fd0da",
+      "thumbnail": "assets/images/a761fb5bd163ded0.webp",
+      "thumbnailSha256": "bd21af15ee9858a32d16ae0b40f84e38bce4f23ffefed3e88029d093fba776ff",
+      "thumbnailBytes": 13104
+    },
+    {
+      "entity": "George_Cukor",
+      "archiveMember": "DY_open/George_Cukor/24.george-cukor.jpg",
+      "archiveMemberBytes": 13871,
+      "archiveMemberCRC32": "77e96201",
+      "thumbnail": "assets/images/2ec4a0151ab83919.webp",
+      "thumbnailSha256": "c905ea2ce79ba4c07a2cd12e312042d85f63404cea424003ab85e86cd1860c63",
+      "thumbnailBytes": 10242
+    },
+    {
+      "entity": "Franklin_J._Schaffner",
+      "archiveMember": "DY_open/Franklin_J._Schaffner/6.1200px-Franklin_J._Schaffner.jpg",
+      "archiveMemberBytes": 224562,
+      "archiveMemberCRC32": "448e5661",
+      "thumbnail": "assets/images/b297a2a8da081fbe.webp",
+      "thumbnailSha256": "c235d6d315ef0e524b32ca12f9c01c1e7c8adb2ea32b4fa1b2d8012026f9eac2",
+      "thumbnailBytes": 11332
+    },
+    {
+      "entity": "Elijah_Wood",
+      "archiveMember": "DY_open/Elijah_Wood/12.elijah-wood-1.jpg",
+      "archiveMemberBytes": 23035,
+      "archiveMemberCRC32": "37490d95",
+      "thumbnail": "assets/images/4c2c45a9c9ab4899.webp",
+      "thumbnailSha256": "a11a43509a14dad8f9c29ecf1b6d95e82e22e7a73aa94cf8c16f0a49eac90715",
+      "thumbnailBytes": 15914
+    },
+    {
+      "entity": "Jerry_Bruckheimer",
+      "archiveMember": "DY_open/Jerry_Bruckheimer/2.Jerry_Bruckheimer.jpg",
+      "archiveMemberBytes": 621192,
+      "archiveMemberCRC32": "43789aee",
+      "thumbnail": "assets/images/20d4557442d2acbe.webp",
+      "thumbnailSha256": "1dee60519e32e0b81e5a700494b99a47e6bf600f87698364fba1f1de5a400982",
+      "thumbnailBytes": 12166
+    },
+    {
+      "entity": "Dario_Argento",
+      "archiveMember": "DY_open/Dario_Argento/1.argento.jpg",
+      "archiveMemberBytes": 73477,
+      "archiveMemberCRC32": "a67bac6c",
+      "thumbnail": "assets/images/e07ef811ba158e5d.webp",
+      "thumbnailSha256": "27a935d6d716e65c79866cdeaa73d2bd423af94a4326fa818e29ef68fcdd54dc",
+      "thumbnailBytes": 10384
+    },
+    {
+      "entity": "Tom_Hanks",
+      "archiveMember": "DY_open/Tom_Hanks/12.62982_v9_bb.jpg",
+      "archiveMemberBytes": 281442,
+      "archiveMemberCRC32": "c5378dab",
+      "thumbnail": "assets/images/0b3685eeb3491f9e.webp",
+      "thumbnailSha256": "b5093e7bcd63b6e253a3d2287de8b73200c1256fa65c170ae6aaedb46c7be29a",
+      "thumbnailBytes": 11224
+    },
+    {
+      "entity": "Alfred_Hitchcock",
+      "archiveMember": "DY_open/Alfred_Hitchcock/14.10-11062012-20000232AA.jpg",
+      "archiveMemberBytes": 8598828,
+      "archiveMemberCRC32": "d98f55d4",
+      "thumbnail": "assets/images/a21013925b1b14b6.webp",
+      "thumbnailSha256": "477d1af60612ce3ecff30217a8c3a6310625a602be4167b55fe7629a423f1484",
+      "thumbnailBytes": 14658
+    },
+    {
+      "entity": "Julie_Bowen",
+      "archiveMember": "DY_open/Julie_Bowen/1.julie-bowen2_sc_768x1024.png",
+      "archiveMemberBytes": 1172383,
+      "archiveMemberCRC32": "6c23a86d",
+      "thumbnail": "assets/images/d2261ac0cfa3c186.webp",
+      "thumbnailSha256": "e73788ac86e55936e4c78f3dc610a7e61a68883bf50a452ea873d94d2edd42cc",
+      "thumbnailBytes": 12864
+    },
+    {
+      "entity": "Xuân_Trường_town",
+      "archiveMember": "DY_open/Xuân_Trường_town/下载 (4).jpg",
+      "archiveMemberBytes": 14574,
+      "archiveMemberCRC32": "650e0ee4",
+      "thumbnail": "assets/images/90f773295453fc25.webp",
+      "thumbnailSha256": "ca86e6f9fd76d56b7247a21025f2afadbd555a79c8eb1e4630aac66b96d96d02",
+      "thumbnailBytes": 16474
+    },
+    {
+      "entity": "David_Copperfield_(1935_film)",
+      "archiveMember": "DY_open/David_Copperfield_(1935_film)/1.the-personal-history-adventures-experience-and-observation-of-david-copperfield-the-younger-157424l-175x0-w-a6fe5633.jpg",
+      "archiveMemberBytes": 15661,
+      "archiveMemberCRC32": "91fdd6c9",
+      "thumbnail": "assets/images/ecea5d7c14748857.webp",
+      "thumbnailSha256": "53646a91e31039f715b36a8ef7b4fb8279263d7b63756c55cce9314fbe673715",
+      "thumbnailBytes": 11154
+    },
+    {
+      "entity": "Planet_of_the_Apes_(1968_film)",
+      "archiveMember": "DY_open/Planet_of_the_Apes_(1968_film)/24.planet-of-the-apes.jpg",
+      "archiveMemberBytes": 340709,
+      "archiveMemberCRC32": "8dfb4a0f",
+      "thumbnail": "assets/images/7ee5ab7cb3b8c750.webp",
+      "thumbnailSha256": "ef95b673b11ecb22b6bc7745b1dd9fd7afae68f18be975329e2809e2af4fc18f",
+      "thumbnailBytes": 28026
+    },
+    {
+      "entity": "Sin_City_(film)",
+      "archiveMember": "DY_open/Sin_City_(film)/14.large_jGPNqyMchm1RX8cSTOMeLaox5zf.jpg",
+      "archiveMemberBytes": 98415,
+      "archiveMemberCRC32": "96cbf340",
+      "thumbnail": "assets/images/e899fe117a98024e.webp",
+      "thumbnailSha256": "5343189d9e8d8fb3ab35376230f8fd565da7fa3752c767e80faa7c7508a52161",
+      "thumbnailBytes": 30288
+    },
+    {
+      "entity": "Black_Hawk_Down_(film)",
+      "archiveMember": "DY_open/Black_Hawk_Down_(film)/1.black-hawk-down-522547ede30de.jpg",
+      "archiveMemberBytes": 1126228,
+      "archiveMemberCRC32": "e44e9a66",
+      "thumbnail": "assets/images/0e3a3669a9c2cc94.webp",
+      "thumbnailSha256": "ca4d4bbfda066f862ad26d4387f48c7f1f8f7688651594ee7004abd24b6e759b",
+      "thumbnailBytes": 31386
+    },
+    {
+      "entity": "Dracula_3D",
+      "archiveMember": "DY_open/Dracula_3D/1.large_yBr1nJXyeAdHJGFRtv5GCHzyc8E.jpg",
+      "archiveMemberBytes": 78981,
+      "archiveMemberCRC32": "18af2a25",
+      "thumbnail": "assets/images/e7bd2927f6bb9f99.webp",
+      "thumbnailSha256": "1ef3684b41e3dc40b531926fbc241f2130d97d9bb85640a833927f2fc5e3204f",
+      "thumbnailBytes": 25472
+    },
+    {
+      "entity": "Turner_&_Hooch",
+      "archiveMember": "DY_open/Turner_&_Hooch/MV5BMGYxNjdjMTItMmUwYy00NzNhLTk1NjctZWVkZTMzZTYzNjBmXkEyXkFqcGdeQXVyNzc5MjA3OA@@._V1_UX182_CR0,0,182,268_AL_.jpg",
+      "archiveMemberBytes": 15640,
+      "archiveMemberCRC32": "0038664e",
+      "thumbnail": "assets/images/df46a544e9f6bd7f.webp",
+      "thumbnailSha256": "2a157771e49b79e7b6de01e578676c79a489b1f58770ef75557e648c468fe7c5",
+      "thumbnailBytes": 13542
+    },
+    {
+      "entity": "Shadow_of_a_Doubt",
+      "archiveMember": "DY_open/Shadow_of_a_Doubt/30.21_midi.jpg",
+      "archiveMemberBytes": 23194,
+      "archiveMemberCRC32": "251fb7f1",
+      "thumbnail": "assets/images/bdeaa1b1cfef1ba5.webp",
+      "thumbnailSha256": "e5bb6c82260cad127411801d845015d8fc2c34badb2ffeabe7754504798a99e4",
+      "thumbnailBytes": 19366
+    },
+    {
+      "entity": "Baltimore",
+      "archiveMember": "DY_open/Baltimore/12.tMYsoe.jpg",
+      "archiveMemberBytes": 309682,
+      "archiveMemberCRC32": "d0e1887f",
+      "thumbnail": "assets/images/3a361d05d29256d4.webp",
+      "thumbnailSha256": "2b64dc31883ffa44429bd2d7688aee572e5d1363a4053e243b53c47dc01f178b",
+      "thumbnailBytes": 30448
+    },
+    {
+      "entity": "Nam_Định_Province",
+      "archiveMember": "DY_open/Nam_Định_Province/1.1200px-C%E1%BB%95ng_ch%C3%A0o_Nam_%C4%90%E1%BB%8Bnh_%28Nam_Dinh_City_Gate%2C_Vietnam%29.jpg",
+      "archiveMemberBytes": 143540,
+      "archiveMemberCRC32": "275998e8",
+      "thumbnail": "assets/images/e49486d7e5bf277d.webp",
+      "thumbnailSha256": "860392aa91df208227e123e0aa85c114964a7a341a72128533c55f6732ce1843",
+      "thumbnailBytes": 12148
+    },
+    {
+      "entity": "The_Boys_from_Brazil_(film)",
+      "archiveMember": "DY_open/The_Boys_from_Brazil_(film)/1.the-boys-from-brazil-566958272ea9b.jpg",
+      "archiveMemberBytes": 231684,
+      "archiveMemberCRC32": "39bccc4e",
+      "thumbnail": "assets/images/39a6f4898a3a7e3f.webp",
+      "thumbnailSha256": "63be73d033ce0157227185f679759fa7b3d157cda9207eba55b7235d4a6f0763",
+      "thumbnailBytes": 13724
+    },
+    {
+      "entity": "Islands_in_the_Stream_(film)",
+      "archiveMember": "DY_open/Islands_in_the_Stream_(film)/1.Islands_in_the_stream.jpg",
+      "archiveMemberBytes": 49652,
+      "archiveMemberCRC32": "2f7d0e8f",
+      "thumbnail": "assets/images/0faa18b4ac09880e.webp",
+      "thumbnailSha256": "a7c46217a7e2aba9a47a578ededfd6daf5040d71afa534ad32d5b635e4281b70",
+      "thumbnailBytes": 19828
+    },
+    {
+      "entity": "The_Stripper_(film)",
+      "archiveMember": "DY_open/The_Stripper_(film)/12.s-l400.jpg",
+      "archiveMemberBytes": 32449,
+      "archiveMemberCRC32": "06873191",
+      "thumbnail": "assets/images/93b9f280ae70d627.webp",
+      "thumbnailSha256": "a6425b7683c1b630b38d2e7a0d12e96b3be21eb73806412e6c0a0d8d6cd1c6e6",
+      "thumbnailBytes": 24104
+    },
+    {
+      "entity": "Robert_Rodriguez",
+      "archiveMember": "DY_open/Robert_Rodriguez/19.robert-rodriguez-hed-2014.jpg",
+      "archiveMemberBytes": 157410,
+      "archiveMemberCRC32": "5101e790",
+      "thumbnail": "assets/images/261f3618d1ec764d.webp",
+      "thumbnailSha256": "a7e67d2d970120cd81f9f29d19c4aa4b8804f037c8c68d391f3bb14806e06e55",
+      "thumbnailBytes": 14320
+    },
+    {
+      "entity": "Quentin_Tarantino",
+      "archiveMember": "DY_open/Quentin_Tarantino/4.987px-Quentin_Tarantino_@_2010_Academy_Awards_cropped.jpg",
+      "archiveMemberBytes": 123037,
+      "archiveMemberCRC32": "b2a12c46",
+      "thumbnail": "assets/images/6db7c826102ad99b.webp",
+      "thumbnailSha256": "e6111b1eaec0775bd9316251506ed8f9657d4f46f05bfe218166843b1eb9dd75",
+      "thumbnailBytes": 12886
+    },
+    {
+      "entity": "Bruce_Willis",
+      "archiveMember": "DY_open/Bruce_Willis/12.Bruce-Willis.jpg",
+      "archiveMemberBytes": 3059076,
+      "archiveMemberCRC32": "1f5d90c0",
+      "thumbnail": "assets/images/d0dde114ad130530.webp",
+      "thumbnailSha256": "7011daeed6c504f8d4924313801f3586c1777a86d8b0e2c297d52d74f4b71b51",
+      "thumbnailBytes": 5746
+    },
+    {
+      "entity": "Waterloo_(ABBA_song)",
+      "archiveMember": "DY_open/Waterloo_(ABBA_song)/2.waterloo.jpg",
+      "archiveMemberBytes": 76345,
+      "archiveMemberCRC32": "13b216f2",
+      "thumbnail": "assets/images/c171968dcfe641ce.webp",
+      "thumbnailSha256": "0b6bed859ca94f2b6f639303d0e1a1711f53eeb1a0e936650e6decd33c4ebb82",
+      "thumbnailBytes": 26060
+    },
+    {
+      "entity": "People_Need_Love",
+      "archiveMember": "DY_open/People_Need_Love/2.32796049-origpic-260eea.jpg",
+      "archiveMemberBytes": 3493885,
+      "archiveMemberCRC32": "e4e036a6",
+      "thumbnail": "assets/images/b43e00947867d8a2.webp",
+      "thumbnailSha256": "7fd4e3e5e4c140c6434b72c4e3f85482c4b9b7880589cac3c1df91796685242c",
+      "thumbnailBytes": 23270
+    },
+    {
+      "entity": "Ring_Ring_(song)",
+      "archiveMember": "DY_open/Ring_Ring_(song)/4.R-802560-1341640520-5529.jpeg.jpg",
+      "archiveMemberBytes": 15265,
+      "archiveMemberCRC32": "bc98e0ba",
+      "thumbnail": "assets/images/39034a2981c62ff3.webp",
+      "thumbnailSha256": "4fe6ecc57bdbb69d3b2105c0756cce5fb5424f82f50516e05518d2cf8d4c8a11",
+      "thumbnailBytes": 13382
+    },
+    {
+      "entity": "Bologna",
+      "archiveMember": "DY_open/Bologna/15.Bologna-Italy-at-Sunset-Exploring-Bologna-in-One-Day-1024x768.jpeg",
+      "archiveMemberBytes": 178610,
+      "archiveMemberCRC32": "f89d12ae",
+      "thumbnail": "assets/images/0f6ffd3024796718.webp",
+      "thumbnailSha256": "2be8039574c55b0330d8a9f7e346ae4ef8d1824c2ea939777d8438802aefdd6c",
+      "thumbnailBytes": 30986
+    },
+    {
+      "entity": "Lubbock,_Texas",
+      "archiveMember": "DY_open/Lubbock,_Texas/13.324px-Lubbock_County_South_Plains_Fair_2012.jpg",
+      "archiveMemberBytes": 21341,
+      "archiveMemberCRC32": "16168483",
+      "thumbnail": "assets/images/b78895f5ceeed331.webp",
+      "thumbnailSha256": "e5dbf9fcd37639d31239928519eeaca7416ab1d3acfecacd378967414dbcdd6e",
+      "thumbnailBytes": 12652
+    },
+    {
+      "entity": "Leytonstone",
+      "archiveMember": "DY_open/Leytonstone/16.leytonstone.jpg",
+      "archiveMemberBytes": 66142,
+      "archiveMemberCRC32": "b2caabcb",
+      "thumbnail": "assets/images/6fb205e98a0dac26.webp",
+      "thumbnailSha256": "3b38f548ddf80869f01b4ece55d1dfb987448044cec719a637e97cb33938ece4",
+      "thumbnailBytes": 20148
+    },
+    {
+      "entity": "Hokkaido",
+      "archiveMember": "DY_open/Hokkaido/19.hokkaido.jpg",
+      "archiveMemberBytes": 177141,
+      "archiveMemberCRC32": "aa6c38e7",
+      "thumbnail": "assets/images/a1d2ae83a474f1c0.webp",
+      "thumbnailSha256": "acb7e0386f60922e347238810d4add2ae34739b479a70ea8ac97c4cb5d1652b1",
+      "thumbnailBytes": 30704
+    },
+    {
+      "entity": "Maryland",
+      "archiveMember": "DY_open/Maryland/10.maryland-map.png",
+      "archiveMemberBytes": 173456,
+      "archiveMemberCRC32": "68880f73",
+      "thumbnail": "assets/images/0cd76db09cc7f001.webp",
+      "thumbnailSha256": "2d779ceff73526e1e16a4f2abe0802a28efc61a6b0d49b9b7bfbee2cf09cc96c",
+      "thumbnailBytes": 17366
+    },
+    {
+      "entity": "Virginia",
+      "archiveMember": "DY_open/Virginia/1.west-virginia.jpg",
+      "archiveMemberBytes": 7340339,
+      "archiveMemberCRC32": "00aafb15",
+      "thumbnail": "assets/images/0ee033b5f7f9fc3a.webp",
+      "thumbnailSha256": "7a7bcd4effe20002c31ce941caa160bd7525d8f8ca3eb7d47aeda9404c0e79f5",
+      "thumbnailBytes": 14516
+    },
+    {
+      "entity": "Myrna_Loy",
+      "archiveMember": "DY_open/Myrna_Loy/12.600full-myrna-loy.jpg",
+      "archiveMemberBytes": 24713,
+      "archiveMemberCRC32": "3127bd18",
+      "thumbnail": "assets/images/e0257a3b92b5654c.webp",
+      "thumbnailSha256": "e8adf5fd29af11dea3b3bd2a44745ab45277e8d7a73239d239ecf20a7aeaefce",
+      "thumbnailBytes": 11952
+    },
+    {
+      "entity": "Charlton_Heston",
+      "archiveMember": "DY_open/Charlton_Heston/10.200px-CharltonHeston1981_2_crop.jpg",
+      "archiveMemberBytes": 12741,
+      "archiveMemberCRC32": "bbeb6520",
+      "thumbnail": "assets/images/8bf8459c781b3d70.webp",
+      "thumbnailSha256": "69b2e99ee0dfaf3f73ccb7ad24586063797a1c11bee1cf127482d6b8136eb305",
+      "thumbnailBytes": 7064
+    },
+    {
+      "entity": "Dimitri_Tiomkin",
+      "archiveMember": "DY_open/Dimitri_Tiomkin/1.DT111L.jpg",
+      "archiveMemberBytes": 42857,
+      "archiveMemberCRC32": "72b0d441",
+      "thumbnail": "assets/images/730857b710108325.webp",
+      "thumbnailSha256": "570aaa994e9d4d9db26bc560b3d0824ee402cbb7a6c2f1b6f83c2ca68d9274dc",
+      "thumbnailBytes": 18366
+    },
+    {
+      "entity": "Roddy_McDowall",
+      "archiveMember": "DY_open/Roddy_McDowall/16.tkfmva5bwjkaavbk.jpg",
+      "archiveMemberBytes": 16354,
+      "archiveMemberCRC32": "96f0c672",
+      "thumbnail": "assets/images/e5020a44beea7b07.webp",
+      "thumbnailSha256": "da27aea44217bb296260c913d9ba600694850119d6727227c8f9c8a139425b0e",
+      "thumbnailBytes": 10680
+    },
+    {
+      "entity": "Jon_Bon_Jovi",
+      "archiveMember": "DY_open/Jon_Bon_Jovi/1.jon-bon-jovi-3.jpg",
+      "archiveMemberBytes": 95203,
+      "archiveMemberCRC32": "795dbb90",
+      "thumbnail": "assets/images/e94abe7ec474a3af.webp",
+      "thumbnailSha256": "814b5d028e0d0c7e81d9b1f0999a4593aec58de1a0d0e906b9773f1d0497d2bf",
+      "thumbnailBytes": 14796
+    },
+    {
+      "entity": "Friedrich_Hollaender",
+      "archiveMember": "DY_open/Friedrich_Hollaender/1.friedrich_hollaender-213x300.jpg",
+      "archiveMemberBytes": 18144,
+      "archiveMemberCRC32": "f202ed4e",
+      "thumbnail": "assets/images/a210927b234f3722.webp",
+      "thumbnailSha256": "f6f9efe26278e308edd80b30346fff3e34618291752402510e29a6bf17b47704",
+      "thumbnailBytes": 6522
+    },
+    {
+      "entity": "Gene_Hackman",
+      "archiveMember": "DY_open/Gene_Hackman/12.31189503_1300x1733.jpg",
+      "archiveMemberBytes": 617127,
+      "archiveMemberCRC32": "f2254c8e",
+      "thumbnail": "assets/images/3d5f234bc4c46e68.webp",
+      "thumbnailSha256": "571d71da66f1b19bea63442c73af08cecf6e907d6b2be74fce16ae2c3b914f72",
+      "thumbnailBytes": 10920
+    },
+    {
+      "entity": "Trevor_Rabin",
+      "archiveMember": "DY_open/Trevor_Rabin/2.music_TrevorRabin_creditAnilPrasad_CreativeCommons.59d791e1f3153.jpg",
+      "archiveMemberBytes": 200277,
+      "archiveMemberCRC32": "0fff69ac",
+      "thumbnail": "assets/images/53bcdbafb42361c2.webp",
+      "thumbnailSha256": "b409c804012aa09d90239d149201c50721d80580b5a412601331a2345fc8eee7",
+      "thumbnailBytes": 18924
+    },
+    {
+      "entity": "Candice_Bergen",
+      "archiveMember": "DY_open/Candice_Bergen/16.candice-bergen-author-photo-croppedjpg.jpg",
+      "archiveMemberBytes": 253325,
+      "archiveMemberCRC32": "1716e77d",
+      "thumbnail": "assets/images/73e8b5599e8703cc.webp",
+      "thumbnailSha256": "8fc8520db8536bd3050e5e7d3fc1a9346e10951fbfd15713a74517002ab4a1e6",
+      "thumbnailBytes": 15002
+    },
+    {
+      "entity": "Claire_Trevor",
+      "archiveMember": "DY_open/Claire_Trevor/13.claire-trevors-quotes-2.jpg",
+      "archiveMemberBytes": 24013,
+      "archiveMemberCRC32": "bb14b2b5",
+      "thumbnail": "assets/images/805b24f9c205bbac.webp",
+      "thumbnailSha256": "d0a1ed5946bd4cf8a206fb8c08e17af3ef63169bf02b7464256bce253fc10e8e",
+      "thumbnailBytes": 8352
+    },
+    {
+      "entity": "James_Mason",
+      "archiveMember": "DY_open/James_Mason/10.james_mason.jpg",
+      "archiveMemberBytes": 18311,
+      "archiveMemberCRC32": "891248aa",
+      "thumbnail": "assets/images/188218caca6c4ccf.webp",
+      "thumbnailSha256": "81af98e7d343aa68a5fff59fd938102c105dcb08b4600710a750cbf0571de901",
+      "thumbnailBytes": 9046
+    },
+    {
+      "entity": "Kirk_Douglas",
+      "archiveMember": "DY_open/Kirk_Douglas/12.f-douglas-a-20181213-870x601.jpg",
+      "archiveMemberBytes": 38130,
+      "archiveMemberCRC32": "95e0dd6a",
+      "thumbnail": "assets/images/8219866d5e74ebb3.webp",
+      "thumbnailSha256": "3c7b53657613596726c60aa5055aa9b3a21db9687c7e07d084aa2b8a36d7e4a2",
+      "thumbnailBytes": 11990
+    },
+    {
+      "entity": "John_Barrymore",
+      "archiveMember": "DY_open/John_Barrymore/1.barrymore-j-11111.jpg",
+      "archiveMemberBytes": 104831,
+      "archiveMemberCRC32": "acca951a",
+      "thumbnail": "assets/images/8354f505738f8625.webp",
+      "thumbnailSha256": "b259c2fac0337b7e9f680fe5ff506e367149a8d93b1eec5eb52ea2f0d7e8e25f",
+      "thumbnailBytes": 9966
+    },
+    {
+      "entity": "Mickey_Rourke",
+      "archiveMember": "DY_open/Mickey_Rourke/19.7794595311_sipa-00834007-000006.jpg",
+      "archiveMemberBytes": 197687,
+      "archiveMemberCRC32": "49e45c34",
+      "thumbnail": "assets/images/87f6e06fc1326c09.webp",
+      "thumbnailSha256": "a91f971113861558cd683cd7af1463587cad78fe5018110dd7678367b8045ae2",
+      "thumbnailBytes": 11992
+    }
+  ],
+  "credits": {
+    "images": "48 ảnh thu nhỏ từ archive MKG-Y_img.zip của MMRNS, theo đúng sources_by_internal_id trong manifest reproduction. Quyền ảnh thuộc các chủ sở hữu gốc; việc xuất demo không cấp thêm giấy phép cho ảnh. Đường dẫn file nguồn được lưu trong provenance.json.",
+    "text": "Trích đoạn mô tả tiếng Anh nguyên văn từ MKG-Y_ent2descreption.txt; liên kết DBpedia trên từng thực thể là liên kết tham khảo định danh, không phải xác nhận URL ảnh gốc."
+  }
+}
