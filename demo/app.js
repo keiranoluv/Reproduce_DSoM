@@ -77,7 +77,7 @@ function renderInspector() {
             `<button type="button" data-entity="${escapeHtml(otherEnd(edge, selectedId))}"><small>${edge.source === selectedId ? "→" : "←"} ${escapeHtml(relationName(edge.relation))}</small>${escapeHtml(entityName(otherEnd(edge, selectedId)))}</button>`,
         )
         .join("") ||
-      '<p class="muted" style="font-size:10px">Chưa có cạnh train trong lát cắt đã chọn.</p>'
+      '<p class="muted" style="font-size:14px">Chưa có cạnh train trong lát cắt đã chọn.</p>'
     }</div>`;
 }
 
@@ -223,6 +223,7 @@ function renderGraph() {
   const root = $("#graph-viewport");
   root.replaceChildren();
   const edgeLayer = makeSvg("g", { "aria-hidden": "true" });
+  const shownRelations = new Set();
   edges.forEach((edge) => {
     const source = positions.get(edge.source),
       target = positions.get(edge.target);
@@ -237,7 +238,12 @@ function renderGraph() {
         "marker-end": "url(#arrow)",
       }),
     );
-    if (connected && (graphMode === "focus" || directIds.size < 5)) {
+    if (
+      connected &&
+      (graphMode === "focus" || directIds.size < 5) &&
+      (graphMode === "focus" || !shownRelations.has(edge.relation))
+    ) {
+      shownRelations.add(edge.relation);
       const label = makeSvg("text", {
         x: (source.x + target.x) / 2,
         y: (source.y + target.y) / 2 - 6,
@@ -252,7 +258,7 @@ function renderGraph() {
   const highestDegree = new Set(
     [...points]
       .sort((a, b) => b.degree - a.degree)
-      .slice(0, 16)
+      .slice(0, 8)
       .map((point) => point.id),
   );
   const keyboardId = positions.has(selectedId) ? selectedId : points[0]?.id;
@@ -285,6 +291,15 @@ function renderGraph() {
         directIds.has(point.id) ||
         highestDegree.has(point.id) ||
         graphMode === "focus";
+      group.dataset.labelPriority = selected
+        ? "selected"
+        : directIds.has(point.id) || graphMode === "focus"
+          ? "neighbor"
+          : "context";
+      group.dataset.labelVisible = visible ? "1" : "0";
+      group.dataset.labelCandidate = visible ? "1" : "0";
+      group.dataset.positionX = point.x;
+      group.dataset.radius = radius;
       const label = makeSvg("text", {
         x: 0,
         y: radius + 15,
@@ -298,11 +313,11 @@ function renderGraph() {
         label.setAttribute("opacity", "1"),
       );
       group.addEventListener("pointerleave", () =>
-        label.setAttribute("opacity", visible ? "1" : "0"),
+        label.setAttribute("opacity", group.dataset.labelVisible),
       );
       group.addEventListener("focus", () => label.setAttribute("opacity", "1"));
       group.addEventListener("blur", () =>
-        label.setAttribute("opacity", visible ? "1" : "0"),
+        label.setAttribute("opacity", group.dataset.labelVisible),
       );
       group.addEventListener("click", () => {
         if (!graphDragging) selectEntity(point.id);
@@ -342,6 +357,53 @@ function renderGraph() {
   );
   view = { x: 0, y: 0, scale: 1 };
   updateViewport();
+  syncGraphTypography();
+}
+
+function syncGraphTypography() {
+  const graph = $("#knowledge-graph");
+  const { width, height } = graph.getBoundingClientRect();
+  if (!width || !height) return;
+  // SVG viewBox scaling must not shrink labels below their CSS-pixel size.
+  const textScale = 1 / Math.min(width / 820, height / 540);
+  graph.style.setProperty("--graph-text-scale", textScale);
+  const priorities = { selected: 0, neighbor: 1, context: 2 };
+  const occupied = [];
+  $$(".graph-node", graph)
+    .sort(
+      (a, b) =>
+        priorities[a.dataset.labelPriority] -
+        priorities[b.dataset.labelPriority],
+    )
+    .forEach((node) => {
+      const label = $("text", node);
+      const priority = node.dataset.labelPriority;
+      let visible =
+        node.dataset.labelCandidate === "1" &&
+        (priority === "selected" ||
+          (priority === "neighbor" && width >= 500) ||
+          (priority === "context" && width >= 700));
+      label.setAttribute("y", Number(node.dataset.radius) + 19 * textScale);
+      const halfWidth = label.getBBox().width / 2;
+      const x = Number(node.dataset.positionX);
+      label.setAttribute(
+        "text-anchor",
+        x + halfWidth > 800 ? "end" : x - halfWidth < 20 ? "start" : "middle",
+      );
+      if (visible) {
+        const box = label.getBoundingClientRect();
+        visible = !occupied.some(
+          (other) =>
+            box.left < other.right + 6 &&
+            box.right + 6 > other.left &&
+            box.top < other.bottom + 4 &&
+            box.bottom + 4 > other.top,
+        );
+        if (visible) occupied.push(box);
+      }
+      node.dataset.labelVisible = visible ? "1" : "0";
+      label.setAttribute("opacity", node.dataset.labelVisible);
+    });
 }
 
 function selectEntity(id, scroll = false) {
@@ -371,6 +433,7 @@ function changeZoom(factor) {
   updateViewport();
 }
 function bindGraph() {
+  new ResizeObserver(syncGraphTypography).observe($("#knowledge-graph"));
   $("#entity-inspector").addEventListener("click", (event) => {
     const button = event.target.closest("[data-entity]");
     if (button) selectEntity(button.dataset.entity);
@@ -544,15 +607,15 @@ function renderHint() {
   }
   if (activeHint === "image") {
     container.innerHTML = entity.image
-      ? `<img src="${escapeHtml(entity.image)}" alt="Ảnh gợi ý của ${escapeHtml(entity.label)}" width="440" height="320"><p style="font-size:9px;margin-top:8px">${escapeHtml(entity.label)} · Ảnh từ archive MKG-Y</p>`
+      ? `<img src="${escapeHtml(entity.image)}" alt="Ảnh gợi ý của ${escapeHtml(entity.label)}" width="440" height="320"><p style="font-size:14px;margin-top:8px">${escapeHtml(entity.label)} · Ảnh từ archive MKG-Y</p>`
       : `<div class="hint-placeholder"><span>▧</span>${entity.imageAvailable ? "Ảnh có trong nguồn nhưng chưa đóng gói trong bản demo nhỏ này." : "Nguồn MKG-Y không có ảnh cho thực thể này."}</div>`;
   } else if (activeHint === "text") {
     container.innerHTML = entity.description
-      ? `<h4>${escapeHtml(entity.label)}</h4><p class="hint-quote" lang="en">“${escapeHtml(entity.description)}”</p><p style="font-size:9px;margin-top:10px">Trích đoạn mô tả gốc tiếng Anh trong dataset.</p>`
+      ? `<h4>${escapeHtml(entity.label)}</h4><p class="hint-quote" lang="en">“${escapeHtml(entity.description)}”</p><p style="font-size:14px;margin-top:10px">Trích đoạn mô tả gốc tiếng Anh trong dataset.</p>`
       : '<div class="hint-placeholder"><span>≡</span>Không có mô tả cho thực thể này trong nguồn MKG-Y. Thiếu modality cũng là một phần của bài toán.</div>';
   } else {
     const linked = neighbors(question.head).slice(0, 5);
-    container.innerHTML = `<h4>${escapeHtml(entity.label)} · ngữ cảnh train</h4>${linked.map((edge) => `<div class="hint-neighbor"><span>${edge.source === question.head ? "→" : "←"} ${escapeHtml(edge.relation)}</span><br>${escapeHtml(entityName(otherEnd(edge, question.head)))}</div>`).join("") || "<p>Chưa có cạnh train trong lát cắt này. Bạn có thể thử một nguồn gợi ý khác.</p>"}<button class="text-link" type="button" data-explore-head="${escapeHtml(question.head)}" style="margin-top:13px;font-size:10px">Xem trên đồ thị ↗</button>`;
+    container.innerHTML = `<h4>${escapeHtml(entity.label)} · ngữ cảnh train</h4>${linked.map((edge) => `<div class="hint-neighbor"><span>${edge.source === question.head ? "→" : "←"} ${escapeHtml(edge.relation)}</span><br>${escapeHtml(entityName(otherEnd(edge, question.head)))}</div>`).join("") || "<p>Chưa có cạnh train trong lát cắt này. Bạn có thể thử một nguồn gợi ý khác.</p>"}<button class="text-link" type="button" data-explore-head="${escapeHtml(question.head)}" style="margin-top:13px;font-size:14px">Xem trên đồ thị ↗</button>`;
   }
 }
 function goQuestion(index, scroll = false) {

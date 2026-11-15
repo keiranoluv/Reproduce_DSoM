@@ -25,7 +25,7 @@ body {
   background: var(--paper);
   color: var(--ink);
   font-family: Inter, "Segoe UI", Arial, sans-serif;
-  font-size: 15px;
+  font-size: 18px;
   line-height: 1.65;
   -webkit-font-smoothing: antialiased;
 }
@@ -165,7 +165,7 @@ button {
 .site-header nav {
   display: flex;
   gap: 28px;
-  font-size: 13px;
+  font-size: 17px;
   font-weight: 550;
 }
 .site-header nav a {
@@ -176,7 +176,7 @@ button {
   color: var(--teal);
 }
 .repo-link {
-  font-size: 13px;
+  font-size: 17px;
   border: 1px solid var(--line);
   padding: 8px 14px;
   border-radius: 7px;
@@ -194,13 +194,13 @@ button {
   padding-bottom: 60px;
 }
 .eyebrow {
-  font-size: 10px;
+  font-size: 14px;
   font-weight: 650;
   letter-spacing: 0.12em;
   line-height: 1.6;
 }
 .hero .eyebrow {
-  font-size: 9px;
+  font-size: 13px;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -225,13 +225,14 @@ h1 > span {
   color: var(--teal);
 }
 .hero-description {
-  font-size: 14px;
+  font-size: 18px;
   color: var(--muted);
   line-height: 1.85;
   margin-top: 24px;
 }
 .hero-actions {
   display: flex;
+  flex-wrap: wrap;
   gap: 26px;
   align-items: center;
   margin-top: 26px;
@@ -241,7 +242,7 @@ h1 > span {
   align-items: center;
   justify-content: center;
   gap: 18px;
-  font-size: 13px;
+  font-size: 17px;
   font-weight: 600;
   line-height: 1.5;
   border-radius: 8px;
@@ -262,7 +263,7 @@ h1 > span {
   background: var(--teal-dark);
 }
 .text-link {
-  font-size: 13px;
+  font-size: 17px;
   font-weight: 600;
   color: var(--teal);
 }
@@ -274,16 +275,17 @@ h1 > span {
 }
 .hero-facts {
   display: flex;
+  flex-wrap: wrap;
   gap: 20px;
   align-items: center;
   color: var(--muted);
-  font-size: 11px;
+  font-size: 16px;
   margin-top: 35px;
 }
 .hero-facts b {
   font-weight: 650;
   color: var(--ink);
-  font-size: 14px;
+  font-size: 18px;
   margin-right: 3px;
 }
 .dataset-tag {
@@ -303,7 +305,7 @@ h1 > span {
   position: absolute;
   left: 23px;
   top: 19px;
-  font-size: 9px;
+  font-size: 13px;
   letter-spacing: 0.09em;
   z-index: 2;
   color: #647765;
@@ -379,12 +381,12 @@ h1 > span {
   color: var(--lime);
 }
 .diagram-node strong {
-  font-size: 13px;
+  font-size: 17px;
   line-height: 1.35;
   font-weight: 600;
 }
 .diagram-node > span {
-  font-size: 7px;
+  font-size: 12px;
   letter-spacing: 0.08em;
   margin-top: 10px;
   opacity: 0.6;
@@ -395,7 +397,7 @@ h1 > span {
   top: 142px;
   transform: translateX(-50%);
   font-family: monospace;
-  font-size: 11px;
+  font-size: 16px;
   color: var(--teal);
   display: flex;
   gap: 7px;
@@ -416,7 +418,7 @@ h1 > span {
   gap: 8px;
   align-items: center;
   justify-content: center;
-  font-size: 10px;
+  font-size: 14px;
   color: #65785f;
 }
 .diagram-caption b {
@@ -436,10 +438,10 @@ h1 > span {
 .section-number {
   color: var(--teal);
   margin-bottom: 12px;
-  font-size: 9px;
+  font-size: 13px;
 }
 .section-heading > p {
-  font-size: 12px;
+  font-size: 17px;
   color: var(--muted);
   line-height: 1.9;
   padding-bottom: 3px;
@@ -459,6 +461,7 @@ h1 > span {
 }
 .search-box {
   position: relative;
+  min-width: 0;
   display: flex;
   align-items: center;
   gap: 10px;
@@ -478,7 +481,8 @@ h1 > span {
   border: 0;
   outline-offset: 4px;
   width: 100%;
-  font-size: 12px;
+  font-size: 17px;
+  min-width: 0;
   padding: 7px 0;
   color: var(--ink);
 }
@@ -505,43 +509,45 @@ h1 > span {
   text-align: left;
   padding: 9px 12px;
   border-radius: 6px;
-  font-size: 12px;
+  font-size: 17px;
 }
 .search-results button:hover {
   background: #eff4e8;
 }
 .search-results p {
-  font-size: 12px;
+  font-size: 17px;
   padding: 10px;
   color: var(--muted);
 }
 .relation-control {
   display: flex;
+  min-width: 0;
   gap: 10px;
-  font-size: 11px;
+  font-size: 16px;
   align-items: center;
   margin-left: auto;
   color: var(--muted);
 }
 select {
+  min-width: 0;
   border: 1px solid var(--line);
   border-radius: 6px;
   padding: 7px 28px 7px 10px;
   background: #fff;
   max-width: 195px;
   color: var(--ink);
-  font-size: 11px;
+  font-size: 16px;
 }
 .subtle {
   padding: 7px 12px;
-  font-size: 11px;
+  font-size: 16px;
   border-color: var(--line);
   color: var(--teal);
   background: #f9faf6;
 }
 .graph-body {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 270px;
+  grid-template-columns: minmax(0, 1fr) 310px;
 }
 .graph-stage {
   position: relative;
@@ -555,10 +561,11 @@ select {
 }
 .graph-topline {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   gap: 12px;
   padding: 16px 19px;
-  font-size: 8px;
+  font-size: 13px;
   font-weight: 600;
   letter-spacing: 0.08em;
   color: var(--muted);
@@ -571,7 +578,7 @@ select {
 .graph-topline > span:last-child {
   letter-spacing: 0;
   font-weight: 400;
-  font-size: 10px;
+  font-size: 14px;
 }
 .graph-stage > svg {
   width: 100%;
@@ -617,7 +624,7 @@ select {
 }
 .graph-node text {
   font-family: Inter, "Segoe UI", Arial, sans-serif;
-  font-size: 10px;
+  font-size: calc(14px * var(--graph-text-scale, 1));
   fill: #435952;
   paint-order: stroke;
   stroke: #fbfcf8;
@@ -632,7 +639,7 @@ select {
   opacity: 0.45;
 }
 .edge-label {
-  font-size: 8px;
+  font-size: calc(13px * var(--graph-text-scale, 1));
   fill: var(--teal);
   paint-order: stroke;
   stroke: #fbfcf8;
@@ -641,6 +648,7 @@ select {
 }
 .graph-bottomline {
   display: flex;
+  flex-wrap: wrap;
   gap: 12px;
   align-items: center;
   justify-content: space-between;
@@ -648,8 +656,9 @@ select {
 }
 .legend {
   display: flex;
+  flex-wrap: wrap;
   gap: 13px;
-  font-size: 8px;
+  font-size: 13px;
   color: var(--muted);
 }
 .legend span {
@@ -684,9 +693,9 @@ select {
   background: #fff;
 }
 .zoom-controls button {
-  width: 28px;
-  height: 27px;
-  font-size: 16px;
+  width: 36px;
+  height: 36px;
+  font-size: 18px;
 }
 .zoom-controls button:hover {
   background: #eef4e8;
@@ -697,7 +706,7 @@ select {
   left: 10%;
   right: 10%;
   text-align: center;
-  font-size: 13px;
+  font-size: 17px;
   color: var(--muted);
   pointer-events: none;
 }
@@ -708,7 +717,7 @@ select {
   background: #fff;
 }
 .entity-type {
-  font-size: 9px;
+  font-size: 13px;
   color: var(--teal);
   letter-spacing: 0.09em;
   text-transform: uppercase;
@@ -743,7 +752,7 @@ select {
   overflow-wrap: anywhere;
 }
 .entity-description {
-  font-size: 11px;
+  font-size: 16px;
   line-height: 1.8;
   color: var(--muted);
   display: -webkit-box;
@@ -752,7 +761,7 @@ select {
   overflow: hidden;
 }
 .missing-note {
-  font-size: 11px;
+  font-size: 16px;
   background: #f4f5ee;
   padding: 11px;
   border-radius: 7px;
@@ -760,7 +769,7 @@ select {
 }
 .entity-source {
   display: inline-flex;
-  font-size: 10px;
+  font-size: 14px;
   color: var(--teal);
   gap: 6px;
   margin-top: 12px;
@@ -771,7 +780,7 @@ select {
   margin: 17px 0 12px;
 }
 .neighbors-title {
-  font-size: 9px;
+  font-size: 13px;
   color: var(--muted);
   font-weight: 600;
   letter-spacing: 0.05em;
@@ -785,7 +794,7 @@ select {
 .neighbor-list button {
   padding: 5px 0;
   text-align: left;
-  font-size: 10px;
+  font-size: 14px;
   display: flex;
   flex-direction: column;
   border-bottom: 1px solid #f0f2ec;
@@ -794,7 +803,7 @@ select {
   color: var(--teal);
 }
 .neighbor-list small {
-  font-size: 8px;
+  font-size: 13px;
   color: var(--muted);
 }
 .workbench-footer {
@@ -803,7 +812,7 @@ select {
   display: flex;
   justify-content: space-between;
   gap: 12px;
-  font-size: 9px;
+  font-size: 13px;
   color: var(--muted);
   background: #fff;
 }
@@ -830,11 +839,11 @@ select {
   gap: 6px;
 }
 .question-nav button {
-  width: 30px;
-  height: 30px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
   border: 1px solid var(--line);
-  font-size: 10px;
+  font-size: 14px;
   position: relative;
 }
 .question-nav button[aria-current="step"] {
@@ -856,19 +865,19 @@ select {
   content: "";
   position: absolute;
   bottom: -8px;
-  left: 12px;
+  left: calc(50% - 2px);
   width: 4px;
   height: 4px;
   border-radius: 50%;
   background: var(--teal);
 }
 .quiz-score {
-  font-size: 10px;
+  font-size: 14px;
   color: var(--muted);
   margin-left: auto;
 }
 .text-button {
-  font-size: 11px;
+  font-size: 16px;
   color: var(--teal);
   text-decoration: underline;
   text-underline-offset: 3px;
@@ -884,9 +893,10 @@ select {
 }
 .quiz-meta {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: 9px;
-  font-size: 9px;
+  font-size: 13px;
   color: var(--muted);
   letter-spacing: 0.07em;
   margin-bottom: 18px;
@@ -896,7 +906,7 @@ select {
   border-radius: 4px;
   padding: 2px 6px;
   text-transform: uppercase;
-  font-size: 8px;
+  font-size: 13px;
   letter-spacing: 0.04em;
 }
 .quiz-question h3 {
@@ -907,7 +917,7 @@ select {
 }
 .query-equation {
   font-family: monospace;
-  font-size: 10px;
+  font-size: 14px;
   color: var(--muted);
   background: #f6f7f1;
   border: 1px solid #eaede2;
@@ -935,7 +945,7 @@ select {
   padding: 12px;
   border: 1px solid var(--line);
   border-radius: 8px;
-  font-size: 11px;
+  font-size: 17px;
   line-height: 1.5;
   min-height: 59px;
   cursor: pointer;
@@ -968,11 +978,12 @@ select {
 }
 .quiz-controls {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: 20px;
 }
 .quiz-feedback {
-  font-size: 12px;
+  font-size: 17px;
   margin-top: 20px;
   padding: 14px 16px;
   background: #edf5e9;
@@ -991,7 +1002,7 @@ select {
 .feedback-triple {
   display: block;
   margin-top: 8px;
-  font-size: 10px;
+  font-size: 14px;
   color: var(--muted);
 }
 .quiz-evidence {
@@ -1000,7 +1011,7 @@ select {
   padding: 32px 30px;
 }
 .quiz-evidence > .eyebrow {
-  font-size: 8px;
+  font-size: 13px;
   color: var(--teal);
   margin-bottom: 12px;
 }
@@ -1011,7 +1022,7 @@ select {
   color: var(--muted);
 }
 .quiz-evidence > .muted {
-  font-size: 11px;
+  font-size: 16px;
   margin-top: 8px;
 }
 .hint-tabs {
@@ -1022,7 +1033,7 @@ select {
 }
 .hint-tabs button {
   padding: 9px 0;
-  font-size: 11px;
+  font-size: 16px;
   border-bottom: 2px solid transparent;
   margin-bottom: -1px;
   color: var(--muted);
@@ -1035,13 +1046,13 @@ select {
 .hint-content {
   min-height: 195px;
   padding: 20px 0 12px;
-  font-size: 12px;
+  font-size: 17px;
   line-height: 1.8;
   color: var(--muted);
 }
 .hint-content h4 {
   color: var(--ink);
-  font-size: 12px;
+  font-size: 17px;
   margin: 0 0 10px;
 }
 .hint-content img {
@@ -1060,7 +1071,7 @@ select {
   align-items: center;
   justify-content: center;
   border-radius: 9px;
-  font-size: 11px;
+  font-size: 16px;
   color: #7d8e78;
   text-align: center;
   padding: 20px;
@@ -1073,22 +1084,22 @@ select {
 .hint-footnote {
   border-top: 1px solid var(--line);
   padding-top: 13px;
-  font-size: 9px;
+  font-size: 13px;
   color: #788575;
   line-height: 1.8;
 }
 .hint-neighbor {
   padding: 7px 0;
   border-bottom: 1px solid var(--line);
-  font-size: 10px;
+  font-size: 14px;
 }
 .hint-neighbor span {
   color: var(--teal);
   font-family: monospace;
-  font-size: 9px;
+  font-size: 13px;
 }
 .hint-quote {
-  font-size: 12px;
+  font-size: 17px;
   font-style: italic;
   line-height: 1.9;
 }
@@ -1096,7 +1107,7 @@ select {
   background: var(--teal);
   color: #fff;
   padding: 20px 30px;
-  font-size: 13px;
+  font-size: 17px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -1125,11 +1136,11 @@ select {
   padding: 17px 16px;
   border-radius: 9px;
   border: 1px solid transparent;
-  font-size: 13px;
+  font-size: 17px;
   line-height: 1.5;
 }
 .case-nav button > span {
-  font-size: 10px;
+  font-size: 14px;
   color: var(--muted);
   align-self: flex-start;
   padding-top: 2px;
@@ -1155,14 +1166,14 @@ select {
 }
 .case-detail .eyebrow {
   color: var(--teal);
-  font-size: 8px;
+  font-size: 13px;
   margin-bottom: 10px;
 }
 .case-detail h3 {
   font-size: 26px;
 }
 .case-subtitle {
-  font-size: 12px;
+  font-size: 17px;
   color: var(--muted);
   margin-top: 10px;
   line-height: 1.8;
@@ -1206,18 +1217,18 @@ select {
   font-family: Georgia, serif;
 }
 .case-entity strong {
-  font-size: 11px;
+  font-size: 16px;
   font-weight: 600;
   display: block;
   line-height: 1.45;
   overflow-wrap: anywhere;
 }
 .case-entity small {
-  font-size: 8px;
+  font-size: 13px;
   color: var(--muted);
 }
 .case-observation {
-  font-size: 12px;
+  font-size: 17px;
   line-height: 1.9;
   color: var(--muted);
 }
@@ -1228,7 +1239,7 @@ select {
   padding: 16px 18px;
   border-radius: 8px;
   margin-top: 18px;
-  font-size: 12px;
+  font-size: 17px;
   line-height: 1.8;
 }
 .case-lesson > span {
@@ -1244,7 +1255,7 @@ select {
   margin-top: 18px;
 }
 .case-disclaimer {
-  font-size: 8px;
+  font-size: 13px;
   color: var(--muted);
 }
 .method-section {
@@ -1261,7 +1272,7 @@ select {
   font-size: 38px;
 }
 .method-grid > div > p:not(.eyebrow) {
-  font-size: 13px;
+  font-size: 17px;
   color: var(--muted);
   line-height: 1.95;
   max-width: 430px;
@@ -1277,13 +1288,13 @@ select {
   justify-content: space-between;
 }
 .modality-row span {
-  font-size: 10px;
+  font-size: 14px;
   background: #f9fbf2;
   border: 1px solid #d5deca;
   padding: 10px 12px;
   border-radius: 6px;
   flex: 1;
-  white-space: nowrap;
+  white-space: normal;
 }
 .flow-connector {
   display: flex;
@@ -1296,7 +1307,7 @@ select {
   line-height: 1.4;
 }
 .flow-connector small {
-  font-size: 9px;
+  font-size: 13px;
   letter-spacing: 0.04em;
   margin: 1px 0 7px;
   color: var(--muted);
@@ -1309,13 +1320,13 @@ select {
 }
 .flow-box > span {
   display: block;
-  font-size: 8px;
+  font-size: 13px;
   letter-spacing: 0.15em;
   color: var(--muted);
   margin-bottom: 3px;
 }
 .flow-box > strong {
-  font-size: 13px;
+  font-size: 17px;
   font-weight: 600;
 }
 .flow-box.student {
@@ -1332,7 +1343,7 @@ select {
   padding-top: 20px;
 }
 .data-notes summary {
-  font-size: 12px;
+  font-size: 17px;
   cursor: pointer;
   font-weight: 600;
   list-style: none;
@@ -1354,7 +1365,7 @@ select {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 25px;
-  font-size: 11px;
+  font-size: 16px;
   line-height: 1.9;
   color: var(--muted);
   padding-top: 20px;
@@ -1373,18 +1384,18 @@ select {
   gap: 23px;
   padding-top: 28px;
   padding-bottom: 28px;
-  font-size: 10px;
+  font-size: 14px;
   color: var(--muted);
 }
 .site-footer .brand {
   font-size: 18px;
 }
 .site-footer .brand-light {
-  font-size: 14px;
+  font-size: 18px;
 }
 .site-footer > p {
   margin-right: auto;
-  font-size: 11px;
+  font-size: 16px;
 }
 .site-footer > a:not(.brand):hover {
   color: var(--teal);
@@ -1431,10 +1442,10 @@ select {
   }
   .diagram-relation {
     top: 134px;
-    font-size: 10px;
+    font-size: 14px;
   }
   .graph-body {
-    grid-template-columns: minmax(0, 1fr) 240px;
+    grid-template-columns: minmax(0, 1fr) 280px;
   }
   .entity-inspector {
     padding: 20px;
@@ -1477,7 +1488,7 @@ select {
     gap: 18px;
   }
   .hero-actions .text-link {
-    font-size: 12px;
+    font-size: 17px;
   }
 }
 @media (max-width: 800px) {
@@ -1487,13 +1498,13 @@ select {
   }
   .site-header nav {
     gap: 18px;
-    font-size: 11px;
+    font-size: 16px;
   }
   .brand {
     font-size: 20px;
   }
   .brand-light {
-    font-size: 15px;
+    font-size: 18px;
   }
   .repo-link {
     display: none;
@@ -1514,10 +1525,10 @@ select {
     display: none;
   }
   .hero .eyebrow {
-    font-size: 8px;
+    font-size: 13px;
   }
   .hero-description {
-    font-size: 13px;
+    font-size: 17px;
   }
   .hero-facts {
     margin-top: 27px;
@@ -1532,13 +1543,13 @@ select {
   }
   .section-heading > p {
     max-width: 240px;
-    font-size: 11px;
+    font-size: 16px;
   }
   .section-heading h2 {
     font-size: 29px;
   }
   .graph-body {
-    grid-template-columns: minmax(0, 1fr) 205px;
+    grid-template-columns: 1fr;
   }
   .graph-toolbar {
     gap: 12px;
@@ -1549,13 +1560,15 @@ select {
   }
   .relation-control select {
     max-width: 155px;
-    font-size: 10px;
+    font-size: 16px;
   }
   .search-box input {
-    font-size: 11px;
+    font-size: 16px;
   }
   .entity-inspector {
     padding: 17px;
+    border-left: 0;
+    border-top: 1px solid var(--line);
   }
   .entity-inspector h3 {
     font-size: 18px;
@@ -1565,7 +1578,7 @@ select {
   }
   .entity-description {
     -webkit-line-clamp: 4;
-    font-size: 10px;
+    font-size: 16px;
   }
   .graph-stage {
     min-height: 400px;
@@ -1580,7 +1593,7 @@ select {
     gap: 8px;
   }
   .workbench-footer {
-    font-size: 8px;
+    font-size: 13px;
   }
   .workbench-footer > span:last-child {
     display: none;
@@ -1596,8 +1609,8 @@ select {
     gap: 5px;
   }
   .question-nav button {
-    width: 27px;
-    height: 27px;
+    width: 36px;
+    height: 36px;
   }
   .quiz-question {
     padding: 25px 22px;
@@ -1617,13 +1630,13 @@ select {
     padding: 25px 20px;
   }
   .quiz-score {
-    font-size: 9px;
+    font-size: 13px;
   }
   .hint-tabs {
     gap: 14px;
   }
   .hint-tabs button {
-    font-size: 10px;
+    font-size: 14px;
   }
   .stories-layout {
     grid-template-columns: 1fr;
@@ -1638,7 +1651,7 @@ select {
   .case-nav button {
     min-width: 165px;
     max-width: 190px;
-    font-size: 11px;
+    font-size: 16px;
     padding: 12px;
     gap: 9px;
   }
@@ -1656,30 +1669,30 @@ select {
     font-size: 31px;
   }
   .method-grid > div > p:not(.eyebrow) {
-    font-size: 12px;
+    font-size: 17px;
   }
   .modality-row {
     gap: 4px;
   }
   .modality-row span {
     padding: 8px 5px;
-    font-size: 9px;
+    font-size: 13px;
   }
   .flow-box {
     padding: 13px 9px;
   }
   .flow-box > strong {
-    font-size: 11px;
+    font-size: 16px;
   }
   .site-footer {
     flex-wrap: wrap;
     gap: 15px;
   }
   .site-footer > p {
-    font-size: 10px;
+    font-size: 14px;
   }
   .site-footer .brand {
-    font-size: 16px;
+    font-size: 18px;
   }
 }
 @media (max-width: 560px) {
@@ -1710,13 +1723,16 @@ select {
     gap: 7px;
   }
   .brand-light {
-    font-size: 14px;
+    font-size: 18px;
+  }
+  .site-header .brand-light {
+    display: none;
   }
   .hero {
     padding-top: 35px;
   }
   .hero .eyebrow {
-    font-size: 6.5px;
+    font-size: 12px;
     letter-spacing: 0.09em;
     gap: 6px;
   }
@@ -1725,7 +1741,7 @@ select {
     margin-top: 16px;
   }
   .hero-description {
-    font-size: 12px;
+    font-size: 17px;
     margin-top: 18px;
     line-height: 1.8;
   }
@@ -1739,19 +1755,19 @@ select {
   .hero-actions .button {
     padding: 11px 14px;
     gap: 12px;
-    font-size: 11px;
+    font-size: 16px;
   }
   .hero-actions .text-link {
-    font-size: 11px;
+    font-size: 16px;
   }
   .hero-facts {
     gap: 14px;
-    font-size: 9px;
+    font-size: 13px;
     margin-top: 25px;
     flex-wrap: wrap;
   }
   .hero-facts b {
-    font-size: 12px;
+    font-size: 17px;
   }
   .dataset-tag {
     padding-left: 13px;
@@ -1764,7 +1780,7 @@ select {
     margin-top: 13px;
     max-width: none;
     line-height: 1.8;
-    font-size: 11px;
+    font-size: 16px;
   }
   .section-heading > p br {
     display: none;
@@ -1774,7 +1790,7 @@ select {
   }
   .section-number {
     margin-bottom: 9px;
-    font-size: 8px;
+    font-size: 13px;
   }
   .graph-toolbar {
     flex-wrap: wrap;
@@ -1800,7 +1816,7 @@ select {
     max-width: none;
   }
   .graph-toolbar .subtle {
-    font-size: 10px;
+    font-size: 14px;
   }
   .graph-body {
     grid-template-columns: 1fr;
@@ -1830,7 +1846,7 @@ select {
   .entity-inspector .entity-type {
     grid-column: 2;
     grid-row: 1;
-    font-size: 8px;
+    font-size: 13px;
   }
   .entity-inspector .entity-photo {
     grid-column: 1;
@@ -1848,12 +1864,12 @@ select {
   .entity-inspector .entity-description,
   .entity-inspector .missing-note {
     grid-column: 2;
-    font-size: 10px;
+    font-size: 16px;
     -webkit-line-clamp: 2;
   }
   .entity-inspector .entity-source {
     grid-column: 2;
-    font-size: 9px;
+    font-size: 13px;
     margin-top: 8px;
   }
   .inspector-divider,
@@ -1863,24 +1879,26 @@ select {
   }
   .workbench-footer {
     padding: 9px 12px;
-    font-size: 7px;
+    font-size: 12px;
   }
   .quiz-progress-row {
     padding: 17px 17px 12px;
     gap: 13px;
   }
   .question-nav {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(36px, 1fr));
+    justify-items: center;
     width: 100%;
-    justify-content: space-between;
-    gap: 3px;
+    gap: 10px;
   }
   .question-nav button {
-    width: 25px;
-    height: 25px;
-    font-size: 9px;
+    width: 36px;
+    height: 36px;
+    font-size: 14px;
   }
   .question-nav button[aria-current="step"]::after {
-    left: 10px;
+    left: calc(50% - 2px);
   }
   .quiz-score {
     margin-left: 0;
@@ -1896,22 +1914,22 @@ select {
     font-size: 24px;
   }
   .quiz-meta {
-    font-size: 8px;
+    font-size: 13px;
     margin-bottom: 15px;
   }
   .quiz-options {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
     margin: 19px 0;
     gap: 8px;
   }
   .quiz-option {
-    font-size: 10px;
+    font-size: 17px;
     padding: 10px;
     gap: 8px;
     min-height: 58px;
   }
   .quiz-controls .button {
-    font-size: 11px;
+    font-size: 16px;
     padding: 10px 15px;
   }
   .quiz-controls {
@@ -1929,14 +1947,14 @@ select {
     margin-bottom: 8px;
   }
   .quiz-evidence > .muted {
-    font-size: 10px;
+    font-size: 14px;
   }
   .hint-tabs {
     margin-top: 13px;
     gap: 22px;
   }
   .hint-tabs button {
-    font-size: 11px;
+    font-size: 16px;
   }
   .hint-content {
     min-height: 160px;
@@ -1946,12 +1964,12 @@ select {
     height: 120px;
   }
   .hint-footnote {
-    font-size: 8px;
+    font-size: 13px;
   }
   .quiz-summary {
     padding: 18px 20px;
     display: block;
-    font-size: 11px;
+    font-size: 16px;
   }
   .quiz-summary strong {
     display: block;
@@ -1959,7 +1977,7 @@ select {
   }
   .case-nav button {
     min-width: 150px;
-    font-size: 10px;
+    font-size: 14px;
     padding: 11px;
   }
   .case-detail {
@@ -1971,7 +1989,7 @@ select {
   .case-subtitle,
   .case-observation,
   .case-lesson {
-    font-size: 11px;
+    font-size: 16px;
   }
   .case-entities {
     gap: 8px;
@@ -2000,33 +2018,33 @@ select {
     font-size: 32px;
   }
   .method-grid > div > p:not(.eyebrow) {
-    font-size: 12px;
+    font-size: 17px;
     margin: 17px 0;
   }
   .method-flow {
     max-width: none;
   }
   .modality-row span {
-    font-size: 11px;
+    font-size: 16px;
     padding: 10px;
   }
   .flow-box {
     padding: 14px;
   }
   .flow-box > strong {
-    font-size: 13px;
+    font-size: 17px;
   }
   .data-notes {
     margin-top: 30px;
   }
   .data-notes summary {
-    font-size: 11px;
+    font-size: 16px;
     gap: 15px;
   }
   .data-notes-content {
     grid-template-columns: 1fr;
     gap: 15px;
-    font-size: 10px;
+    font-size: 14px;
   }
   .site-footer {
     padding-top: 23px;
@@ -2036,14 +2054,14 @@ select {
   .site-footer > p {
     order: 5;
     width: 100%;
-    font-size: 10px;
+    font-size: 14px;
   }
   .site-footer .brand {
     margin-right: auto;
   }
   .load-status {
     margin: 60px 20px;
-    font-size: 13px;
+    font-size: 17px;
   }
 }
 @media (prefers-reduced-motion: reduce) {
